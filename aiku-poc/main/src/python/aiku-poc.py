@@ -50,9 +50,9 @@ def main(base_url):
 
         #print json.dumps(org, indent=4)
 
-        for lang in ["fi", "sv"]:
+        aiku_url = get_aiku_url(org)
 
-            aiku_url = get_aiku_url(org)
+        for lang in ["fi", "sv"]:
 
             if aiku_url is not None and "kielivalikoima_{lang}".format(lang=lang) in org["kieletUris"]:
 
@@ -78,8 +78,6 @@ def main(base_url):
                     aiku_url = "http://" + aiku_url
                 aiku[lang].append([nimi, kuntanimi, "<a href='{aiku_url}'>{aiku_url}</a>".format(aiku_url=aiku_url)])
                 i += 1
-
-                break
 
     with open("aiku-fi.json", "w") as f:
         f.write(json.dumps(aiku["fi"], indent=4))
