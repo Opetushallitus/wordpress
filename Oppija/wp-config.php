@@ -1,8 +1,4 @@
 <?php
-
-# kuormanjakokludge
-$_SERVER["HTTPS"] = "on";
-
 /**
  * The base configurations of the WordPress.
  *
@@ -20,13 +16,13 @@ $_SERVER["HTTPS"] = "on";
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'wordpress');
+define('DB_NAME', 'testiOppija');
 
 /** MySQL database username */
-define('DB_USER', 'wpophqa');
+define('DB_USER', 'testiOppija');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'oy6FPvKqDj');
+define('DB_PASSWORD', 'P1ppur1');
 
 /** MySQL hostname */
 define('DB_HOST', 'localhost');
@@ -46,14 +42,14 @@ define('DB_COLLATE', '');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         'jekT6yn38ENFyTHSREog3w59tuj23');
-define('SECURE_AUTH_KEY',  'ESFjwki4ji23outu83UTO1BjNpqoW8sV43QPOJF');
-define('LOGGED_IN_KEY',    '"&YOOEJRVcb6MQ6zowG4ijuirfh8247FJ hguiowh');
-define('NONCE_KEY',        '#%jkgjdg58g9gjn2jgWiHAARoXJRFmTHQufqh147fb');
-define('AUTH_SALT',        '¤%er91A2rue835f2o44iiw2hphqWIqwreKOFIqweu23ye7¤#');
-define('SECURE_AUTH_SALT', '/(¤jk83t4ERGGiVATsKLtG7qiodijwo23J¤HRQU(iirhu');
-define('LOGGED_IN_SALT',   'BwF7NRWv93"¤yhy&%XVeYa73AvtASDFj3i4uf&JOOTI(');
-define('NONCE_SALT',       'DdKRCXvRGMu6YAWqJoAH¤#%Ugrt4h"vrTBmweVitgik&I)=)2#');
+define('AUTH_KEY',         'put your unique phrase here');
+define('SECURE_AUTH_KEY',  'put your unique phrase here');
+define('LOGGED_IN_KEY',    'put your unique phrase here');
+define('NONCE_KEY',        'put your unique phrase here');
+define('AUTH_SALT',        'put your unique phrase here');
+define('SECURE_AUTH_SALT', 'put your unique phrase here');
+define('LOGGED_IN_SALT',   'put your unique phrase here');
+define('NONCE_SALT',       'put your unique phrase here');
 
 /**#@-*/
 
@@ -84,20 +80,6 @@ define('WPLANG', '');
  */
 define('WP_DEBUG', false);
 
-/**
- * Multisite 
- * Multisite ei ole plugari, ainoastaan wp-config.php tiedostoon 
- * muutaman rivin lisäys, joka mahdollistaa sen, että saadaan ruotsin-
- * ja suomenkieliset sivustot erilleen.
- */
-/*define( 'WP_ALLOW_MULTISITE', true );
-define('MULTISITE', true);
-define('SUBDOMAIN_INSTALL', false);
-define('DOMAIN_CURRENT_SITE', 'wordpress1.qa.oph.ware.fi');
-define('PATH_CURRENT_SITE', '/wp/');
-define('SITE_ID_CURRENT_SITE', 1);
-define('BLOG_ID_CURRENT_SITE', 1);
-*/
 /* That's all, stop editing! Happy blogging. */
 
 /** Absolute path to the WordPress directory. */
@@ -106,3 +88,7 @@ if ( !defined('ABSPATH') )
 
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
+
+/* Automaticallu update plugins  */
+define('FS_METHOD','direct');
+
