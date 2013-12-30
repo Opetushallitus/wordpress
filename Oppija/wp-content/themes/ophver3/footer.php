@@ -1,17 +1,21 @@
 <!-- footer navi -->
-<div class="container footer-nav">
-	<div class="footer-nav-logo">
-		<?php if (ICL_LANGUAGE_CODE == 'sv') : ?>
-			<img src="<?php echo get_template_directory_uri(); ?>/img/Studieinfo.png" alt="Studieinfo.fi" />
-		<?php else : ?>
-			<img src="<?php echo get_template_directory_uri(); ?>/img/Opintopolku_FI_logo.png" alt="Opintopolku.fi" />			
-		<?php endif ?>
-	</div>
-
-	<nav>
-		<?php wp_nav_menu( array('theme_location' => 'extra-menu' )) ?>
-	</nav>
-	
+<div class="container footer-nav row">
+    <div class="col span_3 widget">
+        <?php if (ICL_LANGUAGE_CODE == 'sv') : ?>
+            <img src="<?php echo get_template_directory_uri(); ?>/img/Studieinfo.png" alt="Studieinfo.fi" />
+        <?php else : ?>
+            <img src="<?php echo get_template_directory_uri(); ?>/img/Opintopolku_FI_logo.png" alt="Opintopolku.fi" />          
+        <?php endif ?>
+    </div>
+    <div class="col span_3 widget">
+        <?php if ( dynamic_sidebar('footer_widget_1') ) : else : endif; ?>
+    </div>
+    <div class="col span_3 widget">
+        <?php if ( dynamic_sidebar('footer_widget_2') ) : else : endif; ?>
+    </div>
+    <div class="col span_3 widget">
+        <?php if ( dynamic_sidebar('footer_widget_3') ) : else : endif; ?>
+    </div>
 </div>
 <!-- /footer navi --> 
 

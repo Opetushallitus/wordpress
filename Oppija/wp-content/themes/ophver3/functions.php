@@ -927,4 +927,38 @@ function oph_related_taxonomy_query($qtaxonomies, $post_type = 'page')
         return $my_query;
 }
 
+/**
+ * Register our sidebars and widgetized areas
+ */
+function oph_widgets_init() {
+
+    register_sidebar( array(
+        'name' => 'Footer Widget 1',
+        'id' => 'footer_widget_1',
+        'before_widget' => '',
+        'after_widget' => '',
+        'before_title' => '<h2>',
+        'after_title' => '</h2>',
+    ) );
+    
+    register_sidebar( array(
+        'name' => 'Footer Widget 2',
+        'id' => 'footer_widget_2',
+        'before_widget' => '',
+        'after_widget' => '',
+        'before_title' => '<h2>',
+        'after_title' => '</h2>',
+    ) );
+    
+    register_sidebar( array(
+        'name' => 'Footer Widget 3',
+        'id' => 'footer_widget_3',
+        'before_widget' => '',
+        'after_widget' => '',
+        'before_title' => '<h2>',
+        'after_title' => '</h2>',
+    ) );
+}
+add_action( 'widgets_init', 'oph_widgets_init' );
+
 ?>
