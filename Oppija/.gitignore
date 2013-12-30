@@ -1,9 +1,9 @@
 # Don't add the Local server settings file to the repository #
-Oppija/wp-config.php
+wp-config.php
 
 # sitemaps not needed locally #
-Oppija/sitemap.xml
-Oppija/sitemap.xml.gz
+sitemap.xml
+sitemap.xml.gz
  
 
 #Don't add Netbeans project files#
