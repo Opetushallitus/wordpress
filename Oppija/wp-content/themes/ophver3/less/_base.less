@@ -985,13 +985,13 @@ table {
 }
 
 article ul {
-	list-style-type: disc !important;
+	list-style-type: disc;
 	padding-left: 40px !important;
 	padding-bottom: 15px;
 }
 
 article ol {
-	list-style-type: decimal !important;
+	list-style-type: decimal;
 	padding-left: 40px !important;
 	padding-bottom: 15px;
 }
@@ -1059,4 +1059,43 @@ strong {
   h2 {
     margin-bottom: 10;
   }
+}
+
+/* Caption image */
+
+.wp-caption {
+    &.alignleft {
+            float: left;
+            max-width: 50% !important;
+            .margin-right(@gutter);
+            
+            img {
+                height: auto !important;
+                margin-bottom: inherit;
+            }
+    } 
+
+    &.alignright {
+            float: right;
+            max-width: 50% !important;
+            .margin-left(@gutter);
+            
+            img {
+                height: auto !important;
+                margin-bottom: inherit;
+            }
+            
+    } 
+    
+    
+    &.aligncenter {
+            float: right;
+            max-width: 100% !important;
+            .margin-left(@gutter);
+        
+            img {
+                margin-bottom: inherit;
+            }
+            
+    } 
 }
