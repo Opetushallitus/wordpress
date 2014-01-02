@@ -1,0 +1,185 @@
+/*
+
+THEME:		960bc
+AUTHOR:		Troy Dean 
+WEBSITE:   	http://www.guardianwebdesign.com.au
+CLIENT NAME:	xxx
+CLIENT SITE:	xxx
+VERSION:		1.0  
+
+*/ 
+
+/* Put your css for colours here */
+
+body {
+		background: #fff;
+		color: #000;
+		}
+
+#header {
+		background-color: #149ecb;
+                
+		}
+
+                #menu {
+                    background-color: #06526b;
+
+                }                
+
+                ul#menu-navigaatio li a {
+                    color: #ffffff;
+                }
+                
+                ul#menu-navigaatio li a:hover {
+                    background-color: #ffffff;
+                    color: #000000;
+                }
+#footer {
+		background: #fff;
+		border: none;
+		}
+
+h2, h2 a, h2 a:visited, h3, h3 a, h3 a:visited {
+		color: #333;
+		}
+
+                h1 a {
+                    color: #3a3a3a;
+                }
+                
+a, h2 a:hover, h3 a:hover {
+		color: blue;
+		}
+                
+                small a, .navigationBottom a {
+                    color: #000000;
+                }
+
+a:hover {
+		color: #147;
+		}
+
+a img {
+		border: none;
+		}
+
+.wp-caption {
+		border: 1px solid #ddd;
+		background-color: #f3f3f3;
+		-moz-border-radius: 3px;
+		-khtml-border-radius: 3px;
+		-webkit-border-radius: 3px;
+		border-radius: 3px;
+		}
+
+.wp-caption img {
+		border: 0 none;
+		}
+
+acronym, abbr {
+		border-bottom: 1px dashed #999;
+		}
+
+blockquote {
+		border-left: 5px solid #ddd;
+		}
+
+small, #sidebar ul ul li, #sidebar ul ol li, .nocomments, .postmetadata, blockquote, strike {
+		color: #9b9b9b;
+		}
+
+.entry p a:visited {
+		color: #b85b5a;
+		}
+
+.commentlist li .avatar { 
+		border: 1px solid #eee;
+		background: #fff;
+		}
+
+#wp-calendar td.pad:hover { /* Doesn't work in IE */
+		background-color: #fff;
+		}
+
+.thread-alt {
+		background-color: #f8f8f8;
+		}
+
+.thread-even {
+		background-color: white;
+		}
+
+.depth-1 {
+		border: 1px solid #ddd;
+		}
+
+.even, .alt {
+		border-left: 1px solid #ddd;
+		}
+                
+                
+.header-announcements {
+    background-color: #e6e6e6;
+    border-radius: 3px 3px 0px 0px; 
+    -moz-border-radius: 3px 3px 0px 0px; 
+    -webkit-border-radius: 3px 3px 0px 0px; 
+    border: 1px solid #bdbdbd;
+
+    background: #f5f5f5; /* Old browsers */
+    background: -moz-linear-gradient(top, #f5f5f5 0%, #e6e6e6 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f5f5f5), color-stop(100%,#e6e6e6)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #f5f5f5 0%,#e6e6e6 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #f5f5f5 0%,#e6e6e6 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #f5f5f5 0%,#e6e6e6 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #f5f5f5 0%,#e6e6e6 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#e6e6e6',GradientType=0 ); /* IE6-9 */
+}
+
+#sidebar-widgets {
+    border: 1px solid #bdbdbd;
+}
+
+/* Entry */
+
+.entry-title h2 a {
+    color: #0C566E;
+}
+
+.entry-title h2 a:hover {
+    color: #0C566E;
+    text-decoration: underline;
+}
+
+#entries-content, #sidebar-listing {
+    border-left: 1px solid #bdbdbd;
+    border-right: 1px solid #bdbdbd;
+    border-bottom: 1px solid #bdbdbd;
+}
+
+#sidebar-listing {
+    margin-top: -11px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+/* End of entry */
+
+/* Sidebars */
+
+.sidebar-list ul li a {
+    color: #333;
+}
+
+
+/* Announcements menu */
+
+#tabs {
+    border-left: 1px solid #bdbdbd;
+    border-right: 1px solid #bdbdbd;
+}
+
+
+/* Tab menu */
+
+#menu-tabi-menu a {
+    color: #000000;
+}
