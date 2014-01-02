@@ -40,7 +40,7 @@
 		</div>
 
 		<p class="small">
-			Copyright &copy; 2013 <?php _e('Opetushallitus') ?> - <a href="<?php echo get_page_link (get_page_by_title( __('rekisteriseloste') )->ID) ?>"><?php _e('rekisteriseloste') ?></a>
+			Copyright &copy; 2013 <?php _e('Opetushallitus') ?>
 		</p>
 	</footer>
 
