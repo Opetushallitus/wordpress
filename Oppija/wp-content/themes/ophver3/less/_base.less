@@ -526,7 +526,7 @@ nav.sidenav {
         text-decoration: none;
         display: block;
         .padding-top(@baseline/2 );
-        .padding-bottom( (@baseline - 2) /2);
+        .padding-bottom(@baseline / 2 - 1);
         .padding-left(10px);
 
         padding-right: 40px;
@@ -1062,6 +1062,15 @@ strong {
 /* Caption image */
 
 .wp-caption {
+    
+    float: left;
+    clear: both;
+    position: relative;
+    overflow: auto;
+    margin: 0 auto;
+    
+    width: 100% !important;
+    
     &.alignleft {
             float: left;
             max-width: 50% !important;
@@ -1093,11 +1102,40 @@ strong {
         
             img {
                 margin-bottom: inherit;
-            }
+            }    
             
-    } 
-}
+    }
+    
+    img {
+        vertical-align: bottom;
+    }
+    
+     .wp-caption-text {
+        background-color: #000000;
+        
+        opacity: 0.8;
+        -khtml-opacity: 0.8;
+        -moz-opacity: 0.8;
+        filter: alpha(opacity=80);
+        
+        width: 100%;
+        color: #ffffff;
+        
+        padding-left: 10px;
+        padding-bottom: 7px;
+        padding-top: 7px;
+        
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }    
+}  
 
 .page img {
     //border: 1px solid #dcdcdc;
+}
+
+em {
+    font-style: italic;
 }
