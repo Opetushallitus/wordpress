@@ -57,9 +57,9 @@
                                         <h4><?php the_title() ?></h4>
                                     </div>
                                     <div class="notif-content">
-                                        <p>
+                                        
                                             <?php the_excerpt() ?>
-                                        </p>
+                                        
                                         <p class="read-more">
                                             <a href="<?php the_permalink() ?>"><?php _e('Lue lisää...'); ?></a>
                                         </p>
