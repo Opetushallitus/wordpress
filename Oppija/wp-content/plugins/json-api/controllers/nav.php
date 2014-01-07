@@ -86,8 +86,7 @@ class JSON_API_Nav_Controller {
                 $container[] = array('id' => $page->ID, 'title' => $page->post_title, 'link' => get_page_link($page->ID), 'subnav' => $subarray);    
             }
         }
-        
-        header("Access-Control-Allow-Origin: *");
+              
         return array('nav' => $container);
     
       }

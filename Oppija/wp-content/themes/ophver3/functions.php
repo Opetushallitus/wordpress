@@ -1011,4 +1011,27 @@ function tinymce_excerpt_js(){ ?>
         return nl2br($e);
     }
     add_action( 'excerpt_edit_pre','prepareExcerptForEdit');
+    
+/* 
+ * Enable CORS for JSON Api  
+ */
+ 
+global $json_api;
+ 
+function cors_output($result) {
+    
+    $charset = get_option('blog_charset');
+    
+    if (!headers_sent()) {
+      header('HTTP/1.1 200 OK', true);
+      header("Access-Control-Allow-Origin: *");
+      header("Content-Type: application/json; charset=$charset", true);
+    }
+
+    echo $result;
+}
+
+remove_action( 'json_api', array( $json_api, 'output' ) );
+add_action( 'json_api', 'cors_output' );
+    
 ?>
