@@ -403,7 +403,7 @@ add_filter('post_thumbnail_html', 'remove_thumbnail_dimensions', 10); // Remove 
 add_filter('image_send_to_editor', 'remove_thumbnail_dimensions', 10); // Remove width and height dynamic attributes to post images
 
 // Remove Filters
-remove_filter('the_excerpt', 'wpautop'); // Remove <p> tags from Excerpt altogether
+//remove_filter('the_excerpt', 'wpautop'); // Remove <p> tags from Excerpt altogether
 
 // Shortcodes
 add_shortcode('html5_shortcode_demo', 'html5_shortcode_demo'); // You can place [html5_shortcode_demo] in Pages, Posts now.
@@ -976,5 +976,39 @@ function wpb_imagelink_setup() {
 add_action('admin_init', 'wpb_imagelink_setup', 10);
 
 
+/*
+ * Enable TinyMCE editor for excerpts
+ */
 
+function tinymce_excerpt_js(){ ?>
+        <script type="text/javascript">
+                jQuery(document).ready( tinymce_excerpt );
+                    function tinymce_excerpt() {
+                        jQuery("#excerpt").addClass("mceEditor");
+                        tinyMCE.execCommand("mceAddControl", false, "excerpt");
+                        /* tinyMCE.onAddEditor.add(function(mgr,ed) { // Include/exclude tools to show
+                            if(ed.id=="excerpt"){
+                                ed.settings.theme_advanced_buttons2 ="";
+                                ed.settings.theme_advanced_buttons1 = "bold,italic,underline,seperator,justifyleft,justifycenter,justifyright,separator,link,unlink,seperator,pastetext,pasteword,removeformat,seperator,undo,redo,seperator,spellchecker,";
+                            }
+                        }); */
+                    }
+        </script>
+    <?php }
+    add_action( 'admin_head-post.php', 'tinymce_excerpt_js');
+    add_action( 'admin_head-post-new.php', 'tinymce_excerpt_js');
+    function tinymce_css(){ ?>
+        <style type='text/css'>
+                    #postexcerpt .inside{margin:0;padding:0;background:#fff;}
+                    #postexcerpt .inside p{padding:0px 0px 5px 10px;}
+                    #postexcerpt #excerpteditorcontainer { border-style: solid; padding: 0; }
+        </style>
+    <?php }
+    add_action( 'admin_head-post.php', 'tinymce_css');
+    add_action( 'admin_head-post-new.php', 'tinymce_css');
+ 
+    function prepareExcerptForEdit($e){
+        return nl2br($e);
+    }
+    add_action( 'excerpt_edit_pre','prepareExcerptForEdit');
 ?>
