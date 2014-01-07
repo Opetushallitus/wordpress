@@ -1016,22 +1016,13 @@ function tinymce_excerpt_js(){ ?>
  * Enable CORS for JSON Api  
  */
  
-global $json_api;
- 
-function cors_output($result) {
+function enable_cors($result) {
     
-    $charset = get_option('blog_charset');
-    
-    if (!headers_sent()) {
-      header('HTTP/1.1 200 OK', true);
-      header("Access-Control-Allow-Origin: *");
-      header("Content-Type: application/json; charset=$charset", true);
-    }
+    header("Access-Control-Allow-Origin: *");
 
-    return $result;
 }
 
-remove_action( 'json_api', array( $json_api, 'output' ) );
-add_action( 'json_api', 'cors_output' );
+add_action( 'json_api-nav-json_nav', 'enable_cors' );
+add_action( 'json_api-core-get_search_results', 'enable_cors' );
     
 ?>
