@@ -14,3 +14,6 @@ readme.html
 license.txt
 .log
 .DS_Store
+
+# Dont' add less to css yet... #
+wp-content/themes/ophver3/less/style.css
