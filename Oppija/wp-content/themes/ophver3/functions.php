@@ -1028,7 +1028,7 @@ function cors_output($result) {
       header("Content-Type: application/json; charset=$charset", true);
     }
 
-    echo $result;
+    return $result;
 }
 
 remove_action( 'json_api', array( $json_api, 'output' ) );
