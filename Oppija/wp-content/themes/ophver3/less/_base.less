@@ -172,11 +172,11 @@ a {
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 	
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: 'PT Sans Narrow', "Helvetica Neue", Helvetica, Arial, sans-serif;
 	text-rendering: optimizelegibility;
 	.margin(0px 0 @baseline 0);
 	color: @black;
-	font-weight: normal;
+	font-weight: bold;
 	
 	/* removing text decoration from all headline links */
 	a {
@@ -189,7 +189,6 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 }
 
 h1, .h1 {
-	font-family: 'PT Sans Narrow', "Helvetica Neue", Helvetica, Arial, sans-serif;
 	.font-size(28px);
 	.line-height(30px);
 }
@@ -197,14 +196,12 @@ h1, .h1 {
 
 
 h2, .h2 {
-	font-family: 'PT Sans Narrow', "Helvetica Neue", Helvetica, Arial, sans-serif;
 	.font-size(22px);
 	.line-height(30px);
 }
 
 
 h3, .h3 {
-    font-family: 'PT Sans Narrow', "Helvetica Neue", Helvetica, Arial, sans-serif;
 	.font-size(18px);
 	.line-height(20px);
 }
@@ -212,20 +209,17 @@ h3, .h3 {
 h4, .h4 {
 	.font-size(13px);
 	.line-height(20px);
-	font-weight: bold;
 }
 
 h5, .h5 {
 	.font-size(13px);
 	.line-height(20px);
 	font-style: italic;
-        font-weight: normal;
 }
 
 h6, .h6 {
 	.font-size(12px);
 	.line-height(20px);
-	font-weight: bold;
 }
 
 .home {
@@ -897,7 +891,7 @@ header, article, section, footer, p {
 		
 		img {
 			float: none;
-			.margin-bottom(@baseline); 
+                        border: 1px solid #cccccc;
 		}
 	}
 }
@@ -1063,17 +1057,16 @@ strong {
 
 .wp-caption {
     
-    float: left;
-    clear: both;
     position: relative;
     overflow: auto;
     margin: 0 auto;
+    margin-bottom: 10px;
     
-    width: auto !important;
     
     &.alignleft {
             float: left;
-            max-width: 50% !important;
+            max-width: 100% !important;
+            width: auto !important;
             .margin-right(@gutter);
             
             img {
@@ -1084,7 +1077,8 @@ strong {
 
     &.alignright {
             float: right;
-            max-width: 50% !important;
+            max-width: 100% !important;
+            width: auto !important;
             .margin-left(@gutter);
             
             img {
@@ -1096,12 +1090,13 @@ strong {
     
     
     &.aligncenter {
-            float: right;
-            max-width: 100% !important;
-            .margin-left(@gutter);
+            
         
             img {
                 margin-bottom: inherit;
+                display: block;
+                width: 100%;
+                height: auto;
             }    
             
     }
@@ -1122,18 +1117,31 @@ strong {
         color: #ffffff;
         
         padding-left: 10px;
+        padding-right: 10px;
         padding-bottom: 7px;
         padding-top: 7px;
+        
+        margin-right: 0px !important;
         
         position: absolute;
         bottom: 0;
         left: 0;
         right: 0;
+        
+        border-left: 1px solid #cccccc;
+        border-right: 1px solid #cccccc;
+        border-bottom: 1px solid #cccccc;
     }    
 } 
 
 p.wp-caption-text {
     margin-bottom: inherit;
+    
+}
+
+
+.wp-caption.aligncenter p.wp-caption-text {
+
 }
 
 /* Contact form */
