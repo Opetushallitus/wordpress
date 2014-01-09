@@ -31,7 +31,11 @@ if (function_exists('add_theme_support'))
     add_theme_support('post-thumbnails');
     add_image_size('large', 700, '', true); // Large Thumbnail
     add_image_size('medium', 570, '', true); // Medium Thumbnail
-    add_image_size('small', 160, 160, true); // Small Thumbnail - used in stories (160x100 or 100x160)
+    add_image_size('oph-small', 100, 160, true);
+    add_image_size('oph-medium', 160, 100, true);
+    add_image_size('oph-side-column', 220, 140, true);
+    add_image_size('oph-mid-column', 460, 280, true);
+    add_image_size('oph-max', 700, 280, true);
     //add_image_size('custom-size', 700, 200, true); // Custom Thumbnail Size call using the_post_thumbnail('custom-size');
 
     
@@ -1024,5 +1028,27 @@ function enable_cors($result) {
 
 add_action( 'json_api-nav-json_nav', 'enable_cors' );
 add_action( 'json_api-core-get_search_results', 'enable_cors' );
+
+/*
+ *  Add custom image sizes to Media settings drop down
+ */
+ 
+add_filter( 'image_size_names_choose', 'oph_custom_sizes' );
+
+function oph_custom_sizes( $sizes ) {
+    $array = array_merge( $sizes, array(
+        'oph-small' => __('Pieni kuva'),
+        'oph-medium' => __('Medium kuva'),
+        'oph-side-column' => __('Vasemman ja oikean palstan kuva'),
+        'oph-mid-column' => __('Keskipalstan kuva'),
+        'oph-max' => __('Maxikuva')
+    ) );
+    
+    // Remove default image sizes (large, medium)    
+    unset($array['large']);
+    unset($array['medium']);
+    
+    return array_reverse($array);
+}
     
 ?>
