@@ -46,7 +46,6 @@ h1 {
 		font-family: "PT Sans Narrow","Helvetica Neue", Helvetica, Arial, sans-serif;
                 font-size: 2.2em;
 		line-height: 2em;
-		text-transform: capitalize;
                 font-weight: bold;
 		}
 
@@ -204,6 +203,14 @@ small {
 		line-height: 17px;
 		}
                 
+table.em-calendar td {
+                font-size: 13px;
+                }
+                
+div.em-calendar-wrapper{
+                margin-top: 15px;
+                padding-bottom: 15px;   
+                }                
 /* Entry */
 
 .entry-title h2 {
@@ -238,3 +245,4 @@ table.em-calendar tbody, table.em-calendar thead  {
 .current-menu-item a {
     font-weight: bold;
 }
+

@@ -14,7 +14,7 @@
                 <h2><?php // echo $EM_Event->output('#_EVENTDATES'); ?> <?php the_title(); ?> </h2>
                 
                 <div id="entry-meta">
-                    <small id="single"><?php the_time('j.n.Y') ?> <?php the_author() ?> 
+                    <small id="single"><?php the_time('j.n.Y') ?> 
                         
                         <?php 
                         $terms = get_the_terms( $post->ID , array('event-categories', 'category'));

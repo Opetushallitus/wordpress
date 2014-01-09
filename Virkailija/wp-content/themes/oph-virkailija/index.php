@@ -33,7 +33,7 @@ get_header(); ?>
                                 <div class="entry-title">
                                     <h2><a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
                                 </div>
-                                 <small><?php the_time('j.n.Y') ?> <?php the_author() ?> 
+                                 <small><?php the_time('j.n.Y') ?>
                                  Kategoria: 
                                      <?php
                                         $category = get_the_category();
