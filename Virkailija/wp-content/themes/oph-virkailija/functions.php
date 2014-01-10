@@ -463,17 +463,18 @@ function register_custom_menus() {
 }
 
 
-
-function custom_excerpt_more( $more ) {
-	return '... <a class="read-more" href="'. get_permalink( get_the_ID() ) . '">'.__('Lue artikkeli', 'oph').'</a>';
-}
-
-add_filter('excerpt_more', 'custom_excerpt_more');
+/*
+ * Custom excerpt length 
+ */
 
 function custom_excerpt_length( $length ) {
 	return 160;
 }
 add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
+
+/*
+ *  Custom excerpt
+ */
 
 function get_excerpt($count){
   $permalink = get_permalink($post->ID);
@@ -484,4 +485,15 @@ function get_excerpt($count){
   $excerpt = $excerpt.'... <a href="'.$permalink.'">'.__('Lue artikkeli', 'oph').'</a>';
   return $excerpt;
 }
+
+/*
+ * Add excerpt also for pages
+ */
+
+function add_excerpts_to_pages() {
+     add_post_type_support( 'page', 'excerpt' );
+}
+
+add_action( 'init', 'add_excerpts_to_pages' );
+
 ?>
