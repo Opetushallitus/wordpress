@@ -453,6 +453,7 @@ function create_post_type_html5()
             'not_found_in_trash' => __('No Stories found in Trash', 'html5blank')
         ),
         'public' => true,
+        'exclude_from_search' => true,
         'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
         'has_archive' => true,
         'supports' => array(
@@ -498,6 +499,7 @@ function create_post_type_html5()
             'not_found_in_trash' => __('No Features found in Trash', 'html5blank')
         ),
         'public' => true,
+        'exclude_from_search' => true,
         'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
         'has_archive' => true,
         'supports' => array(
@@ -534,6 +536,7 @@ function create_post_type_html5()
             'not_found_in_trash' => __('No Related articles found in Trash', 'html5blank')
         ),
         'public' => true,
+        'exclude_from_search' => true,
         'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
         'has_archive' => true,
         'supports' => array(
@@ -571,6 +574,7 @@ function create_post_type_html5()
             'not_found_in_trash' => __('No Related articles found in Trash', 'html5blank')
         ),
         'public' => true,
+        'exclude_from_search' => true,
         'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
         'has_archive' => true,
         'supports' => array(
@@ -1044,11 +1048,12 @@ function oph_custom_sizes( $sizes ) {
         'oph-max' => __('Maxikuva')
     ) );
     
-    // Remove default image sizes (large, medium)    
+    // Remove default image sizes (large, medium, thumbnail)    
     unset($array['large']);
     unset($array['medium']);
-    
-    return array_reverse($array);
+    unset($array['thumbnail']);
+        
+    return $array;
 }
     
 ?>
