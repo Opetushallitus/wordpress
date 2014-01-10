@@ -44,14 +44,14 @@ h2, h2 a, h2 a:hover, h2 a:visited, h3, h3 a, h3 a:hover, h3 a:visited, #sidebar
                 
 h1 {
 		font-family: "PT Sans Narrow","Helvetica Neue", Helvetica, Arial, sans-serif;
-                font-size: 2.2em;
+                font-size: 28px;
 		line-height: 2em;
                 font-weight: bold;
 		}
 
 h2 {
                 font-family: "PT Sans Narrow","Helvetica Neue", Helvetica, Arial, sans-serif;
-		font-size: 1.8em;
+		font-size: 22px;
 }
 
 .header-announcements h2 {
@@ -63,34 +63,31 @@ h2 {
     line-height: 2.45em;
 }
 
-.entry h1 {
-
-} 
-
 #header h2 {
 		margin-bottom: 0em;
 		line-height: 0em;
 		}
 
 h3 {
-		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-                font-size: 1.2em;
-		line-height: 3.3em;
-                text-transform: uppercase;
-                letter-spacing: 0.12em;
-		}
+                font-family: 'PT Sans Narrow', "Helvetica Neue", Helvetica, Arial, sans-serif;
+                font-size: 18px;
+                line-height: 20px;
+                font-weight: bold;
+}
                 
 .entry h3 {
-    line-height: 3.7em;
+                line-height: 3.7em;
 }                
 
 #sidebar h3 {
 		line-height: 1.2em;
-		margin-top: 1.2em;
 		margin-bottom: 0em;
                 text-align: left;
 		}
 
+                
+                
+                
 p {
 		font-size: 1.5em;
 		line-height: 1.2em;

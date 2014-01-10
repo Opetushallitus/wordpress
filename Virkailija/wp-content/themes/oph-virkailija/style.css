@@ -462,6 +462,14 @@ div.aligncenter {
 
 /* End event listing sidebar widget */
 
+/* Sidebar widgets */
+
+.widget_search {
+    padding-bottom: 15px;
+}
+
+/* End sidebar widgets */
+
 /* Announcement */
 
 .sidebar-announcements {

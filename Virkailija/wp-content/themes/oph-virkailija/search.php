@@ -7,7 +7,9 @@
 <?php get_sidebar('left'); ?>
 
 	<div id="content" class="grid_8">
-            <div id="entries">        
+            <div id="entries">
+                
+                <h2><?php _e('Tulokset haulle', 'oph') ?> "<?php the_search_query();?>":</h2>
                 
                 <?php if (have_posts()) : ?>
                 
@@ -26,8 +28,7 @@
 
 	<?php else : ?>
 
-		<h2>No posts found. Try a different search?</h2>
-		<?php get_search_form(); ?>
+		<h3><?php _e('Ei löytynyt yhtään osumaa.','oph') ?></h3>
 
 	<?php endif; ?>
 

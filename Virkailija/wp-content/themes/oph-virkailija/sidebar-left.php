@@ -7,7 +7,7 @@
 	<div id="sidebar" class="grid_4">
             <div id="sidebar-listings">
                 <div class="header-announcements">
-                    <h2>Ohjeet ja materiaalit</h2>
+                    <h3><?php _e('Ohjeet ja materiaalit', 'oph') ?></h3>
                 </div>
                 <div id="sidebar-listing">
                     <ul class="sidebar-list">
