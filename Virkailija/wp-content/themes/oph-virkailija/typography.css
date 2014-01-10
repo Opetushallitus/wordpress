@@ -236,6 +236,10 @@ table.em-calendar tbody, table.em-calendar thead  {
     font-size: 1.5em;
 }
 
+.post a {
+    text-decoration: underline;
+}
+
 /* Menu Tab */
 
 #menu-tabi-menu {
