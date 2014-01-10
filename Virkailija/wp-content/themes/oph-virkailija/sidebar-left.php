@@ -25,7 +25,7 @@
                                while ($my_query->have_posts()) : $my_query->the_post(); ?>
                                 <ul>
                                     <li><a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a></li>
-                                    <li><small><?php the_time('j.n.Y') ?> <?php the_author() ?></small></li>
+                                    <li><small><?php the_time('j.n.Y') ?></small></li>
                                 </ul>
                                  <?php
                                endwhile;
