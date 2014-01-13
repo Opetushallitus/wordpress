@@ -61,7 +61,7 @@
 		var templateDir = '<?php echo get_template_directory_uri(); ?>';
 		!function(){
 			// configure legacy, retina, touch requirements @ conditionizr.com
-			conditionizr()
+			//conditionizr()
 		}()
 		</script>
 </head>
