@@ -885,6 +885,8 @@ function oph_subnavi()
                                                                   
             add_filter('the_title', 'show_short_title', 10, 2);
             wp_list_pages( array(
+                'link_before' => '<span>',
+                'link_after' => '</span>',
                 'title_li' => '',
                 'sort_column'  => 'menu_order, post_title',
                 'depth' => 0,
@@ -945,8 +947,8 @@ function oph_widgets_init() {
         'id' => 'footer_widget_1',
         'before_widget' => '',
         'after_widget' => '',
-        'before_title' => '<h2>',
-        'after_title' => '</h2>',
+        'before_title' => '<strong>',
+        'after_title' => '</strong>'
     ) );
     
     register_sidebar( array(
@@ -954,8 +956,8 @@ function oph_widgets_init() {
         'id' => 'footer_widget_2',
         'before_widget' => '',
         'after_widget' => '',
-        'before_title' => '<h2>',
-        'after_title' => '</h2>',
+        'before_title' => '<strong>',
+        'after_title' => '</strong>'
     ) );
     
     register_sidebar( array(
@@ -963,8 +965,8 @@ function oph_widgets_init() {
         'id' => 'footer_widget_3',
         'before_widget' => '',
         'after_widget' => '',
-        'before_title' => '<h2>',
-        'after_title' => '</h2>',
+        'before_title' => '<strong>',
+        'after_title' => '</strong>'
     ) );
 }
 add_action( 'widgets_init', 'oph_widgets_init' );

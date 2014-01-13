@@ -1,20 +1,22 @@
 <!-- footer navi -->
 <div class="container footer-nav row">
-    <div class="col span_3 widget">
-        <?php if (ICL_LANGUAGE_CODE == 'sv') : ?>
-            <img src="<?php echo get_template_directory_uri(); ?>/img/Studieinfo.png" alt="Studieinfo.fi" />
-        <?php else : ?>
-            <img src="<?php echo get_template_directory_uri(); ?>/img/Opintopolku_FI_logo.png" alt="Opintopolku.fi" />          
-        <?php endif ?>
-    </div>
-    <div class="col span_3 widget">
-        <?php if ( dynamic_sidebar('footer_widget_1') ) : else : endif; ?>
-    </div>
-    <div class="col span_3 widget">
-        <?php if ( dynamic_sidebar('footer_widget_2') ) : else : endif; ?>
-    </div>
-    <div class="col span_3 widget">
-        <?php if ( dynamic_sidebar('footer_widget_3') ) : else : endif; ?>
+    <div class="footer-inner">
+        <div class="col span_3 widget">
+            <?php if (ICL_LANGUAGE_CODE == 'sv') : ?>
+                <img src="<?php echo get_template_directory_uri(); ?>/img/Studieinfo.png" alt="Studieinfo.fi" />
+            <?php else : ?>
+                <img src="<?php echo get_template_directory_uri(); ?>/img/Opintopolku_FI_logo.png" alt="Opintopolku.fi" />
+            <?php endif ?>
+        </div>
+        <div class="col span_3 widget">
+            <?php if ( dynamic_sidebar('footer_widget_1') ) : else : endif; ?>
+        </div>
+        <div class="col span_3 widget">
+            <?php if ( dynamic_sidebar('footer_widget_2') ) : else : endif; ?>
+        </div>
+        <div class="col span_3 widget">
+            <?php if ( dynamic_sidebar('footer_widget_3') ) : else : endif; ?>
+        </div>
     </div>
 </div>
 <!-- /footer navi --> 
