@@ -17,7 +17,7 @@
     #siteheader .logo-bg #home-link {
       float: left; }
   #siteheader .actions {
-    float: left;
+    float: right;
     clear: left;
     line-height: 47px; }
     @media only screen and (min-width: 519px) {
