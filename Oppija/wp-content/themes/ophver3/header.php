@@ -38,12 +38,14 @@
 
 	<?php 
 	
-	$debug = true;
+	$debug = false;
 
 	if($debug) : ?>
 		<script type="text/javascript">var less=less||{};less.env='development';</script>
 		<link rel="stylesheet/less" type="text/css" href="<?php echo get_template_directory_uri(); ?>/less/style.less">
 		<script src="<?php echo get_template_directory_uri(); ?>/js/vendor/less-1.3.1.min.js"></script>
+        <?php else : ?>
+                <link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/css/style.css">
 	<?php endif; ?>
 
 	<!--[if lt IE 9]>
