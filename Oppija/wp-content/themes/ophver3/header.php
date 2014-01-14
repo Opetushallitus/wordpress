@@ -69,7 +69,7 @@
 </head>
 
 <body <?php body_class(); ?>>
-	<header>
+    <header id="siteheader">
 		<div class="logo-bg">
 			<div class="container">
 				<?php if (ICL_LANGUAGE_CODE == 'sv') : ?>
