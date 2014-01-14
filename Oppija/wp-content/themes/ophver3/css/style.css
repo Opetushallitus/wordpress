@@ -844,6 +844,10 @@ header nav {
   line-height: 20px;
   line-height: 2rem;
 }
+header nav .selected_subpage {
+  padding: 10px;
+  padding: 1rem;
+}
 header nav .container {
   overflow: visible;
 }
