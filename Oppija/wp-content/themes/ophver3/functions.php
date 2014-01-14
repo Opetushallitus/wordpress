@@ -885,7 +885,7 @@ function oph_subnavi()
                                                                   
             add_filter('the_title', 'show_short_title', 10, 2);
             wp_list_pages( array(
-                'link_before' => '<span>',
+                'link_before' => '<span class="w80">',
                 'link_after' => '</span>',
                 'title_li' => '',
                 'sort_column'  => 'menu_order, post_title',

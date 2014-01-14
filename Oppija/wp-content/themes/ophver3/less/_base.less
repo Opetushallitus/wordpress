@@ -522,10 +522,20 @@ nav.sidenav {
   .font-size(13px);
   .line-height(@baseline);
   .margin-bottom(4 * @baseline);
+  
+  .w80 {
+    display: inline-block;
+    width: 80%;
+  }
        
   ul {
     border-top: 1px solid @light-blue;
-
+    
+    .no-icon {
+      display: inline-block;
+      width: 24px;
+    }
+    
     li {
       position: relative;
       
@@ -623,14 +633,12 @@ nav.sidenav {
 
   .expand-icon {
     display: inline-block;
-    margin: -4px 10px 0 0;
+    margin: 3px 10px 0 5px;
     vertical-align: middle;
-  }
-  
-  .expand-icon {
     width: 9px;
     height: 14px;
     background: transparent url("../img/triangle-close.png") scroll no-repeat 0 0;
+    vertical-align: top;
   }
   
   &:hover .expand-icon {
@@ -642,6 +650,7 @@ nav.sidenav {
   }
   
   &.expanded .expand-icon {
+    margin: 5px 10px 0 0;
     width: 14px;
     height: 9px;
     background: transparent url("../img/triangle-open.png") scroll no-repeat 0 0;
