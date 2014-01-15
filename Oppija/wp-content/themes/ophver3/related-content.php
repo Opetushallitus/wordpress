@@ -5,19 +5,14 @@
             $my_query = oph_related_taxonomy_query( array('oph-koulutus', 'oph-koulutusaste', 'oph-ammattiluokitus'));
 
             if( $my_query->have_posts() ) : ?>
-                    <section>
-                        <h3><?php _e('Katso myös') ?></h3>
-                        <p>
+                    
+                    <section class="lookup">
+                            <h5><?php _e('Katso myös') ?></h5>
                             <?php while ( $my_query->have_posts() ) : ?>
                                 <?php $my_query->the_post(); ?>
-                                <p>
-                                        <?php the_excerpt() ?>
-                                </p>
-                                <p>
-                                    <a href="<?php the_permalink() ?>"><?php the_title() ?></a>
-                                </p>
+                                    <a href="<?php the_permalink() ?>"><?php the_title() ?>.</a>
+                                    <?php the_excerpt() ?>
                             <?php endwhile; ?>                            
-                        </p>
                     </section>
             <?php endif;
         
