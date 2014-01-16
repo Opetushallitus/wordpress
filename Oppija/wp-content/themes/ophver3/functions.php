@@ -1057,5 +1057,64 @@ function oph_custom_sizes( $sizes ) {
         
     return $array;
 }
+
+/*
+ * Shortcode for arrow signs
+ */
+ 
+function oph_arrow_sign( $atts, $content = null ) {
+    
+    // Attributes
+    extract( shortcode_atts(
+        array(
+            'title' => '',
+            'href' => '',
+        ), $atts )
+    );
+    
+    if( $title != null ) 
+    {
+        return '<a title="'. $title .'" href="'. $href .'"><span class="sign"><span class="sign-inner">'. $content .'</span></span></a>';    
+    } 
+    else 
+    {
+        return '<a href="'. $href .'"><span class="sign"><span class="sign-inner">'. $content .'</span></span></a>'; 
+    }
+}
+
+function oph_add_button() {  
+   if ( current_user_can('edit_posts') && current_user_can('edit_pages') )  
+   {
+     add_filter('mce_external_plugins', 'oph_add_plugin');  
+     add_filter('mce_buttons_2', 'oph_register_button');  
+   }  
+}
+
+function oph_register_button( $buttons ) {  
+   array_push( $buttons, "oph-sign", "oph-highlight" );
+   
+   return $buttons;  
+}
+
+function oph_add_plugin( $plugin_array ) {  
+   $plugin_array['oph'] = get_bloginfo('template_url').'/js/oph-tinymce-plugin.js';  
+   return $plugin_array;  
+}
+
+// Add arrow sign button to html editor
+function oph_add_quicktags() {
+    if (wp_script_is('quicktags')){
+?>
+    <script type="text/javascript">
+    QTags.addButton( 'oph_sign', 'arrow sign', '[oph-sign title="" href=""]', '[/oph-sign]', '', 'Add arrow sign', 234 );
+    QTags.addButton( 'oph_highlight', 'highlight', '<span class="oph-highlight">', '</span>', '', 'Add highlight', 235 );
+    </script>
+<?php
+    }
+}
+
+add_action( 'admin_print_footer_scripts', 'oph_add_quicktags' );
+add_action('init', 'oph_add_button');
+add_shortcode('oph-sign', 'oph_arrow_sign');
     
 ?>
