@@ -1,8 +1,11 @@
+
 <?php if (have_posts()): while (have_posts()) : the_post(); ?>
-	tarina
-	<!-- article -->
+<section class="story">
+<!-- article -->
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	
+            
+            <h5>Teema <?php $terms = get_the_terms( $post->ID , 'story-theme' ); foreach( $terms as $term ) {  $post_term = $term->name; print $post_term; }?></h5>
+            
 		<!-- post thumbnail -->
 		<?php if ( has_post_thumbnail()) : // Check if thumbnail exists ?>
 			<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
@@ -18,13 +21,14 @@
 		<!-- /post title -->
 				
 		<?php html5wp_excerpt('html5wp_index'); // Build your custom callback length in functions.php ?>
-		
-		<?php edit_post_link(); ?>
+
+                <p><a href="<?php print_r(get_term_link($post_term, 'story-theme')); ?>">Katso kaikki teemaan liittyvät artikkelit</a></p> 
 		
 	</article>
 	<!-- /article -->
-	
+</section>	
 <?php endwhile; ?>
+
 
 <?php else: ?>
 

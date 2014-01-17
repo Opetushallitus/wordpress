@@ -855,7 +855,7 @@ function oph_taxonomies()
 
 	register_taxonomy(
 	    'oph-huomautukset',
-		array( 'page','post', 'oph-notification'),
+		array( 'page','post', 'oph-notification', 'oph-story'),
 		array(
 			'label' => __( 'Kategoriat' ),
 			'rewrite' => array( 'slug' => 'oph-huom-kat' ),

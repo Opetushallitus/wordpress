@@ -38,7 +38,7 @@
 
 	<?php 
 	
-	$debug = false;
+	$debug = true;
 
 	if($debug) : ?>
 		<script type="text/javascript">var less=less||{};less.env='development';</script>
