@@ -1133,9 +1133,9 @@ p {
   clear: left;
   margin: 5px 0;
   display: inline-block;
-  max-width: 90%;
-  padding: 10px;
-  padding: 1rem;
+  max-width: 100%;
+  padding-left: 10px;
+  padding-left: 1rem;
   margin-right: 10px;
   margin-right: 1rem;
   position: relative;
@@ -1161,29 +1161,15 @@ p {
   -ms-box-shadow: inset 0px 1px 1px 0px rgba(255, 230, 162, 0.7);
   box-shadow: inset 0px 1px 1px 0px rgba(255, 230, 162, 0.7);
 }
-.sign:after,
-.sign:before {
-  left: 100%;
-  border: solid transparent;
-  content: " ";
-  height: 0;
-  width: 0;
-  position: absolute;
-  pointer-events: none;
-}
-.sign:after {
-  border-color: rgba(254, 237, 189, 0);
-  border-left-color: #fee7a5;
-  border-width: 20px;
-  top: 50%;
-  margin-top: -20px;
-}
-.sign:before {
-  border-color: rgba(188, 188, 188, 0);
-  border-left-color: #bcbcbc;
-  border-width: 18px;
-  top: 50%;
-  margin-top: -18px;
+.sign-inner {
+  display: inline-block;
+  background: url('../img/viitta-kolmio.png') center right no-repeat;
+  padding-top: 5px;
+  padding-top: 0.5rem;
+  padding-bottom: 5px;
+  padding-bottom: 0.5rem;
+  padding-right: 30px;
+  padding-right: 3rem;
 }
 .teaser {
   clear: both;
@@ -1267,6 +1253,14 @@ p {
   padding: 0;
   list-style-type: disc;
   list-style-position: inside;
+}
+.oph-highlight {
+  display: inline-block;
+  padding-left: 5px;
+  padding-left: 0.5rem;
+  padding-right: 5px;
+  padding-right: 0.5rem;
+  background: #dff2f8;
 }
 /* SUB - PAGE  */
 .page article {

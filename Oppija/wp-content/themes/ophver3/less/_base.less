@@ -734,7 +734,6 @@ header, article, section, footer, p {
 	}	
 }
 
-
 .content {
 	.padding(0 @baseline);
 }
@@ -743,9 +742,9 @@ header, article, section, footer, p {
 		clear: left;
 		margin: 5px 0;
 		display: inline-block;
-		max-width: 90%;
+		max-width: 100%;
 		
-		.padding( @baseline / 2);
+		.padding-left( @baseline / 2);
 		.margin-right(@baseline / 2);
 	
 		position: relative;
@@ -776,34 +775,14 @@ header, article, section, footer, p {
 		-ms-box-shadow: inset 0px 1px 1px 0px rgba(255, 230, 162, 0.7);
 		box-shadow: inset 0px 1px 1px 0px rgba(255, 230, 162, 0.7);
 			
-		
-								
-		&:after, &:before {
-				left: 100%;
-				border: solid transparent;
-				content: " ";
-				height: 0;
-				width: 0;
-				position: absolute;
-				pointer-events: none;
-		}
-		
-		&:after {
-				border-color: rgba(254, 237, 189, 0);
-				border-left-color: #fee7a5;
-				border-width: 20px;
-				top: 50%;
-				margin-top: -20px;
-		}
-			
-			&:before {
-				border-color: rgba(188, 188, 188, 0);
-				border-left-color: #bcbcbc;
-				border-width: 18px;
-				top: 50%;
-				margin-top: -18px;
-			}
+}
 
+.sign-inner {
+    display: inline-block;
+    background: url('../img/viitta-kolmio.png') center right no-repeat;
+    .padding-top( @baseline / 4);
+    .padding-bottom( @baseline / 4);
+    .padding-right( @baseline * 1.5);
 }
 
 .teaser {
@@ -905,6 +884,13 @@ header, article, section, footer, p {
 			}
 		}
 	}
+}
+
+.oph-highlight {
+  display: inline-block;
+  .padding-left(5px);
+  .padding-right(5px);
+  background: #dff2f8;
 }
 
 /* SUB - PAGE  */
