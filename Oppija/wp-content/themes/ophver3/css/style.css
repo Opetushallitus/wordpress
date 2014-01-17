@@ -1530,6 +1530,42 @@ section h5 {
   font-style: normal;
   text-transform: uppercase;
 }
+/* Stories */
+.stories {
+  overflow: auto;
+  width: 75%;
+  float: left;
+  column-gap: 20px;
+  -webkit-column-gap: 20px;
+  -moz-column-gap: 20px;
+  column-count: 2;
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+}
+.story h5 {
+  font-weight: bold;
+}
+.story {
+  overflow: auto;
+  width: 75%;
+  float: left;
+}
+.story-single {
+  width: 50%;
+  float: left;
+  padding-right: 20px;
+  padding-right: 2rem;
+}
+.story-single aside {
+  width: 25%;
+}
+section.story {
+  -webkit-column-break-inside: avoid;
+  -moz-column-break-inside: avoid;
+  -o-column-break-inside: avoid;
+  -ms-column-break-inside: avoid;
+  column-break-inside: avoid;
+}
 /*@page-max-width: 960px;*/
 @media only screen and (min-width: 519px) {
   .container {
