@@ -52,8 +52,9 @@
                                             if (!empty($title) && $postLang == $currentLang) : ?>
                                         <section>
                                             <h2><?php the_title(); ?></h2>
-                                            <?php the_content(); ?>    
-					</section>
+                                            <?php the_content(); ?>
+                                            <hr>
+                                        </section>
                                             <?php endif ?>
                                             <?php endforeach; ?>
 				</aside>
