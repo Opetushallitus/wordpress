@@ -1584,7 +1584,7 @@ section h5 {
   padding-right: 20px;
   padding-right: 2rem;
 }
-.story-single aside {
+.single aside {
   width: 25%;
 }
 section.story {
@@ -1593,6 +1593,9 @@ section.story {
   -o-column-break-inside: avoid;
   -ms-column-break-inside: avoid;
   column-break-inside: avoid;
+}
+.stories-sidenav {
+  border-top: 0 !important;
 }
 /*@page-max-width: 960px;*/
 @media only screen and (min-width: 519px) {

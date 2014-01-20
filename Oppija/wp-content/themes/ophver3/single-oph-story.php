@@ -11,19 +11,23 @@
 	
         <nav class="sidenav">
             <ul>
-                <li>Teema 1</li>
-                <li>Teema 2</li>
-                <li>Teema 3</li>
-                <li>Teema 4</li>
-                <li>Teema 5</li>
-                <li>Teema 6</li>
-                <li>Teema 7</li>
-                <li>Teema 8</li>
-                <li>Teema 9</li>
-                <li>Teema 10</li>
-                <li>Teema 11</li>
-                <li>Teema 12</li>
-                <li>Teema 13</li>
+                <li>
+                    <ul class="stories-sidenav">
+                <?php
+
+                    function get_custom_terms($taxonomies, $args){
+                    $args = array('orderby'=>'asc','hide_empty'=>false);
+                    $custom_terms = get_terms(array($taxonomies), $args);
+                    foreach($custom_terms as $term){
+                        echo '<li class="page_item"><a href="'. get_term_link($term) .'" class="expanded"><span>'. $term->name.'</span></a></li>';
+                    }
+                    }
+
+                    get_custom_terms('story-theme'); 
+
+                     ?>
+                    </ul>
+                </li>
             </ul>
         </nav>
 
@@ -47,12 +51,6 @@
                                     <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a>
                             </h1>
                             <!-- /post title -->
-
-                            <!-- post details -->
-                            <span class="author">
-                                <p><?php _e( 'Teksti:', 'html5blank' ); ?> <?php the_author_posts_link(); ?></p>
-                            </span>
-                            <!-- /post details -->
 
                             <?php the_content(); // Dynamic Content ?>
 
