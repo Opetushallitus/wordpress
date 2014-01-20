@@ -1469,6 +1469,34 @@ strong {
 p.wp-caption-text {
   margin-bottom: inherit;
 }
+.oph-story .alignleft {
+  float: left;
+  max-width: 100% !important;
+  width: auto !important;
+  margin-right: 20px;
+  margin-right: 2rem;
+}
+.oph-story .alignleft img {
+  height: auto !important;
+  margin-bottom: inherit;
+}
+.oph-story .alignright {
+  float: right;
+  max-width: 100% !important;
+  width: auto !important;
+  margin-left: 20px;
+  margin-left: 2rem;
+}
+.oph-story .alignright img {
+  height: auto !important;
+  margin-bottom: inherit;
+}
+.oph-story .aligncenter img {
+  margin-bottom: inherit;
+  display: block;
+  width: 100%;
+  height: auto;
+}
 /* Contact form */
 .contact-form tr:nth-child(odd) {
   background-color: #ffffff;

@@ -1161,8 +1161,45 @@ p.wp-caption-text {
     
 }
 
+.oph-story {
+    
+    .alignleft {
+            float: left;
+            max-width: 100% !important;
+            width: auto !important;
+            .margin-right(@gutter);
+            
+            img {
+                height: auto !important;
+                margin-bottom: inherit;
+            }
+    } 
 
-.wp-caption.aligncenter p.wp-caption-text {
+    .alignright {
+            float: right;
+            max-width: 100% !important;
+            width: auto !important;
+            .margin-left(@gutter);
+            
+            img {
+                height: auto !important;
+                margin-bottom: inherit;
+            }
+            
+    } 
+    
+    
+    .aligncenter {
+            
+        
+            img {
+                margin-bottom: inherit;
+                display: block;
+                width: 100%;
+                height: auto;
+            }    
+            
+    }
 
 }
 
