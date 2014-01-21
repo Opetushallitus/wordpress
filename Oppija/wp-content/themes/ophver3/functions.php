@@ -1116,5 +1116,15 @@ function oph_add_quicktags() {
 add_action( 'admin_print_footer_scripts', 'oph_add_quicktags' );
 add_action('init', 'oph_add_button');
 add_shortcode('oph-sign', 'oph_arrow_sign');
+
+// Fix for YouTube oembedding failing for https:// URLs (to be fixed in Wordpress 3.9)
+function youtube_https_oembed() {
+    wp_oembed_remove_provider( '#https?://(www\.)?youtube\.com/watch.*#i' );
+    wp_oembed_remove_provider( 'http://youtu.be/*' );
+    wp_oembed_add_provider( '#https?://(www\.)?youtube\.com/watch.*#i', 'http://www.youtube.com/oembed?scheme=https', true );
+    wp_oembed_add_provider( '#https?://youtu\.be/.*#i', 'http://www.youtube.com/oembed?scheme=https', true );
+    
+}
+add_action('init', 'youtube_https_oembed');
     
 ?>
