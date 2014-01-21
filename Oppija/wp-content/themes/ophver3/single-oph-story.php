@@ -1,13 +1,13 @@
 <?php get_header(); ?>
 
-<!-- breadcrumb -->
-	<nav class="breadcrumb">
-    <?php if(function_exists('bcn_display'))
-    {
-        bcn_display();
-    }?>
+    <!-- breadcrumb -->
+    <nav class="breadcrumb">
+        <?php if(function_exists('bcn_display'))
+        {
+            bcn_display();
+        }?>
     </nav>
-	<!-- /breaddcrumb -->
+    <!-- /breaddcrumb -->
 	
         <nav class="sidenav">
             <ul>
