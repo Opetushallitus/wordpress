@@ -1,3 +1,6 @@
+/* ==========================================================================
+   HTML5 display definitions
+   ========================================================================== */
 /*! normalize.css v2.1.0 | MIT License | git.io/normalize */
 /* ==========================================================================
    HTML5 display definitions
@@ -54,6 +57,8 @@ html {
   /* 1 */
 
   -webkit-text-size-adjust: 100%;
+  /* 2 */
+
   -ms-text-size-adjust: 100%;
   /* 2 */
 
@@ -865,7 +870,7 @@ header nav ul li:hover {
 header nav ul li:hover a {
   color: #333333;
 }
-header nav ul li:hover > ul {
+header nav ul li:hover  > ul {
   display: block;
 }
 header nav ul li a {
@@ -1393,6 +1398,11 @@ strong {
   margin-right: 25%;
 }
 /* WIDGETS */
+.footer-nav {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
 .footer-nav .widget {
   padding: 20px;
 }
@@ -2023,8 +2033,7 @@ you can add resource intensive styles.
   		 */
     width: 100%;
     display: inline-block;
-    border-bottom: 1px solid #dcdcdc;
-    margin-bottom: 19px;
+    margin-bottom: 0;
     /*		clear: none !important;
   		
   		&:nth-child(odd) {
