@@ -868,33 +868,45 @@ function oph_taxonomies()
 }
 add_action( 'init', 'oph_taxonomies' );
 
+/* Left-side sub navigation */
 function oph_subnavi()
 {
+    
+        // Fetch pages that are excluded from the top navigation
+        $page_excludes = get_pages( array(
+                            'meta_key' => '_top_nav_excluded',
+                            'hierarchical' => 0,
+                            'post_type' => 'page',
+                            'post_status' => 'publish'
+                         ));
+                         
+        $exclude_ids = wp_list_pluck($page_excludes, ID);
             
-            $parent = array_reverse(get_post_ancestors($post->ID));
-            $top_parent = get_post($parent[0])->ID;
-            
-            $ids = get_pages( array(
-                    'child_of' => $top_parent,
-                    'post_status' => 'publish'
-                   ) );
-                   
-            $ids = wp_list_pluck($ids, ID);
-            $ids[] = $top_parent;
-            $ids = implode(',', $ids);
-                                                                  
-            add_filter('the_title', 'show_short_title', 10, 2);
-            wp_list_pages( array(
-                'link_before' => '<span class="w80">',
-                'link_after' => '</span>',
-                'title_li' => '',
-                'sort_column'  => 'menu_order, post_title',
-                'depth' => 0,
-                'include' => $ids,
-                'post_type'    => 'page',
-                'post_status'  => 'publish'
-                ) );
-            remove_filter('the_title', 'show_short_title'); 
+        $parent = array_reverse(get_post_ancestors($post->ID));
+        $top_parent = get_post($parent[0])->ID;
+        
+        $ids = get_pages( array(
+                'child_of' => $top_parent,
+                'post_status' => 'publish',
+                'exclude' => $exclude_ids
+               ) );
+               
+        $ids = wp_list_pluck($ids, ID);
+        $ids[] = $top_parent;
+        $ids = implode(',', $ids);
+                                                              
+        add_filter('the_title', 'show_short_title', 10, 2);
+        wp_list_pages( array(
+            'link_before' => '<span class="w80">',
+            'link_after' => '</span>',
+            'title_li' => '',
+            'sort_column'  => 'menu_order, post_title',
+            'depth' => 0,
+            'include' => $ids,
+            'post_type'    => 'page',
+            'post_status'  => 'publish'
+            ) );
+        remove_filter('the_title', 'show_short_title'); 
 }
 
 /* Get related content based on taxonomies */
