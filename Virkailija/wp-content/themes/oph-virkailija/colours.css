@@ -84,7 +84,7 @@ blockquote {
 		border-left: 5px solid #ddd;
 		}
 
-small, #sidebar ul ul li, #sidebar ul ol li, .nocomments, .postmetadata, blockquote, strike {
+small, #sidebar ul ul li, ul.sidebar-list-content li, #sidebar ul ol li, .nocomments, .postmetadata, blockquote, strike {
 		color: #9b9b9b;
 		}
 

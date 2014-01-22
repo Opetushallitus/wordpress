@@ -149,6 +149,12 @@ small {
                 clear: both;
 }
 
+#sidebar ul ul.children {
+                font-size: 1em;
+                margin-left: 10px;
+                margin-top: 0em;
+}
+
 .commentlist li, #commentform input, #commentform textarea {
 		font-size: 0.9em;
 		}
