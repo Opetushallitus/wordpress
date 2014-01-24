@@ -1146,5 +1146,5 @@ function oph_oembed_filter($html, $url, $attr, $post_ID) {
 
 add_action('init', 'youtube_https_oembed');
 add_filter('embed_oembed_html', 'oph_oembed_filter', 10, 4) ;
-   
+
 ?>

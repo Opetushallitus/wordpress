@@ -731,8 +731,8 @@ img {
 }
 hr {
   border: 0;
-  background: url(../img/erotinpattern.png) repeat-x;
-  height: 1px;
+  border-bottom: 1px dashed #c3c3c3;
+  background: #e7e7e7;
   margin: 0px 0 20px 0;
 }
 /*********************
@@ -1135,26 +1135,20 @@ p {
   padding: 0 20px;
 }
 .sign {
-  clear: left;
   margin: 5px 0;
   display: inline-block;
-  max-width: 100%;
   padding-left: 10px;
   padding-left: 1rem;
   margin-right: 10px;
   margin-right: 1rem;
-  position: relative;
   text-decoration: none;
   color: #333333;
   font-size: 14px;
   font-size: 1.4rem;
   font-style: normal;
   font-weight: normal;
-  background: none;
   border: 1px solid #edcf7f;
   background-color: #fee7a5;
-  border-width: 1px;
-  border-style: solid;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   -o-border-radius: 3px;
