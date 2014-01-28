@@ -121,7 +121,7 @@
 		<div class="search">
 			<form action="/app/#!/haku/">
 				<fieldset class="search-container">
-					<label for="search-field" class="h2"><?php _e('Etsi koulutuksia tästä') ?></label>
+					<label for="search-field-frontpage" class="h2"><?php _e('Etsi koulutuksia tästä') ?></label>
 					<input type="text" tabindex="1" class="search-field" id="search-field-frontpage" name="search-field" placeholder="<?php _e('Kirjoita tähän esim. tutkinto, ammatti tai oppilaitoksen nimi') ?>" value="">
 					<button class="button primary magnifier" type="submit"><span><span class="h2"><?php _e('Hae') ?></span></span></button>
 				</fieldset>
