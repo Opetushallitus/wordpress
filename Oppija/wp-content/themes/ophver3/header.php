@@ -94,7 +94,7 @@
 		        <div class="actions primarylinks">
 					<ul>
 						<li class="icon basket">
-							<a href="/app/#/muistilista">
+							<a href="/app/#!/muistilista">
 								<span><?php _e('Muistilista') ?> (<span class="appbasket-count">0</span>)</span>
 							</a>
 						</li>
@@ -119,7 +119,7 @@
 
 				
 		<div class="search">
-			<form action="/app/#/haku/">
+			<form action="/app/#!/haku/">
 				<fieldset class="search-container">
 					<label for="search-field" class="h2"><?php _e('Etsi koulutuksia tästä') ?></label>
 					<input type="text" tabindex="1" class="search-field" id="search-field-frontpage" name="search-field" placeholder="<?php _e('Kirjoita tähän esim. tutkinto, ammatti tai oppilaitoksen nimi') ?>" value="">
