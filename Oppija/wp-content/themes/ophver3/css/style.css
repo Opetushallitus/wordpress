@@ -1262,9 +1262,6 @@ p {
   background: #dff2f8;
 }
 /* SUB - PAGE  */
-.page article {
-  border-bottom: 1px solid #dcdcdc;
-}
 .page article .article-image {
   clear: both;
 }
