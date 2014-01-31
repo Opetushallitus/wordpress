@@ -1,0 +1,45 @@
+Extrait
+Réglages
+Rich Text Excerpts
+Options Rich Text Excerpts
+Enregistrer les modifications
+Types de contenus
+Choisissez les types de contenus qui utiliseront l'éditeur de texte enrichi pour les extraits
+Options de l'éditeur
+Utilisez une boîte de méta
+Choisissez quel éditeur est utilisé pour des extraits
+Paramètres de l'éditeur
+Si vous voulez désactiver le support de tous les types de contenu, s'il vous plaît désactiver le plugin 
+Les types de contenus non sélectionnés utiliseront l'éditeur de texte standard pour les 
+extraits. Si le type de contenu que vous souhaitez ne figure pas ici, il ne prend pas en charge 
+extraits - pour ajouter le support des extraits à un type de contenu, voir 
+le Codex Wordpress
+Cochez cette case pour mettre l'extrait dans une boîte déplaçable
+Réglez la partie de la page où l'éditeur d'extrait doit être affiché
+Définissez la priorité de l'éditeur extrait
+Utilisez l'éditeur minimal par défaut (version 'teeny')
+Utilisez la version complète de l'éditeur
+Choisissez si vous voulez utiliser l'éditeur TinyMCE complet, ou 
+la version 'teeny'
+Cesser de retirer les <p> et <br> lors de l'enregistrement et les afficher dans 
+l'éditeur HTML. Ainsi, il sera possible d'utiliser un codage plus avancé dans 
+l'éditeur HTML sans le filtrage back-end qui l'affecte beaucoup . Cependant, il 
+peut se comporter de façon inattendue dans de rares cas. Testez-le pleinement avant de 
+l'activer de façon permanente
+Activer le bouton 'Ajouter un media'
+Nombre de lignes à utiliser dans l'éditeur de texte (minimum 3)
+Boutons de barre d'outils et plugins
+Pour une liste de boutons et plugins dans TinyMCE, voir le wiki de TinyMCE
+Il y a aussi de la documentation sur la mise en œuvre de TinyMCE dans 
+Wordpress sur le Codex Wordpress
+Les noms des boutons et des plugins doivent être séparés par des virgules
+Plugins à ajouter - assurez-vous d'ajouter les boutons spécifiques aux plugins dans la liste des 
+boutons de l'éditeur ci-dessous
+Boutons de la barre d'outils - utilisent le mot 'separator' pour séparer des groupes 
+de boutons
+Configurer les boutons pour la version complète de l'éditeur avec le TinyMCE Advanced 
+Plugin
+Si vous souhaitez configurer les boutons pour la version complète de l'éditeur, installer et 
+activer le plugin TinyMCE Advanced
+http://wordpress.org/extend/plugins/rich-text-excerpts/
+Ajoute du texte riche capacité de montage des extraits à l'aide de wp_editor()
