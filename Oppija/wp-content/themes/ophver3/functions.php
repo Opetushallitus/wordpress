@@ -996,43 +996,6 @@ function wpb_imagelink_setup() {
 	}
 }
 add_action('admin_init', 'wpb_imagelink_setup', 10);
-
-
-/*
- * Enable TinyMCE editor for excerpts
- */
-
-function tinymce_excerpt_js(){ ?>
-        <script type="text/javascript">
-                jQuery(document).ready( tinymce_excerpt );
-                    function tinymce_excerpt() {
-                        jQuery("#excerpt").addClass("mceEditor");
-                        tinyMCE.execCommand("mceAddControl", false, "excerpt");
-                        /* tinyMCE.onAddEditor.add(function(mgr,ed) { // Include/exclude tools to show
-                            if(ed.id=="excerpt"){
-                                ed.settings.theme_advanced_buttons2 ="";
-                                ed.settings.theme_advanced_buttons1 = "bold,italic,underline,seperator,justifyleft,justifycenter,justifyright,separator,link,unlink,seperator,pastetext,pasteword,removeformat,seperator,undo,redo,seperator,spellchecker,";
-                            }
-                        }); */
-                    }
-        </script>
-    <?php }
-    add_action( 'admin_head-post.php', 'tinymce_excerpt_js');
-    add_action( 'admin_head-post-new.php', 'tinymce_excerpt_js');
-    function tinymce_css(){ ?>
-        <style type='text/css'>
-                    #postexcerpt .inside{margin:0;padding:0;background:#fff;}
-                    #postexcerpt .inside p{padding:0px 0px 5px 10px;}
-                    #postexcerpt #excerpteditorcontainer { border-style: solid; padding: 0; }
-        </style>
-    <?php }
-    add_action( 'admin_head-post.php', 'tinymce_css');
-    add_action( 'admin_head-post-new.php', 'tinymce_css');
- 
-    function prepareExcerptForEdit($e){
-        return nl2br($e);
-    }
-    add_action( 'excerpt_edit_pre','prepareExcerptForEdit');
     
 /* 
  * Enable CORS for JSON Api  
