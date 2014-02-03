@@ -69,6 +69,12 @@
 </head>
 
 <body <?php body_class(); ?>>
+    <noscript>
+       <div class="nojs alert">
+            Toistaiseksi Opintopolku.fi:n käyttö edellyttää JavaScript -tukea.<br>
+            Voit halutessasi ottaa JavaScriptin käyttöön selaimesi asetuksista.
+        </div>
+    </noscript>
     <header id="siteheader">
 		<div class="logo-bg">
 			<div class="container">

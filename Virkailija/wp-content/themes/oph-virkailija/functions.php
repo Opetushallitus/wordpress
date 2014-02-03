@@ -496,4 +496,15 @@ function add_excerpts_to_pages() {
 
 add_action( 'init', 'add_excerpts_to_pages' );
 
+
+function add_custom_role_test() {
+    add_role('test_role', 'Test role', array(
+        'read' => true, // True allows that capability
+        'edit_posts' => true,
+        'delete_posts' => false, // Use false to explicitly deny
+    ));
+}   
+    
+add_action( 'init', 'add_custom_role_test' );
+
 ?>

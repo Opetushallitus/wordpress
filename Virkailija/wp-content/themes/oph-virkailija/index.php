@@ -21,8 +21,6 @@ get_header(); ?>
                 
                 
                 <div id="entries-content">
-
-                    <?php query_posts(); ?>
                     
                     <?php while (have_posts()) : the_post(); ?>
 
