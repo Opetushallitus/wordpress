@@ -1,3 +1,6 @@
+/* ==========================================================================
+   HTML5 display definitions
+   ========================================================================== */
 /*! normalize.css v2.1.0 | MIT License | git.io/normalize */
 /* ==========================================================================
    HTML5 display definitions
@@ -54,6 +57,8 @@ html {
   /* 1 */
 
   -webkit-text-size-adjust: 100%;
+  /* 2 */
+
   -ms-text-size-adjust: 100%;
   /* 2 */
 
@@ -865,7 +870,7 @@ header nav ul li:hover {
 header nav ul li:hover a {
   color: #333333;
 }
-header nav ul li:hover > ul {
+header nav ul li:hover  > ul {
   display: block;
 }
 header nav ul li a {
@@ -1616,7 +1621,7 @@ section.story {
   margin-top: -9px;
 }
 /* Noscript Alert Box */
-.nojs.alert {
+.nojs-alert {
   background: #FFABAB;
   border: 1px solid #FF8585;
   color: #fff;
