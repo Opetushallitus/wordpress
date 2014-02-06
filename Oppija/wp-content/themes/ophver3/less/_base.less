@@ -1025,6 +1025,18 @@ article ol {
     min-height: 45px;
 }
 
+.notif-nojs {
+  
+    div {
+        float: left;
+        margin-top: 5px;   
+    }
+    
+    overflow: auto;
+    padding: 5px;
+    width: 100%;
+}
+
 .notification p {
     font-size: 13px;
 }
@@ -1045,9 +1057,9 @@ strong {
 
 .footer-nav {
   
-  -webkit-border-radius: 3px;
-     -moz-border-radius: 3px;
-          border-radius: 3px;
+    -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+            border-radius: 3px;
   
   .widget {
     padding: 20px;
@@ -1337,18 +1349,18 @@ section.story {
 }
 
 /* Search field */
+
 #search-field-frontpage {
     margin-top: -9px;
 }
 
-/* Noscript Alert Box */
+/* Skip to content */
 
-.nojs-alert {
-  background: #FFABAB;
-  border: 1px solid #FF8585;
-  color: #fff;
-  font-weight: bold;
-  text-align: center;
-  padding: 10px;
+.offscreen {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
 }
-

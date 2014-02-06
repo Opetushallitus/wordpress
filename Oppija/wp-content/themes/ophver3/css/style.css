@@ -1375,6 +1375,15 @@ article ol {
   padding-top: 11px;
   min-height: 45px;
 }
+.notif-nojs {
+  overflow: auto;
+  padding: 5px;
+  width: 100%;
+}
+.notif-nojs div {
+  float: left;
+  margin-top: 5px;
+}
 .notification p {
   font-size: 13px;
 }
@@ -1620,14 +1629,14 @@ section.story {
 #search-field-frontpage {
   margin-top: -9px;
 }
-/* Noscript Alert Box */
-.nojs-alert {
-  background: #FFABAB;
-  border: 1px solid #FF8585;
-  color: #fff;
-  font-weight: bold;
-  text-align: center;
-  padding: 10px;
+/* Skip to content */
+.offscreen {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 /*@page-max-width: 960px;*/
 @media only screen and (min-width: 519px) {
