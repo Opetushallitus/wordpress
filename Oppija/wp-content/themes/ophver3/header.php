@@ -68,7 +68,7 @@
 		</script>
 </head>
 <body <?php body_class(); ?>>
-    <a href="#skip" class="offscreen"><?php _e('Skip to content', 'html5blank'); ?></a>
+    <a href="#maincontent" class="offscreen"><?php _e('Skip to content', 'html5blank'); ?></a>
     <noscript>
        <div class="notification">
            <div class="notif-nojs">
@@ -138,4 +138,4 @@
 		</div>
 	</header>
 	
-	<div class="content container">		
+	<div id="maincontent" class="content container">		
