@@ -1374,6 +1374,7 @@ article ol {
   min-height: 45px;
 }
 .notif-nojs {
+  color: #c09853;
   overflow: auto;
   padding: 5px;
   width: 100%;
