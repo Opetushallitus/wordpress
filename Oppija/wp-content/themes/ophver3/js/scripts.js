@@ -42,6 +42,9 @@ $(document).ready(function() {
         $(this).parent('a').toggleClass('expanded');
     });
 
-    /*expand current tree by default*/
-    $('nav.sidenav li.current_page_ancestor a, nav.sidenav li.current_page_item a').addClass('expanded');
+    /* expand only the first level of subnavigation */
+    $('nav.sidenav > ul > li > a, li.current_page_item > a, li.current_page_parent > a, li.current_page_ancestor > a').addClass('expanded');
+    
+    /* expand all subnavigation items (DISABLED) */
+    //$('nav.sidenav li.current_page_ancestor a, nav.sidenav li.current_page_item a').addClass('expanded');
 });

@@ -1020,7 +1020,6 @@ nav.sidenav ul li ul.children {
   display: none;
   transition: 1s linear;
   border: 0;
-  max-height: 0;
 }
 nav.sidenav ul li ul.children li a {
   background: #fff;
@@ -1049,8 +1048,7 @@ nav.sidenav .current_page_item > a {
 }
 nav.sidenav a.expanded + ul {
   display: block !important;
-  -webkit-transition: all 2s ease-in-out;
-  max-height: 2000px !important;
+  transition: all 2s ease-in-out;
   overflow: hidden;
 }
 .expandable .expand-icon {
