@@ -62,7 +62,7 @@ function icl_st_init(){
         $sitepress->save_settings($sitepress_settings); 
     }
     if(empty($sitepress_settings['st']['strings_language'])){
-        $iclsettings['st']['strings_language'] = $sitepress_settings['st']['strings_language'] = $sitepress->get_default_language();
+        $iclsettings['st']['strings_language'] = $sitepress_settings['st']['strings_language'] = 'en';
         $sitepress->save_settings($iclsettings);
     }
     
@@ -95,7 +95,7 @@ function icl_st_init(){
                 if(is_array($widget_text)){
                     foreach($widget_text as $k=>$w){
                         if(!empty($w) && isset($w['title']) && in_array($k, $active_text_widgets)){
-                            icl_register_string('Widgets', 'widget body - ' . md5(apply_filters('widget_text',$w['text'])), apply_filters('widget_text',$w['text']));
+                            icl_register_string('Widgets', 'widget body - ' . md5($w['text']), $w['text']);
                         }
                     }
                 }
@@ -269,12 +269,12 @@ function icl_st_init(){
     // hook into blog title and tag line    
     add_filter('option_blogname', 'icl_sw_filters_blogname');
     add_filter('option_blogdescription', 'icl_sw_filters_blogdescription');        
-    add_filter('widget_title', 'icl_sw_filters_widget_title');
-    add_filter('widget_text', 'icl_sw_filters_widget_text');
+    add_filter('widget_title', 'icl_sw_filters_widget_title', 0);  //highest priority
+    add_filter('widget_text', 'icl_sw_filters_widget_text', 0); //highest priority
                          
     if(isset($sitepress_settings['theme_localization_type']) && $sitepress_settings['theme_localization_type']==1){
         add_filter('gettext', 'icl_sw_filters_gettext', 9, 3);
-        add_filter('gettext_with_context', 'icl_sw_filters_gettext_with_context', 9, 4);
+        add_filter('gettext_with_context', 'icl_sw_filters_gettext_with_context', 1, 4);
         add_filter('ngettext', 'icl_sw_filters_ngettext', 9, 5);
         add_filter('ngettext_with_context', 'icl_sw_filters_nxgettext', 9, 6);
     }
@@ -340,7 +340,7 @@ function __icl_st_init_register_widget_titles(){
         }
         
         if($w_title){            
-            icl_register_string('Widgets', 'widget title - ' . md5(apply_filters('widget_title',$w_title)), apply_filters('widget_title',$w_title));                                    
+            icl_register_string('Widgets', 'widget title - ' . md5($w_title), $w_title);                                    
             
         }
     }    
@@ -657,8 +657,10 @@ function icl_add_string_translation($string_id, $language, $value = null, $statu
         $wpdb->insert($wpdb->prefix.'icl_string_translations', $st);
         $st_id = $wpdb->insert_id;
     }    
-
-    $GLOBALS['ICL_Pro_Translation']->_content_fix_links_to_translated_content($st_id, $language, 'string');    
+    
+    if(isset($GLOBALS['ICL_Pro_Translation'])){
+        $GLOBALS['ICL_Pro_Translation']->_content_fix_links_to_translated_content($st_id, $language, 'string');    
+    }
                                          
     icl_update_string_status($string_id);
     
@@ -1043,63 +1045,81 @@ function icl_sw_filters_widget_text($val){
     return $val;
 }
 
-function icl_sw_filters_gettext($translation, $text, $domain, $name = false){
-    global $sitepress_settings;
-    $has_translation = 0;
-    
-    static $gettext_calls = array('__', '_e', '_ex', '_n', '_n_noop', '_nx', '_nx_noop', '_x', 'esc_attr__', 'esc_attr_e', 'esc_attr_x', 'esc_html__', 'esc_html_e', 'esc_html_x',);
-    
-    $dbt = debug_backtrace();    
-    $dbt4 = isset($dbt[4]['file']) ? str_replace('\\','/',$dbt[4]['file']) : '';
-    $dbt5 = isset($dbt[5]['file']) ? str_replace('\\','/',$dbt[5]['file']) : '';
-    $wp_plugin_dir = str_replace('\\','/',WP_PLUGIN_DIR);
-    $wpmu_plugin_dir = str_replace('\\','/',WPMU_PLUGIN_DIR); 
-    
-    if(0 === strpos($dbt4, $wp_plugin_dir)){        
-        if(dirname($dbt4) == $wp_plugin_dir){
-            $plugin_folder = basename(str_replace($wp_plugin_dir, '', $dbt4));    
-        }else{
-            $exp = explode('/', ltrim(str_replace($wp_plugin_dir, '', $dbt4),'/'));            
-            $plugin_folder = $exp[0];    
-        }
-        $context = 'plugin ' . $plugin_folder;
-    }elseif(0 === strpos($dbt5, $wp_plugin_dir) && in_array($dbt[5]['function'], $gettext_calls)){        
-        if(dirname($dbt4) == $wp_plugin_dir){
-            $plugin_folder = basename(str_replace($wp_plugin_dir, '', $dbt5));    
-        }else{
-            $exp = explode('/', ltrim(str_replace($wp_plugin_dir, '', $dbt5),'/'));            
-            $plugin_folder = $exp[0];    
-        }
-        $context = 'plugin ' . $plugin_folder;
-    }elseif(0 === strpos($dbt4, $wpmu_plugin_dir)){ 
-        $context = ($domain != 'default') ? 'plugin ' . $domain : 'plugin';         
-    }elseif(0 === strpos($dbt5, $wpmu_plugin_dir) && in_array($dbt[5]['function'], $gettext_calls)){ 
-        $context = ($domain != 'default') ? 'plugin ' . $domain : 'plugin';                 
-    }else{
-        $context = ($domain != 'default') ? 'theme ' . $domain : 'WordPress';
-    }
-    
-    // track strings if the user has enabled this and if it's and editor or admin
-    if(isset($sitepress_settings['st']['track_strings']) && $sitepress_settings['st']['track_strings'] && current_user_can('edit_others_posts')){
-        icl_st_track_string($text, $context, ICL_STRING_TRANSLATION_STRING_TRACKING_TYPE_PAGE);
-    }   
+function icl_sw_filters_gettext( $translation, $text, $domain, $name = false )
+{
+	global $sitepress_settings, $sitepress;
+	$has_translation = 0;
 
-    if(empty($name)){
-        $name = md5($text);
-    }     
-    
-    $ret_translation = icl_t($context, $name, $text, $has_translation);
-    if(false === $has_translation){
-        $ret_translation = $translation;   
-    }
-    
-    if(isset($_GET['icl_string_track_value']) && isset($_GET['icl_string_track_context']) 
-        && stripslashes($_GET['icl_string_track_context']) == $context && stripslashes($_GET['icl_string_track_value']) == $text){
-            $ret_translation = '<span style="background-color:'.$sitepress_settings['st']['hl_color'].'">' . $ret_translation . '</span>';
-            
-    }
-    
-    return $ret_translation;
+	if ( defined( 'DOING_AJAX' ) ) {
+		$current_language = $sitepress->get_language_cookie();
+	} elseif ( is_admin() ) {
+		$current_language = $sitepress->get_admin_language();
+	} else {
+		$current_language = $sitepress->get_current_language();
+	}
+
+	$cache_name      = $translation . $text . $domain . $current_language;
+	$ret_translation = wp_cache_get( $cache_name );
+	if ( $ret_translation ) {
+		return $ret_translation;
+	}
+
+	static $gettext_calls = array( '__', '_e', '_ex', '_n', '_n_noop', '_nx', '_nx_noop', '_x', 'esc_attr__', 'esc_attr_e', 'esc_attr_x', 'esc_html__', 'esc_html_e', 'esc_html_x', );
+
+	$dbt             = debug_backtrace();
+	$dbt4            = isset( $dbt[ 4 ][ 'file' ] ) ? str_replace( '\\', '/', $dbt[ 4 ][ 'file' ] ) : '';
+	$dbt5            = isset( $dbt[ 5 ][ 'file' ] ) ? str_replace( '\\', '/', $dbt[ 5 ][ 'file' ] ) : '';
+	$wp_plugin_dir   = str_replace( '\\', '/', WP_PLUGIN_DIR );
+	$wpmu_plugin_dir = str_replace( '\\', '/', WPMU_PLUGIN_DIR );
+
+	if ( 0 === strpos( $dbt4, $wp_plugin_dir ) ) {
+		if ( dirname( $dbt4 ) == $wp_plugin_dir ) {
+			$plugin_folder = basename( str_replace( $wp_plugin_dir, '', $dbt4 ) );
+		} else {
+			$exp           = explode( '/', ltrim( str_replace( $wp_plugin_dir, '', $dbt4 ), '/' ) );
+			$plugin_folder = $exp[ 0 ];
+		}
+		$context = 'plugin ' . $plugin_folder;
+	} elseif ( 0 === strpos( $dbt5, $wp_plugin_dir ) && in_array( $dbt[ 5 ][ 'function' ], $gettext_calls ) ) {
+		if ( dirname( $dbt4 ) == $wp_plugin_dir ) {
+			$plugin_folder = basename( str_replace( $wp_plugin_dir, '', $dbt5 ) );
+		} else {
+			$exp           = explode( '/', ltrim( str_replace( $wp_plugin_dir, '', $dbt5 ), '/' ) );
+			$plugin_folder = $exp[ 0 ];
+		}
+		$context = 'plugin ' . $plugin_folder;
+	} elseif ( 0 === strpos( $dbt4, $wpmu_plugin_dir ) ) {
+		$context = ( $domain != 'default' ) ? 'plugin ' . $domain : 'plugin';
+	} elseif ( 0 === strpos( $dbt5, $wpmu_plugin_dir ) && in_array( $dbt[ 5 ][ 'function' ], $gettext_calls ) ) {
+		$context = ( $domain != 'default' ) ? 'plugin ' . $domain : 'plugin';
+	} else {
+		$context = ( $domain != 'default' ) ? 'theme ' . $domain : 'WordPress';
+	}
+
+	// track strings if the user has enabled this and if it's and editor or admin
+	if ( isset( $sitepress_settings[ 'st' ][ 'track_strings' ] ) && $sitepress_settings[ 'st' ][ 'track_strings' ] && current_user_can( 'edit_others_posts' ) ) {
+		icl_st_track_string( $text, $context, ICL_STRING_TRANSLATION_STRING_TRACKING_TYPE_PAGE );
+	}
+
+	if ( empty( $name ) ) {
+		$name = md5( $text );
+	}
+
+	$ret_translation = icl_t( $context, $name, $text, $has_translation );
+	if ( false === $has_translation ) {
+		$ret_translation = $translation;
+	}
+
+	if ( isset( $_GET[ 'icl_string_track_value' ] ) && isset( $_GET[ 'icl_string_track_context' ] )
+		&& stripslashes( $_GET[ 'icl_string_track_context' ] ) == $context && stripslashes( $_GET[ 'icl_string_track_value' ] ) == $text
+	) {
+		$ret_translation = '<span style="background-color:' . $sitepress_settings[ 'st' ][ 'hl_color' ] . '">' . $ret_translation . '</span>';
+
+	}
+
+	wp_cache_set( $cache_name, $ret_translation );
+
+	return $ret_translation;
 }
 
 function icl_sw_filters_gettext_with_context($translation, $text, $_gettext_context, $domain){
@@ -1176,7 +1196,9 @@ function icl_st_author_description_filter($value, $user_id){
     }
     
     $user = new WP_User($user_id);        
-    
+
+	if(!isset($sitepress_settings['st']['translated-users'])) $sitepress_settings['st']['translated-users'] = array();
+
     if ( is_array( $user->roles ) && is_array($sitepress_settings['st']['translated-users']) && array_intersect($user->roles, $sitepress_settings['st']['translated-users'])){
         $value = icl_st_translate_author_fields('description', $value, $user_id);
     }
@@ -1285,10 +1307,10 @@ function icl_st_update_widget_title_actions($old_options, $new_options){
     foreach($new_options as $k=>$o){
         if(isset($o['title'])){
             if(isset($old_options[$k]['title']) && $old_options[$k]['title']){
-                icl_st_update_string_actions('Widgets', 'widget title - ' . md5(apply_filters('widget_title', $old_options[$k]['title'])), apply_filters('widget_title', $old_options[$k]['title']), apply_filters('widget_title', $o['title']));        
+                icl_st_update_string_actions('Widgets', 'widget title - ' . md5($old_options[$k]['title']), $old_options[$k]['title'], $o['title']);        
             }else{                
                 if($new_options[$k]['title']){          
-                    icl_register_string('Widgets', 'widget title - ' . md5(apply_filters('widget_title', $new_options[$k]['title'])), apply_filters('widget_title', $new_options[$k]['title']));
+                    icl_register_string('Widgets', 'widget title - ' . md5($new_options[$k]['title']), $new_options[$k]['title']);
                 }                
             }            
         }
@@ -1305,15 +1327,15 @@ function icl_st_update_text_widgets_actions($old_options, $new_options){
     if(is_array($widget_text)){
         foreach($widget_text as $k=>$w){
             if(isset($old_options[$k]['text']) && trim($old_options[$k]['text']) && $old_options[$k]['text'] != $w['text']){
-                $old_md5 = md5(apply_filters('widget_text', $old_options[$k]['text']));
+                $old_md5 = md5($old_options[$k]['text']);
                 $string = $wpdb->get_row($wpdb->prepare("SELECT id, value, status FROM {$wpdb->prefix}icl_strings WHERE context=%s AND name=%s", 'Widgets', 'widget body - ' . $old_md5));    
                 if ($string) {
-                    icl_st_update_string_actions('Widgets', 'widget body - ' . $old_md5, apply_filters('widget_text', $old_options[$k]['text']), apply_filters('widget_text', $w['text']));
+                    icl_st_update_string_actions('Widgets', 'widget body - ' . $old_md5, $old_options[$k]['text'], $w['text']);
                 } else {
-                    icl_register_string('Widgets', 'widget body - ' . md5(apply_filters('widget_text', $w['text'])), apply_filters('widget_text', $w['text']));
+                    icl_register_string('Widgets', 'widget body - ' . md5($w['text']), $w['text']);
                 }
             }elseif(isset($new_options[$k]['text']) && $old_options[$k]['text']!=$new_options[$k]['text']){
-                icl_register_string('Widgets', 'widget body - ' . md5(apply_filters('widget_text', $new_options[$k]['text'])), apply_filters('widget_text', $new_options[$k]['text']));
+                icl_register_string('Widgets', 'widget body - ' . md5($new_options[$k]['text']), $new_options[$k]['text']);
             }
         }
     }
@@ -1328,29 +1350,28 @@ function icl_t_cache_lookup($context, $name){
     
     static $icl_st_cache;
     $ret_value = false;
+
+    // determine the correct current language
+    if(defined('DOING_AJAX') || defined('DOING_CRON') || isset($_GET['doing_wp_cron'])){            
+         $current_language = $sitepress->get_language_cookie();
+    }elseif(is_admin()){            
+        $current_language = $sitepress->get_admin_language();                 
+    }else{
+        $current_language = $sitepress->get_current_language();     
+    }
+    $default_language = $sitepress->get_default_language();
     
-    if(!isset($icl_st_cache[$context])){  //CACHE MISS (context)    
+    if(!isset($icl_st_cache[$current_language][$context])){  //CACHE MISS (context)    
         
-        $icl_st_cache[$context] = array();
-                        
-        // determine the correct current language
-        if(defined('DOING_AJAX') || defined('DOING_CRON') || isset($_GET['doing_wp_cron'])){            
-             $current_language = $sitepress->get_language_cookie();
-        }elseif(is_admin()){            
-            $current_language = $sitepress->get_admin_language();                 
-        }else{
-            $current_language = $sitepress->get_current_language();     
-        }
-        $default_language = $sitepress->get_default_language();
-        
+        $icl_st_cache[$current_language][$context] = array();
         // workaround for multi-site setups - part i
-        global $switched, $switched_stack;        
-        if(isset($switched) && $switched){
+        global $switched, $_wp_switched_stack;
+        if(isset($switched) && $switched && $_wp_switched_stack){
             $prev_blog_id = $wpdb->blogid;
-            $wpdb->set_blog_id($switched_stack[0]);
+            $wpdb->set_blog_id($_wp_switched_stack[0]);
         }
         
-        // THE QUERY        
+        // THE QUERY
         $res = $wpdb->get_results($wpdb->prepare("
             SELECT s.name, s.value, t.value AS translation_value, t.status
             FROM  {$wpdb->prefix}icl_strings s
@@ -1359,28 +1380,28 @@ function icl_t_cache_lookup($context, $name){
                 AND (t.language = %s OR t.language IS NULL)
             ", $context, $current_language), ARRAY_A);        
         // workaround for multi-site setups - part ii
-        if(isset($switched) && $switched){
+        if(isset($switched) && $switched && $_wp_switched_stack){
             $wpdb->set_blog_id($prev_blog_id);
         }   
-        
+
         // SAVE QUERY RESULTS
         if($res){
             foreach($res as $row){                
                 if($row['status'] != ICL_STRING_TRANSLATION_COMPLETE || empty($row['translation_value'])){
-                    $icl_st_cache[$context][$row['name']]['translated'] = false;
-                    $icl_st_cache[$context][$row['name']]['value'] = $row['value'];
+                    $icl_st_cache[$current_language][$context][$row['name']]['translated'] = false;
+                    $icl_st_cache[$current_language][$context][$row['name']]['value'] = $row['value'];
                 }else{
-                    $icl_st_cache[$context][$row['name']]['translated'] = true;
-                    $icl_st_cache[$context][$row['name']]['value'] = $row['translation_value'];
-                    $icl_st_cache[$context][$row['name']]['original'] = $row['value'];
+                    $icl_st_cache[$current_language][$context][$row['name']]['translated'] = true;
+                    $icl_st_cache[$current_language][$context][$row['name']]['value'] = $row['translation_value'];
+                    $icl_st_cache[$current_language][$context][$row['name']]['original'] = $row['value'];
                 }
             }
         }
         
     }
         
-    if(isset($icl_st_cache[$context][$name])){   
-        $ret_value = $icl_st_cache[$context][$name];                             
+    if(isset($icl_st_cache[$current_language][$context][$name])){           
+        $ret_value = $icl_st_cache[$current_language][$context][$name];                             
     }    
         
     return $ret_value;    

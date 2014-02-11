@@ -17,7 +17,8 @@ class TM_Notification{
         global $iclTranslationManagement, $sitepress, $wpdb;
         $job = $iclTranslationManagement->get_translation_job($job_id);
         $translators = TranslationManagement::get_blog_translators(array('to'=>$job->language_code));
-        $edit_url = admin_url('admin.php?page=' . WPML_TM_FOLDER . '/menu/translations-queue.php&job_id=' . $job_id);
+        $edit_url = apply_filters('icl_job_edit_url',admin_url('admin.php?page=' . WPML_TM_FOLDER . '/menu/translations-queue.php&job_id=' . $job_id),$job_id);
+
         foreach($translators as $t){
             
             if($job->manager_id == $t->ID) continue;
@@ -57,8 +58,8 @@ class TM_Notification{
         
         if($job->manager_id == $job->translator_id) return;
         
-        $edit_url = admin_url('admin.php?page=' . WPML_TM_FOLDER . '/menu/translations-queue.php&job_id=' . $job_id);
-        
+        $edit_url = apply_filters('icl_job_edit_url',admin_url('admin.php?page=' . WPML_TM_FOLDER . '/menu/translations-queue.php&job_id=' . $job_id),$job_id);
+
         $user = new WP_User($translator_id);
         
         // get current user admin language
@@ -159,8 +160,9 @@ class TM_Notification{
         if($iclTranslationManagement->settings['notification']['resigned'] == ICL_TM_NOTIFICATION_IMMEDIATELY){
             $mail['to'] = $manager->display_name . ' <' . $manager->user_email . '>';
             $mail['subject'] = sprintf(__('Translator has resigned from job on %s', 'sitepress'), get_bloginfo('name'));
-            $mail['body'] = sprintf(__('Translator %s has resigned from the translation job "%s" for %s to %s.%sView translation jobs: %s', 'sitepress'),
-            $translator->display_name, $job->original_doc_title, $lang_from, $lang_to, "\n", $tj_url);            
+			$original_doc_title = isset($job->original_doc_title) ? $job->original_doc_title : __("Deleted", "sitepress");
+			$mail['body'] = sprintf(__('Translator %s has resigned from the translation job "%s" for %s to %s.%sView translation jobs: %s', 'sitepress'),
+            $translator->display_name, $original_doc_title, $lang_from, $lang_to, "\n", $tj_url);
             $mail['type'] = 'admin';
             
             $this->send_mail($mail, $user_language);

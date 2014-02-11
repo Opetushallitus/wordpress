@@ -1,5 +1,4 @@
 <?php
-define('WPML_MEDIA_VERSION', '2.0.2');
 define('WPML_MEDIA_FOLDER', basename(WPML_MEDIA_PATH));
 
 if (defined('WP_ADMIN') && defined('FORCE_SSL_ADMIN') && FORCE_SSL_ADMIN) {

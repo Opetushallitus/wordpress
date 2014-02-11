@@ -57,12 +57,13 @@ class AbsoluteLinks{
         }       
         $home_url = str_replace("?", "\?",$home_url);           
         
-        $int1  = preg_match_all('@<a([^>]*)href="(('.rtrim($home_url,'/').')?/([^"^>]+))"([^>]*)>@i',$text,$alp_matches1);        
-        $int2 = preg_match_all('@<a([^>]*)href=\'(('.rtrim($home_url,'/').')?/([^\'^>]+))\'([^>]*)>@i',$text,$alp_matches2);        
+        $int1  = preg_match_all('@<a([^>]*)href="(('.rtrim($home_url,'/').')?/([^"^>^\[^\]]+))"([^>]*)>@i',$text,$alp_matches1);
+        $int2 = preg_match_all('@<a([^>]*)href=\'(('.rtrim($home_url,'/').')?/([^\'^>^\[^\]]+))\'([^>]*)>@i',$text,$alp_matches2);
+
         for($i = 0; $i < 6; $i++){
-            $alp_matches[$i] = array_merge((array)$alp_matches1[$i], (array)$alp_matches2[$i]); 
-        }               
-        
+            $alp_matches[$i] = array_merge((array)$alp_matches1[$i], (array)$alp_matches2[$i]);
+        }
+
         $sitepress_settings = $sitepress->get_settings();
         
         if($int1 || $int2){   
@@ -383,4 +384,3 @@ class AbsoluteLinks{
     }    
     
 }  
-?>

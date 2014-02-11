@@ -165,11 +165,14 @@ function icl_link_to_element($element_id, $element_type='post', $link_text='',
     }
 }
 
-function icl_object_id($element_id, $element_type='post',
-        $return_original_if_missing=false, $ulanguage_code=null) {
+function icl_object_id($element_id, $element_type='post', $return_original_if_missing=false, $ulanguage_code=null) {
     global $sitepress, $wpdb, $wp_post_types, $wp_taxonomies;
 
-    // special case of any - we assume it's a post type
+	if ( is_null( $ulanguage_code ) ) {
+		$ulanguage_code = $sitepress->get_current_language();
+	}
+
+	// special case of any - we assume it's a post type
     if($element_type == 'any' && $_dtype = $wpdb->get_var($wpdb->prepare("SELECT post_type FROM {$wpdb->posts} WHERE ID=%d", $element_id))){
         $element_type = $_dtype;    
     }
@@ -214,11 +217,8 @@ function icl_object_id($element_id, $element_type='post',
     }
 
     $trid = $sitepress->get_element_trid($icl_element_id, $icl_element_type);
-    $translations = $sitepress->get_element_translations($trid,
-            $icl_element_type);    
-    if (is_null($ulanguage_code)) {
-        $ulanguage_code = $sitepress->get_current_language();
-    }
+    $translations = $sitepress->get_element_translations($trid, $icl_element_type);
+
     if (isset($translations[$ulanguage_code]->element_id)) {
         $ret_element_id = $translations[$ulanguage_code]->element_id;
         if (in_array($element_type, $taxonomies)) {

@@ -183,16 +183,17 @@
   }
   
   function wpml_home_url_redirect_home(){
-      global $sitepress_settings, $sitepress;
-      
-      $queried_object = get_queried_object();
-      
-      $parts = parse_url(get_option('home'));
-      
-      if(!isset($parts['path'])) $parts['path'] = '';
-      
-      if($queried_object && $queried_object->ID == $sitepress_settings['urls']['root_page'] && trim($parts['path'], '/') != trim($_SERVER['REQUEST_URI'], '/')){
-          wp_redirect(get_option('home'), 301);
+      global $sitepress_settings;
+
+	  $queried_object = get_queried_object();
+	  $home           = get_option( 'home' );
+	  $parts          = parse_url( $home );
+
+	  if(!isset($parts['path'])) $parts['path'] = '';
+
+	  $request_url = $_SERVER[ 'REQUEST_URI' ];
+	  if($queried_object && $queried_object->ID == $sitepress_settings['urls']['root_page'] && trim($parts['path'], '/') != trim( $request_url, '/')){
+          wp_redirect( $home, 301);
           exit;
       }
       
@@ -212,6 +213,3 @@
     return $hide;  
               
   }
-  
-  
-?>

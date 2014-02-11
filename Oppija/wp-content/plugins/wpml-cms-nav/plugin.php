@@ -5,12 +5,12 @@ Plugin URI: http://wpml.org/
 Description: Adds CMS navigation elements to sites built with WPML. <a href="http://wpml.org">Documentation</a>.
 Author: ICanLocalize
 Author URI: http://wpml.org
-Version: 1.3
+Version: 1.4
 */
 
 if(defined('WPML_CMS_NAV_VERSION')) return;
 
-define('WPML_CMS_NAV_VERSION', '1.3');
+define('WPML_CMS_NAV_VERSION', '1.4');
 define('WPML_CMS_NAV_PLUGIN_PATH', dirname(__FILE__));
 
 require WPML_CMS_NAV_PLUGIN_PATH . '/inc/constants.php';

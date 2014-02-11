@@ -44,6 +44,7 @@ foreach ($icl_post_types as $id => $type_info) {
 
         // this is an external type returned by WPML_get_translatable_types
         $new_type = new stdClass();
+		$new_type->labels = new stdClass();
         $new_type->labels->singular_name = $type_info;
         $new_type->labels->name = $type_info;
 

@@ -169,8 +169,8 @@ class WPML_CMS_Navigation{
             $args = func_get_args();
             $separator = $args[0];
         }
-        
-        if(!empty($separator) && $separator != $this->settings['breadcrumbs_separator']){
+
+		if(!empty($separator) && is_string($separator) && $separator != $this->settings['breadcrumbs_separator']){
             $this->settings['breadcrumbs_separator'] = $separator;
         }
         
@@ -443,7 +443,8 @@ class WPML_CMS_Navigation{
             $page_for_posts_abs = get_option('page_for_posts');            
             $sitepress->switch_lang();
             if($show_cat_menu && (0 !== strpos('page', get_option('show_on_front')) || !$page_for_posts_abs)){
-                if($pages){
+				$res = false;
+				if($pages){
                     $res = $wpdb->get_results("SELECT ID, menu_order FROM {$wpdb->posts} WHERE ID IN (".join(',', $pages).") ORDER BY menu_order");
                 }
                 if($res){
@@ -826,7 +827,21 @@ class WPML_CMS_Navigation{
             }
         }else{
             // get sections
-            $sections = $wpdb->get_col("SELECT DISTINCT meta_value FROM {$wpdb->postmeta} WHERE meta_key='_cms_nav_section'");
+			//$sections = $wpdb->get_col("SELECT DISTINCT meta_value FROM {$wpdb->postmeta} WHERE meta_key='_cms_nav_section'");
+			global $sitepress;
+			$current_language = $sitepress->get_current_language();
+			$sql = "
+					SELECT
+					  DISTINCT meta_value
+					FROM {$wpdb->postmeta} pm
+					INNER JOIN {$wpdb->prefix}icl_translations t
+					ON t.element_id = pm.post_id
+					WHERE meta_key='_cms_nav_section'
+					AND t.element_type = 'post_page'
+					AND t.language_code = '$current_language'
+					";
+            $sections = $wpdb->get_col($sql);
+
             $post_custom = get_post_custom($post->ID);    
             $cms_nav_section = isset($post_custom['_cms_nav_section'][0]) ? $post_custom['_cms_nav_section'][0] : '';        
         }        

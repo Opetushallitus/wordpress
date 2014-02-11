@@ -395,9 +395,9 @@ class ICL_Pro_Translation{
         return $err ? false : $res; //last $ret
     }
     
-    public function server_languages_map($language_name, $server2plugin = false){    
+    public static function server_languages_map($language_name, $server2plugin = false){
         if(is_array($language_name)){
-            return array_map(array($this, 'icl_server_languages_map'), $language_name);
+            return array_map(array(__CLASS__, 'icl_server_languages_map'), $language_name);
         }
         $map = array(
             'Norwegian Bokmål' => 'Norwegian',
@@ -1190,8 +1190,14 @@ class ICL_Pro_Translation{
             $_wp_page_template = get_post_meta($translation['original_id'], '_wp_page_template', true);
             update_post_meta($new_post_id, '_wp_page_template', $_wp_page_template);
         }
-        
-        if(!$new_post_id){
+
+		// sync post format
+		if ( $sitepress_settings[ 'sync_post_format' ] ) {
+			$_wp_post_format = get_post_format( $translation[ 'original_id' ] );
+			set_post_format( $new_post_id, $_wp_post_format );
+		}
+
+		if(!$new_post_id){
             return false;
         }
         
@@ -1263,7 +1269,10 @@ class ICL_Pro_Translation{
             
             // if this is a parent page then make sure it's children point to this.
             $this->fix_translated_children($translation['original_id'], $new_post_id, $lang_code);
-        }        
+        }
+        
+        do_action('icl_pro_translation_completed', $new_post_id);
+                
         return true;
     }        
     
@@ -1574,11 +1583,11 @@ class ICL_Pro_Translation{
             if((!isset($url_parts['host']) or $base_url_parts['host'] == $url_parts['host']) and
                     (!isset($url_parts['scheme']) or $base_url_parts['scheme'] == $url_parts['scheme']) and
                     isset($url_parts['query'])) {
-                $query_parts = split('&', $url_parts['query']);
+                $query_parts = explode('&', $url_parts['query']);
                 
                 foreach($query_parts as $query){
                     // find p=id or cat=id or tag=id queries
-                    list($key, $value) = split('=', $query);
+                    list($key, $value) = explode('=', $query);
                     $translations = NULL;
                     $is_tax = false;
                     if($key == 'p'){
@@ -2111,7 +2120,7 @@ class ICL_Pro_Translation{
         
         if(isset($_GET['icl_pick_message'])){
             ?>
-                <span id="icl_tm_pickup_wrap"><p><?php echo esc_html($_GET['icl_pick_message']) ?></p></div>
+                <div id="icl_tm_pickup_wrap"><p><?php echo esc_html($_GET['icl_pick_message']) ?></p></div>
             <?php
         }
         
@@ -2142,5 +2151,4 @@ class ICL_Pro_Translation{
         }
     }
         
-}  
-?>
+}
