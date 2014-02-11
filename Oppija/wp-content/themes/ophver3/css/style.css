@@ -1636,6 +1636,7 @@ section.story {
   width: 1px;
   height: 1px;
   overflow: hidden;
+<<<<<<< HEAD
 }
 /* Misc */
 .bc-img {
@@ -1650,6 +1651,8 @@ section ul {
   padding-left: 40px !important;
   padding-bottom: 15px;
   padding-top: 10px;
+=======
+>>>>>>> 90314d929165b4916e17c82d50823fd6ed89af3f
 }
 /*@page-max-width: 960px;*/
 @media only screen and (min-width: 519px) {

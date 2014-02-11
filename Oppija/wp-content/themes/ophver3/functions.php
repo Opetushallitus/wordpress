@@ -1110,4 +1110,28 @@ function oph_oembed_filter($html, $url, $attr, $post_ID) {
 add_action('init', 'youtube_https_oembed');
 add_filter('embed_oembed_html', 'oph_oembed_filter', 10, 4) ;
 
+
+/*
+ * Custom WPML language switcher
+ */
+
+
+function language_selector_custom(){
+    $languages = icl_get_languages('skip_missing=0&orderby=code');
+    if(!empty($languages)){
+        echo '<div id="footer_language_list"><ul>';
+        foreach($languages as $l){
+            echo '<li>';
+            if(!$l['active']) echo '<a href="'.$l['url'].'">';
+            echo icl_disp_language($l['native_name'], $l['translated_name']);
+            if(!$l['active']) echo '</a>';
+            echo '</li>';
+        }
+        echo '</ul></div>';
+    }
+}
+
+
+
+
 ?>

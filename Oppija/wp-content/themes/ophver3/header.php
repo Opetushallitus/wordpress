@@ -67,13 +67,15 @@
 		}()
 		</script>
 </head>
-
 <body <?php body_class(); ?>>
+    <a href="#maincontent" class="offscreen"><?php _e('Skip to content', 'html5blank'); ?></a>
     <noscript>
-       <div class="nojs alert">
-            Toistaiseksi Opintopolku.fi:n käyttö edellyttää JavaScript -tukea.<br>
-            Voit halutessasi ottaa JavaScriptin käyttöön selaimesi asetuksista.
-        </div>
+       <div class="notification">
+           <div class="notif-nojs">
+               <img src="<?php echo get_template_directory_uri(); ?>/img/notif_icon.png " class="notif-icon">
+               <div><?php _e('Toistaiseksi Opintopolku.fi:n käyttö edellyttää JavaScript -tukea. Voit halutessasi ottaa JavaScriptin käyttöön selaimesi asetuksista.', 'html5blank'); ?></div> 
+           </div>
+       </div>
     </noscript>
     <header id="siteheader">
 		<div class="logo-bg">
@@ -136,4 +138,4 @@
 		</div>
 	</header>
 	
-	<div class="content container">		
+	<div id="maincontent" class="content container">		
