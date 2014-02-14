@@ -100,6 +100,10 @@ small, #sidebar ul ul li, ul.sidebar-list-content li, #sidebar ul ol li, .nocomm
 #wp-calendar td.pad:hover { /* Doesn't work in IE */
 		background-color: #fff;
 		}
+                
+                table.em-calendar td.eventless-pre {
+                    color: #ccc;
+                }                
 
 .thread-alt {
 		background-color: #f8f8f8;

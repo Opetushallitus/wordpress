@@ -428,7 +428,7 @@ function create_post_type_html5()
 		'oph-story',
 		array(
 			'label' => __( 'Story Theme' ),
-			'rewrite' => array( 'slug' => 'story-theme' ),
+			'rewrite' => array( 'slug' => 'story-theme'),
 			'hierarchical' => true,
 		)
 	);
@@ -456,6 +456,7 @@ function create_post_type_html5()
         'exclude_from_search' => true,
         'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
         'has_archive' => true,
+        'rewrite' => array( 'slug' => _x( 'oph-story', 'URL slug', 'html5blank' ) ),
         'supports' => array(
             'title',
             'editor',
@@ -1132,6 +1133,18 @@ function language_selector_custom(){
 }
 
 
-
-
-?>
+/*
+ * Switch admin page color theme in live/development 
+ */
+ 
+add_filter('get_user_option_admin_color', 'change_admin_color');
+    function change_admin_color($result) {
+        
+        $blog_name = get_bloginfo('name');
+        
+        if($blog_name == 'Opintopolku QA'){
+            return 'light';
+        } else {
+            return 'coffee';
+        }
+}

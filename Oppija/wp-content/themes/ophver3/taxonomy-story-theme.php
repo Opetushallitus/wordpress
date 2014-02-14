@@ -15,13 +15,14 @@
                 <ul class="stories-sidenav">
             <?php
             
-                function get_custom_terms($taxonomies, $args){
+                function get_custom_terms($taxonomies){
                 $args = array('orderby'=>'asc','hide_empty'=>false);
                 $custom_terms = get_terms(array($taxonomies), $args);
                 foreach($custom_terms as $term){
                     echo '<li class="page_item"><a href="'. get_term_link($term) .'" class="expanded"><span>'. $term->name.'</span></a></li>';
                 }
                 }
+                
                 
                 get_custom_terms('story-theme'); 
                 

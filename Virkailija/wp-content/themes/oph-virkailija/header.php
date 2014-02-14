@@ -30,6 +30,7 @@ if ($user_ID == '') {
 <link rel="alternate" type="application/atom+xml" title="<?php bloginfo('name'); ?> Atom Feed" href="<?php bloginfo('atom_url'); ?>" />
 <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 
+<script type="text/javascript" src="https://testi.virkailija.opintopolku.fi/virkailija-raamit/apply-raamit.js"></script>
 
 
 <!-- Conditional comments for IE. Use ie7.css and ie6.css for custom css for Internet Explorer version 7 and 6 if necessary. -->
@@ -69,32 +70,7 @@ if ($user_ID == '') {
 </head>
 <body>
 <div id="page">
-
-	<div id="header">
-		
-		<div class="container_16">
-		
-			<div id="headerimg" class="grid_16">
-                            <img src="<?php bloginfo('stylesheet_directory'); ?>/images/Opintopolku_FI_logo.png" title="Opintopolku" alt="Opintopolku" />
-			</div><!-- end headerimg -->
-			
-			<!-- skip to content and menu links - these are hidden with screen reader friendly css for accessibility -->
-			<div id="skip">
-			<p></p><a href="#wrapper" title="skip to main content">skip to main content</a></p>
-			<p></p><a href="#main-menu" title="skip to main menu">skip to main menu</a></p>
-			</div><!-- end skip -->
-			
-			<!-- This clears all floats -->
-			<div class="clear">&nbsp;</div>
-		
-		</div><!-- end headerContainer -->
-		
-	</div><!-- end header -->
-	
-        <div id="menu">
-            <?php wp_nav_menu(array('theme_location' => 'external_menu')); ?>
-        </div>
-        
+       
         <div class="meta-info">
             <?php
                 $current_user = wp_get_current_user();
