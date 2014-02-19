@@ -115,12 +115,19 @@
 		<nav class="nav" role="navigation">
 			<div class="container">
 		        
-			     <?php 
-			         add_filter('the_title', 'show_short_title', 10, 2);
+			     <?php add_filter('the_title', 'show_short_title', 10, 2);
 			             do_action('icl_navigation_menu');
-			         remove_filter('the_title', 'show_short_title');
-                ?>
+			         remove_filter('the_title', 'show_short_title'); ?>
 				<?php //html5blank_nav(); ?>
+                            
+                            <div class="textversion"">
+                                <?php if (ICL_LANGUAGE_CODE == 'sv') : ?>
+					<a href="<?php echo home_url(); ?>/m/index_sv.html">Testi sv</a>
+				<?php else : ?>
+					<a href="<?php echo home_url(); ?>/m/index.html">Erityisoppilaitosten koulutukset tekstiversiona</a>	
+				<?php endif ?>
+                            </div>            
+                            
 			</div>
 		</nav>
 		<!-- /nav -->
