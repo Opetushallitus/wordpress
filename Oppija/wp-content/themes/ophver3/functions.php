@@ -671,7 +671,7 @@ function oph_get_subpages(){
 
 		
 
-		error_log (print_r($pages, true));
+		//error_log (print_r($pages, true));
 
 		return $pages;
 		
@@ -943,7 +943,7 @@ function oph_related_taxonomy_query($qtaxonomies, $post_type = 'page')
                 'ignore_sticky_posts'   => 1
             );
      
-        error_log( print_r ($args, true));
+        //error_log( print_r ($args, true));
 
         $my_query = new wp_query( $args );
 
