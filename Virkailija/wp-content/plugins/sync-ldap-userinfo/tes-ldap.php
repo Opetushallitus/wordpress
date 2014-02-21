@@ -4,7 +4,7 @@
 
 echo "<h3>LDAP query test</h3>";
 echo "Connecting ...";
-$ds=ldap_connect("reppu.hard.ware.fi:10389");  // must be a valid LDAP server!
+$ds=ldap_connect("koe.hard.ware.fi:10389");  // must be a valid LDAP server!
 echo "connect result is " . $ds . "<br />";
 
 if ($ds) { 
@@ -15,7 +15,7 @@ if ($ds) {
 
     //echo "Searching for (uid=aug*) ...";
     // Search surname entry
-    $sr=ldap_search($ds, "dc=example,dc=com", "(&(objectClass=groupOfUniqueNames)(uniqueMember=uid=augkilp,ou=people,dc=example,dc=com)(cn=APP_*))");  
+    $sr=ldap_search($ds, "dc=example,dc=com", "(&(objectClass=groupOfUniqueNames)(uniqueMember=uid=augkilp,ou=people,dc=example,dc=com))");  
     echo "Search result is " . $sr . "<br />";
 
     echo "Number of entries returned is " . ldap_count_entries($ds, $sr) . "<br />";
@@ -28,8 +28,8 @@ if ($ds) {
     echo "Data for " . $info["count"] . " items returned:<p>";
 
     for ($i=0; $i<$info["count"]; $i++) {
-        //echo "dn is: " . $info[$i]["dn"] . "<br />";
-        echo "first cn entry is: " . $info[$i]["cn"][0] . "<br />";
+        echo "dn is: " . $info[$i]["dn"] . "<br />";
+        echo "first cn entry is: " . $info[$i]["cn"][0] . "<br /><hr />";
         //echo "first email entry is: " . $info[$i]["mail"][0] . "<br /><hr />";
     }
 

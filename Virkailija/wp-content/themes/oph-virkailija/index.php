@@ -24,9 +24,41 @@ get_header(); ?>
                     
                     <?php while (have_posts()) : the_post(); ?>
 
-                        <div <?php post_class() ?> id="post-<?php the_ID(); ?>">
+                    <?php
+                    
+                    $todays_date = date("d/m/Y");
 
-                                <!-- <?php the_category(', ') ?> -->
+                    $today = strtotime($todays_date);
+
+                    $expirationdate = get_post_custom_values('expiration');
+                    
+                    var_dump($expirationdate);
+
+                    if (is_null($expirationdate)) {
+
+                    $expiration_date = '2524608000'; // displays items undated until 2050 ;
+                    
+                    var_dump($expiration_date);
+
+                    } else {
+
+                    $expirestringarray = implode($expirationdate);
+
+                    $expiration_date = strtotime($expirestringarray);
+
+                    var_dump($expiration_date);
+                    //echo 'Expiration day asetettu!';
+                    
+                    }
+
+                    if ($expiration_date > $today) { $valid = "yes"; } else { $valid = "no"; } 
+
+                    if ( $valid == "yes" ) { 
+
+                    
+                    ?>
+                    
+                        <div <?php post_class() ?> id="post-<?php the_ID(); ?>">
 
                                 <div class="entry-title">
                                     <h2><a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
@@ -47,7 +79,9 @@ get_header(); ?>
 
                         </div><!-- end post -->
 
-                <?php endwhile; ?>
+                <?php          } 
+     endwhile;
+ ?>
                     
                 </div>
                 
