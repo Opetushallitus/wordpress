@@ -122,7 +122,7 @@ class wpCASLDAP {
 					die();
 				}
 
-				wp_redirect( site_url( '/wp-admin/' ));
+				wp_redirect( site_url( '/' ));
 				die();
 
 			}else{
@@ -208,7 +208,7 @@ function wpcasldap_nowpuser($newuserid) {
 			die();
 		}
 
-		wp_redirect( site_url( '/wp-admin/' ));
+		wp_redirect( site_url( '/' ));
 		die();
 	}
 }
