@@ -101,8 +101,9 @@ small, #sidebar ul ul li, ul.sidebar-list-content li, #sidebar ul ol li, .nocomm
 		background-color: #fff;
 		}
                 
-                table.em-calendar td.eventless-pre {
-                    color: #ccc;
+                table.em-calendar td.eventless-pre a,
+                table.em-calendar td.eventful-post a {
+                    color: #aaa;
                 }                
 
 .thread-alt {
@@ -174,6 +175,9 @@ small, #sidebar ul ul li, ul.sidebar-list-content li, #sidebar ul ol li, .nocomm
 }
 
 
+table.em-calendar td.eventful a, table.em-calendar td.eventful-today a {
+    color: #FD7E29;
+}
 /* Announcements menu */
 
 #tabs {
