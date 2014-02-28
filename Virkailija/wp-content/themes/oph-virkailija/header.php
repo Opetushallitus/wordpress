@@ -75,7 +75,7 @@ if ($user_ID == '') {
             <?php
                 $current_user = wp_get_current_user();
                 echo $current_user->display_name.': ';
-                echo date('l, j.n.Y, G:i');
+                echo date_i18n('l, j.n.Y, G:i');
             ?>
         </div>
         

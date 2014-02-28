@@ -55,5 +55,7 @@
 <?php //get_sidebar(); 
     get_template_part('related-content');
 ?>
+    
+    <?php require_once('sidebar-content.php') ?>
 
 <?php get_footer( get_bloginfo('language') ); ?>

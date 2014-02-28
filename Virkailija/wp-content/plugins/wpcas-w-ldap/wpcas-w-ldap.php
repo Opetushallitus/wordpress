@@ -105,8 +105,12 @@ class wpCASLDAP {
 		if( phpCAS::isAuthenticated() ){
 			// CAS was successful
 			if ( $user = get_userdatabylogin( phpCAS::getUser() )){ // user already exists
-				$udata = get_userdata($user->ID);
 				
+                                $udata = get_userdata($user->ID);
+				
+                                $userData = update_wpuser($udata);
+                                
+                                
 				if (!get_usermeta( $user->ID, 'wp_'.$blog_id.'_capabilities')) {
 					if (function_exists('add_user_to_blog')) { add_user_to_blog($blog_id, $user->ID, $wpcasldap_use_options['userrole']); }
 				}
@@ -247,6 +251,58 @@ function get_ldap_user($uid) {
 	}
 	return FALSE;
 }
+
+
+function update_wpuser($udata) {
+	global $wpcasldap_use_options;
+	$ds = ldap_connect($wpcasldap_use_options['ldaphost'],$wpcasldap_use_options['ldapport']);
+
+	//Can't connect to LDAP.
+	if(!$ds) {
+		$error = 'Error in contacting the LDAP server.';
+	} else {	
+		echo "<h2>Connected</h2>";
+		//exit;
+		// Make sure the protocol is set to version 3
+		if(!ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3)) {
+			$error = 'Failed to set protocol version to 3.';
+		} else {
+			//Connection made -- bind anonymously and get dn for username.
+			$bind = @ldap_bind($ds);
+			
+			//Check to make sure we're bound.
+			if(!$bind) {
+				$error = 'Anonymous bind to LDAP failed.';
+			} else {
+				$search = ldap_search($ds, $wpcasldap_use_options['ldapbasedn'], "uid=$udata");
+                                                            
+				$info = ldap_get_entries($ds, $search);
+                                //$info .= ldap_get_entries($ds, $search_group);
+                                
+                                $udatas = get_userdata($udata);
+                                
+                                for ($i=0; $i<$info["count"]; $i++) {
+        
+                                        $ldap_cn = $info[$i]["cn"][0];
+                                        $ldap_dn = $info[$i]["dn"];
+                                        $ldap_sn = $info[$i]["sn"][0];
+                                        $ldap_mail = $info[$i]["mail"][0];
+                                    }
+                                    
+                                if ($udatas->user_firstname != $ldap_sn) {
+                                    update_user_meta($udata, 'user_lastname', $ldap_sn);
+                                }   
+
+				ldap_close($ds);
+				
+                                
+			}
+			ldap_close($ds);
+		}
+	}
+	return FALSE;
+}
+
 
 class wpcasldapuser
 {

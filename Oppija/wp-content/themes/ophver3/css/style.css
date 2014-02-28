@@ -1560,6 +1560,9 @@ em {
 section p:first-of-type {
   display: initial !important;
 }
+section article p:first-of-type {
+    display: block !important;
+}
 section p {
   padding-top: 10px;
 }

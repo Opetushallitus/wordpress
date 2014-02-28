@@ -79,7 +79,7 @@
 
             </div>
             <!-- /story -->
-	
+	            
 <?php //get_sidebar(); 
     get_template_part('related-content');
 ?>

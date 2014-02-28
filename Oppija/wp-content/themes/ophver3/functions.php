@@ -984,6 +984,50 @@ function oph_widgets_init() {
 }
 add_action( 'widgets_init', 'oph_widgets_init' );
 
+
+/*
+ * Register sidebar for custom content
+ */
+
+add_action( 'init', 'sidebar_content' );
+
+function sidebar_content() {
+
+$labels = array(
+    	'name' => __('Sidebar content'),
+    	'singular_name' => __('Sidebar Entry'),
+    	'add_new' => __('Add New'),
+    	'add_new_item' => __('Add New Sidebar Entry'),
+    	'edit_item' => __('Edit Sidebar Entry'),
+    	'new_item' => __('New Sidebar Entry'),
+    	'view_item' => __('View Sidebar Entry'),
+    	'search_items' => __('Search Sidebar Entry'),
+    	'not_found' =>  __('No Sidebar Entry found'),
+    	'not_found_in_trash' => __('No Sidebar Entry found in Trash'),
+    	'parent_item_colon' => ''
+      );
+
+$args = array(
+    	'labels' => $labels,
+    	'public' => true,
+    	'publicly_queryable' => true,
+    	'show_ui' => true,
+    	'query_var' => true,
+    	'rewrite' => true,
+    	'capability_type' => 'post',
+    	'hierarchical' => true,
+    	'menu_position' => null,
+    	'supports' => array('title','editor','author', 'page-attributes', 'revisions')
+      );
+
+      register_post_type('sidebar-content',$args);
+
+}
+
+
+
+
+
 /*
  * Disable default image linking 
  */

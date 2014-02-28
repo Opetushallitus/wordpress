@@ -37,20 +37,23 @@
     <?php   $args = array (
             'post_type' => 'oph-story',
             'story-theme' => $term);
+    
             $first_query = new WP_Query($args); 
     ?>
     <div class="stories">
 	<!-- section -->
     <?php if ($first_query->have_posts() && !is_paged()): while ($first_query->have_posts()) : $first_query->the_post(); ?>
-
-
-
-                        
+                
         <section class="story">
         <!-- article -->
                 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-
-                    <h5>Teema <?php echo $term ?></h5>
+                  
+                    
+                    <h5>Teema <?php $terms = get_the_terms( $post->ID , 'story-theme' ); 
+                                        foreach( $terms as $term ) {
+                                            $post_term = $term->name; 
+                                            print $post_term; 
+                                        }?></h5>
 
                         <!-- post thumbnail -->
                         <?php if ( has_post_thumbnail()) : // Check if thumbnail exists ?>

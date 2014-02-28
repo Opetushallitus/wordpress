@@ -101,10 +101,15 @@ small, #sidebar ul ul li, ul.sidebar-list-content li, #sidebar ul ol li, .nocomm
 		background-color: #fff;
 		}
                 
-                table.em-calendar td.eventless-pre a,
-                table.em-calendar td.eventful-post a {
-                    color: #aaa;
-                }                
+                table.em-calendar td.eventless-pre,
+		table.em-calendar td.eventless-post{
+                    color: #ccc;
+                }
+
+                table.em-calendar td.eventful-pre a ,
+		table.em-calendar td.eventful-post a {
+                    color: #fdbe93 !important;
+                }
 
 .thread-alt {
 		background-color: #f8f8f8;
@@ -174,10 +179,11 @@ small, #sidebar ul ul li, ul.sidebar-list-content li, #sidebar ul ol li, .nocomm
     color: #333;
 }
 
-
 table.em-calendar td.eventful a, table.em-calendar td.eventful-today a {
     color: #FD7E29;
 }
+
+
 /* Announcements menu */
 
 #tabs {
