@@ -1,37 +1,48 @@
-<?php $taxonomy_terms = get_terms('story-theme', 'orderby=ASC&hide_empty=0');
-        $allterms = array();
+<?php $taxonomy_terms = get_terms('story-theme', 'orderby=ASC&hide_empty=1&number=100');
+        //$allterms = array();
         foreach($taxonomy_terms as $term){
-          $allterms[] = $term->name;
-        } 
+            $allterms = $term->slug;
+        
+            $filter = array(
+                'posts_per_page' => 1,
+                'post_type' => 'oph-story',
+                'tax_query' => array(
+                    'relation' => 'IN',
+                    array(
+                        'taxonomy' => 'story-theme',
+                        'field' => 'slug',
+                        'terms' => $term,
+                        )
+                )
+            );
+        $stories_query = new WP_Query($filter); 
+       
+          
+//print_r($allterms);
+?>
 
-     //print_r($allterms);
-
-        $filter = array(
-            'post_type' => 'oph-story',
-            //'story-theme' => 'tekniikka'
-            'tax_query' => array(
-                'relation' => 'IN',
-                array(
-                    'taxonomy' => 'story-theme',
-                    'field' => 'slug',
-                    'terms' => $allterms )
-            )
-        );
-        $stories_query = new WP_Query($filter); ?>
-
+		
 <?php if ($stories_query->have_posts()) : while ($stories_query->have_posts()) : $stories_query->the_post(); ?>
-<?php //if(has_term(array($allterms), 'story-theme')) : ?>
 <section class="story">
 <!-- article -->
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
             
-            <h5>Teema <?php
+            <h5>Teema <?php  
             
             $terms = get_the_terms( $post->ID , 'story-theme' ); 
+            
+            //$term_sum = count($terms);
+            //$i = 0;
+            
             foreach( $terms as $term ) {
-                $post_term = $term->name; 
-                print $post_term; 
-            }?></h5>
+                $post_term = $term->name;
+                $post_slug = $term->slug; 				
+                print $post_term;
+                /*if(!(++$i === $term_sum)) {
+                    echo ', ';
+                }*/
+            }
+            ?></h5>
             
                 <!-- post title -->
 		<h2>
@@ -42,19 +53,18 @@
 		<!-- post thumbnail -->
 		<?php if ( has_post_thumbnail()) : // Check if thumbnail exists ?>
 			<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-				<?php the_post_thumbnail('small'); // Declare pixel size you need inside the array ?>
+				<?php the_post_thumbnail('oph-medium'); // Declare pixel size you need inside the array ?>
 			</a>
 		<?php endif; ?>
 		<!-- /post thumbnail -->
 				
 		<?php html5wp_excerpt('html5wp_index'); // Build your custom callback length in functions.php ?>
 
-                <p><a href="<?php print_r(get_term_link($post_term, 'story-theme')); ?>">Katso kaikki teemaan liittyvät artikkelit</a></p> 
+                <p><a href="<?php print_r(get_term_link($post_slug, 'story-theme')); ?>">Katso kaikki teemaan liittyvät artikkelit</a></p> 
 		
 	</article>
 	<!-- /article -->
 </section>
-<?php //endif; ?>
 <?php endwhile; ?>
 
 
@@ -66,4 +76,4 @@
 	</article>
 	<!-- /article -->
 
-<?php endif; ?>
+<?php endif;  }  ?>

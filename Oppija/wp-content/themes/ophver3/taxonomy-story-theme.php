@@ -1,12 +1,12 @@
 <?php get_header(); ?>
 
     <!-- breadcrumb -->
-    <nav class="breadcrumb">
-        <?php if(function_exists('bcn_display'))
-        {
-            bcn_display();
-        }?>
-    </nav>
+<nav class="breadcrumb">
+        <!-- Breadcrumb NavXT 4.4.0 -->
+        <a title="Go to Opintopolku DEV." href="<?php echo home_url(); ?>" class="home"><?php bloginfo('name'); ?></a><span>&gt; </span>
+        <a title="Go to Valintojen tuki." href="<?php echo home_url(); ?>/valintojen-tuki/" class="page">Valintojen tuki</a><span>&gt; </span>
+         <a title="Go to Valintojen tuki." href="<?php echo home_url(); ?>/valintojen-tuki/tutustu-tarinoihin" class="page">Tutustu tarinoihin</a>
+        </nav>
     <!-- /breaddcrumb -->
 
     <nav class="sidenav">
@@ -43,22 +43,28 @@
     <div class="stories">
 	<!-- section -->
     <?php if ($first_query->have_posts() && !is_paged()): while ($first_query->have_posts()) : $first_query->the_post(); ?>
+        
+        <?php
+        function get_post_term() {
+            $terms = get_the_terms( $post->ID , 'story-theme' ); 
+            foreach( $terms as $term ) {
+                $post_term = $term->name; 
+                print $post_term; 
+                }
+        }
+        ?>
                 
         <section class="story">
         <!-- article -->
                 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
                   
                     
-                    <h5>Teema <?php $terms = get_the_terms( $post->ID , 'story-theme' ); 
-                                        foreach( $terms as $term ) {
-                                            $post_term = $term->name; 
-                                            print $post_term; 
-                                        }?></h5>
+                    <h5>Teema <?php get_post_term();?></h5>
 
                         <!-- post thumbnail -->
                         <?php if ( has_post_thumbnail()) : // Check if thumbnail exists ?>
                                 <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-                                        <?php the_post_thumbnail('small'); // Declare pixel size you need inside the array ?>
+                                        <?php the_post_thumbnail('oph-medium'); // Declare pixel size you need inside the array ?>
                                 </a>
                         <?php endif; ?>
                         <!-- /post thumbnail -->
