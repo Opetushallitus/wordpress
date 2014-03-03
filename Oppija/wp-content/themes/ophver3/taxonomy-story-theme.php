@@ -2,9 +2,9 @@
 
     <!-- breadcrumb -->
         <nav class="breadcrumb">
-            <a title="Go to Opintopolku DEV." href="<?php echo home_url(); ?>" class="home"><?php bloginfo('name'); ?></a><span>&gt; </span>
-            <a title="Go to Valintojen tuki." href="<?php echo home_url(); ?>valintojen-tuki/" class="page">Valintojen tuki</a><span>&gt; </span>
-             <a title="Go to Valintojen tuki." href="<?php echo home_url(); ?>valintojen-tuki/tutustu-tarinoihin" class="page">Tutustu tarinoihin</a>
+            <a title="<?php bloginfo('name'); ?>" href="<?php echo home_url(); ?>" class="home"><?php bloginfo('name'); ?></a><span>&gt; </span>
+            <a title="Valintojen tuku" href="<?php echo home_url(); ?>valintojen-tuki/" class="page">Valintojen tuki</a><span>&gt; </span>
+             <a title="Tutustu tarinoihin" href="<?php echo home_url(); ?>valintojen-tuki/tutustu-tarinoihin" class="page">Tutustu tarinoihin</a>
         </nav>
     <!-- /breaddcrumb -->
 

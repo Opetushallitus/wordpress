@@ -1668,6 +1668,9 @@ section ol {
   color: #ffffff;
   font-size: 13px;
 }
+.oph-story {
+    border-bottom: 1px dashed #c3c3c3;
+}
 /*@page-max-width: 960px;*/
 @media only screen and (min-width: 519px) {
   .container {
