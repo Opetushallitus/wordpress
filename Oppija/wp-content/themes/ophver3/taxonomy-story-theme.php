@@ -1,11 +1,10 @@
 <?php get_header(); ?>
 
     <!-- breadcrumb -->
-<nav class="breadcrumb">
-        <!-- Breadcrumb NavXT 4.4.0 -->
-        <a title="Go to Opintopolku DEV." href="<?php echo home_url(); ?>" class="home"><?php bloginfo('name'); ?></a><span>&gt; </span>
-        <a title="Go to Valintojen tuki." href="<?php echo home_url(); ?>/valintojen-tuki/" class="page">Valintojen tuki</a><span>&gt; </span>
-         <a title="Go to Valintojen tuki." href="<?php echo home_url(); ?>/valintojen-tuki/tutustu-tarinoihin" class="page">Tutustu tarinoihin</a>
+        <nav class="breadcrumb">
+            <a title="Go to Opintopolku DEV." href="<?php echo home_url(); ?>" class="home"><?php bloginfo('name'); ?></a><span>&gt; </span>
+            <a title="Go to Valintojen tuki." href="<?php echo home_url(); ?>valintojen-tuki/" class="page">Valintojen tuki</a><span>&gt; </span>
+             <a title="Go to Valintojen tuki." href="<?php echo home_url(); ?>valintojen-tuki/tutustu-tarinoihin" class="page">Tutustu tarinoihin</a>
         </nav>
     <!-- /breaddcrumb -->
 

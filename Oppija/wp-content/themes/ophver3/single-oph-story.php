@@ -2,11 +2,24 @@
 
     <!-- breadcrumb -->
     <nav class="breadcrumb">
-        <?php if(function_exists('bcn_display'))
-        {
-            bcn_display();
-        }?>
+        <a title="<?php bloginfo('name'); ?>" href="<?php echo home_url(); ?>" class="home"><?php bloginfo('name'); ?></a><span>&gt; </span>
+        <a title="Valintojen tuki" href="<?php echo home_url(); ?>valintojen-tuki/" class="page">Valintojen tuki</a><span>&gt; </span>
+        <a title="Tutustu tarinoihin" href="<?php echo home_url(); ?>valintojen-tuki/tutustu-tarinoihin" class="page">Tutustu tarinoihin</a><span>&gt; </span>
+        <?php echo get_the_title(); ?>
     </nav>
+    
+    <?php
+    
+    function get_theme_name() {
+    $terms = get_the_terms( $post->ID , 'story-theme' );
+        if ( $terms != null ){
+            foreach( $terms as $term ) {
+                print $term->name ;
+                unset($term);
+            } 
+        }
+    }?>
+    
     <!-- /breaddcrumb -->
 	
         <nav class="sidenav">
@@ -16,11 +29,11 @@
                 <?php
 
                     function get_custom_terms($taxonomies){
-                    $args = array('orderby'=>'asc','hide_empty'=>false);
-                    $custom_terms = get_terms(array($taxonomies), $args);
-                    foreach($custom_terms as $term){
-                        echo '<li class="page_item"><a href="'. get_term_link($term) .'" class="expanded"><span>'. $term->name.'</span></a></li>';
-                    }
+                        $args = array('orderby'=>'asc','hide_empty'=>false);
+                        $custom_terms = get_terms(array($taxonomies), $args);
+                        foreach($custom_terms as $term){
+                            echo '<li class="page_item"><a href="'. get_term_link($term) .'" class="expanded"><span>'. $term->name.'</span></a></li>';
+                        }
                     }
 
                     get_custom_terms('story-theme'); 
