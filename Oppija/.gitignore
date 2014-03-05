@@ -1,5 +1,6 @@
 # Don't add the Local server settings file to the repository #
 wp-config.php
+wp-content/uploads2
 
 # sitemaps not needed locally #
 sitemap.xml
