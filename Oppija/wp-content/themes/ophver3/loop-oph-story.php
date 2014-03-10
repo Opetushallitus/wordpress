@@ -27,40 +27,71 @@
 <!-- article -->
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
             
+            <?php
+            $has_attachments = get_children(
+                array(
+                'post_type' => 'attachment',
+                'post_mime_type' => 'image',
+                'post_parent' => $post->ID
+                ));
+            ?>
+            
             <h5>Teema <?php  
             
             $terms = get_the_terms( $post->ID , 'story-theme' ); 
-            
-            //$term_sum = count($terms);
-            //$i = 0;
-            
+
             foreach( $terms as $term ) {
                 $post_term = $term->name;
                 $post_slug = $term->slug; 				
                 print $post_term;
-                /*if(!(++$i === $term_sum)) {
-                    echo ', ';
-                }*/
             }
             ?></h5>
             
-                <!-- post title -->
-		<h2>
-			<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a>
-		</h2>
-		<!-- /post title -->
+                        <?php if ($has_attachments) : // Check if thumbnail exists ?>
+                                <?php $image_data = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
+                                        $image_width = $image_data[1];
+                                        $image_height = $image_data[2];
+                                        
+                               if($image_height/$image_width > 1) { ?>
                 
-		<!-- post thumbnail -->
-		<?php if ( has_post_thumbnail()) : // Check if thumbnail exists ?>
-			<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-				<?php the_post_thumbnail('oph-medium'); // Declare pixel size you need inside the array ?>
-			</a>
-		<?php endif; ?>
-		<!-- /post thumbnail -->
-				
-		<?php html5wp_excerpt('html5wp_index'); // Build your custom callback length in functions.php ?>
+                                    <a  class="vertical-img" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
+                                            <?php the_post_thumbnail('oph-small'); // Declare pixel size you need inside the array ?>
+                                    </a>       
+                                    <!-- post title -->
+                                    
+                                    <h2>
+                                            <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a>
+                                    </h2>
+                                    <!-- /post title -->
+                                    
+                               <?php } else { ?>
+                                    
+                                    <!-- post title -->
+                                    <h2>
+                                            <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a>
+                                    </h2>
+                                    <!-- /post title -->
+                                    
+                                    <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
+                                            <?php the_post_thumbnail('oph-medium'); // Declare pixel size you need inside the array ?>
+                                    </a>
+                                    
+                                <?php } ?>
+                        <?php endif; ?>
+                        
+                        <?php             
+                        
+                        if(!$has_attachments) { ?>      
+                        <!-- post title -->
+                        <h2>
+                            <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a>
+                        </h2>
+                        <!-- /post title -->
+                        <?php } ?>
+                                    
+                        <?php html5wp_excerpt('html5wp_index', 'html5_blank_view_article'); // Build your custom callback length in functions.php ?>
 
-                <p><a href="<?php print_r(get_term_link($post_slug, 'story-theme')); ?>">Katso kaikki teemaan liittyvät artikkelit</a></p> 
+                        <p><a href="<?php print_r(get_term_link($post_slug, 'story-theme')); ?>">Katso kaikki teemaan liittyvät artikkelit</a></p> 
 		
 	</article>
 	<!-- /article -->

@@ -423,20 +423,20 @@ add_shortcode('html5_shortcode_demo_2', 'html5_shortcode_demo_2'); // Place [htm
 //Create 1 Custom Post -  Story
 function create_post_type_html5()
 {
- 	/*register_taxonomy(
+ 	register_taxonomy(
 		'story-theme',
-		//'oph-story',
+		'oph-story',
 		array(
 			'label' => __( 'Story Theme' ),
 			'rewrite' => array( 'slug' => 'story-theme'),
 			'hierarchical' => true,
-                        //'show_admin_column' => true,
+                        'show_admin_column' => true,
 		)
-	);*/
+	);
  
  
-    //register_taxonomy_for_object_type('story-theme', 'oph-story'); // Register Taxonomies for Category
-    //register_taxonomy_for_object_type('post_tag', 'oph-story');
+    register_taxonomy_for_object_type('story-theme', 'oph-story'); // Register Taxonomies for Category
+    register_taxonomy_for_object_type('post_tag', 'oph-story');
     register_post_type('oph-story', // Register Custom Post Type
         array(
         'labels' => array(
@@ -467,7 +467,7 @@ function create_post_type_html5()
         'can_export' => true, // Allows export in Tools > Export
         'taxonomies' => array(
             //'post_tag',
-            //'story-theme',
+            'story-theme',
         ) // Add Category and Post Tags support
     ));
  
@@ -845,17 +845,7 @@ function is_qa()
 
 function oph_taxonomies()
 {
-        register_taxonomy(
-            'story-theme',
-                array('oph-story'),
-		array(
-			'label' => __( 'Teema' ),
-			'rewrite' => array( 'slug' => 'tarinat'),
-			'hierarchical' => true,
-                        'show_admin_column' => true,
-		)
-	);
-    
+
         register_taxonomy(
             'oph-koulutus',
 		array('page','post', 'oph-related'),
@@ -1194,6 +1184,10 @@ add_filter('get_user_option_admin_color', 'change_admin_color');
             return 'coffee';
         }
 }
+
+/*
+ * Unset columns from page listing
+ */
 
 function unset_columns($columns) {
 	

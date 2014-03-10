@@ -905,6 +905,13 @@ header, article, section, footer, p {
 	}
 }
 
+.archive {
+    img {
+			float: none;
+                        border: 1px solid #cccccc;
+		}
+}
+
 /* TABLES */
 table {
     border-spacing: 0;
@@ -1276,8 +1283,12 @@ section p:first-of-type {
 
 section article p:first-of-type {
     display: block !important;
+    clear: left;
 }
-
+.vertical-img {
+    float: left;
+    padding-right: 25px;
+}
 section p {
     padding-top: 10px;
 }
