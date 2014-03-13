@@ -1278,6 +1278,9 @@ p {
   float: none;
   border: 1px solid #cccccc;
 }
+.single article img {
+  border: 1px solid #cccccc;
+}
 /* TABLES */
 table {
   border-spacing: 0;
