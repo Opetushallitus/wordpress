@@ -57,7 +57,7 @@
                         ));
                     ?>
                     
-                    <h5>Teema <?php $terms = get_the_terms( $post->ID , 'story-theme' ); 
+                    <h5><?php $terms = get_the_terms( $post->ID , 'story-theme' ); 
                                         foreach( $terms as $term ) {
                                             $post_term = $term->name; 
                                             print $post_term; 

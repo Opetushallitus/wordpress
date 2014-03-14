@@ -36,7 +36,7 @@
                 ));
             ?>
             
-            <h5>Teema <?php  
+            <h5><?php  
             
             $terms = get_the_terms( $post->ID , 'story-theme' ); 
 
