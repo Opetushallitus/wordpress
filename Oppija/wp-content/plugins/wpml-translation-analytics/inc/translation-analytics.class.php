@@ -50,13 +50,16 @@ class WPML_Translation_Analytics{
      * Menu item to appear under WPML menu.
      */
     function menu(){
-        $top_page = apply_filters('icl_menu_main_page',
+		global $sitepress;
+		if(!isset($sitepress) || (method_exists($sitepress,'get_setting') && !$sitepress->get_setting( 'setup_complete' ))) return;
+
+		$top_page = apply_filters('icl_menu_main_page',
         basename(ICL_PLUGIN_PATH).'/menu/languages.php');
         add_submenu_page(
             $top_page, 
             __('Translation Analytics','wpml-translation-analytics'),
             __('Translation Analytics','wpml-translation-analytics'),
-            'manage_options', WPML_TRANSLATION_ANALYTICS_FOLDER.'/menu/main.php'
+            'wpml_manage_translation_analytics', WPML_TRANSLATION_ANALYTICS_FOLDER.'/menu/main.php'
         );               
     }
     
@@ -316,15 +319,15 @@ class WPML_Translation_Analytics{
         );
     
         foreach($jobs as $job){
-            $job->elements = $wpdb->get_results($wpdb->prepare(
+            $job->elements = $wpdb->get_results(
                 "SELECT * FROM {$wpdb->prefix}icl_translate
                     WHERE job_id = $job->job_id  AND field_translate = 1
                     ORDER BY tid ASC"
-            ));
+            );
         $job->original_post_type = $wpdb->get_var($wpdb->prepare("
         SELECT element_type
         FROM {$wpdb->prefix}icl_translations
-        WHERE trid=%d AND language_code='%s'",
+        WHERE trid=%d AND language_code=%s",
         $job->trid, $job->source_language_code));
         }
         return $jobs;
