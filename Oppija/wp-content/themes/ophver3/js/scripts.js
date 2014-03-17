@@ -1,3 +1,4 @@
+var $ = jQuery;
 var key = 'basket';
 var basketCount = jQuery.cookie(key) ? JSON.parse(jQuery.cookie(key)).length - 1 : 0;
 
