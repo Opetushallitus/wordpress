@@ -66,6 +66,8 @@
 			//conditionizr()
 		}()
 		</script>
+                
+        <?php html5blank_header_scripts(); ?>
 </head>
 <body <?php body_class(); ?>>
     <a href="#maincontent" class="offscreen"><?php _e('Skip to content', 'html5blank'); ?></a>
