@@ -5,16 +5,21 @@ Template Page for the gallery overview
 ?>
 <?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><?php if (!empty ($gallery)) : ?>
 
-<div class="ngg-galleryoverview" id="<?php echo $gallery->anchor ?>">
+<script language="javascript" type="text/javascript" >
+	jQuery(function(){
+		$('#gallery').galleryView({
+                panel_width: 460,
+                panel_height: 280,
+                frame_width: 60,
+                frame_height: 35,
+                show_filmstrip_nav: false,
+                show_infobar: false,
+                filmstrip_style: 'showall',
+                });
+	});
+</script>
 
-<?php if ($gallery->show_slideshow) { ?>
-	<!-- Slideshow link -->
-	<div class="slideshowlink">
-		<a class="slideshowlink" href="<?php echo nextgen_esc_url($gallery->slideshow_link) ?>">
-			<?php echo $gallery->slideshow_link_text ?>
-		</a>
-	</div>
-<?php } ?>
+<div class="ngg-galleryoverview-jepa2" id="<?php echo $gallery->anchor ?>">
 
 <?php if ($gallery->show_piclens) { ?>
 	<!-- Piclense link -->
@@ -26,25 +31,18 @@ Template Page for the gallery overview
 <?php } ?>
 	
 	<!-- Thumbnails -->
-    <?php $i = 0; ?>
+    <ul id="gallery">
+        <?php $i = 0; ?>
+        
 	<?php foreach ( $images as $image ) : ?>
-	
-	<div id="ngg-image-<?php echo $image->pid ?>" class="ngg-gallery-thumbnail-box" <?php echo $image->style ?> >
-		<div class="ngg-gallery-thumbnail" >
-			<a href="<?php echo nextgen_esc_url($image->imageURL) ?>"
-               title="<?php echo esc_attr($image->description) ?>"
-               data-src="<?php echo nextgen_esc_url($image->imageURL); ?>"
-               data-thumbnail="<?php echo nextgen_esc_url($image->thumbnailURL); ?>"
-               data-image-id="<?php echo esc_attr($image->pid); ?>"
-               data-title="<?php echo esc_attr($image->alttext); ?>"
-               data-description="<?php echo esc_attr($image->description); ?>"
-               <?php echo $image->thumbcode ?> >
-				<?php if ( !$image->hidden ) { ?>
-				<img title="<?php echo esc_attr($image->alttext) ?>" alt="<?php echo esc_attr($image->alttext) ?>" src="<?php echo nextgen_esc_url($image->thumbnailURL) ?>" <?php echo $image->size ?> />
-				<?php } ?>
-			</a>
-		</div>
-	</div>
+        <li id="ngg-image-<?php echo $image->pid ?>" class="ngg-gallery-thumbnail-box" >
+
+            <?php if ( !$image->hidden ) { ?>
+            
+            <img title="<?php echo esc_attr($image->alttext) ?>" alt="<?php echo esc_attr($image->alttext) ?>" src="<?php echo nextgen_esc_url($image->imageURL) ?>" <?php echo $image->size ?> />
+            <?php } ?>
+               
+        </li>
 
     <?php if ( $image->hidden ) continue; ?>
     <?php if ($gallery->columns > 0): ?>
@@ -55,7 +53,7 @@ Template Page for the gallery overview
     <?php $i++; ?>
 
  	<?php endforeach; ?>
- 	
+    </ul>	
 	<!-- Pagination -->
  	<?php echo $pagination ?>
  	

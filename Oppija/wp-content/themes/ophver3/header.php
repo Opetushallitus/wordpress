@@ -35,7 +35,7 @@
 
 	<!-- "Typewriter" Font -->
 	<link href='//fonts.googleapis.com/css?family=PT+Sans+Narrow:700|PT+Serif:400italic' rel='stylesheet' type='text/css'>
-
+        
 	<?php 
 	
 	$debug = false;
@@ -67,7 +67,13 @@
 		}()
 		</script>
                 
-        <?php html5blank_header_scripts(); ?>
+                
+        <script language="javascript" type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/jquery.easing.1.3.js"></script>
+        <script language="javascript" type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/jquery.galleryview-3.0-dev.js"></script>
+        <script language="javascript" type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/jquery.timers-1.2.js"></script>
+        
+        <link type="text/css" rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/jquery.galleryview-3.0-dev.css" />
+                
 </head>
 <body <?php body_class(); ?>>
     <a href="#maincontent" class="offscreen"><?php _e('Skip to content', 'html5blank'); ?></a>
