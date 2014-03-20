@@ -44,12 +44,11 @@ var WPML_Translate_taxonomy = {
         
         jQuery.ajax({
             type:       "POST", 
-            dataType:   'json',
             url:        ajaxurl, 
             data:       'action=wpml_tt_show_terms&' + parameters,
             success:    
                 function(ret){                
-                    jQuery('#wpml_tt_taxonomy_translation_wrap').html(ret.html);                                                         
+                    jQuery('#wpml_tt_taxonomy_translation_wrap').html(ret);
                 }   
                 
             });    
@@ -99,15 +98,17 @@ var WPML_Translate_taxonomy = {
     
     show_form: function(tt_id, language){
         
+        jQuery('.icl_tt_form').hide();
+        jQuery('.icl_tt_form').prev().show();
+        
         var form = jQuery('#icl_tt_form_' + tt_id+'_'+language);
         
         if(!form.is(':visible')){
             form.prev().hide();
-            form.fadeIn();                
+            form.show();                
         }else{
             WPML_Translate_taxonomy.hide_form(form);    
         }
-        
         
         return false;
         
@@ -119,7 +120,7 @@ var WPML_Translate_taxonomy = {
             var form = jQuery(this).closest('.icl_tt_form');
         }
         
-        form.fadeOut(function(){
+        form.hide(100, function(){
             form.find('.errors').html('');
         });
         form.prev().show();
@@ -128,11 +129,13 @@ var WPML_Translate_taxonomy = {
     
     show_labels_form: function(taxonomy, language){
         
+        jQuery('.icl_tt_labels_form').hide();
+        
         var form = jQuery('#icl_tt_labels_form_' + taxonomy+'_'+language);
         
         if(!form.is(':visible')){
             form.prev().hide();
-            form.fadeIn();                
+            form.show();                
         }else{
             WPML_Translate_taxonomy.hide_labels_form(form);    
         }
@@ -148,12 +151,14 @@ var WPML_Translate_taxonomy = {
             var form = jQuery(this).closest('.icl_tt_labels_form');
         }
                 
-        form.fadeOut(function(){
+        form.hide(100, function(){
             form.find('.errors').html('');
         });        
         form.prev().show();
         
     },
+    
+    callbacks: jQuery.Callbacks(),
     
     save_term_translation: function(){
     
@@ -180,7 +185,10 @@ var WPML_Translate_taxonomy = {
                     }else{                        
                         this_form.find('input[name=slug]').val(ret.slug);                        
                         WPML_Translate_taxonomy.hide_form(this_form);
-                        this_form.prev().html(this_form.find('input[name=name]').val()).removeClass('lowlight');
+//                        this_form.prev().html(this_form.find('input[name=name]').val()).removeClass('lowlight');
+						this_form.prev().html(this_form.find('input[name=term_leveled]').val() + this_form.find('input[name=name]').val()).removeClass('lowlight');
+
+                        WPML_Translate_taxonomy.callbacks.fire('wpml_tt_save_term_translation', this_form.find('input[name=taxonomy]').val());
                         
                     }
                 }   
@@ -306,10 +314,7 @@ var WPML_Translate_taxonomy = {
                     if(ret.errors){
                         this_form.find('.errors').html(ret.errors);    
                     }else{
-                        
-                        this_form.find('.icl_tt_sycn_preview').html(ret.html);    
-                        
-                        //this_form.find('.confirmation').html(ret.message);    
+                        jQuery('#icl_tt_sync_preview').html(ret.html);    
                     }
                     
                 }   

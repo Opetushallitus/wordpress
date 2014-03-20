@@ -507,4 +507,10 @@ function add_custom_role_test() {
     
 add_action( 'init', 'add_custom_role_test' );
 
+/*
+ * Hide top bar
+ */
+
+add_filter( 'show_admin_bar', '__return_false' );
+
 ?>

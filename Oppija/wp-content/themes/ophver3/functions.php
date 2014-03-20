@@ -428,8 +428,9 @@ function create_post_type_html5()
 		'oph-story',
 		array(
 			'label' => __( 'Story Theme' ),
-			'rewrite' => array( 'slug' => 'story-theme' ),
+			'rewrite' => array( 'slug' => 'story-theme'),
 			'hierarchical' => true,
+                        'show_admin_column' => true,
 		)
 	);
  
@@ -456,6 +457,7 @@ function create_post_type_html5()
         'exclude_from_search' => true,
         'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
         'has_archive' => true,
+        'rewrite' => array( 'slug' => _x( 'oph-story', 'URL slug', 'html5blank' ) ),
         'supports' => array(
             'title',
             'editor',
@@ -464,20 +466,10 @@ function create_post_type_html5()
         ), // Go to Dashboard Custom HTML5 Blank post for supports
         'can_export' => true, // Allows export in Tools > Export
         'taxonomies' => array(
-            'post_tag',
+            //'post_tag',
             'story-theme',
         ) // Add Category and Post Tags support
     ));
-    
-    /*register_taxonomy(
-        'feature-theme',
-        'oph-feature',
-        array(
-            'label' => __( 'Features' ),
-            'rewrite' => array( 'slug' => 'oph-features' ),
-            'hierarchical' => true,
-        )
-    );*/
  
  
     //register_taxonomy_for_object_type('story-theme', 'oph-feature'); // Register Taxonomies for Category
@@ -548,7 +540,7 @@ function create_post_type_html5()
         ), // Go to Dashboard Custom HTML5 Blank post for supports
         'can_export' => true, // Allows export in Tools > Export
         'taxonomies' => array(
-            'post_tag',
+            //'post_tag',
             'oph-koulutus',
             'oph-koulutusaste',
             'oph-ammattiluokitus',
@@ -586,11 +578,41 @@ function create_post_type_html5()
         ), // Go to Dashboard Custom HTML5 Blank post for supports
         'can_export' => true, // Allows export in Tools > Export
         'taxonomies' => array(
-            'post_tag',
+            //'post_tag',
             'oph-koulutus',
             'oph-koulutusaste',
             'oph-ammattiluokitus',
         )
+    ));
+    
+    register_post_type('sidebar-content', // Register Custom Post Type
+        array(
+        'labels' => array(
+            'name' => __('Sivupalsta', 'html5blank'), // Rename these to suit
+            'singular_name' => __('Notification', 'html5blank'),
+            'add_new' => __('Add New', 'html5blank'),
+            'add_new_item' => __('Add New Notification', 'html5blank'),
+            'edit' => __('Edit', 'html5blank'),
+            'edit_item' => __('Edit Notification', 'html5blank'),
+            'new_item' => __('New Related', 'html5blank'),
+            'view' => __('View Related', 'html5blank'),
+            'view_item' => __('View Related', 'html5blank'),
+            'search_items' => __('Search Related articles', 'html5blank'),
+            'not_found' => __('No Related articles found', 'html5blank'),
+            'not_found_in_trash' => __('No Related articles found in Trash', 'html5blank')
+        ),
+        'public' => true,
+        'exclude_from_search' => true,
+        'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
+        'has_archive' => true,
+        'supports' => array(
+            'title',
+            'editor',
+            'excerpt',
+            'post_order',
+            'thumbnail'
+        ), // Go to Dashboard Custom HTML5 Blank post for supports
+        'can_export' => true // Allows export in Tools > Export
     ));
 	
 
@@ -670,7 +692,7 @@ function oph_get_subpages(){
 
 		
 
-		error_log (print_r($pages, true));
+		//error_log (print_r($pages, true));
 
 		return $pages;
 		
@@ -823,9 +845,10 @@ function is_qa()
 
 function oph_taxonomies()
 {
-	 register_taxonomy(
-		'oph-koulutus',
-		array( 'page','post', 'oph-story', 'oph-related'),
+
+        register_taxonomy(
+            'oph-koulutus',
+		array('page','post', 'oph-related'),
 		array(
 			'label' => __( 'Koulutus' ),
 			'rewrite' => array( 'slug' => 'koulutus' ),
@@ -834,8 +857,8 @@ function oph_taxonomies()
 	);
 
 	register_taxonomy(
-		'oph-ammattiluokitus',
-		array( 'page','post', 'oph-story', 'oph-related'),
+            'oph-ammattiluokitus',
+		array('page','post', 'oph-related'),
 		array(
 			'label' => __( 'Ammattiluokitus' ),
 			'rewrite' => array( 'slug' => 'ammattiluokitus' ),
@@ -845,7 +868,7 @@ function oph_taxonomies()
 
 	register_taxonomy(
 	    'oph-koulutusaste',
-		array( 'page','post', 'oph-story', 'oph-related'),
+		array( 'page','post', 'oph-related'),
 		array(
 			'label' => __( 'Koulutusaste' ),
 			'rewrite' => array( 'slug' => 'koulutusaste' ),
@@ -855,14 +878,26 @@ function oph_taxonomies()
 
 	register_taxonomy(
 	    'oph-huomautukset',
-		array( 'page','post', 'oph-notification', 'oph-story'),
+		array( 'page','post','oph-notification'),
 		array(
-			'label' => __( 'Kategoriat' ),
+			'label' => __( 'Tiedote kategoriat' ),
 			'rewrite' => array( 'slug' => 'oph-huom-kat' ),
 			'hierarchical' => true,
+                        'show_admin_column' => true,
+                    
 		)
 	);
 
+        register_taxonomy(
+	    'oph-sidebar',
+		array( 'sidebar-content'),
+		array(
+			'label' => __( 'Sivupalsta kategoriat' ),
+			'rewrite' => array( 'slug' => 'oph-sidebar-kat' ),
+			'hierarchical' => true,
+                        'show_admin_column' => true,
+		)
+	);
 
 
 }
@@ -942,7 +977,7 @@ function oph_related_taxonomy_query($qtaxonomies, $post_type = 'page')
                 'ignore_sticky_posts'   => 1
             );
      
-        error_log( print_r ($args, true));
+        //error_log( print_r ($args, true));
 
         $my_query = new wp_query( $args );
 
@@ -982,6 +1017,8 @@ function oph_widgets_init() {
     ) );
 }
 add_action( 'widgets_init', 'oph_widgets_init' );
+
+
 
 /*
  * Disable default image linking 
@@ -1110,4 +1147,54 @@ function oph_oembed_filter($html, $url, $attr, $post_ID) {
 add_action('init', 'youtube_https_oembed');
 add_filter('embed_oembed_html', 'oph_oembed_filter', 10, 4) ;
 
-?>
+
+/*
+ * Custom WPML language switcher
+ */
+
+
+function language_selector_custom(){
+    $languages = icl_get_languages('skip_missing=0&orderby=code');
+    if(!empty($languages)){
+        echo '<div id="footer_language_list"><ul>';
+        foreach($languages as $l){
+            echo '<li>';
+            if(!$l['active']) echo '<a href="'.$l['url'].'">';
+            echo icl_disp_language($l['native_name'], $l['translated_name']);
+            if(!$l['active']) echo '</a>';
+            echo '</li>';
+        }
+        echo '</ul></div>';
+    }
+}
+
+
+/*
+ * Switch admin page color theme in live/development 
+ */
+ 
+add_filter('get_user_option_admin_color', 'change_admin_color');
+    function change_admin_color($result) {
+        
+        $blog_name = get_bloginfo('name');
+        
+        if($blog_name == 'Opintopolku QA'){
+            return 'light';
+        } else {
+            return 'coffee';
+        }
+}
+
+/*
+ * Unset columns from page listing
+ */
+
+function unset_columns($columns) {
+	
+	unset(
+		$columns['taxonomy-oph-huomautukset']
+	);
+	
+	return $columns;
+}
+add_filter('manage_pages_columns', 'unset_columns');

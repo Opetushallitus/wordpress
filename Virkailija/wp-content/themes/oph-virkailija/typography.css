@@ -89,9 +89,9 @@ h3 {
                 
                 
 p {
-		font-size: 1.5em;
-		line-height: 1.2em;
-		text-align: left;
+                font-size: 1.15em;
+                line-height: 1.3em;
+                text-align: left;
                 padding-bottom: 10px;
                 padding-top: 10px;
 		}
@@ -142,7 +142,7 @@ small {
 		}
 
 #sidebar ul ul {
-		font-size: 1.2em;
+		font-size: 1.05em;
 		line-height: 1.5em;
 		margin-top: 0.9em;
 		margin-bottom: 0em;
@@ -208,6 +208,8 @@ small {
                 
 table.em-calendar td {
                 font-size: 13px;
+                padding: 2px 4px;
+                text-align: center;
                 }
                 
 div.em-calendar-wrapper{
@@ -217,7 +219,7 @@ div.em-calendar-wrapper{
 /* Entry */
 
 .entry-title h2 {
-    font-size: 1.385em;
+    font-size: 1.1em;
     font-weight: bold;
 }
 
@@ -230,8 +232,9 @@ div.em-calendar-wrapper{
 
 /* Calendar widget */
 
-table.em-calendar tbody, table.em-calendar thead  {
+table.em-calendar thead  {
     font-size: 160% !important;
+    font-weight: bold;
 }
 
 /* Post */ 

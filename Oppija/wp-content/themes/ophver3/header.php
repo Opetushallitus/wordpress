@@ -35,7 +35,7 @@
 
 	<!-- "Typewriter" Font -->
 	<link href='//fonts.googleapis.com/css?family=PT+Sans+Narrow:700|PT+Serif:400italic' rel='stylesheet' type='text/css'>
-
+        
 	<?php 
 	
 	$debug = false;
@@ -66,6 +66,14 @@
 			//conditionizr()
 		}()
 		</script>
+                
+                
+        <script language="javascript" type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/jquery.easing.1.3.js"></script>
+        <script language="javascript" type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/jquery.galleryview-3.0-dev.js"></script>
+        <script language="javascript" type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/jquery.timers-1.2.js"></script>
+        
+        <link type="text/css" rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/jquery.galleryview-3.0-dev.css" />
+                
 </head>
 <body <?php body_class(); ?>>
     <a href="#maincontent" class="offscreen"><?php _e('Skip to content', 'html5blank'); ?></a>
@@ -115,12 +123,19 @@
 		<nav class="nav" role="navigation">
 			<div class="container">
 		        
-			     <?php 
-			         add_filter('the_title', 'show_short_title', 10, 2);
+			     <?php add_filter('the_title', 'show_short_title', 10, 2);
 			             do_action('icl_navigation_menu');
-			         remove_filter('the_title', 'show_short_title');
-                ?>
+			         remove_filter('the_title', 'show_short_title'); ?>
 				<?php //html5blank_nav(); ?>
+                            
+                             <div class="textversion"">
+                                <?php if (ICL_LANGUAGE_CODE == 'sv') : ?>
+					<a href="/m/index_sv.html">Specialläroanstalternas utbildningar som textversion</a>
+				<?php else : ?>
+					<a href="/m/index.html">Erityisoppilaitosten koulutukset tekstiversiona</a>	
+				<?php endif ?>
+                            </div>           
+                            
 			</div>
 		</nav>
 		<!-- /nav -->

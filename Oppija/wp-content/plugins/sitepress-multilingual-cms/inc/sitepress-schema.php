@@ -1,16 +1,12 @@
 <?php
 function icl_sitepress_activate(){
-    
-    //if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'error_scrape'){
-    //    return;
-    //}
-    
     global $wpdb;
-    global $EZSQL_ERROR;
-    require_once(ICL_PLUGIN_PATH . '/inc/lang-data.php');
-    //defines $langs_names
 
-    $charset_collate = '';
+	$langs_names  = icl_get_languages_names();
+	$lang_codes   = icl_get_languages_codes();
+	$lang_locales = icl_get_languages_locales();
+
+	$charset_collate = '';
     if ( method_exists($wpdb, 'has_cap') && $wpdb->has_cap( 'collation' ) ) {
             if ( ! empty($wpdb->charset) )
                     $charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
@@ -19,12 +15,11 @@ function icl_sitepress_activate(){
     }    
     
     try{
-    
         // languages table
         $table_name = $wpdb->prefix.'icl_languages';                            
         if(0 !== strcasecmp($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'"), $table_name)){
             $sql = " 
-            CREATE TABLE `{$table_name}` (
+             CREATE TABLE IF NOT EXISTS `{$table_name}` (
                 `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
                 `code` VARCHAR( 7 ) NOT NULL ,
                 `english_name` VARCHAR( 128 ) NOT NULL ,            
@@ -35,12 +30,12 @@ function icl_sitepress_activate(){
                 `encode_url` TINYINT( 1 ) NOT NULL DEFAULT 0,
                 UNIQUE KEY `code` (`code`),
                 UNIQUE KEY `english_name` (`english_name`)
-            ) {$charset_collate}"; 
+            ) {$charset_collate}";
+
             $wpdb->query($sql);
             if($e = mysql_error()) throw new Exception($e);
             
-            //$langs_names is defined in ICL_PLUGIN_PATH . '/inc/lang-data.php'
-            foreach($langs_names as $key=>$val){
+			foreach($langs_names as $key=>$val){
                 if(strpos($key,'Norwegian Bokm')===0){ $key = 'Norwegian Bokmål'; $lang_codes[$key] = 'nb';} // exception for norwegian
                 $default_locale = isset($lang_locales[$lang_codes[$key]]) ? $lang_locales[$lang_codes[$key]] : '';
                 $wpdb->insert($wpdb->prefix . 'icl_languages', 
@@ -61,7 +56,7 @@ function icl_sitepress_activate(){
         $table_name = $wpdb->prefix.'icl_languages_translations';
         if(0 !== strcasecmp($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'"), $table_name)){
             $sql = "
-            CREATE TABLE `{$table_name}` (
+             CREATE TABLE IF NOT EXISTS `{$table_name}` (
                 `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
                 `language_code`  VARCHAR( 7 ) NOT NULL ,
                 `display_language_code` VARCHAR( 7 ) NOT NULL ,            
@@ -72,15 +67,7 @@ function icl_sitepress_activate(){
             if($e = mysql_error()) throw new Exception($e);
             $add_languages_translations = true;
         }
-        //else{
-            // this table will not be trucated on upgrade starting with WPML 1.7.3
-            // $add_languages_translations sticks to false;
-            //if(!defined('ICL_PRESERVE_LANGUAGES_TRANSLATIONS') || !ICL_PRESERVE_LANGUAGES_TRANSLATIONS){
-            //    mysql_query("TRUNCATE TABLE `{$table_name}`");
-            //    $add_languages_translations = true;
-            //}        
-        //}
-        
+
         if($add_languages_translations){
             foreach($langs_names as $lang=>$val){        
                 if(strpos($lang,'Norwegian Bokm')===0){ $lang = 'Norwegian Bokmål'; $lang_codes[$lang] = 'nb';}
@@ -96,12 +83,11 @@ function icl_sitepress_activate(){
             }        
         }
         
-
         // translations
         $table_name = $wpdb->prefix.'icl_translations';
         if(0 !== strcasecmp($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'"), $table_name)){
             $sql = "
-            CREATE TABLE `{$table_name}` (
+             CREATE TABLE IF NOT EXISTS `{$table_name}` (
                 `translation_id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
                 `element_type` VARCHAR( 36 ) NOT NULL DEFAULT 'post_post',
                 `element_id` BIGINT NULL DEFAULT NULL ,
@@ -121,7 +107,7 @@ function icl_sitepress_activate(){
         $table_name = $wpdb->prefix.'icl_translation_status';
         if(0 !== strcasecmp($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'"), $table_name)){
             $sql = "
-                CREATE TABLE `{$table_name}` (
+                 CREATE TABLE IF NOT EXISTS `{$table_name}` (
                  `rid` bigint(20) NOT NULL AUTO_INCREMENT,
                  `translation_id` bigint(20) NOT NULL,
                  `status` tinyint(4) NOT NULL,
@@ -145,7 +131,7 @@ function icl_sitepress_activate(){
         $table_name = $wpdb->prefix.'icl_translate_job';
         if(0 !== strcasecmp($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'"), $table_name)){
             $sql = "
-                CREATE TABLE `{$table_name}` (
+                 CREATE TABLE IF NOT EXISTS `{$table_name}` (
                 `job_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
                 `rid` BIGINT UNSIGNED NOT NULL ,
                 `translator_id` INT UNSIGNED NOT NULL ,
@@ -163,7 +149,7 @@ function icl_sitepress_activate(){
         $table_name = $wpdb->prefix.'icl_translate';
         if(0 !== strcasecmp($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'"), $table_name)){
                 $sql = "
-                CREATE TABLE `{$table_name}` (
+                 CREATE TABLE IF NOT EXISTS `{$table_name}` (
                 `tid` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
                 `job_id` BIGINT UNSIGNED NOT NULL ,
                 `content_id` BIGINT UNSIGNED NOT NULL ,
@@ -171,8 +157,8 @@ function icl_sitepress_activate(){
                 `field_type` VARCHAR( 128 ) NOT NULL ,
                 `field_format` VARCHAR( 16 ) NOT NULL ,
                 `field_translate` TINYINT NOT NULL ,
-                `field_data` TEXT NOT NULL ,
-                `field_data_translated` TEXT NOT NULL ,
+                `field_data` longtext NOT NULL ,
+                `field_data_translated` longtext NOT NULL ,
                 `field_finished` TINYINT NOT NULL DEFAULT 0,
                 INDEX ( `job_id` )
                 ) {$charset_collate}
@@ -185,7 +171,7 @@ function icl_sitepress_activate(){
         $table_name = $wpdb->prefix.'icl_locale_map';
         if(0 !== strcasecmp($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'"), $table_name)){
             $sql = "
-                CREATE TABLE `{$table_name}` (
+                 CREATE TABLE IF NOT EXISTS `{$table_name}` (
                     `code` VARCHAR( 7 ) NOT NULL ,
                     `locale` VARCHAR( 8 ) NOT NULL ,
                     UNIQUE (`code` ,`locale`)
@@ -198,7 +184,7 @@ function icl_sitepress_activate(){
        $table_name = $wpdb->prefix.'icl_flags';
        if(0 !== strcasecmp($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'"), $table_name)){
             $sql = "
-                CREATE TABLE `{$table_name}` (
+                 CREATE TABLE IF NOT EXISTS `{$table_name}` (
                 `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
                 `lang_code` VARCHAR( 10 ) NOT NULL ,
                 `flag` VARCHAR( 32 ) NOT NULL ,
@@ -223,7 +209,7 @@ function icl_sitepress_activate(){
         $table_name = $wpdb->prefix.'icl_strings';
         if(0 !== strcasecmp($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'"), $table_name)){
             $sql = "
-                CREATE TABLE `{$table_name}` (
+                 CREATE TABLE IF NOT EXISTS `{$table_name}` (
                   `id` bigint(20) unsigned NOT NULL auto_increment,
                   `language` varchar(7) NOT NULL,
                   `context` varchar(160) NOT NULL,
@@ -231,7 +217,8 @@ function icl_sitepress_activate(){
                   `value` text NOT NULL,
                   `status` TINYINT NOT NULL,
                   PRIMARY KEY  (`id`),
-                  UNIQUE KEY `context_name` (`context`,`name`)
+                  UNIQUE KEY `context_name` (`context`,`name`),
+                  KEY `language_context` (`language`, `context`)
                 ) {$charset_collate}"; 
             $wpdb->query($sql);
             if($e = mysql_error()) throw new Exception($e);
@@ -240,7 +227,7 @@ function icl_sitepress_activate(){
         $table_name = $wpdb->prefix.'icl_string_translations';
         if(0 !== strcasecmp($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'"), $table_name)){
             $sql = "
-                CREATE TABLE `{$table_name}` (
+                 CREATE TABLE IF NOT EXISTS `{$table_name}` (
                   `id` bigint(20) unsigned NOT NULL auto_increment,
                   `string_id` bigint(20) unsigned NOT NULL,
                   `language` varchar(10) NOT NULL,
@@ -258,7 +245,7 @@ function icl_sitepress_activate(){
         $table_name = $wpdb->prefix.'icl_string_status';
         if(0 !== strcasecmp($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'"), $table_name)){
             $sql = "
-                 CREATE TABLE `{$table_name}` (
+                  CREATE TABLE IF NOT EXISTS `{$table_name}` (
                 `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
                 `rid` BIGINT NOT NULL ,
                 `string_translation_id` BIGINT NOT NULL ,
@@ -273,7 +260,7 @@ function icl_sitepress_activate(){
         $table_name = $wpdb->prefix.'icl_string_positions';
         if(0 !== strcasecmp($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'"), $table_name)){
             $sql = "
-                 CREATE TABLE `{$table_name}` (
+                  CREATE TABLE IF NOT EXISTS `{$table_name}` (
                 `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
                 `string_id` BIGINT NOT NULL ,
                 `kind` TINYINT,
@@ -288,7 +275,7 @@ function icl_sitepress_activate(){
         $table_name = $wpdb->prefix.'icl_message_status';
         if(0 !== strcasecmp($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'"), $table_name)){
             $sql = "
-                 CREATE TABLE `{$table_name}` (
+                  CREATE TABLE IF NOT EXISTS `{$table_name}` (
                       `id` bigint(20) unsigned NOT NULL auto_increment,
                       `rid` bigint(20) unsigned NOT NULL,
                       `object_id` bigint(20) unsigned NOT NULL,
@@ -386,13 +373,66 @@ function icl_sitepress_activate(){
     }else{
         // reset ajx_health_flag
         $iclsettings['ajx_health_checked'] = 0;
+        $iclsettings['just_reactivated'] = 1;
         update_option('icl_sitepress_settings',$iclsettings);
-    }  
+    }
 	
+	//Set new caps for all administrator role
+	icl_enable_capabilities();
+
 }
 
 function icl_sitepress_deactivate(){
+	icl_disable_capabilities();
 } 
+
+function icl_enable_capabilities() {
+	global $wp_roles;
+	
+	if ( !isset( $wp_roles ) || !is_object( $wp_roles ) ){
+        $wp_roles = new WP_Roles();
+	}	
+	
+	$iclsettings = get_option('icl_sitepress_settings');
+	$icl_capabilities = icl_sitepress_get_capabilities();
+	
+	//Set WPML capabilities to all roles with cap:"".
+	$roles = $wp_roles->get_names();
+	foreach ( $roles as $current_role=>$role_name ) {
+		if ( isset($wp_roles->roles[$current_role]['capabilities']['manage_options']) ){
+			$role = get_role( $current_role );
+			if ( isset($role) && is_object($role) ){
+				for ( $i = 0, $caps_limit = count( $icl_capabilities ); $i < $caps_limit; $i++ ) {
+					if ( !isset($wp_roles->roles[$current_role]['capabilities'][$icl_capabilities[ $i ]]) ){	
+						$role->add_cap( $icl_capabilities[ $i ] );
+					}
+				}
+			}
+				
+		}
+	}
+	
+
+	//Set new caps for all Super Admins
+	$super_admins = get_super_admins();
+	foreach ( $super_admins as $admin ) {
+		$user = new WP_User( $admin );
+		for ( $i = 0, $caps_limit = count( $icl_capabilities ); $i < $caps_limit; $i++ ) {
+			$user->add_cap( $icl_capabilities[ $i ] );
+		}
+	}
+	
+	$iclsettings['icl_capabilities_verified'] = true;
+	update_option('icl_sitepress_settings',$iclsettings);
+}
+
+function icl_disable_capabilities() {
+	//by Gen. We not remove WPML caps for super admin, because can cause problem in other sites.
+	// Trunk version with this code: 19502
+//	$iclsettings['icl_capabilities_verified'] = false;
+//	update_option('icl_sitepress_settings',$iclsettings);
+}
+
 
 // Changed to use lowercased wpdb prefix. Some users have table name in uppercase.
 // http://bugs.mysql.com/bug.php?id=39894
@@ -420,25 +460,3 @@ if(isset($_GET['activate'])){
         }
     }
 }
-
-/*
-function icl_cant_be_activated(){
-        echo '<div class="error"><ul><li><strong>';
-        echo sprintf(__('WPML cannot be acctivated because: %s', 'sitepress'), $GLOBALS['_icl_activation_error']);
-        echo '</strong></li></ul></div>';        
-        $active_plugins = get_option('active_plugins');
-        $icl_sitepress_idx = array_search(ICL_PLUGIN_FOLDER . '/sitepress.php', $active_plugins);
-        if(false !== $icl_sitepress_idx){
-            unset($active_plugins[$icl_sitepress_idx]);
-            update_option('active_plugins', $active_plugins);
-            unset($_GET['activate']);
-            $recently_activated = get_option('recently_activated');
-            if(!isset($recently_activated[ICL_PLUGIN_FOLDER.'/sitepress.php'])){
-                $recently_activated[ICL_PLUGIN_FOLDER.'/sitepress.php'] = time();
-                update_option('recently_activated', $recently_activated);
-            }
-        }                
-}
-*/
-
-?>

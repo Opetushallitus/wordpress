@@ -10,34 +10,12 @@
     <?php
     
     // Installer plugin active?
-    $installer_on = defined('WPRC_VERSION') && WPRC_VERSION;
 
-    $wp_plugins = get_plugins();    
-    $wpml_plugins_list = array(
-                            'WPML Multilingual CMS'         => false,
-                            'WPML CMS Nav'                  => false,
-                            'WPML String Translation'       => false,
-                            'WPML Sticky Links'             => false,
-                            'WPML Translation Management'   => false
-                         );
-                      
-    foreach($wpml_plugins_list as $wpml_plugin_name => $v){
-        $found = false;
-        foreach($wp_plugins as $file => $plugin){
-            if($plugin['Name'] == $wpml_plugin_name){
-                $wpml_plugins[$plugin['Name'] . "#" . $file] = $plugin;    
-                $found = true;
-            }
-        }
-        if(!$found){
-            $wpml_plugins[$wpml_plugin_name . "#0"] = false;        
-        }
-    }
+	$wpml_plugins_list = SitePress::get_installed_plugins();
+	$installer_on = defined('WPRC_VERSION') && WPRC_VERSION;
 
-    unset($wp_plugins);
-    
     echo '
-        <table class="widefat" style="width:400px;">
+        <table class="widefat" style="width: auto;">
             <thead>
                 <tr>    
                     <th>' . __('Plugin Name', 'sitepress') . '</th>
@@ -55,35 +33,40 @@
                 define('ICL_WPML_ORG_REPO_ID', $wpml_org_repo_id);
         }
     }
-    
-    foreach($wpml_plugins as $name => $p){
-        
-        $exp = explode('#', $name);
-        $plugin_name = $exp[0];
-        $file = !empty($exp[1]) ? $exp[1] : false;
-        
-        echo '<tr>';
-        echo '<td>' . $plugin_name . '</td>';
-        echo '<td align="right">';
-        if(empty($p)){
-            if(!$installer_on){                
-                echo __('Not installed');
-            }else{
-                echo '<a href="' . admin_url('plugin-install.php?repos[]='.ICL_WPML_ORG_REPO_ID.'&amp;tab=search&amp;s=') . urlencode($plugin_name) . '">' . __('Download', 'sitepress') . '</a>';
-            }
-        }else{
-            if(!$installer_on){                
-                echo __('Installed');
-            }else{
-                echo '<a href="' . admin_url('plugin-install.php?repos[]='.ICL_WPML_ORG_REPO_ID.'&amp;tab=search&amp;s=') . urlencode($plugin_name) . '">' . __('Installed', 'sitepress') . '</a>';
-            }
-        } 
-        echo '</td>';
-        echo '<td align="center">'; echo isset($file) && is_plugin_active($file) ? __('Yes', 'sitepress') : __('No', 'sitepress'); echo '</td>';
-        echo '<td align="right">'; echo isset($p['Version']) ? $p['Version'] : __('n/a', 'sitepress'); echo '</td>';
-        echo '</tr>';
-        
-    }
+
+	foreach ( $wpml_plugins_list as $name => $plugin_data ) {
+
+		$plugin_name = $name;
+		$file        = $plugin_data['file'];
+		$dir = dirname($file);
+
+		echo '<tr>';
+		echo '<td><i class="icon18 '. $plugin_data['slug'] . '"></i>' . $plugin_name . '</td>';
+		echo '<td align="right">';
+		if ( empty( $plugin_data['plugin'] ) ) {
+			if ( !$installer_on ) {
+				echo __( 'Not installed' );
+			} else {
+				echo '<a href="' . admin_url( 'plugin-install.php?repos[]=' . ICL_WPML_ORG_REPO_ID . '&amp;tab=search&amp;s=' ) . urlencode( $plugin_name ) . '">' . __( 'Download', 'sitepress' ) . '</a>';
+			}
+		} else {
+			if ( !$installer_on ) {
+				echo __( 'Installed' );
+			} else {
+				echo '<a href="' . admin_url( 'plugin-install.php?repos[]=' . ICL_WPML_ORG_REPO_ID . '&amp;tab=search&amp;s=' ) . urlencode( $plugin_name ) . '">' . __( 'Installed', 'sitepress' ) . '</a>';
+			}
+		}
+		echo '</td>';
+		echo '<td align="center">';
+		echo isset( $file ) && is_plugin_active( $file ) ? __( 'Yes', 'sitepress' ) : __( 'No', 'sitepress' );
+		echo '</td>';
+		echo '<td align="right">';
+		echo isset( $plugin_data['plugin']['Version'] ) ? $plugin_data['plugin']['Version'] : __( 'n/a', 'sitepress' );
+		echo '</td>';
+		echo '</tr>';
+
+	}
+
     echo '
             </tbody>
         </table>

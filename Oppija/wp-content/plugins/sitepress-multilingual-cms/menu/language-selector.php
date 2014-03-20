@@ -69,7 +69,7 @@ if(empty($main_language)){
                 <?php $active_languages_ordered = $this->order_languages($active_languages); ?>
                 <?php foreach($active_languages_ordered as $lang): ?>
                 <li class="icl-<?php echo $lang['language_code'] ?>">          
-                    <a rel="alternate" hreflang="<?php echo $lang['language_code'] ?>" href="<?php echo apply_filters('WPML_filter_link', $lang['url'], $lang)?>">
+                    <a href="<?php echo apply_filters('WPML_filter_link', $lang['url'], $lang)?>">
                     <?php if( $this->settings['icl_lso_flags'] || $icl_language_switcher_preview):?>                
                     <img <?php if( !$this->settings['icl_lso_flags'] ):?>style="display:none"<?php endif?> class="iclflag" src="<?php echo $lang['country_flag_url'] ?>" alt="<?php echo $lang['language_code'] ?>" title="<?php echo $this->settings['icl_lso_display_lang'] ? esc_attr($lang['translated_name']) : esc_attr($lang['native_name']) ; ?>" />&nbsp;                    
                     <?php endif; ?>

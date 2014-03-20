@@ -1274,6 +1274,13 @@ p {
   float: none;
   border: 1px solid #cccccc;
 }
+.archive article img {
+  float: none;
+  border: 1px solid #cccccc;
+}
+.single article img {
+  border: 1px solid #cccccc;
+}
 /* TABLES */
 table {
   border-spacing: 0;
@@ -1560,6 +1567,14 @@ em {
 section p:first-of-type {
   display: initial !important;
 }
+section article p:first-of-type {
+    display: block !important;
+    clear: left;
+}
+.vertical-img {
+    float: left;
+    padding-right: 25px;
+}
 section p {
   padding-top: 10px;
 }
@@ -1636,6 +1651,40 @@ section.story {
   width: 1px;
   height: 1px;
   overflow: hidden;
+}
+/* Misc */
+.bc-img {
+  background: url('../img/breadcrumb-arrow-icon.png');
+  background-repeat: no-repeat;
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+}
+section ul {
+  list-style-type: disc;
+  padding-left: 40px !important;
+  padding-bottom: 15px;
+  padding-top: 10px;
+}
+section ol {
+  list-style-type: decimal;
+  padding-left: 40px !important;
+  padding-bottom: 15px;
+  padding-top: 10px;
+}
+.textversion {
+  float: right;
+  margin-top: -13px;
+}
+.textversion a {
+  color: #ffffff;
+  font-size: 13px;
+}
+.oph-story {
+    border-bottom: 1px dashed #c3c3c3;
+}
+.sidebar-node {
+    padding-bottom: 20px;
 }
 /*@page-max-width: 960px;*/
 @media only screen and (min-width: 519px) {

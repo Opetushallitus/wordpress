@@ -27,10 +27,11 @@
 
 			</div><!-- end entry -->
 			
-		</div><!-- end post -->
+		
 		
 		<?php endwhile; endif; ?>
-		<?php edit_post_link('Edit this entry.', '<p>', '</p>'); ?>
+		<?php edit_post_link('Muokkaa.', '<p>', '</p>'); ?>
+                </div><!-- end post -->        
 	
             </div><!-- end entries-content -->
             </div><!-- end entries -->
