@@ -23,6 +23,7 @@ usage () {
 	Examples:
 	$0 koulutus dokumenttikamera
 	$0 test reppu
+        $0 qa2 essee
 EOF
 
    exit 1
@@ -107,6 +108,25 @@ if [ "x$1" = "xtuotanto" ]
     tosubstitute1='https://virkailija.opintopolku.fi/'
     tosubstitute2='virkailija.opintopolku.fi'
     topath='/opt/www/virkailijawordpress/html'
+    towpdir='/usr/share/wordpress-virkailija'
+    totitle=''
+fi
+
+if [ "x$1" = "xqa2" ]
+    if [ "x$2" != "xessee" ]
+	then
+	echo "QA2 ei sijaitse palvelimella $2. Tarkkana nyt!"
+	exit 1
+    fi
+    
+    to='qa2'
+    tohost='wordpress4.qa.oph.ware.fi'
+    todb='virkailijawordpress'
+    touser='virkailija'
+    topw='BRudttyEYf44KU9K'
+    tosubstitute1='https://wordpress4.qa.oph.ware.fi/'
+    tosubstitute2='wordpress4.qa.oph.ware.fi'
+    topath='/opt/www/wp_virkailijaqa/html/'
     towpdir='/usr/share/wordpress-virkailija'
     totitle=''
 fi
