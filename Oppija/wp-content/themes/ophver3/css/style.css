@@ -1274,11 +1274,11 @@ p {
   float: none;
   border: 1px solid #cccccc;
 }
-.archive article img {
+.archive img {
   float: none;
   border: 1px solid #cccccc;
 }
-.single article img {
+.single img {
   border: 1px solid #cccccc;
 }
 /* TABLES */
@@ -1568,12 +1568,12 @@ section p:first-of-type {
   display: initial !important;
 }
 section article p:first-of-type {
-    display: block !important;
-    clear: left;
+  display: block !important;
+  clear: left;
 }
 .vertical-img {
-    float: left;
-    padding-right: 25px;
+  float: left;
+  padding-right: 25px;
 }
 section p {
   padding-top: 10px;
@@ -1681,10 +1681,15 @@ section ol {
   font-size: 13px;
 }
 .oph-story {
-    border-bottom: 1px dashed #c3c3c3;
+  border-bottom: 1px dashed #c3c3c3;
 }
 .sidebar-node {
-    padding-bottom: 20px;
+  padding-bottom: 20px;
+}
+h5.theme-term {
+  font-style: normal;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 /*@page-max-width: 960px;*/
 @media only screen and (min-width: 519px) {
