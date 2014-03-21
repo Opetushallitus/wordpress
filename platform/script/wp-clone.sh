@@ -139,12 +139,12 @@ if [ "x$1" = "xqa2" ]
     fi
 
     to='qa2'
-    tohost='wordress3.qa.oph.ware.fi'
+    tohost='wordpress3.qa.oph.ware.fi'
     todb='wordpress'
-    touser='wpopqa'
+    touser='wpophqa'
     topw='rFxChkbXv7BadH8L'
-    tosubstitute1="https://testi2.opintopolku.fi"
-    tosubstitute2="testi2.opintopolku.fi"
+    tosubstitute1="http://wordpress3.qa.oph.ware.fi/"
+    tosubstitute2="wordpress3.qa.oph.ware.fi"
     totitle='QA'
     toblogname="Opintopolku QA"
 fi
