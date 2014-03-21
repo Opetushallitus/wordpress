@@ -2,9 +2,9 @@
 
     <!-- breadcrumb -->
     <nav class="breadcrumb">
-        <?php if(function_exists('bcn_display'))
+        <?php if(function_exists('theme_bcn'))
         {
-            bcn_display();
+            theme_bcn();
         }?>
     </nav>
     <!-- /breaddcrumb -->
