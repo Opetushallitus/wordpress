@@ -139,7 +139,7 @@ if [ "x$1" = "xqa2" ]
     fi
 
     to='qa2'
-    tohost='wordress3.prod.oph.ware.fi'
+    tohost='wordress3.qa.oph.ware.fi'
     todb='wordpress'
     touser='wpopqa'
     topw='rFxChkbXv7BadH8L'
