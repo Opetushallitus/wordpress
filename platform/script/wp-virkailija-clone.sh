@@ -50,7 +50,7 @@ fromtitle='QA'
 
 
 if [ "x$1" = "xtest" ]
-    then 
+quit    then 
     if [ "x$2" != "xreppu" ]
 	then
 	echo "Testiympäristö ei sijaitse palvelimella $2. Tarkkana nyt!"
@@ -121,8 +121,8 @@ if [ "x$1" = "xqa2" ]
     
     to='qa2'
     tohost='wordpress4.qa.oph.ware.fi'
-    todb='virkailijawordpress'
-    touser='virkailija'
+    todb='virkailijaqa'
+    touser='virkailijawpuser'
     topw='BRudttyEYf44KU9K'
     tosubstitute1='https://wordpress4.qa.oph.ware.fi/'
     tosubstitute2='wordpress4.qa.oph.ware.fi'
