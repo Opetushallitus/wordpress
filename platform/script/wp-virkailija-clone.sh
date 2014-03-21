@@ -50,7 +50,7 @@ fromtitle='QA'
 
 
 if [ "x$1" = "xtest" ]
-quit    then 
+    then 
     if [ "x$2" != "xreppu" ]
 	then
 	echo "Testiympäristö ei sijaitse palvelimella $2. Tarkkana nyt!"
@@ -113,6 +113,7 @@ if [ "x$1" = "xtuotanto" ]
 fi
 
 if [ "x$1" = "xqa2" ]
+    then
     if [ "x$2" != "xessee" ]
 	then
 	echo "QA2 ei sijaitse palvelimella $2. Tarkkana nyt!"
