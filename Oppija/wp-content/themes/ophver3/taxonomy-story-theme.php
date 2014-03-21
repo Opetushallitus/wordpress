@@ -32,7 +32,8 @@
         </ul>
     </nav>
 
-<h1><?php _e( 'Tutustu tarinoihin', 'html5blank' ); ?></h1>
+<h1><?php _e( 'Tutustu tarinoihin asd', 'html5blank' ); ?></h1>
+<h5 class="theme-term"><?php single_cat_title(); ?></h5>
 	
     <?php   $args = array (
             'post_type' => 'oph-story',
@@ -57,12 +58,6 @@
                         ));
                     ?>
                     
-                    <h5><?php $terms = get_the_terms( $post->ID , 'story-theme' ); 
-                                        foreach( $terms as $term ) {
-                                            $post_term = $term->name; 
-                                            print $post_term; 
-                                        }?></h5>
-
                         <?php if ($has_attachments) : // Check if thumbnail exists ?>
                         
                         <?php $image_data = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
