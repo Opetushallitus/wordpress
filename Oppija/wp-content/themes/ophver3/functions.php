@@ -1222,10 +1222,48 @@ function unset_columns($columns) {
 }
 add_filter('manage_pages_columns', 'unset_columns');
 /*
-function theme_title( $title ) {
-    return $title.'- plaa';
+ * Breadcrumb for single oph-story
+ */ 
+ 
+function theme_bcn() {
+    if(function_exists('bcn_display')) {
+        global $post;
+		
+        $terms = wp_get_post_terms($post->ID, 'story-theme');             
+        $bcn_separator = get_option('bcn_options');
+        $separator = $bcn_separator['hseparator'];
+		$site_name = get_bloginfo('name');
+			
+		echo '<a title="'. theme_bcn_title($site_name) .'" href="'. get_bloginfo('url') .'" class="home">'. $site_name .'</a>';
+    	echo $separator;
+				
+		if(ICL_LANGUAGE_CODE == 'sv') {
+			$stories =	get_page_by_path('/stod-for-studievalet/tutustu-tarinoihin', OBJECT, 'page');
+			$parent_title = get_the_title($stories->post_parent);
+			$parent_link = get_permalink($stories->post_parent);
+		} else {
+			$stories =	get_page_by_path('/valintojen-tuki/tutustu-tarinoihin', OBJECT, 'page');
+			$parent_title = get_the_title($stories->post_parent);
+			$parent_link = get_permalink($stories->post_parent);			
+		}
+		
+        echo '<a title="' . theme_bcn_title($parent_title) .'" href="'. $parent_link .'">'. $parent_title .'</a>';
+        echo $separator;         
+        echo '<a title="' . theme_bcn_title($stories->post_title) .'" href="'. get_permalink($stories->ID) .'">'. $stories->post_title .'</a>';
+        echo $separator;
+		
+		if(is_single()) {
+			echo '<a title="'. theme_bcn_title($terms[0]->name) .'" href="'. get_term_link($terms[0], 'story-theme') .'">'. $terms[0]->name .'</a>';
+	        echo $separator;
+	        echo $post->post_title;	
+		} else {
+			echo single_cat_title();
+		}
+    }
 }
 
-// This is called after YOAST
-add_filter( 'wp_title', 'theme_title', 11 );
- */
+function theme_bcn_title($title) {
+	$bcn_title = __('Go To', 'html5blank') .' '. $title .'.';
+	
+	return $bcn_title;
+}

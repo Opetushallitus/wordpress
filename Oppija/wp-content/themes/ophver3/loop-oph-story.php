@@ -91,7 +91,7 @@
                                     
                         <?php html5wp_excerpt('html5wp_index', 'html5_blank_view_article'); // Build your custom callback length in functions.php ?>
 
-                        <p><a href="<?php print_r(get_term_link($post_slug, 'story-theme')); ?>">Katso kaikki teemaan liittyvät artikkelit</a></p> 
+                        <p><a href="<?php print_r(get_term_link($post_slug, 'story-theme')); ?>"><?php _e('Katso kaikki teemaan liittyvät artikkelit', 'html5blank'); ?></a></p> 
 		
 	</article>
 	<!-- /article -->

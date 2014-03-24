@@ -2,10 +2,10 @@
 
     <!-- breadcrumb -->
     <nav class="breadcrumb">
-        <a title="<?php bloginfo('name'); ?>" href="<?php echo home_url(); ?>" class="home"><?php bloginfo('name'); ?></a><span>&gt; </span>
-        <a title="Valintojen tuki" href="<?php echo home_url(); ?>valintojen-tuki/" class="page">Valintojen tuki</a><span>&gt; </span>
-        <a title="Tutustu tarinoihin" href="<?php echo home_url(); ?>valintojen-tuki/tutustu-tarinoihin" class="page">Tutustu tarinoihin</a><span>&gt; </span>
-        <?php echo get_the_title(); ?>
+        <?php if(function_exists('theme_bcn'))
+        {
+        	theme_bcn();
+        }?>
     </nav>
     
     <?php

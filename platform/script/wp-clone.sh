@@ -24,6 +24,7 @@ usage () {
 	$0 koulutus dokumenttikamera
 	$0 dev luokka
 	$0 test reppu
+        $0 qa2 essee
 EOF
 
    exit 1
@@ -127,6 +128,25 @@ if [ "x$1" = "xtuotanto" ]
     topath='/opt/www/opintopolkuwordpress/html'
     totitle=''
     toblogname="Opintopolku"
+fi
+
+if [ "x$1" = "xqa2" ]
+    then
+    if [ "x$2" != "xessee" ]
+	then
+	echo "QA2 ei sijaitse palvelimella $2. Tarkkana nyt!"
+	exit 1
+    fi
+
+    to='qa2'
+    tohost='wordpress3.qa.oph.ware.fi'
+    todb='wordpress'
+    touser='wpophqa'
+    topw='rFxChkbXv7BadH8L'
+    tosubstitute1="http://wordpress3.qa.oph.ware.fi/"
+    tosubstitute2="wordpress3.qa.oph.ware.fi"
+    totitle='QA'
+    toblogname="Opintopolku QA"
 fi
 
 if [ ! -n "$to" ]
