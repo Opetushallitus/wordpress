@@ -145,8 +145,10 @@ if [ "x$1" = "xqa2" ]
     topw='rFxChkbXv7BadH8L'
     tosubstitute1="http://wordpress3.qa.oph.ware.fi/"
     tosubstitute2="wordpress3.qa.oph.ware.fi"
+    topath="/opt/www/wp_ophqa/html"
     totitle='QA'
     toblogname="Opintopolku QA"
+    setreadonly='yes'
 fi
 
 if [ ! -n "$to" ]
@@ -182,3 +184,8 @@ ssh $fromhost cat "$frompath"/.htaccess | \
 ssh $tohost "sudo tee $topath/.htaccess >/dev/null"
 ssh $tohost "sudo perl -pi -e 's/$fromtitle/$totitle/' /usr/share/wordpress/wp-content/themes/ophver3/functions.php"
 ssh $tohost sudo /sbin/restorecon -R /usr/share/wordpress/
+
+if [ "x$setreadonly" == "xyes" ]
+    then
+    ssh $tohost "cd $topath/wp/ && php wp_enable_plugins.php code-freeze/code-freeze.php"
+fi
