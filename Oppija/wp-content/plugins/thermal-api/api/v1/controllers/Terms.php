@@ -1,22 +1,20 @@
 <?php
 
-namespace Voce\Thermal\v1;
+namespace Voce\Thermal\v1\Controllers;
 
-require_once(__DIR__ . '/../models/Terms.php');
-
-class TermsController {
+class Terms {
 
 	private static $_model;
 
 	public static function model() {
 		if ( !isset( self::$_model ) ) {
-			self::$_model = new TermsModel();
+			self::$_model = new \Voce\Thermal\v1\Models\Terms();
 		}
 		return self::$_model;
 	}
 
 	public static function find( $app, $taxonomy_name ) {
-		$taxonomy = TaxonomiesController::findById( $app, $taxonomy_name );
+		$taxonomy = Taxonomies::findById( $app, $taxonomy_name );
 
 		$found = 0;
 
@@ -26,6 +24,9 @@ class TermsController {
 
 		$model = self::model();
 
+		if($lastModified = apply_filters('thermal_get_lasttermmodified', false ) ) {
+			$app->lastModified( strtotime( $lastModified . ' GMT' ) );
+		}
 		$terms = $model->find( $taxonomy->name, $args, $found );
 
 		array_walk( $terms, array( __CLASS__, 'format' ), 'read' );
@@ -34,12 +35,17 @@ class TermsController {
 	}
 
 	public static function findById( $app, $taxonomy_name, $id ) {
-		$taxonomy = TaxonomiesController::findById( $app, $taxonomy_name );
+		$taxonomy = Taxonomies::findById( $app, $taxonomy_name );
 
 		$term = self::model()->findById( $taxonomy_name, $id );
 		if ( !$term ) {
 			$app->halt( '404', get_status_header_desc( '404' ) );
 		}
+
+		if( $lastModified = apply_filters('thermal_term_last_modified', false ) ) {
+			$app->lastModified( strtotime( $lastModified . ' GMT' ) );
+		}
+
 		self::format( $term, 'read' );
 		return $term;
 	}
@@ -57,12 +63,12 @@ class TermsController {
 			'offset' => array( '\\intval' ),
 			'orderby' => array( ),
 			'order' => array( ),
-			'in' => array( __NAMESPACE__ . '\\toArray', __NAMESPACE__ . '\\applyInt', __NAMESPACE__ . '\\toCommaSeparated' ),
+			'in' => array( '\\Voce\\Thermal\\v1\\toArray', '\\Voce\\Thermal\\v1\\applyInt', '\\Voce\\Thermal\\v1\\toCommaSeparated' ),
 			'slug' => array( ),
 			'parent' => array( '\\intval' ),
-			'hide_empty' => array( __NAMESPACE__ . '\\toBool' ),
-			'pad_counts' => array( __NAMESPACE__ . '\\toBool' ),
-			'include_found' => array( __NAMESPACE__ . '\\toBool' )
+			'hide_empty' => array( '\\Voce\\Thermal\\v1\\toBool' ),
+			'pad_counts' => array( '\\Voce\\Thermal\\v1\\toBool' ),
+			'include_found' => array( '\\Voce\\Thermal\\v1\\toBool' )
 		);
 		//strip any nonsafe args
 		$request_args = array_intersect_key( $request_args, $request_filters );

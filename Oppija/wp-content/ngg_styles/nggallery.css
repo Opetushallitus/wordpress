@@ -8,10 +8,19 @@ This stylesheet is provided to allow users the ability of overriding the default
 */
 
 
-.galleria-thumbnail .galleria-image img {
-    height: 200px !important;
+.ngg-gallery-list li img {
+    height: 35px;
+    width: 60px;
 }
 
-.galleria-stage {
-    border: 1px solid;
+.page article img {
+    border: none;
+}
+
+.ngg-gallery-list li.selected a {
+    background: none;
+}
+
+.ngg-gallery-list li a {
+    border: none;
 }

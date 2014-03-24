@@ -19,7 +19,7 @@ Template Page for the gallery overview
 	});
 </script>
 
-<div class="ngg-galleryoverview-jepa2" id="<?php echo $gallery->anchor ?>">
+<div class="ngg-galleryoverview" id="<?php echo $gallery->anchor ?>">
 
 <?php if ($gallery->show_piclens) { ?>
 	<!-- Piclense link -->
@@ -40,7 +40,8 @@ Template Page for the gallery overview
             <?php if ( !$image->hidden ) { ?>
             
             <img title="<?php echo esc_attr($image->alttext) ?>" alt="<?php echo esc_attr($image->alttext) ?>" src="<?php echo nextgen_esc_url($image->imageURL) ?>" <?php echo $image->size ?> />
-            <?php } ?>
+            
+                <?php } ?>
                
         </li>
 

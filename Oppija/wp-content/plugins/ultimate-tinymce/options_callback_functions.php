@@ -983,6 +983,24 @@ function jwl_dev_support_callback_function() {
 	echo '<input name="jwl_options_group4[jwl_dev_support]" id="jwl_dev_support" type="checkbox" value="1" class="five" ' . checked( 1, isset($options['jwl_dev_support']), false ) . ' /> '; ?><label for="jwl_dev_support"><span></span></label><?php
 	?><span style="margin-left:15px;" class="jwl_pro_text"><em><?php _e('Places an attractive link to my Pro version in footer of website.','jwl-ultimate-tinymce'); ?></em></span><?php
 }
+function jwl_tinymce_user_role_callback_function() {
+	/*
+	$options = get_option('jwl_options_group4');
+    
+	if (isset($options['jwl_tinymce_user_role'])) {
+		$options_tinymce_user_role = $options['jwl_tinymce_user_role'];
+	}
+	$items_tinymce_user_role = array("Super Admin", "Administrator", "Editor", "Author", "Contributor");
+	echo "<select id='jwl_tinymce_user_role' style='width:100px;' name='jwl_options_group4[jwl_tinymce_user_role]'>";
+	foreach($items_tinymce_user_role as $item_tinymce_user_role) {
+		$selected_tinymce_user_role = ($options_tinymce_user_role == $item_tinymce_user_role) ? 'selected="selected"' : '';
+		echo "<option value='$item_tinymce_user_role' $selected_tinymce_user_role>$item_tinymce_user_role</option>";
+	}
+	echo "</select>";
+	?><span class="jwl_pro_text" style="margin-left:10px;"><em><?php _e('Select which role may access the Ultimate Tinymce content editor.', 'jwl-ultimate-tinymce'); ?></em></span><?php
+	*/
+	?><a target="_blank" href="http://ultimatetinymcepro.com/"><span class="jwl_pro_span"><?php _e('PRO','jwl-ultimate-tinymce'); ?></span></a><span class="jwl_pro_text"><em><?php  _e('Select which role may access the Ultimate Tinymce content editor.', 'jwl-ultimate-tinymce'); ?></em></span><?php
+}
 function jwl_menu_location_callback_function() {
 	$options = get_option('jwl_options_group4');
     
@@ -997,7 +1015,7 @@ function jwl_menu_location_callback_function() {
 	}
 	echo "</select>";
 	?><span class="jwl_pro_text" style="margin-left:10px;"><em><?php _e('First save as "Main". Then choose Tools, Settings, or Appearance, and save again.', 'jwl-ultimate-tinymce'); ?></em></span><?php
- }
+}
 function jwl_tinymce_add_stylesheet_callback_function() {
 	 $options = get_option('jwl_options_group4');
 	echo '<input name="jwl_options_group4[jwl_tinymce_add_stylesheet]" id="jwl_tinymce_add_stylesheet" type="checkbox" value="1" class="five" ' . checked( 1, isset($options['jwl_tinymce_add_stylesheet']), false ) . ' /> '; ?><label for="jwl_tinymce_add_stylesheet"><span></span></label><?php
@@ -1016,6 +1034,15 @@ function jwl_tinymce_excerpt_callback_function() {
 	 $options = get_option('jwl_options_group4');
 	echo '<input name="jwl_options_group4[jwl_tinymce_excerpt]" id="jwl_tinymce_excerpt" type="checkbox" value="1" class="five" ' . checked( 1, isset($options['jwl_tinymce_excerpt']), false ) . ' /> '; ?><label for="jwl_tinymce_excerpt"><span></span></label><?php
 	?><span style="margin-left:15px;"><em><?php _e('Enables Ultimate Tinymce in the excerpt area of Posts.','jwl-ultimate-tinymce'); ?></em></span><?php
+}
+function jwl_post_revisions_callback_function() {
+	?><a target="_blank" href="http://ultimatetinymcepro.com/"><span class="jwl_pro_span"><?php _e('PRO','jwl-ultimate-tinymce'); ?></span></a><span class="jwl_pro_text"><em><?php _e('Sets maximum number of post revisions to store in database.','jwl-ultimate-tinymce'); ?></em></span><?php
+}
+function jwl_page_revisions_callback_function() {
+	?><a target="_blank" href="http://ultimatetinymcepro.com/"><span class="jwl_pro_span"><?php _e('PRO','jwl-ultimate-tinymce'); ?></span></a><span class="jwl_pro_text"><em><?php _e('Sets maximum number of page revisions to store in database.','jwl-ultimate-tinymce'); ?></em></span><?php
+}
+function jwl_del_revisions_callback_function() {
+	?><a target="_blank" href="http://ultimatetinymcepro.com/"><span class="jwl_pro_span"><?php _e('PRO','jwl-ultimate-tinymce'); ?></span></a><span class="jwl_pro_text"><em><?php _e('Deletes all post and page revisions from the database.','jwl-ultimate-tinymce'); ?></em></span><?php
 }
 function jwl_tinymce_excerpt_page_callback_function() {
 	 $options = get_option('jwl_options_group4');
@@ -1036,6 +1063,12 @@ function jwl_admin_bar_link_callback_function() {
 	 $options = get_option('jwl_options_group4');
 	echo '<input name="jwl_options_group4[jwl_admin_bar_link]" id="adminbar" type="checkbox" value="1" class="five" ' . checked( 1, isset($options['jwl_admin_bar_link']), false ) . ' /> '; ?><label for="adminbar"><span></span></label><?php
 	?><span style="margin-left:15px;"><em><?php _e('Adds a link to the admin bar for quick access to the Tinymce Settings Page.','jwl-ultimate-tinymce'); ?></em></span><?php
+}
+function jwl_hide_posts_list_callback_function() {
+	?><a target="_blank" href="http://ultimatetinymcepro.com/"><span class="jwl_pro_span"><?php _e('PRO','jwl-ultimate-tinymce'); ?></span></a><span class="jwl_pro_text"><em><?php _e('Hides selected posts from admin edit view.','jwl-ultimate-tinymce'); ?></em></span><?php
+}
+function jwl_hide_pages_list_callback_function() {
+	?><a target="_blank" href="http://ultimatetinymcepro.com/"><span class="jwl_pro_span"><?php _e('PRO','jwl-ultimate-tinymce'); ?></span></a><span class="jwl_pro_text"><em><?php _e('Hides selected pages from admin edit view.','jwl-ultimate-tinymce'); ?></em></span><?php
 }
 function jwl_content_css_callback_function() {
 	 $options = get_option('jwl_options_group4');

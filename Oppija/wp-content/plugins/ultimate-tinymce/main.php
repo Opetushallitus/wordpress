@@ -1,14 +1,14 @@
 <?php
 /**
  * @package Ultimate TinyMCE
- * @version 5.0
+ * @version 5.2
  */
 /*
 Plugin Name: Ultimate TinyMCE
 Plugin URI: http://www.plugins.joshlobe.com/
 Description: Beef up your visual tinymce editor with a plethora of advanced options.
 Author: Josh Lobe
-Version: 5.0
+Version: 5.2
 Author URI: http://joshlobe.com
 
 */
@@ -33,7 +33,6 @@ include WP_CONTENT_DIR . '/plugins/ultimate-tinymce/admin_functions.php';
 include WP_CONTENT_DIR . '/plugins/ultimate-tinymce/options_functions.php';
 include WP_CONTENT_DIR . '/plugins/ultimate-tinymce/options_callback_functions.php';
 include WP_CONTENT_DIR . '/plugins/ultimate-tinymce/includes/defaults.php';
-include WP_CONTENT_DIR . '/plugins/ultimate-tinymce/includes/uninstall.php';
 include WP_CONTENT_DIR . '/plugins/ultimate-tinymce/includes/import_export.php';
 
 //
@@ -58,6 +57,20 @@ if (empty($options_empty_mce_css)) {
 	$opts_mce_css = get_option('jwl_options_group3');	
 	$opts_mce_css['jwl_tinycolor_css_field_id']['tinycolor'] = 'Default';
 	update_option('jwl_options_group3', $opts_mce_css);
+}
+$options_menu_location = get_option('jwl_options_group4');
+$options_empty_menu_location = isset($options_menu_location['jwl_menu_location']);
+if (empty($options_empty_menu_location)) {	
+	$opts_menu_location = get_option('jwl_options_group4');	
+	$opts_menu_location['jwl_menu_location'] = 'Main';
+	update_option('jwl_options_group4', $opts_menu_location);
+}
+$options_tmce_ur = get_option('jwl_options_group4');
+$options_empty_tmce_ur = isset($options_tmce_ur['jwl_tinymce_user_role']);
+if (empty($options_empty_tmce_ur)) {	
+	$opts_tmce_ur = get_option('jwl_options_group4');	
+	$opts_tmce_ur['jwl_tinymce_user_role'] = 'Administrator';
+	update_option('jwl_options_group4', $opts_tmce_ur);
 }
 
 //  Add settings link to plugins page menu
@@ -292,12 +305,49 @@ class jwl_metabox_admin {
 					 } 
 				}
 			}
+			
+			// Unintall Plugin / Delete Databse Options
+			if ( isset( $_POST['uninstall'], $_POST['uninstall_confirm'] ) ) {  // Was uninstall button clicked?
+	
+				if( is_admin() && current_user_can('manage_options') ) {  // Verify User
+				
+					if ( !isset($_POST['utmce_uninstall_nonce']) || !wp_verify_nonce($_POST['utmce_uninstall_nonce'],'utmce_uninstall_nonce_check') ) {  // Verify nonce
+					
+						print 'Sorry, your nonce did not verify.';
+  						exit;
+						
+					} else {
+
+						delete_option('jwl_options_group','jwl_options_group'); // From prior plugin single array
+						delete_option('jwl_options_group1','jwl_options_group1');
+						delete_option('jwl_options_group2','jwl_options_group2');
+						delete_option('jwl_options_group3','jwl_options_group3');
+						delete_option('jwl_options_group4','jwl_options_group4');
+						delete_option('jwl_options_group9','jwl_options_group9');
+						delete_option('jwl_utmce_load_defaults', 'jwl_utmce_load_defaults');
+					 
+						// Do not change (this deactivates the plugin)
+						$current = get_option('active_plugins');
+						array_splice($current, array_search( $_POST['plugin'], $current), 1 ); // Array-function!
+						update_option('active_plugins', $current);
+						
+						// Redirect to plugins page with 'plugin deactivated' status message
+						wp_redirect( admin_url('/plugins.php?deactivate=true') );
+						exit;
+					}
+				}
+			}
 		}
 		
 		//executed to show the plugins complete admin page
 		function jwl_options_page() {
-			
-			$data = array('My Data 1', 'My Data 2', 'Available Data 1');
+				
+			// Display notice if trying to uninstall but forget to check box
+			if ( isset( $_POST['uninstall'] ) && ! isset( $_POST['uninstall_confirm'] ) ) {
+				echo '<div id="message" class="error"><p>';
+				_e('You must also check the confirm box before options will be uninstalled and deleted.','jwl-ultimate-tinymce');
+				echo '</p></div>';
+			}
 			?>
      
 <div id="ultimate-tinymce-general" class="wrap">
@@ -443,7 +493,35 @@ class jwl_metabox_admin {
         <div class="content links"> 
         	<div class="main_help_wrapper">
             	<div class="content_wrapper_tips" style="width:60%;">
-            		<?php jwl_ultimate_tinymce_form_uninstall(); ?>
+                
+            		<!-- PLUGIN UNINSTALL FORM -->
+                    <span class="content_wrapper_title"><?php _e('Uninstall Ultimate Tinymce','jwl-ultimate-tinymce'); ?></span><br /><br />
+					<?php
+                    if ( isset( $_POST['uninstall'] ) && ! isset( $_POST['uninstall_confirm'] ) ) { 
+                    ?><div id="message" class="error">
+                            <p>
+                            <?php _e('You must also check the confirm box before options will be uninstalled and deleted.','jwl-ultimate-tinymce'); ?>
+                            </p>
+                        </div>
+                      <?php
+                    }
+                    ?>
+                    <div style="width:100%;">
+                        <div style="width:60%;float:left;display:block;">
+                            <?php _e('The options for this plugin are not removed upon deactivation to ensure that no data is lost unintentionally. If you wish to remove all plugin information from your database be sure to run this uninstall utility first.<br /><br />This is a great way to "reset" the plugin, in case you experience problems with the editor. This option is NOT reversible. Ultimate Tinymce plugin settings will need to be re-configured if deleted.','jwl-ultimate-tinymce'); ?>
+                        </div>
+                        <div style="width:30%;float:left;display:block;margin-left:40px;">
+                            <form method="post">
+                            <?php wp_nonce_field('utmce_uninstall_nonce_check','utmce_uninstall_nonce'); ?>
+                            <input id="plugin" name="plugin" type="hidden" value="ultimate-tinymce/main.php" />
+                            <input name="uninstall_confirm" id="uninstall_confirm" type="checkbox" value="1" /><label for="uninstall_confirm"></label> <strong><?php _e('Please confirm before proceeding<br /><br />','jwl-ultimate-tinymce'); ?></strong>
+                            <input class="button-primary" name="uninstall" type="submit" value="<?php _e('Uninstall','jwl-ultimate-tinymce'); ?>" />
+                            </form>
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <!-- END PLUGIN UNINSTALL FORM -->
+    
                 </div> <!-- End Div .content_wrapper_tips -->
             </div> <!-- End Div .main_help_wrapper -->
         </div> <!-- End Div .content links -->
@@ -496,11 +574,11 @@ class jwl_metabox_admin {
             
             <div class="jwl_support_sidebar">
             	<h3><?php _e('Need Support?', 'jwl-ultimate-tinymce'); ?></h3>
-                <p><a target="_blank" href="http://docs.joshlobe.com/"><?php _e('Ultimate Tinymce WIKI', 'jwl-ultimate-tinymce'); ?></a></p>
+                <p><a target="_blank" href="http://ultimatetinymcepro.com/wiki"><?php _e('Ultimate Tinymce WIKI', 'jwl-ultimate-tinymce'); ?></a></p>
                 <p><a target="_blank" href="http://forum.joshlobe.com/member.php?action=register&referrer=1"><?php _e('Dedicated Support Forum', 'jwl-ultimate-tinymce'); ?></a></p>
                 <p><a target="_blank" href="http://www.plugins.joshlobe.com/contact/"><?php _e('Contact Me', 'jwl-ultimate-tinymce'); ?></a></p>
-                <p><a target="_blank" href="http://utmce.joshlobe.com/button-definitions/"><?php _e('Button Definitions', 'jwl-ultimate-tinymce'); ?></a></p>
-                <p><a target="_blank" href="http://utmce.joshlobe.com/other-plugin-features/"><?php _e('Other Plugin Features', 'jwl-ultimate-tinymce'); ?></a></p>
+                <p><a target="_blank" href="http://ultimatetinymcepro.com/button-definitions/"><?php _e('Button Definitions', 'jwl-ultimate-tinymce'); ?></a></p>
+                <p><a target="_blank" href="http://ultimatetinymcepro.com/other-plugin-features/"><?php _e('Other Plugin Features', 'jwl-ultimate-tinymce'); ?></a></p>
             </div> <!-- End Div .jwl_support_sidebar -->
             
             <div class="jwl_follow_sidebar">
@@ -528,11 +606,11 @@ class jwl_metabox_admin {
                     </tr>
                     <tr>
                     <td valign="top"><span style="font-family: &quot;verdana&quot;, &quot;geneva&quot;; font-size: 10pt;"><?php _e('Name:', 'jwl-ultimate-tinymce'); ?></span></td>
-                    <td valign="top"><input value="<?php echo $jwl_blog_title; ?>" size="30" name="YMP1" type="text" /></td>
+                    <td valign="top"><input value="<?php echo $jwl_blog_title; ?>" size="25" name="YMP1" type="text" /></td>
                     </tr>
                     <tr>
                     <td valign="top"><span style="font-family: &quot;verdana&quot;, &quot;geneva&quot;; font-size: 10pt;"><?php _e('Email:', 'jwl-ultimate-tinymce'); ?></span></td>
-                    <td valign="top"><input value="<?php echo $jwl_admin_email; ?>" size="30" name="YMP0" type="text" /></td>
+                    <td valign="top"><input value="<?php echo $jwl_admin_email; ?>" size="25" name="YMP0" type="text" /></td>
                     </tr>
                     <tr>
                     <td colspan="2"><input checked="checked" value="subscribe" name="action" type="radio" /> <span style="font-family: &quot;verdana&quot;, &quot;geneva&quot;; font-size: 10pt;"><?php _e('Subscribe', 'jwl-ultimate-tinymce'); ?></span><input style="margin-left:20px;" value="unsubscribe" name="action" type="radio" /> <span style="font-family: &quot;verdana&quot;, &quot;geneva&quot;; font-size: 10pt;"><?php _e('Unsubscribe', 'jwl-ultimate-tinymce'); ?></span></td>
@@ -668,7 +746,7 @@ jQuery(document).ready(
 		function jwl_on_save_changes() {
 			//user permission check
 			if ( !current_user_can('manage_options') )
-				wp_die( __('Cheatin&#8217; uh?') );			
+				wp_die( __('Cheatin&#8217; uh?') );	
 			//cross check the given referer
 			check_admin_referer('ultimate-tinymce-general');
 			//process here your on $_POST validation and / or option saving
@@ -784,8 +862,8 @@ if (!class_exists ('JWL_UtmcePointers')) {
 			return self::$instance;
 		}
 		
-		const DISPLAY_VERSION = 'v5.0';
-		const VERSION = '50';
+		const DISPLAY_VERSION = 'v5.2';
+		const VERSION = '52';
 		
 		function admin_enqueue_scripts () {
 			$dismissed = explode (',', get_user_meta (wp_get_current_user ()->ID, 'dismissed_wp_pointers', true));

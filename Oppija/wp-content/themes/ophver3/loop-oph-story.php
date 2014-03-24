@@ -2,7 +2,7 @@
         //$allterms = array();
         foreach($taxonomy_terms as $term){
             $allterms = $term->slug;
-        
+            
             $filter = array(
                 'posts_per_page' => 1,
                 'post_type' => 'oph-story',
@@ -11,7 +11,7 @@
                     array(
                         'taxonomy' => 'story-theme',
                         'field' => 'slug',
-                        'terms' => $term,
+                        'terms' => $term->slug,
                         )
                 )
             );
@@ -107,4 +107,6 @@
 	</article>
 	<!-- /article -->
 
-<?php endif;  }  ?>
+<?php endif;  }  
+
+wp_reset_query();  

@@ -1,7 +1,7 @@
 <?php get_header( get_bloginfo('language') ); ?>
 
 		
-	<?php if (have_posts()): while (have_posts()) : the_post(); ?>
+	<?php if (have_posts()): while (have_posts()) : the_post(); global $post_id; ?>
 
 		<article id="post-<?php the_ID(); ?>" class="main" >
 	
@@ -37,6 +37,7 @@
 			if ( count($featured ) > 0 ) : ?>
 				<aside>
 					<?php foreach ($featured as $post) : setup_postdata($post); ?>
+                                        
 					<?php $title = get_the_title();
                                             $langInfo = wpml_get_language_information($post_id);
                                             $postLang = $langInfo['locale'];

@@ -1,5 +1,7 @@
 # Thermal API 
 
+[![Build Status](https://travis-ci.org/voceconnect/thermal-api.png?branch=master)](https://travis-ci.org/voceconnect/thermal-api)
+
 Current API version: v1
 
 ## Overview
@@ -277,6 +279,12 @@ Orderby will also accept an array of multiple identifiers.
 			<td>post_type</td>
 			<td>array|string</td>
 			<td>The post types to be included in the result set.</td>
+		</tr>
+		<tr>
+			<td>post_status</td>
+			<td>array|string</td>
+			<td>Default to 'publish'.  The post statii to include in the result set.  Note that the statii
+			passed in are run through capability checks for the current user.</td>
 		</tr>
 		<tr>
 			<td>post_parent__in</td>
@@ -693,6 +701,11 @@ Orderby will also accept an array of multiple identifiers.
 			automatically turned on if the 'paged' filter is used.</td>
 		</tr>
 		<tr>
+			<td>who</td>
+			<td>string</td>
+			<td>Filters to users based on a subset of roles.  Currently, only 'authors' is supported.</td>
+		</tr>
+		<tr>
 			<td>callback</td>
 			<td>string</td>
 			<td>When set, the response will be wrapped in a JSONP callback.</td>
@@ -828,6 +841,10 @@ Orderby will also accept an array of multiple identifiers.
 			….
 		],
 		"meta":{
+			"nickname": "Johnny",
+			"first_name": "John",
+			"last_name": "Doe",
+			"description": "Lorem ipsum dolar set amet."
 		}
 	}
 

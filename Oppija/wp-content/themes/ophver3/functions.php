@@ -906,7 +906,8 @@ add_action( 'init', 'oph_taxonomies' );
 /* Left-side sub navigation */
 function oph_subnavi()
 {
-    
+global $post;
+
         // Fetch pages that are excluded from the top navigation
         $page_excludes = get_pages( array(
                             'meta_key' => '_top_nav_excluded',
@@ -915,18 +916,23 @@ function oph_subnavi()
                             'post_status' => 'publish'
                          ));
                          
-        $exclude_ids = wp_list_pluck($page_excludes, ID);
-            
+        $exclude_ids = wp_list_pluck($page_excludes, 'ID');
+                    
         $parent = array_reverse(get_post_ancestors($post->ID));
-        $top_parent = get_post($parent[0])->ID;
         
+        if(empty($parent)) {
+            $top_parent = $post->ID;
+        } else {
+            $top_parent = get_post($parent[0])->ID;    
+        }
+                
         $ids = get_pages( array(
                 'child_of' => $top_parent,
                 'post_status' => 'publish',
                 'exclude' => $exclude_ids
                ) );
                
-        $ids = wp_list_pluck($ids, ID);
+        $ids = wp_list_pluck($ids, 'ID');
         $ids[] = $top_parent;
         $ids = implode(',', $ids);
                                                               
@@ -950,23 +956,37 @@ function oph_related_taxonomy_query($qtaxonomies, $post_type = 'page')
         global $post;
         
         
+          // Get terms from all the taxonomies       
+        $taxquery = array('relation' => 'OR');
         
-        // Get terms from all the taxonomies       
-        $taxquery = array('relation'    => 'OR');
-        foreach ($qtaxonomies as $taxonomy )
-        {
+        
+        foreach ($qtaxonomies as $taxonomy ) {
+            
             $taxs = wp_get_post_terms( $post->ID, $taxonomy);
-            $tax_ids = array();
-            foreach( $taxs as $individual_tax ) $tax_ids[] = $individual_tax->term_id;
+                       
+            //var_dump($taxs);
             
-            $taxquery[] = array(
-                'taxonomy' => $taxonomy,
-                'terms' => $tax_ids,
-                //'operator'  => 'IN'
-            ); 
-            
+            if(!empty($taxs)) {
+                $tax_ids = array();          
+
+                foreach( $taxs as $individual_tax ) { 
+                    $tax_ids[] = $individual_tax->term_id;
+                    //var_dump($individual_tax->term_id);
+                }
+
+                $taxquery[] = array(
+                    'taxonomy' => $taxonomy,
+                    'terms' => $tax_ids,
+                    //'operator'  => 'IN'
+                ); 
+            } else {
+                $taxquery[] = array(
+                    'taxonomy' => ' ',
+                    'terms' => ' ',
+                    //'operator'  => 'IN'
+                    );
+            }
         }
-        
 
         $args = array(
                 'post_type' => $post_type,
@@ -976,11 +996,14 @@ function oph_related_taxonomy_query($qtaxonomies, $post_type = 'page')
                 'posts_per_page'        => 3,
                 'ignore_sticky_posts'   => 1
             );
-     
+        
+        //var_dump($args['tax_query']);
         //error_log( print_r ($args, true));
 
         $my_query = new wp_query( $args );
 
+        //var_dump($my_query);
+        
         return $my_query;
 }
 
@@ -1198,3 +1221,11 @@ function unset_columns($columns) {
 	return $columns;
 }
 add_filter('manage_pages_columns', 'unset_columns');
+/*
+function theme_title( $title ) {
+    return $title.'- plaa';
+}
+
+// This is called after YOAST
+add_filter( 'wp_title', 'theme_title', 11 );
+ */
