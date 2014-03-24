@@ -32,7 +32,7 @@
         </ul>
     </nav>
 
-<h1><?php _e( 'Tutustu tarinoihin asd', 'html5blank' ); ?></h1>
+<h1><?php _e( 'Tutustu tarinoihin', 'html5blank' ); ?></h1>
 <h5 class="theme-term"><?php single_cat_title(); ?></h5>
 	
     <?php   $args = array (
