@@ -125,11 +125,12 @@ if [ "x$1" = "xqa2" ]
     todb='virkailijaqa'
     touser='virkailijawpuser'
     topw='BRudttyEYf44KU9K'
-    tosubstitute1='https://wordpress4.qa.oph.ware.fi/'
-    tosubstitute2='wordpress4.qa.oph.ware.fi'
+    tosubstitute1='https://testi.virkailija.opintopolku.fi/'
+    tosubstitute2='testi.virkailija.opintopolku.fi'
     topath='/opt/www/wp_virkailijaqa/html/'
     towpdir='/usr/share/wordpress-virkailija'
     totitle=''
+    setreadonly='yes'
 fi
 
 if [ ! -n "$to" ]
@@ -162,3 +163,7 @@ ssh $tohost "sudo tee $topath/.htaccess >/dev/null"
 ssh $tohost "sudo perl -pi -e 's/$fromtitle/$totitle/' /usr/share/wordpress/wp-content/themes/ophver3/functions.php"
 ssh $tohost sudo /sbin/restorecon -R "$topath"
 ssh $tohost sudo /sbin/restorecon -R /usr/share/wordpress*
+if [ "x$setreadonly" == "xyes" ]
+    then
+    ssh $tohost "cd $topath/wp/ && sudo php wp_enable_plugins.php code-freeze/code-freeze.php"
+fi
