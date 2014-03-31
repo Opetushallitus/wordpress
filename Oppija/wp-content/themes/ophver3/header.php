@@ -17,8 +17,9 @@
             ?></title>
 
     <meta name="google" content="notranslate" />
+    
     <?php if(is_front_page()) : ?>
-    	<meta name="google-site-verification" content="Hfc9R_6N1QPibD-tkZsJEwysP2EKFlpQ1VI3pBvgE3U" />
+	<meta name="google-site-verification" content="Hfc9R_6N1QPibD-tkZsJEwysP2EKFlpQ1VI3pBvgE3U" />
     <?php endif; ?>
     
 	<!-- dns prefetch -->
