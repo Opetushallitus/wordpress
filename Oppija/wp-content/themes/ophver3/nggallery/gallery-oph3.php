@@ -38,8 +38,12 @@ Follow variables are useable :
 		<?php foreach ( $images as $image ) : ?>
 		<?php if ( $image->hidden ) continue; ?> 
 		
+                <?php $current_language = ICL_LANGUAGE_CODE;
+                $st = nextgen_esc_url($image->pidlink);
+                $image_link = str_replace('oph-story', '/'.$current_language.'/oph-story', $st); //var_dump($test) ?>
+                
 		<li id="ngg-image-<?php echo esc_attr($image->pid) ?>" class="ngg-thumbnail-list <?php if ($image->pid == $current->pid) echo 'selected' ?>" >
-			<a href="<?php echo nextgen_esc_url($image->pidlink) ?>" title="<?php echo esc_attr($image->description) ?>" >
+			<a href="<?php echo nextgen_esc_url($image_link) ?>" title="<?php echo esc_attr($image->description) ?>" >
 				<img title="<?php echo esc_attr($image->alttext) ?>" alt="<?php echo esc_attr($image->alttext) ?>" src="<?php echo nextgen_esc_url($image->thumbnailURL) ?>" <?php echo $image->size ?> />
 			</a>
       

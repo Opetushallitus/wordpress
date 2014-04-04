@@ -27,15 +27,6 @@
 <!-- article -->
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
             
-            <?php
-            $has_attachments = get_children(
-                array(
-                'post_type' => 'attachment',
-                'post_mime_type' => 'image',
-                'post_parent' => $post->ID
-                ));
-            ?>
-            
             <h5><?php  
             
             $terms = get_the_terms( $post->ID , 'story-theme' ); 
@@ -47,7 +38,7 @@
             }
             ?></h5>
             
-                        <?php if ($has_attachments) : // Check if thumbnail exists ?>
+                        <?php if (has_post_thumbnail()) : // Check if thumbnail exists ?>
                                 <?php $image_data = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
                                         $image_width = $image_data[1];
                                         $image_height = $image_data[2];
@@ -76,12 +67,10 @@
                                             <?php the_post_thumbnail('oph-medium'); // Declare pixel size you need inside the array ?>
                                     </a>
                                     
-                                <?php } ?>
-                        <?php endif; ?>
-                        
+                                <?php } ?>                  
                         <?php             
                         
-                        if(!$has_attachments) { ?>      
+                        if(!has_post_thumbnail()) { ?>      
                         <!-- post title -->
                         <h2>
                             <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a>
@@ -89,6 +78,8 @@
                         <!-- /post title -->
                         <?php } ?>
                                     
+                        <?php endif; ?>
+                        
                         <?php html5wp_excerpt('html5wp_index', 'html5_blank_view_article'); // Build your custom callback length in functions.php ?>
 
                         <p><a href="<?php print_r(get_term_link($post_slug, 'story-theme')); ?>"><?php _e('Katso kaikki teemaan liittyvät artikkelit', 'html5blank'); ?></a></p> 

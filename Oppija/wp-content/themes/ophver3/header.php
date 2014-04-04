@@ -6,7 +6,7 @@
         <title>
             <?php
             
-            $alt_title = get_field('alternative_title');
+            $alt_title = get_field('alternative_title') ;
             
             if(empty($alt_title) ) {
                 echo wp_title('');

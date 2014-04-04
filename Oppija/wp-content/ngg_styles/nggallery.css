@@ -24,3 +24,8 @@ This stylesheet is provided to allow users the ability of overriding the default
 .ngg-gallery-list li a {
     border: none;
 }
+
+.pic {
+    height: 353px;
+    overflow: hidden;
+}

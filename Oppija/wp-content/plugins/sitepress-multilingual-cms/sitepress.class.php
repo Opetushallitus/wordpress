@@ -8617,7 +8617,7 @@ class SitePress
 			$server_host_name = $this->get_server_host_name();
 			$cookie_domain = defined( 'COOKIE_DOMAIN' ) ? COOKIE_DOMAIN : $server_host_name;
 			$cookie_path   = defined( 'COOKIEPATH' ) ? COOKIEPATH : '/';
-			setcookie( '_icl_current_language', $this->get_current_language(), time() + 86400, $cookie_path, $cookie_domain );
+			//setcookie( '_icl_current_language', $this->get_current_language(), time() + 86400, $cookie_path, $cookie_domain );
 		}
 	}
 

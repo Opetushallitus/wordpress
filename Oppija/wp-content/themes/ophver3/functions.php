@@ -428,15 +428,15 @@ function create_post_type_html5()
 		'oph-story',
 		array(
 			'label' => __( 'Story Theme' ),
-			'rewrite' => array( 'slug' => 'story-theme'),
+			'rewrite' => array( 'slug' => 'theme', 'with_front' => false),
 			'hierarchical' => true,
                         'show_admin_column' => true,
 		)
 	);
  
  
-    register_taxonomy_for_object_type('story-theme', 'oph-story'); // Register Taxonomies for Category
-    register_taxonomy_for_object_type('post_tag', 'oph-story');
+    //register_taxonomy_for_object_type('story-theme', 'oph-story'); // Register Taxonomies for Category
+    //register_taxonomy_for_object_type('post_tag', 'oph-story');
     register_post_type('oph-story', // Register Custom Post Type
         array(
         'labels' => array(
@@ -457,7 +457,7 @@ function create_post_type_html5()
         'exclude_from_search' => true,
         'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
         'has_archive' => true,
-        'rewrite' => array( 'slug' => _x( 'oph-story', 'URL slug', 'html5blank' ) ),
+        'rewrite' => array( 'slug' => 'story', 'with_front' => false ),
         'supports' => array(
             'title',
             'editor',
@@ -465,10 +465,11 @@ function create_post_type_html5()
             'thumbnail'
         ), // Go to Dashboard Custom HTML5 Blank post for supports
         'can_export' => true, // Allows export in Tools > Export
-        'taxonomies' => array(
-            //'post_tag',
-            'story-theme',
+         'taxonomies' => array(
+            'post_tag',
+            //'story-theme',
         ) // Add Category and Post Tags support
+
     ));
  
  
@@ -497,8 +498,9 @@ function create_post_type_html5()
         'supports' => array(
             'title',
             'editor',
+            'page-attributes',
             //'excerpt',
-            'post_order',
+            //'',
             'thumbnail'
         ), // Go to Dashboard Custom HTML5 Blank post for supports
         'can_export' => true, // Allows export in Tools > Export
@@ -701,22 +703,16 @@ function oph_get_subpages(){
 function oph_nostot() {
 		global $post;
 		
-		/*$args = array(
-			'post_type' => 'post',
-			'post_status' => 'publish',
-			'category_name' => 'etusivu-nostot'
-		);
-		*/
 		$args = array(
 		    'post_type' => 'oph-feature',
 			'posts_per_page'	=> 21,
 			'post_status'    => 'publish',
-			'order' => 'DESC',
+                        'orderby' => 'menu_order',
+			'order' => 'ASC',
 		);
 		
 		$pages = get_posts($args);
-		
-		
+
 		return $pages;	
 }
 
@@ -838,7 +834,7 @@ function is_qa()
 		'localhost',
 	);
 	
-	if ( in_array($_SERVER['HTTP_HOST'], $devsites ) ) echo '<span style="font-size: 20px; line-height: 50px;margin-left: 20px; color: red;">DEV</span>';
+	if ( in_array($_SERVER['HTTP_HOST'], $devsites ) ) echo '<span style="font-size: 20px; line-height: 50px;margin-left: 20px; color: red;">l</span>';
 	elseif ( !in_array($_SERVER['HTTP_HOST'], $productionsites ) ) echo '<span style="font-size: 20px; line-height: 50px;margin-left: 20px; color: red;">QA</span>';
 	
 }
@@ -1192,21 +1188,7 @@ function language_selector_custom(){
 }
 
 
-/*
- * Switch admin page color theme in live/development 
- */
- 
-add_filter('get_user_option_admin_color', 'change_admin_color');
-    function change_admin_color($result) {
-        
-        $blog_name = get_bloginfo('name');
-        
-        if($blog_name == 'Opintopolku QA'){
-            return 'light';
-        } else {
-            return 'coffee';
-        }
-}
+
 
 /*
  * Unset columns from page listing
