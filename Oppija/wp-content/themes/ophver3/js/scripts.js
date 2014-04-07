@@ -1,9 +1,44 @@
 var $ = jQuery;
-var key = 'basket';
-var basketCount = jQuery.cookie(key) ? JSON.parse(jQuery.cookie(key)).length - 1 : 0;
+
+/**
+ *  Resolves prefix for cookie names in different environments
+ */
+var CookiePrefixResolver = (function() {
+    return {
+        getPrefix: function(currentHost) {
+            var prefix = 'test';
+            var prodHosts = ['opintopolku.fi', 'studieinfo.fi', 'studyinfo.fi'];
+
+            var result = '';
+            if (currentHost) {
+                result = prefix;
+                currentHost = currentHost.toLowerCase(); // domain names are case insensitive
+                for (var host in prodHosts) {
+                    if (currentHost.indexOf( prodHosts[host] ) >= 0 && currentHost.length == prodHosts[host].length) {
+                        result = '';
+                    }
+                }
+            }
+
+            return result;
+        }
+    };
+}());
+
+var BasketCookie = (function() {
+    var prefix = CookiePrefixResolver.getPrefix(window.location.host);
+    var key = prefix + 'basket';
+
+    return {
+        getBasketCount: function() {
+            return jQuery.cookie(key) ? JSON.parse(jQuery.cookie(key)).length : 0;
+        }
+    };
+}());
 
 var LanguageCookie = (function() {
-    var key = 'i18next';
+    var prefix = CookiePrefixResolver.getPrefix(window.location.host);
+    var key = prefix + 'i18next';
 
     return {
         setLanguage: function(language) {
@@ -23,6 +58,7 @@ jQuery(document).ready(function() {
         window.location.href = jQuery(this).attr("action") + searchWord;
     });
 
+    var basketCount = BasketCookie.getBasketCount();
     jQuery('.appbasket-count').html(basketCount);
     jQuery('#search-field-frontpage').focus();
     
