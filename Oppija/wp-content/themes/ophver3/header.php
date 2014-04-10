@@ -28,12 +28,12 @@
 	<!-- meta -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
-	<meta name="description" content="<?php bloginfo('description'); ?>">
+	<meta name="description" content="<?php echo((!is_front_page() && !is_archive()) ? (get_the_title() . ' - ' . get_bloginfo('name')) : get_bloginfo('description')); ?>">
 		
 	<!-- og:tags -->
 	<meta property="og:site_name" content="<?php bloginfo('name'); ?>" />
 	<meta property="og:title" content="<?php bloginfo('name'); ?>" /> 
-	<meta property="og:description" content='<?php bloginfo('description'); ?>' />
+	<meta property="og:description" content="<?php echo((!is_front_page() && !is_archive()) ? (get_the_title() . ' - ' . get_bloginfo('name')) : get_bloginfo('description')); ?>" />
 	
 	<meta property="og:image" content="<?php echo get_template_directory_uri(); ?>/img/Opintopolku_FI_logo.png" />
 	<meta property="og:type" content="article" />
