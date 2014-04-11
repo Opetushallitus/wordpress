@@ -2,7 +2,7 @@
 /*~ class.smtp.php
 .---------------------------------------------------------------------------.
 |  Software: PHPMailer - PHP email class                                    |
-|   Version: 5.2.4                                                          |
+|   Version: 5.2.2                                                          |
 |      Site: https://code.google.com/a/apache-extras.org/p/phpmailer/       |
 | ------------------------------------------------------------------------- |
 |     Admin: Jim Jagielski (project admininistrator)                        |
@@ -91,7 +91,7 @@ class SMTP {
    * Sets the SMTP PHPMailer Version number
    * @var string
    */
-  public $Version         = '5.2.4';
+  public $Version         = '5.2.2';
 
   /////////////////////////////////////////////////
   // PROPERTIES, PRIVATE AND PROTECTED
@@ -272,10 +272,10 @@ class SMTP {
       case 'PLAIN':
         // Start authentication
         fputs($this->smtp_conn,"AUTH PLAIN" . $this->CRLF);
-    
+
         $rply = $this->get_lines();
         $code = substr($rply,0,3);
-    
+
         if($code != 334) {
           $this->error =
             array("error" => "AUTH not accepted from server",
@@ -291,7 +291,7 @@ class SMTP {
 
         $rply = $this->get_lines();
         $code = substr($rply,0,3);
-    
+
         if($code != 235) {
           $this->error =
             array("error" => "Authentication not accepted from server",
@@ -306,10 +306,10 @@ class SMTP {
       case 'LOGIN':
         // Start authentication
         fputs($this->smtp_conn,"AUTH LOGIN" . $this->CRLF);
-    
+
         $rply = $this->get_lines();
         $code = substr($rply,0,3);
-    
+
         if($code != 334) {
           $this->error =
             array("error" => "AUTH not accepted from server",
@@ -320,13 +320,13 @@ class SMTP {
           }
           return false;
         }
-    
+
         // Send encoded username
         fputs($this->smtp_conn, base64_encode($username) . $this->CRLF);
-    
+
         $rply = $this->get_lines();
         $code = substr($rply,0,3);
-    
+
         if($code != 334) {
           $this->error =
             array("error" => "Username not accepted from server",
@@ -337,13 +337,13 @@ class SMTP {
           }
           return false;
         }
-    
+
         // Send encoded password
         fputs($this->smtp_conn, base64_encode($password) . $this->CRLF);
-    
+
         $rply = $this->get_lines();
         $code = substr($rply,0,3);
-    
+
         if($code != 235) {
           $this->error =
             array("error" => "Password not accepted from server",
@@ -374,12 +374,12 @@ class SMTP {
             return false;
         }
         $msg1 = $ntlm_client->TypeMsg1($realm, $workstation);//msg1
-        
+
         fputs($this->smtp_conn,"AUTH NTLM " . base64_encode($msg1) . $this->CRLF);
 
         $rply = $this->get_lines();
         $code = substr($rply,0,3);
-        
+
 
         if($code != 334) {
             $this->error =
@@ -391,7 +391,7 @@ class SMTP {
             }
             return false;
         }
-        
+
         $challange = substr($rply,3);//though 0 based, there is a white space after the 3 digit number....//msg2
         $challange = base64_decode($challange);
         $ntlm_res = $ntlm_client->NTLMResponse(substr($challange,24,8),$password);

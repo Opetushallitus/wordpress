@@ -216,8 +216,8 @@ function update_nag() {
 	}
 	echo "<div class='update-nag'>$msg</div>";
 }
-add_action( 'admin_notices', 'update_nag', 3 );
-add_action( 'network_admin_notices', 'update_nag', 3 );
+#add_action( 'admin_notices', 'update_nag', 3 );
+#add_action( 'network_admin_notices', 'update_nag', 3 );
 
 // Called directly from dashboard
 function update_right_now_message() {
@@ -227,7 +227,7 @@ function update_right_now_message() {
 		$cur = get_preferred_from_update_core();
 
 		if ( isset( $cur->response ) && $cur->response == 'upgrade' )
-			$msg .= " <a href='" . network_admin_url( 'update-core.php' ) . "' class='button'>" . sprintf( __('Update to %s'), $cur->current ? $cur->current : __( 'Latest' ) ) . '</a>';
+			$msg .= '';
 	}
 
 	echo "<span id='wp-version-message'>$msg</span>";

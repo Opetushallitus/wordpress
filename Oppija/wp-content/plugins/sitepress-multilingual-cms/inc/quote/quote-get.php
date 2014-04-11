@@ -153,14 +153,11 @@ function icl_quote_get_step_one($saved) {
                     if (!empty($cf_settings)) {
                         foreach ($cf_settings as $meta_key => $translate) {
                             if ($translate == 2) {
-                                $meta = get_post_meta($post->ID, $meta_key);
+                                $meta = get_post_meta($post->ID, $meta_key, true);
                                 if (is_string($meta)) {
-                                    $meta_count += str_word_count(strip_tags($meta));
-                                } else {
-									foreach($meta as $meta_item) {
-										$meta_count += str_word_count(strip_tags($meta_item));
-									}
-								}
+                                    $meta_count += str_word_count(strip_tags(
+                                                            $meta));
+                                }
                             } else {
                                 unset($cf_settings[$meta_key]);
                             }

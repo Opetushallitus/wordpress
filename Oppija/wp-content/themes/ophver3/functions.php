@@ -29,7 +29,7 @@ if (function_exists('add_theme_support'))
 
     // Add Thumbnail Theme Support
     add_theme_support('post-thumbnails');
-    add_image_size('large', 700, '', true); // Large Thumbnail
+    add_image_size('large', 700, '', true); // Large Thumbnailoph
     add_image_size('medium', 570, '', true); // Medium Thumbnail
     add_image_size('oph-small', 100, 160, true);
     add_image_size('oph-medium', 160, 100, true);
@@ -467,7 +467,7 @@ function create_post_type_html5()
         'can_export' => true, // Allows export in Tools > Export
          'taxonomies' => array(
             'post_tag',
-            //'story-theme',
+            'oph-koulutus'
         ) // Add Category and Post Tags support
 
     ));
@@ -844,34 +844,26 @@ function oph_taxonomies()
 
         register_taxonomy(
             'oph-koulutus',
-		array('page','post', 'oph-related'),
+		array('pages','post', 'oph-related', 'oph-story'),
 		array(
 			'label' => __( 'Koulutus' ),
 			'rewrite' => array( 'slug' => 'koulutus' ),
 			'hierarchical' => true,
 		)
 	);
-
-	register_taxonomy(
-            'oph-ammattiluokitus',
-		array('page','post', 'oph-related'),
+        
+        register_taxonomy(
+	    'oph-koulutustyyppi',
+		array( 'page', 'post', 'oph-related'),
 		array(
-			'label' => __( 'Ammattiluokitus' ),
-			'rewrite' => array( 'slug' => 'ammattiluokitus' ),
+			'label' => __( 'Koulutustyyppi' ),
+			'rewrite' => array( 'slug' => 'koulutustyyppi' ),
 			'hierarchical' => true,
+                       
 		)
 	);
-
-	register_taxonomy(
-	    'oph-koulutusaste',
-		array( 'page','post', 'oph-related'),
-		array(
-			'label' => __( 'Koulutusaste' ),
-			'rewrite' => array( 'slug' => 'koulutusaste' ),
-			'hierarchical' => true,
-		)
-	);
-
+        
+        
 	register_taxonomy(
 	    'oph-huomautukset',
 		array( 'page','post','oph-notification'),
@@ -894,6 +886,8 @@ function oph_taxonomies()
                         'show_admin_column' => true,
 		)
 	);
+        
+        
 
 
 }
@@ -1249,3 +1243,30 @@ function theme_bcn_title($title) {
 	
 	return $bcn_title;
 }
+
+
+/*
+Delete custom taxonomy terms
+*/
+
+/*
+
+function delete_custom_terms($taxonomy){
+    global $wpdb;
+
+    $taxonomy = 'oph-koulutus';
+    
+    $query = 'SELECT t.name, t.term_id
+            FROM ' . $wpdb->terms . ' AS t
+            INNER JOIN ' . $wpdb->term_taxonomy . ' AS tt
+            ON t.term_id = tt.term_id
+            WHERE tt.taxonomy = "' . $taxonomy . '"';
+
+    $terms = $wpdb->get_results($query);
+
+    foreach ($terms as $term) {
+        wp_delete_term( $term->term_id, $taxonomy );
+    }
+}
+
+add_action('init', 'delete_custom_terms');  */

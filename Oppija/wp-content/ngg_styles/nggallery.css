@@ -26,6 +26,9 @@ This stylesheet is provided to allow users the ability of overriding the default
 }
 
 .pic {
-    height: 353px;
+    height: 393px;
     overflow: hidden;
+}
+.ngg-galleryoverview div.pic img {
+    min-width: 100%;
 }

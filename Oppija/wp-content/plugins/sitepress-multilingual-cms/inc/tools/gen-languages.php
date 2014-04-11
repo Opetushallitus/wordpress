@@ -3,9 +3,7 @@
 // disabled
 
 return;
-
-require "../../../../../wp-config.php";
-
+ 
 //
 $fh = fopen(ICL_PLUGIN_PATH . '/res/languages.csv', 'r');
 $idx = 0;

@@ -3,13 +3,15 @@
 <!--[if gt IE 8]><!--> <html class="no-js" <?php language_attributes(); ?>> <!--<![endif]-->
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
 	<meta charset="<?php bloginfo('charset'); ?>">
+        
         <title>
             <?php
             
             $alt_title = get_field('alternative_title') ;
             
             if(empty($alt_title) ) {
-                echo wp_title('');
+                echo bloginfo('name');
+                echo wp_title(' :');
             }
             else {
                 echo $alt_title;

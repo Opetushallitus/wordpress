@@ -1564,9 +1564,12 @@ em {
   font-style: italic;
 }
 /* Lookup section */
+
+/*
 section p:first-of-type {
   display: initial !important;
-}
+} */
+
 section article p:first-of-type {
   display: block !important;
   clear: left;

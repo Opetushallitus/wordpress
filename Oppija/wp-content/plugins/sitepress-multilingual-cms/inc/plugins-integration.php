@@ -8,10 +8,12 @@ function wpml_plugins_integration_setup(){
     
     // WPSEO XML Sitemaps integration
     if(defined('WPSEO_VERSION') && version_compare(WPSEO_VERSION, '1.0.3', '>=')){
-		if ( isset( $sitepress_settings['language_negotiation_type'] ) ) {
-			if($sitepress_settings['language_negotiation_type'] == 2){
-				require ICL_PLUGIN_PATH . '/inc/wpseo-sitemaps-filter.php';
-			}
-		}
+        if($sitepress_settings['language_negotiation_type'] == 2){
+            require ICL_PLUGIN_PATH . '/inc/wpseo-sitemaps-filter.php';
+        }
     }
-}
+    
+    
+} 
+  
+?>
