@@ -1711,6 +1711,10 @@ h5.theme-term {
   font-weight: bold;
   text-transform: uppercase;
 }
+/* 404 error page */
+#post-error404 {
+  height: 400px;
+}
 /*@page-max-width: 960px;*/
 @media only screen and (min-width: 519px) {
   .container {
