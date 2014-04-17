@@ -67,7 +67,7 @@
 
                             <?php the_content(); // Dynamic Content ?>
 
-                            <?php the_tags( __( 'Tags: ', 'html5blank' ), ', ', '<br>'); // Separated by commas with a line break at the end ?>
+                            <?php //the_tags( __( 'Tags: ', 'html5blank' ), ', ', '<br>'); // Separated by commas with a line break at the end ?>
 
                             <?php edit_post_link(); // Always handy to have Edit Post Links available ?>
 

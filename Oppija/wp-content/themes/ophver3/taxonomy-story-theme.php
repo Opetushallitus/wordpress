@@ -48,6 +48,7 @@
         <section class="story">
         <!-- article -->
                 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+                    <div class="single-story-theme">
                   
                     <?php
                     $has_attachments = get_children(
@@ -66,7 +67,7 @@
                                         
                             if($image_height/$image_width > 1) { ?>
                 
-                                <a  class="vertical-img" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
+                                <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" class="vertical-img">
                                     <?php the_post_thumbnail('oph-small'); // Declare pixel size you need inside the array ?>
                                 </a>       
                                 <!-- post title -->        
@@ -83,7 +84,7 @@
                                 </h2>
                                     <!-- /post title -->
                                     
-                                <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
+                                <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" class="horizontal-img">
                                     <?php the_post_thumbnail('oph-medium'); // Declare pixel size you need inside the array ?>
                                 </a>
                                     
@@ -100,7 +101,7 @@
                         <?php } ?>            
    
                         <?php html5wp_excerpt('html5wp_index'); // Build your custom callback length in functions.php ?>
-
+                    </div>
                 </article>
                 <!-- /article -->
                 
@@ -121,8 +122,6 @@
         </section>
 
 <?php endif; ?>
-        
-        <?php wp_reset_query(); ?>
         
     </div>
     <!-- /stories -->           
