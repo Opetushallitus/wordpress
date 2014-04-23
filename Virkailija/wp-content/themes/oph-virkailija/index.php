@@ -21,21 +21,20 @@ get_header(); ?>
                 
                 
                 <?php
-	global $oUserAccessManager;
+                        global $oUserAccessManager;
 
-	if (isset($oUserAccessManager)) {
-		$iUserId = $user_ID;
-		$oUamAccessHandler = $oUserAccessManager->getAccessHandler();
-		$aUserGroupsForUser = $oUamAccessHandler->getUserGroupsForObject('user', $iUserId);
-                
-                $groups = array();
-                
-                foreach($aUserGroupsForUser as $userGroup){
-                    $groups[] = $userGroup->getId();
-                }
-                //var_dump($groups);
-	}
-?>
+                        if (isset($oUserAccessManager)) {
+                                $iUserId = $user_ID;
+                                $oUamAccessHandler = $oUserAccessManager->getAccessHandler();
+                                $aUserGroupsForUser = $oUamAccessHandler->getUserGroupsForObject('user', $iUserId);
+
+                                $groups = array();
+
+                                foreach($aUserGroupsForUser as $userGroup){
+                                    $groups[] = $userGroup->getId();
+                                }
+                        }
+                ?>
                 
                 
                 <div id="entries-content">
