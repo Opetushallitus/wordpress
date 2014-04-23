@@ -20,13 +20,31 @@ get_header(); ?>
                 </div>
                 
                 
+                <?php
+	global $oUserAccessManager;
+
+	if (isset($oUserAccessManager)) {
+		$iUserId = $user_ID;
+		$oUamAccessHandler = $oUserAccessManager->getAccessHandler();
+		$aUserGroupsForUser = $oUamAccessHandler->getUserGroupsForObject('user', $iUserId);
+                
+                $groups = array();
+                
+                foreach($aUserGroupsForUser as $userGroup){
+                    $groups[] = $userGroup->getId();
+                }
+                //var_dump($groups);
+	}
+?>
+                
+                
                 <div id="entries-content">
-                    
+                                       
                     <?php while (have_posts()) : the_post(); ?>
                     
+                    <?php if(in_array(uamIsAccess(true), $groups) || uamIsAdmin()) { ?>
+                    
                     <div <?php post_class() ?> id="post-<?php the_ID(); ?>">
-
-
                                 <div class="entry-title">
                                     <h2><a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
                                 </div>
@@ -43,8 +61,10 @@ get_header(); ?>
                                     <strong><?php the_excerpt('Read the rest of this entry &raquo;'); ?></strong>
                                 </div>-->
                                 <!-- end entry -->
-
+                          
                         </div><!-- end post -->
+                     <?php } ?>     
+                        
 
                 <?php 
      endwhile;

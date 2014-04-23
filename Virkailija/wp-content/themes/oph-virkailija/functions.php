@@ -513,4 +513,58 @@ add_action( 'init', 'add_custom_role_test' );
 
 add_filter( 'show_admin_bar', '__return_false' );
 
-?>
+
+function uamIsAccess($show_groups = 0){ 
+
+	global $oUserAccessManager;
+	if(!isset($oUserAccessManager)) return '';
+	if($show_groups === true) $show_groups = 1;
+	if($show_groups === false) $show_groups = 0;
+	if($show_groups == 0 || $show_groups == 1) {
+	global $post;
+	$sLink = '';
+	if (is_category()) {
+		$iPostId = get_query_var('cat');
+		$iPostType = 'category';
+	} else {
+		$iPostId = $post->ID;
+		$iPostType = get_post_type($iPostId);
+	}
+	//echo $iPostId;
+	if(isset($GLOBALS['UAM-CACHE'][$iPostId][$show_groups])) {
+		return $GLOBALS['UAM-CACHE'][$iPostId][$show_groups];
+	} else {
+		if (isset($oUserAccessManager)) {
+
+			//echo $iPostId. ' ' .$iPostType;
+			$oUamAccessHandler = $oUserAccessManager->getAccessHandler();
+			$aGroups = $oUamAccessHandler->getUserGroupsForObject($iPostType, $iPostId);
+			if (count($aGroups) > 0) {
+				if(!$show_groups) {
+					$sLink = __('This area is protected. Only users with the same capabilities can view this content', 'UA Network');
+				} else {
+					//$sLink = 'category: ';
+					foreach ($aGroups as $oGroup) {
+						$sLink .= $oGroup->getId().', ';
+					}
+					$sLink = rtrim($sLink, ', ');
+				}
+			}
+		}
+		$GLOBALS['UAM-CACHE'][$iPostId][$show_groups] = $sLink;
+		return $sLink;
+	}
+	} else return 'ERR: Invalid uamIsAccess() call. Arguments must be (bool) true or false';
+
+}
+
+function uamIsAdmin(){
+	global $oUserAccessManager;
+	if(!isset($oUserAccessManager)) return '';
+	$userID = get_current_user_id();
+	$uamAccessHandler = $oUserAccessManager->getAccessHandler();
+	
+        return $uamAccessHandler->userIsAdmin();
+
+
+  }
