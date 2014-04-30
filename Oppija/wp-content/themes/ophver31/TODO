@@ -1,0 +1,34 @@
+TUOTANTOON SIIRTO
+
+AIKATAULU
+
+-dns muutokset ip ?
+
+-OK: /wp/fi/
+-OK: /wp/sv/
+
+OK: .htaccess
+OK: -wp-config.php
+
+CONTENT
+-OK: import / export
+-OK: linkit
+-DNS
+-OK: blog description
+
+-OK: hakulomake action
+-OK: favicon
+
+-build.sh 
+-OK: editoi style.css
+-OK: head osion siistiminen
+
+BUGIT:
+
+-OK: footer ?
+-OK: taulukot / sivuscrolli
+-OK: kuvat / alignment css
+
+-OK: rekisteriseloste /sv -bugi???
+
+
