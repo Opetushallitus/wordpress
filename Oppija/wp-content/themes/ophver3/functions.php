@@ -428,7 +428,6 @@ function create_post_type_html5()
 		'oph-story',
 		array(
 			'label' => __( 'Story Theme' ),
-			'rewrite' => array( 'slug' => 'theme', 'with_front' => false),
 			'hierarchical' => true,
                         'show_admin_column' => true,
 		)

@@ -56,9 +56,9 @@
                                     <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a>
                             </h1>
                             <!-- /post title -->
-                        
+
                             <!-- post thumbnail -->
-                            <?php if ( has_post_thumbnail()) : // Check if Thumbnail exists ?>
+                            <?php if ( has_post_thumbnail() && !($numpages > 1)) : // Check if Thumbnail exists and post is not paged ?>
                                     <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
                                             <?php the_post_thumbnail(); // Fullsize image for the single post ?>
                                     </a>
@@ -66,6 +66,8 @@
                             <!-- /post thumbnail -->
 
                             <?php the_content(); // Dynamic Content ?>
+                            
+                            <?php wp_pagenavi( array( 'type' => 'multipart' ) ); ?>
 
                             <?php //the_tags( __( 'Tags: ', 'html5blank' ), ', ', '<br>'); // Separated by commas with a line break at the end ?>
 

@@ -58,7 +58,7 @@
                         'post_parent' => $post->ID
                         ));
                     ?>
-                    
+                        
                         <?php if ($has_attachments) : // Check if thumbnail exists ?>
                         
                         <?php $image_data = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
@@ -76,7 +76,7 @@
                                 </h2>
                                     <!-- /post title -->
                                     
-                               <?php } else { ?>
+                               <?php } elseif (!$img_tag) { ?>
                                     
                                     <!-- post title -->
                                 <h2>
@@ -91,7 +91,7 @@
                                 <?php } ?>
 
                         <?php endif; ?>
-
+                                    
                         <?php if(!$has_attachments) { ?>      
                         <!-- post title -->
                         <h2>

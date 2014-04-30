@@ -18,7 +18,7 @@
                 mozallowfullscreen: 'yes',
                 'class': 'galleria-iframe',
                 style: 'visibility: hidden',
-                onload: 'this.style.visibility="visible"'
+                onload: 'this.style.visibility="visible"' 
             });
             $iframe.css({
                 'margin': '0px',

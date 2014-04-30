@@ -477,6 +477,10 @@ ol,
 ul {
   list-style: none;
 }
+ul.no-circle {
+  list-style-type: none;
+  padding-left: 20px !important;
+}
 blockquote,
 q {
   quotes: none;
@@ -1279,7 +1283,7 @@ p {
   float: none;
   border: 1px solid #cccccc !important;
 }
-.archive img {
+.story img {
   float: none;
   border: 1px solid #cccccc;
 }

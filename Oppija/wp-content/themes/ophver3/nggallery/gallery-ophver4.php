@@ -12,7 +12,9 @@ Template Page for the gallery overview
                 panel_height: 280,
                 frame_width: 60,
                 frame_height: 35,
+                enable_overlays: true,
                 show_filmstrip_nav: false,
+                show_captions: true,
                 show_infobar: false,
                 filmstrip_style: 'showall',
                 });
@@ -35,6 +37,9 @@ Template Page for the gallery overview
         <?php $i = 0; ?>
         
 	<?php foreach ( $images as $image ) : ?>
+        
+        <?php //var_dump($image); ?>
+                
         <li id="ngg-image-<?php echo $image->pid ?>" class="ngg-gallery-thumbnail-box" >
 
             <?php if ( !$image->hidden ) { ?>

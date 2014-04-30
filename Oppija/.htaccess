@@ -1,6 +1,7 @@
 Options +FollowSymlinks
 RewriteEngine on
 
+# BEGIN WordPress
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteBase /Oppija/
@@ -9,3 +10,5 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /Oppija/index.php [L]
 </IfModule>
+
+# END WordPress
