@@ -24,7 +24,7 @@
 	<meta name="google-site-verification" content="Hfc9R_6N1QPibD-tkZsJEwysP2EKFlpQ1VI3pBvgE3U" />
     <?php endif; ?>
     
-	<!-- dns prefetch -->
+	<!-- dns prefetch plaa -->
 	<link href="//www.google-analytics.com" rel="dns-prefetch">
 		
 	<!-- meta -->
