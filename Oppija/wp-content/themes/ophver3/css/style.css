@@ -857,6 +857,12 @@ header nav .selected_subpage {
   padding: 10px;
   padding: 1rem;
 }
+header nav .selected_page {
+  background: #ffffff;
+}
+header nav .selected_page a {
+  color: #333333;
+}
 header nav .container {
   overflow: visible;
 }
