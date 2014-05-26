@@ -121,6 +121,7 @@
 		            	<?php foreach ($languages as $lang) : ?>
 		            		<li><a href="<?php echo $lang['url'] ?>"><?php echo $lang['native_name'] ?></a></li>
 		            	<?php endforeach ?> 
+                                        <li><a href="http://www.google.com">In English</a></li>
 		            </ul>
 		        </div>
 		        

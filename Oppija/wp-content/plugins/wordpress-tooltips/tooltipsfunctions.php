@@ -36,6 +36,18 @@ function tooltipGlobalSettings()
 	}
 	$enableTooltipsForExcerpt = get_option("enableTooltipsForExcerpt");
 	if (empty($enableTooltipsForExcerpt)) $enableTooltipsForExcerpt = 'NO';
+
+	// 2014-03 3.3.9
+	if (isset($_POST['enableTooltipsForTagSubmit']))
+	{
+		if (isset($_POST['enableTooltipsForTag']))
+		{
+			update_option("enableTooltipsForTags",$_POST['enableTooltipsForTag']);
+		}
+		tooltipsMessage("Changes saved."); //!!!
+	}
+	$enableTooltipsForTag = get_option("enableTooltipsForTags");
+	if (empty($enableTooltipsForTag)) $enableTooltipsForTag = 'NO';
 	
 ?>
 
@@ -178,14 +190,14 @@ function tooltipGlobalSettings()
 										<td width="25%"  style="text-align:left;">
 										<script type="text/javascript"> 
 										jQuery(document).ready(function () {
-										  jQuery("span.questionimage").hover(function () {
+										  jQuery("span.questionexcerpt").hover(function () {
 										    jQuery(this).append('<div class="tooltip"><p>The option --  "Enable Tooltips For Post Excerpt" means show tooltips in your post excerpt</p><p>The option --  "    Disable Tooltips For Post Excerpt " means do not show tooltips in your post excerpt</p><p>This option is helpful for some advance themes</p></div>');
 										  }, function () {
 										    jQuery("div.tooltip").remove();
 										  });
 										});
 										</script>										
-										Tooltips For Excerpt: <span class="questionimage">?</span>
+										Tooltips For Excerpt: <span class="questionexcerpt">?</span>
 										</td>
 										<td width="50%"  style="text-align:left;">
 										<select id="enableTooltipsForExcerpt" name="enableTooltipsForExcerpt" style="width:400px;">
@@ -212,7 +224,63 @@ function tooltipGlobalSettings()
 		<div style="clear:both"></div>
 		<br />
 
+<?php
+// 2014-03 3.4.1
+?>
+<div style='clear:both'></div>		
+		<div class="wrap">
+			<div id="dashboard-widgets-wrap">
+			    <div id="dashboard-widgets" class="metabox-holder">
+					<div id="post-body">
+						<div id="dashboard-widgets-main-content">
+							<div class="postbox-container" style="width:90%;">
+								<div class="postbox">
+									<h3 class='hndle'><span>
+										Enable/Disable Tooltips For Post Tag<i> <font color='Gray'></font></i>
+									</span>
+									</h3>
+								
+									<div class="inside" style='padding-left:5px;'>
+										<form id="toolstipsform" name="toolstipsform" action="" method="POST">
+										<table id="toolstipstable" width="100%">
 
+										<tr style="text-align:left;">
+										<td width="25%"  style="text-align:left;">
+										<script type="text/javascript"> 
+										jQuery(document).ready(function () {
+										  jQuery("span.questiontags").hover(function () {
+										    jQuery(this).append('<div class="tooltip"><p>The option --  "Enable Tooltips For Post Tag" means show tooltips on your post tags</p><p>The option --  "    Disable Tooltips For Post Tag " means do not show tooltips on your post tags</p></div>');
+										  }, function () {
+										    jQuery("div.tooltip").remove();
+										  });
+										});
+										</script>										
+										Tooltips For Tag: <span class="questiontags">?</span>
+										</td>
+										<td width="50%"  style="text-align:left;">
+										<select id="enableTooltipsForTag" name="enableTooltipsForTag" style="width:400px;">
+										<option id="enableTooltipsForTagOption" value="YES" <?php if ($enableTooltipsForTag == 'YES') echo "selected";   ?>> Enable Tooltips For Post Tag </option>
+										<option id="enableTooltipsForTagOption" value="NO" <?php if ($enableTooltipsForTag == 'NO') echo "selected";   ?>>   Disable Tooltips For Post Tag </option>
+										</select>
+										</td>
+										<td width="25%"  style="text-align:left;">
+										<input type="submit" id="enableTooltipsForTagSubmit" name="enableTooltipsForTagSubmit" value=" Update Now ">
+										</td>
+										</tr>
+
+										</table>
+										</form>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+		    	</div>
+			</div>
+		</div>
+		<div style="clear:both"></div>
+		<br />
 <?php
 }
 

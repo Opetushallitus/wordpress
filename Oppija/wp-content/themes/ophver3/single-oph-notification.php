@@ -1,50 +1,87 @@
 <?php get_header(); ?>
 
-	<!-- breadcrumb -->
-	<nav class="breadcrumb">
-    <?php if(function_exists('bcn_display'))
-    {
-        wp_reset_query();
-        bcn_display();
-    }?>
+    <!-- breadcrumb -->
+    <nav class="breadcrumb">
+        <?php if(function_exists('bcn_display'))
+        {
+            bcn_display();
+        }?>
     </nav>
-	<!-- /breaddcrumb -->
-        
+    <!-- /breaddcrumb -->
+	
+        <nav class="sidenav">
+            <ul>
+                <li>
+                    <ul class="stories-sidenav">
+                <?php
 
-	<div class="center-content">  
-            
-            <div class="content-middle">
-	<?php if (have_posts()): while (have_posts()) : the_post(); ?>
-	
-		<!-- article -->
-		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	
-			<h1><?php the_title(); ?></h1>
-		
-			<?php the_post_thumbnail('large') ?>
-		
-			<?php the_content(); ?>
-						
-			<?php edit_post_link(); ?>
-			
-		</article>
-		<!-- /article -->		
-	<?php endwhile; ?>
-	
-	<?php else: ?>
-	
-		<!-- article -->
-		<article>
-			
-			<h2><?php _e( 'Sorry, nothing to display.', 'html5blank' ); ?></h2>
-			
-		</article>
-		<!-- /article -->
-	
-	<?php endif; ?>
+                    function get_custom_terms($taxonomies, $args){
+                    $args = array('orderby'=>'asc','hide_empty'=>false);
+                    $custom_terms = get_terms(array($taxonomies), $args);
+                    foreach($custom_terms as $term){
+                        echo '<li class="page_item"><a href="'. get_term_link($term) .'" class="expanded"><span>'. $term->name.'</span></a></li>';
+                    }
+                    }
+
+                    get_custom_terms('story-theme'); 
+
+                     ?>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+            <!-- section -->
+            <div class="story-single">
+            <?php if (have_posts()): while (have_posts()) : the_post(); ?>
+
+                    <!-- article -->
+                    <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
+                            <!-- post thumbnail -->
+                            <?php if ( has_post_thumbnail()) : // Check if Thumbnail exists ?>
+                                    <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
+                                            <?php the_post_thumbnail(); // Fullsize image for the single post ?>
+                                    </a>
+                            <?php endif; ?>
+                            <!-- /post thumbnail -->
+
+                            <!-- post title -->
+                            <h1>
+                                    <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a>
+                            </h1>
+                            <!-- /post title -->
+
+                            <?php the_content(); // Dynamic Content ?>
+
+                            <?php the_tags( __( 'Tags: ', 'html5blank' ), ', ', '<br>'); // Separated by commas with a line break at the end ?>
+
+                            <?php edit_post_link(); // Always handy to have Edit Post Links available ?>
+
+                            <?php comments_template(); ?>
+
+                    </article>
+                    <!-- /article -->
+
+            <?php endwhile; ?>
+
+            <?php else: ?>
+
+                    <!-- article -->
+                    <article>
+
+                            <h1><?php _e( 'Sorry, nothing to display.', 'html5blank' ); ?></h1>
+
+                    </article>
+                    <!-- /article -->
+
+            <?php endif; ?>
+
             </div>
-                
-	</div>
- 
-        
-<?php get_footer( get_bloginfo('language') ); ?>
+            <!-- /story -->
+	
+<?php //get_sidebar(); 
+    get_template_part('related-content');
+?>
+
+<?php get_footer(); ?>

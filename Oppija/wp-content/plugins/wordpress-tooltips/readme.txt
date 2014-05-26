@@ -5,7 +5,7 @@ Donate link: http://tomas.zhu.bz/
 Tags:tooltip,hover,link,bubble,image,nextgen,next-gen,photo,picture,image,popup,phrase,glossary,video,radio,shortcode,tag,menu,excerpt,post
 Requires at least: 2.0
 Tested up to: 3.8.1
-Stable tag: 3.3.7
+Stable tag: 3.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,8 +35,9 @@ You can use wordpress standard TinyMCE editor to add text, image, song, video an
 We will use the title of the post as the keyword of your tooltips, and use the content of the post as the value of your tooltips, for example: If you input "wordpress" as tooltip title, and use "we love wordpress" as the 
 tooltip content, when users view your post, if there were the word "wordpress" in your post, our plugin will detect this word and add a tooltip on the word "wordpress" automatically, on user side, he will find the word "wordpress" with a dotted line under it, and when user mouse over the word "wordpress", the tooltip box will popup and show the tooltip content "we love wordpress".
 
-We also added guide tips for each setting option, when you hover the question mark of a setting option, a text description will be shown to tell you the usage of this option
+We also added guide tips for each setting option, when you hover the question mark of a setting option, a text description will be shown to tell you the usage of this option.
 
+Since version 3.4.3 we support tooltips shortcode, copy [tooltipslist] in your page or post, we will show all tooltips as a list, if you want a pretty style, you can customize the class '.tooltips_list' in your css file
 
 
 <h4>Features of Wordpress Tooltips Pro:</h4>
@@ -103,6 +104,14 @@ FAQs can be found here: http://tomas.zhu.bz/wordpress-plugin-tooltips.html/
 5. Tooltips Edit/Delete/Update Panel In Back End
 
 == Changelog ==
+= Version 3.4.3 =
+Added the shorcode [tooltipslist] to show all tooltips in a list, any suggestion or feature request is welcome. :)
+
+= Version 3.4.1 =
+Add new setting option in setting option page.
+you can select Enable/Disable Tooltips for post tags in your setting option.
+Tweak tooltip in admin area
+
 = Version 3.3.9 =
 Add new setting option in setting option page.
 you can select Enable/Disable Tooltips For Post Excerpt in your setting option, this is helpful in some advance themes.

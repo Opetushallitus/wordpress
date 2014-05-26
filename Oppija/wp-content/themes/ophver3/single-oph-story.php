@@ -56,9 +56,9 @@
                                     <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a>
                             </h1>
                             <!-- /post title -->
-
+                        
                             <!-- post thumbnail -->
-                            <?php if ( has_post_thumbnail() && !($numpages > 1)) : // Check if Thumbnail exists and post is not paged ?>
+                            <?php if ( has_post_thumbnail()) : // Check if Thumbnail exists ?>
                                     <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
                                             <?php the_post_thumbnail(); // Fullsize image for the single post ?>
                                     </a>
@@ -66,8 +66,25 @@
                             <!-- /post thumbnail -->
 
                             <?php the_content(); // Dynamic Content ?>
-                            
-                            <?php wp_pagenavi( array( 'type' => 'multipart' ) ); ?>
+							
+                            <?php
+
+                            if ( function_exists('wp_pagenavi') ) {
+
+                                    ob_start();
+                                    wp_pagenavi( array( 'type' => 'multipart' ) );
+
+                                    $pagenavi = ob_get_contents();
+                                    ob_end_clean();
+
+                                    if ( !strstr($pagenavi, 'previouspostslink') ) $pagenavi = str_replace('<span', '<span class="previouspostslink">←</span><span', $pagenavi);
+                                    if ( !strstr($pagenavi, 'nextpostslink') ) $pagenavi = str_replace('</div>', '<span class="nextpostslink">→</span></div>', $pagenavi);
+                                    echo $pagenavi;
+                                    
+                            }
+                            ?>
+
+                            <?php //wp_link_pages(array('before' => 'Sivut:')); ?>
 
                             <?php //the_tags( __( 'Tags: ', 'html5blank' ), ', ', '<br>'); // Separated by commas with a line break at the end ?>
 

@@ -4,7 +4,7 @@ Plugin Name: Content Mirror
 Plugin URI: http://klasehnemark.com
 Description: You can display content from one page or post on another by just selecting the original post in the editor. When the original post is updated, so is the mirrored one. This also works with post from other sites in a multisite configuration. 
 Author: Klas Ehnemark
-Version: 1.1
+Version: 1.2
 Author URI: http://klasehnemark.com
 
 Copyright (C) 2011 Klas Ehnemark (http://klasehnemark.com)
@@ -104,7 +104,8 @@ if (!class_exists("content_mirror")) {
 		////////////////////////////////////////////////////////////////////////////////
 		
 		public function tinyplugin_register ( $plugin_array ) {
-			$plugin_array["content_mirror"] = WP_PLUGIN_URL . "/" . dirname( plugin_basename(__FILE__) ) . "/content-mirror-editor.js";
+			//$plugin_array["content_mirror"] = WP_PLUGIN_URL . "/" . dirname( plugin_basename(__FILE__) ) . "/content-mirror-editor.js";
+			$plugin_array["content_mirror"] = WP_PLUGIN_URL . "/content-mirror/content-mirror-editor.js";
 			return $plugin_array;		
 		}
 		
@@ -114,7 +115,8 @@ if (!class_exists("content_mirror")) {
 		}
 		
 		public function tinyplugin_css( $wp ) {
-			$wp .= ',' . WP_PLUGIN_URL . "/" . dirname( plugin_basename(__FILE__) ) . "/content-mirror.css" ;
+			//$wp .= ',' . WP_PLUGIN_URL . "/" . dirname( plugin_basename(__FILE__) ) . "/content-mirror.css" ;
+			$wp .= ',' . WP_PLUGIN_URL . "/content-mirror/content-mirror.css" ;
 			return $wp;
 		}
 		
@@ -157,7 +159,7 @@ if (!class_exists("content_mirror")) {
 				$switched_blog = true;
 			}
 
-			$post_item = wp_get_single_post( $r['item'] );
+			$post_item = get_post( $r['item'] );
 			$post_content = '';
 
 			if ( !empty ( $post_item )) {
@@ -255,10 +257,12 @@ if (!class_exists("content_mirror")) {
 			global $wpdb; 
 			wp_enqueue_script ( 'jquery' );
 			wp_enqueue_script ( 'tiny-mce-popup', site_url() . '/' . WPINC . '/js/tinymce/tiny_mce_popup.js' );
-			wp_enqueue_script ( 'content-mirror', WP_PLUGIN_URL . "/" . dirname( plugin_basename(__FILE__) ) . "/content-mirror-options.js" );?>
+			//wp_enqueue_script ( 'content-mirror', WP_PLUGIN_URL . "/" . dirname( plugin_basename(__FILE__) ) . "/content-mirror-options.js" );
+			wp_enqueue_script ( 'content-mirror', WP_PLUGIN_URL . "/content-mirror/content-mirror-options.js" );?>
 		
 			<html><head>
-				<link rel="stylesheet" type="text/css" href="<?php echo '/wp-content/plugins/' . str_replace( '.php', '.css', plugin_basename(__FILE__)) ?>" /><?php
+				<link rel="stylesheet" type="text/css" href="<?php echo '/wp-content/plugins/' . str_replace( '.php', '.css', plugin_basename(__FILE__)) ?>" />
+				<link rel="stylesheet" type="text/css" href="<?php echo WP_PLUGIN_URL . "/content-mirror/content-mirror.css" ?>" /><?php
 				do_action('wp_head');?>
 			</head>
 			<body id="content_mirror_edit">
@@ -368,7 +372,7 @@ if (!class_exists("content_mirror")) {
 					} else {
 						$current_blog_id = $wpdb->blogid;
 						$wpdb->set_blog_id( $site );
-						$post_item = wp_get_single_post( $item );
+						$post_item = get_post( $item );
 						if ( $post_item ) {
 							echo $post_item->post_content == '' ? '<h1 class="preview_error">Post is empty</h1>' : wpautop ( $post_item->post_content );
 						} else {

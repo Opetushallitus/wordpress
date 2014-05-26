@@ -4,7 +4,7 @@
 	<section role="main">
 	
 	<?php if (have_posts()): while (have_posts()) : the_post(); ?>
-
+	
 		<!-- article -->
 		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 		
@@ -29,8 +29,7 @@
 			<!-- /post details -->
 			
 			<?php the_content(); // Dynamic Content ?>
-                        <?php link_pages('before=<div id="page-links">&after=</div>'); ?>
-                        			
+			
 			<?php the_tags( __( 'Tags: ', 'html5blank' ), ', ', '<br>'); // Separated by commas with a line break at the end ?>
 			
 			<p><?php _e( 'Categorised in: ', 'html5blank' ); the_category(', '); // Separated by commas ?></p>
@@ -43,8 +42,6 @@
 			
 		</article>
 		<!-- /article -->
-                
-                
 		
 	<?php endwhile; ?>
 	

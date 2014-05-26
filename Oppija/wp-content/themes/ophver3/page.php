@@ -20,7 +20,6 @@
 	
 	<div class="center-content">
 	
-            
 	<?php if (have_posts()): while (have_posts()) : the_post(); ?>
 	
 		<!-- article -->
@@ -31,8 +30,6 @@
 			<?php the_post_thumbnail('large') ?>
 		
 			<?php the_content(); ?>
-                        
-                        
 						
 			<?php edit_post_link(); ?>
 			

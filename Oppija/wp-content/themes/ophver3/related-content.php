@@ -60,10 +60,11 @@
                                         </p>
                                     </div>
                                 </div>
-                                <?php endwhile; ?>
+                                <?php endwhile; ?>                            
                         
                     </section>
             <?php endif;
+        
         wp_reset_query();       
 ?>              
         

@@ -3,8 +3,8 @@ Contributors: stratoponjak
 Donate link: http://klasehnemark.com/wordpress-plugins
 Tags: content, mirror, copy, shortcode, page, post, editor, admin, multisite
 Requires at least: 3.0
-Tested up to: 3.3.1
-Stable tag: 1.1
+Tested up to: 3.9
+Stable tag: 1.2
 
 You can display content from one page or post on another by mirror content. This also works between sites in a multisite configuration.
 
@@ -33,6 +33,9 @@ All shortcodes and usage are listed at [klasehnemark.com/content-mirror](http://
 1. This is an example of how to use shortcodes instead.
 
 == Changelog ==
+
+= 1.2 =
+* Bugfixes, for working in Wordpress v.3.9
 
 = 1.1 =
 * Removed php-tags in the .js-files that caused the plugin not to work properly in some web browsers

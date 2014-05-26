@@ -124,8 +124,8 @@ function content_mirror() {
 				height : '24',
 				title : 'Edit Content Mirror'
 			});
-
-			tinymce.dom.Event.add(editButton, 'mousedown', function(e) {
+			
+			jQuery(editButton).bind('click', function() {
 				var ed = tinyMCE.activeEditor;
 				ed.windowManager.bookmark = ed.selection.getBookmark('simple');
 				ed.execCommand("content_mirror");
@@ -138,8 +138,8 @@ function content_mirror() {
 				height : '24',
 				title : 'Delete Content Mirror'
 			});
-
-			tinymce.dom.Event.add(dellButton, 'mousedown', function(e) {
+			
+			jQuery(dellButton).bind('click', function() {
 				var ed = tinyMCE.activeEditor, el = ed.selection.getNode();
 
 				if ( el.nodeName == 'IMG' && ed.dom.hasClass(el, 'content_mirror') ) {

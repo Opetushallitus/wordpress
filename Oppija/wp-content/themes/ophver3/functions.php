@@ -428,6 +428,7 @@ function create_post_type_html5()
 		'oph-story',
 		array(
 			'label' => __( 'Story Theme' ),
+			'rewrite' => array( 'slug' => 'theme', 'with_front' => false),
 			'hierarchical' => true,
                         'show_admin_column' => true,
 		)
@@ -461,6 +462,7 @@ function create_post_type_html5()
             'title',
             'editor',
             'excerpt',
+            'page-attributes',
             'thumbnail'
         ), // Go to Dashboard Custom HTML5 Blank post for supports
         'can_export' => true, // Allows export in Tools > Export
