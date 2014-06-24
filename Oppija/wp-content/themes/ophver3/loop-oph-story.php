@@ -1,6 +1,6 @@
 <?php $taxonomy_terms = get_terms('story-theme', 'orderby=ASC&hide_empty=1&number=100');
         //$allterms = array();
-        foreach($taxonomy_terms as $term){
+        foreach($taxonomy_terms as $term) {
             $term_slug = $term->slug;
             $term_name = $term->name;
         
@@ -217,5 +217,5 @@
 		<h2><?php _e( 'Sorry, nothing to display.', 'html5blank' ); ?></h2>
 	</article>
 	<!-- /article -->
-
+<?php wp_reset_postdata(); ?>
 <?php endif;  }  ?>
