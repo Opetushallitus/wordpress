@@ -119,9 +119,11 @@
 				<div class="actions">
 		            <ul>
 		            	<?php foreach ($languages as $lang) : ?>
+		            	    <?php if($lang['language_code'] != ICL_LANGUAGE_CODE) : ?>
 		            		<li><a href="<?php echo $lang['url'] ?>"><?php echo $lang['native_name'] ?></a></li>
+		            		<?php endif; ?>
 		            	<?php endforeach ?> 
-                                        <li><a href="http://www.google.com">In English</a></li>
+                            <?php echo oph_link_to_en(); ?>
 		            </ul>
 		        </div>
 		        

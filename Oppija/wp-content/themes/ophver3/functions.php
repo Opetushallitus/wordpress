@@ -1281,3 +1281,21 @@ function excerpt_count_js() {
 }
 add_action( 'admin_head-post.php', 'excerpt_count_js');
 add_action( 'admin_head-post-new.php', 'excerpt_count_js');
+
+/*
+ * Link to Studyinfo.fi
+ */
+
+function oph_link_to_en() {
+    
+        if(isset($_SERVER['HTTPS'])) {
+            $protocol = ($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != "off") ? "https" : "http";
+        }
+        else {
+            $protocol = 'http';
+        }
+    
+        $oph_base_url = $protocol . "://" . $_SERVER['HTTP_HOST'];
+    
+        return '<li><a href="'.$oph_base_url.'/wp2/en/">In English</a></li>';
+}
