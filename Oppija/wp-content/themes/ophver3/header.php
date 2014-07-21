@@ -171,13 +171,7 @@
 				</fieldset>
 			</form>
 		</div>
-                
-               <form method="get" id="searchform" action="<?php bloginfo('home'); ?>/">
-	      <div class="blog-search">
-		  <input type="text" class="header-search-field" value="<?php echo wp_specialchars($s, 1); ?>" name="s" id="s" />
-		  <input type="submit" class="header-search-submit" value="Search" class="footer-button" />
-	      </div>
-	    </form>
+               
 	</header>
 	
 	<div id="maincontent" class="content container">		

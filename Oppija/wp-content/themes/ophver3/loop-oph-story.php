@@ -1,19 +1,47 @@
+<?php /*
+$terms = get_terms('post_tag');
+$all_terms = array();
+$i = 0;
+
+foreach ($terms as $term) :
+
+    $term_id = $term->term_id;
+    $term_slug = $term->slug;
+    
+    $all_terms[$i] = array($term_id, $term_slug);
+    
+    $i++;
+
+endforeach;
+
+//var_dump($all_terms);
+
+$b = $all_terms;
+echo in_array_r("video", $b) ? 'found' : 'not found';
+*/
+?>
+
+
 <?php $taxonomy_terms = get_terms('story-theme', 'orderby=ASC&hide_empty=1&number=100'); ?>
 <?php foreach($taxonomy_terms as $term) : ?>
     <?php
-        $tag_ids = array('9321', '9319', '9320');
+        //$tag_ids = array('22370', '22369', '22371');
         $tag_array = array();
-
-        foreach($tag_ids as $tag_id) {
+        
+        $tag_slugs = array('video', 'kuvakertomus', 'haastattelu', 'intervjuer', 'videor', 'foto-rapporter');
+        
+        foreach($tag_slugs as $tag_slug) {
             $args = array(
                 'posts_per_page' => '9999',
                 'post_type' => 'oph-story',
-                'tag__in' => $tag_id,
+                'tag_slug__in' => $tag_slug,
+                //'tag__in' => $tag_id,
                 'tax_query' => array(
                     array(
                         'taxonomy' => 'story-theme',
-                        'field' => 'term_id',
-                        'terms' => $term->term_id
+                        'field' => 'slug',
+                        //'field' => 'term_id',
+                        'terms' => $term->slug
                     )
                 )
             );
@@ -65,7 +93,11 @@
                     <!-- /term title -->
 
                     <!-- story meta -->
-                    <div class="story-meta"><?php echo  'Videoita ('.$tag_array[0].'), kuvakertomuksia ('.$tag_array[1].'), haastatteluja ('.$tag_array[2].')'; ?></div>
+                    <div class="story-meta">
+                        <?php _e('videos', 'html5blank'); echo ' (' . $tag_array[0] . '), ';
+                        _e('stories', 'html5blank'); echo ' (' . $tag_array[1] . '), ';
+                        _e('interviews', 'html5blank'); echo ' (' . $tag_array[2] . ')'; ?>
+                    </div>
                     <!-- /story meta -->
 
                     <?php
@@ -104,7 +136,7 @@
 
                     <?php html5wp_excerpt('html5wp_index', 'html5_blank_view_article'); // Build your custom callback length in functions.php ?>
 
-                    <p><a href="<?php print_r(get_term_link($term_slug, 'story-theme')); ?>"><?php _e('Katso kaikki teemaan liittyvät artikkelit', 'html5blank'); ?></a></p>
+                    <p><a href="<?php print_r(get_term_link($term_slug, 'story-theme')); ?>"><?php _e('View all articles', 'html5blank'); ?></a></p>
 
                 </div>
             </article>
@@ -119,4 +151,4 @@
         <?php wp_reset_postdata(); ?>
     <?php endif; ?>
 
-<?php endforeach; ?>
+<?php endforeach;

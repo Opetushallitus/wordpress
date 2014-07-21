@@ -946,11 +946,12 @@ table {
 	}
 	
 	tr:nth-child(odd) {
-    	background-color: @lighter-blue;
+    	background-color: @white;
+        border-bottom: 1px solid @lighter-blue;
 	}
 
 	tr:nth-child(even) {
-    	background-color: @white;
+    	background-color: @lighter-blue;
 	}
 }
 
@@ -1303,9 +1304,6 @@ section article p:first-of-type {
     float: left;
     padding-right: 25px;
 }
-section p {
-    padding-top: 10px;
-}
 
 section h5 {
     font-style: normal;
@@ -1515,4 +1513,36 @@ h5.theme-term {
     -moz-border-radius-bottomright: 3px;
     border-bottom-right-radius: 3px;
     
+}
+
+a.external:before {
+    content: "\f14c";
+    padding-right: 4px;
+    text-decoration: none;
+}
+.external:before {
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License) */
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('../fonts/fontawesome-webfont.eot');
+  src: url('../fonts/fontawesome-webfont.eot') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff') format('woff'), url('../fonts/fontawesome-webfont.ttf') format('truetype'), url('../fonts/fontawesome-webfont.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.sidebar-node p {
+    margin-bottom: 10px;
+}
+
+aside section p {
+    margin-bottom: 10px !important;
 }

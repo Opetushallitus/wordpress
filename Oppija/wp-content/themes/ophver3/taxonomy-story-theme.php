@@ -16,13 +16,13 @@
             <?php
             
                 function get_custom_terms($taxonomies){
-                $args = array('orderby'=>'asc','hide_empty'=>false);
-                $custom_terms = get_terms(array($taxonomies), $args);
-                foreach($custom_terms as $term){
-                    echo '<li class="page_item"><a href="'. get_term_link($term) .'" class="expanded"><span>'. $term->name.'</span></a></li>';
+                    $args = array('orderby'=>'asc','hide_empty'=>false);
+                    $custom_terms = get_terms(array($taxonomies), $args);
+                    
+                    foreach($custom_terms as $term){
+                        echo '<li class="page_item"><a href="'. get_term_link($term) .'" class="expanded"><span>'. $term->name.'</span></a></li>';
+                    }
                 }
-                }
-                
                 
                 get_custom_terms('story-theme'); 
                 
@@ -36,6 +36,7 @@
 <h5 class="theme-term"><?php single_cat_title(); ?></h5>
 	
     <?php   $args = array (
+            'posts_per_page' => '9999',
             'post_type' => 'oph-story',
             'story-theme' => $term);
     
