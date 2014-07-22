@@ -94,9 +94,29 @@ echo in_array_r("video", $b) ? 'found' : 'not found';
 
                     <!-- story meta -->
                     <div class="story-meta">
-                        <?php _e('videos', 'html5blank'); echo ' (' . $tag_array[0] . '), ';
-                        _e('stories', 'html5blank'); echo ' (' . $tag_array[1] . '), ';
-                        _e('interviews', 'html5blank'); echo ' (' . $tag_array[2] . ')'; ?>
+                        <?php 
+                        if($tag_array[0] > 0) :
+                            _e('videos', 'html5blank'); echo ' (' . $tag_array[0] . ')';
+                            
+                            if($tag_array[1] > 0 || $tag_array[2] > 0) :
+                                echo ', ';
+                            endif;
+                            
+                        endif;
+                        
+                        if($tag_array[1] > 0) :
+                            _e('stories', 'html5blank'); echo ' (' . $tag_array[1] . ')';
+                            
+                            if($tag_array[2] > 0) :
+                                echo ', ';
+                            endif;
+                            
+                        endif;
+                        
+                        if($tag_array[2] > 0) :
+                            _e('interviews', 'html5blank'); echo ' (' . $tag_array[2] . ')'; 
+                        endif;
+                        ?>
                     </div>
                     <!-- /story meta -->
 

@@ -947,11 +947,12 @@ table {
 	
 	tr:nth-child(odd) {
     	background-color: @white;
-        border-bottom: 1px solid @lighter-blue;
+        border-bottom: 1px solid @light-blue;
 	}
 
 	tr:nth-child(even) {
     	background-color: @lighter-blue;
+        border-bottom: 1px solid @light-blue;
 	}
 }
 
@@ -1545,4 +1546,22 @@ a.external:before {
 
 aside section p {
     margin-bottom: 10px !important;
+}
+
+/* TablePress */
+
+
+.tablepress tfoot th, .tablepress thead th {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #BFE4F1 !important;
+    border-top: 1px solid #BFE4F1 !important;
+}
+
+.tablepress .even td {
+    	background-color: @lighter-blue !important;
+        border-bottom: 1px solid @light-blue;
+}
+
+.tablepress .odd td {
+        border-bottom: 1px solid @light-blue;
 }
