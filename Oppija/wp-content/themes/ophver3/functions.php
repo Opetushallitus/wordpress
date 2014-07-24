@@ -933,56 +933,43 @@ function oph_related_taxonomy_query($qtaxonomies, $post_type = 'page')
 {
     global $post;
 
+    $tax_query = array();
+    $term_ids = array();
 
-      // Get terms from all the taxonomies
-    $taxquery = array('relation' => 'OR');
+    $tax_query['relation'] = 'OR';
 
+    // Get terms from all the taxonomies
+    foreach ($qtaxonomies as $qtaxonomy ) {
 
-    foreach ($qtaxonomies as $taxonomy ) {
+        $terms = get_the_terms( $post->ID, $qtaxonomy );
 
-        $taxs = wp_get_post_terms( $post->ID, $taxonomy);
-
-        //var_dump($taxs);
-
-        if(!empty($taxs)) {
-            $tax_ids = array();
-
-            foreach( $taxs as $individual_tax ) {
-                $tax_ids[] = $individual_tax->term_id;
-                //var_dump($individual_tax->term_id);
+        if($terms && !is_wp_error($terms)) {
+            foreach( $terms as $term ) {
+                $term_ids[] = $term->term_id;
             }
 
-            $taxquery[] = array(
-                'taxonomy' => $taxonomy,
-                'terms' => $tax_ids,
-                //'operator'  => 'IN'
+            $tax_query[] = array(
+                'taxonomy' => $qtaxonomy,
+                'field' => 'id',
+                'terms' => $term_ids
             );
-        } else {
-            $taxquery[] = array(
-                'taxonomy' => ' ',
-                'terms' => ' ',
-                //'operator'  => 'IN'
-                );
         }
     }
 
-    $args = array(
+    if(!empty($tax_query) && count($tax_query) > 1) {
+        $args = array(
             'post_type' => $post_type,
-            'post_status'   => 'publish',
-            'tax_query' => $taxquery,
-            'post__not_in'          => array( $post->ID ),
-            'posts_per_page'        => 3,
-            'ignore_sticky_posts'   => 1
-        );
+            'post_status' => 'publish',
+            'posts_per_page' => 3,
+            'tax_query' => $tax_query
+            );
+        } else {
+            $args = null;
+        }
 
-    //var_dump($args['tax_query']);
-    //error_log( print_r ($args, true));
+        $my_query = new WP_Query( $args );
 
-    $my_query = new wp_query( $args );
-
-    //var_dump($my_query);
-
-    return $my_query;
+        return $my_query;
 }
 
 /**
