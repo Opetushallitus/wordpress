@@ -514,41 +514,6 @@ function create_post_type_html5()
     // MUUALLA AIHEESTA
     //register_taxonomy_for_object_type('story-theme', 'oph-feature'); // Register Taxonomies for Category
     //register_taxonomy_for_object_type('post_tag', 'oph-feature');
-    register_post_type('oph-related', // Register Custom Post Type
-        array(
-        'labels' => array(
-            'name' => __('Related', 'html5blank'), // Rename these to suit
-            'singular_name' => __('Related', 'html5blank'),
-            'add_new' => __('Add New', 'html5blank'),
-            'add_new_item' => __('Add New Related', 'html5blank'),
-            'edit' => __('Edit', 'html5blank'),
-            'edit_item' => __('Edit Related', 'html5blank'),
-            'new_item' => __('New Related', 'html5blank'),
-            'view' => __('View Related', 'html5blank'),
-            'view_item' => __('View Related', 'html5blank'),
-            'search_items' => __('Search Related articles', 'html5blank'),
-            'not_found' => __('No Related articles found', 'html5blank'),
-            'not_found_in_trash' => __('No Related articles found in Trash', 'html5blank')
-        ),
-        'public' => true,
-        'exclude_from_search' => true,
-        'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
-        'has_archive' => true,
-        'supports' => array(
-            'title',
-            'editor',
-            //'excerpt',
-            'post_order',
-            'thumbnail'
-        ), // Go to Dashboard Custom HTML5 Blank post for supports
-        'can_export' => true, // Allows export in Tools > Export
-        'taxonomies' => array(
-            //'post_tag',
-            'oph-koulutus',
-            'oph-koulutusaste',
-            'oph-ammattiluokitus',
-        )
-    ));
 
 	// register_taxonomy_for_object_type('story-theme', 'oph-feature'); // Register Taxonomies for Category
     // register_taxonomy_for_object_type('post_tag', 'oph-feature');
@@ -839,7 +804,7 @@ function oph_taxonomies()
 {
     register_taxonomy(
         'oph-koulutus',
-    	array( 'page','post', 'oph-related', 'oph-story' ),
+    	array( 'page', 'post', 'oph-story' ),
     	array(
     		'label' => __( 'Koulutus' ),
     		'rewrite' => array( 'slug' => 'koulutus' ),
@@ -849,7 +814,7 @@ function oph_taxonomies()
 
     register_taxonomy(
         'oph-koulutustyyppi',
-    	array( 'page', 'post', 'oph-related'),
+    	array( 'page', 'post' ),
     	array(
     		'label' => __( 'Koulutustyyppi' ),
     		'rewrite' => array( 'slug' => 'koulutustyyppi' ),
