@@ -638,8 +638,6 @@ function html5_shortcode_demo_2($atts, $content = null) // Demo Heading H2 short
     return '<h2>' . $content . '</h2>';
 }
 
-
-
 function my_theme_add_editor_styles() {
     add_editor_style( 'custom-editor-style.css' );
 }
@@ -653,30 +651,30 @@ function add_tags_to_pages(){
 add_action( 'init', 'add_tags_to_pages' );
 
 function oph_get_subpages(){
-		global $post;
+	global $post;
 
-		$parent = array_reverse(get_post_ancestors($post->ID));
-		$first_parent = get_page($parent[0]);
+	$parent = array_reverse(get_post_ancestors($post->ID));
+	$first_parent = get_page($parent[0]);
 
-		$args = array(
-			'sort_order' => 'ASC',
-			'sort_column' => 'menu_order',
-			'hierarchical' => 1,
-			'exclude' => '',
-			'include' => '',
-			'meta_key' => '',
-			'meta_value' => '',
-			'authors' => '',
-			'child_of' => $parent[0],
-			'parent' => -1,
-			'exclude_tree' => '',
-			'number' => '',
-			'offset' => 0,
-			'post_type' => 'page',
-			'post_status' => 'publish'
-			);
+	$args = array(
+		'sort_order' => 'ASC',
+		'sort_column' => 'menu_order',
+		'hierarchical' => 1,
+		'exclude' => '',
+		'include' => '',
+		'meta_key' => '',
+		'meta_value' => '',
+		'authors' => '',
+		'child_of' => $parent[0],
+		'parent' => -1,
+		'exclude_tree' => '',
+		'number' => '',
+		'offset' => 0,
+		'post_type' => 'page',
+		'post_status' => 'publish'
+		);
 
-		$pages = get_pages($args);
+	$pages = get_pages($args);
 
 /*		if ($pages) return $pages;
 		else {
@@ -685,36 +683,33 @@ function oph_get_subpages(){
 		}
 */
 
-		//create array of pages and sub-pages
+	//create array of pages and sub-pages
 
-		$sorted = array();
-		foreach ( $pages as $p)
-		{
-			$sorted[$p->post_id][] = $p;
-		}
+	$sorted = array();
+	foreach ( $pages as $p)
+	{
+		$sorted[$p->post_id][] = $p;
+	}
 
+	//error_log (print_r($pages, true));
 
-
-		//error_log (print_r($pages, true));
-
-		return $pages;
-
+	return $pages;
 }
 
 function oph_nostot() {
-		global $post;
+	global $post;
 
-		$args = array(
-		    'post_type' => 'oph-feature',
-			'posts_per_page'	=> 21,
-			'post_status'    => 'publish',
-                        'orderby' => 'menu_order',
-			'order' => 'ASC',
-		);
+	$args = array(
+	    'post_type' => 'oph-feature',
+		'posts_per_page'	=> 21,
+		'post_status'    => 'publish',
+                    'orderby' => 'menu_order',
+		'order' => 'ASC',
+	);
 
-		$pages = get_posts($args);
+	$pages = get_posts($args);
 
-		return $pages;
+	return $pages;
 }
 
 
@@ -870,7 +865,6 @@ function oph_taxonomies()
 			'rewrite' => array( 'slug' => 'oph-huom-kat' ),
 			'hierarchical' => true,
             'show_admin_column' => true
-
 		)
 	);
 
@@ -892,103 +886,103 @@ function oph_subnavi()
 {
 global $post;
 
-        // Fetch pages that are excluded from the top navigation
-        $page_excludes = get_pages( array(
-                            'meta_key' => '_top_nav_excluded',
-                            'hierarchical' => 0,
-                            'post_type' => 'page',
-                            'post_status' => 'publish'
-                         ));
+    // Fetch pages that are excluded from the top navigation
+    $page_excludes = get_pages( array(
+                        'meta_key' => '_top_nav_excluded',
+                        'hierarchical' => 0,
+                        'post_type' => 'page',
+                        'post_status' => 'publish'
+                     ));
 
-        $exclude_ids = wp_list_pluck($page_excludes, 'ID');
+    $exclude_ids = wp_list_pluck($page_excludes, 'ID');
 
-        $parent = array_reverse(get_post_ancestors($post->ID));
+    $parent = array_reverse(get_post_ancestors($post->ID));
 
-        if(empty($parent)) {
-            $top_parent = $post->ID;
-        } else {
-            $top_parent = get_post($parent[0])->ID;
-        }
+    if(empty($parent)) {
+        $top_parent = $post->ID;
+    } else {
+        $top_parent = get_post($parent[0])->ID;
+    }
 
-        $ids = get_pages( array(
-                'child_of' => $top_parent,
-                'post_status' => 'publish',
-                'exclude' => $exclude_ids
-               ) );
+    $ids = get_pages( array(
+            'child_of' => $top_parent,
+            'post_status' => 'publish',
+            'exclude' => $exclude_ids
+           ) );
 
-        $ids = wp_list_pluck($ids, 'ID');
-        $ids[] = $top_parent;
-        $ids = implode(',', $ids);
+    $ids = wp_list_pluck($ids, 'ID');
+    $ids[] = $top_parent;
+    $ids = implode(',', $ids);
 
-        add_filter('the_title', 'show_short_title', 10, 2);
-        wp_list_pages( array(
-            'link_before' => '<span class="w80">',
-            'link_after' => '</span>',
-            'title_li' => '',
-            'sort_column'  => 'menu_order, post_title',
-            'depth' => 0,
-            'include' => $ids,
-            'post_type'    => 'page',
-            'post_status'  => 'publish'
-            ) );
-        remove_filter('the_title', 'show_short_title');
+    add_filter('the_title', 'show_short_title', 10, 2);
+    wp_list_pages( array(
+        'link_before' => '<span class="w80">',
+        'link_after' => '</span>',
+        'title_li' => '',
+        'sort_column'  => 'menu_order, post_title',
+        'depth' => 0,
+        'include' => $ids,
+        'post_type'    => 'page',
+        'post_status'  => 'publish'
+        ) );
+    remove_filter('the_title', 'show_short_title');
 }
 
 /* Get related content based on taxonomies */
 function oph_related_taxonomy_query($qtaxonomies, $post_type = 'page')
 {
-        global $post;
+    global $post;
 
 
-          // Get terms from all the taxonomies
-        $taxquery = array('relation' => 'OR');
+      // Get terms from all the taxonomies
+    $taxquery = array('relation' => 'OR');
 
 
-        foreach ($qtaxonomies as $taxonomy ) {
+    foreach ($qtaxonomies as $taxonomy ) {
 
-            $taxs = wp_get_post_terms( $post->ID, $taxonomy);
+        $taxs = wp_get_post_terms( $post->ID, $taxonomy);
 
-            //var_dump($taxs);
+        //var_dump($taxs);
 
-            if(!empty($taxs)) {
-                $tax_ids = array();
+        if(!empty($taxs)) {
+            $tax_ids = array();
 
-                foreach( $taxs as $individual_tax ) {
-                    $tax_ids[] = $individual_tax->term_id;
-                    //var_dump($individual_tax->term_id);
-                }
-
-                $taxquery[] = array(
-                    'taxonomy' => $taxonomy,
-                    'terms' => $tax_ids,
-                    //'operator'  => 'IN'
-                );
-            } else {
-                $taxquery[] = array(
-                    'taxonomy' => ' ',
-                    'terms' => ' ',
-                    //'operator'  => 'IN'
-                    );
+            foreach( $taxs as $individual_tax ) {
+                $tax_ids[] = $individual_tax->term_id;
+                //var_dump($individual_tax->term_id);
             }
-        }
 
-        $args = array(
-                'post_type' => $post_type,
-                'post_status'   => 'publish',
-                'tax_query' => $taxquery,
-                'post__not_in'          => array( $post->ID ),
-                'posts_per_page'        => 3,
-                'ignore_sticky_posts'   => 1
+            $taxquery[] = array(
+                'taxonomy' => $taxonomy,
+                'terms' => $tax_ids,
+                //'operator'  => 'IN'
             );
+        } else {
+            $taxquery[] = array(
+                'taxonomy' => ' ',
+                'terms' => ' ',
+                //'operator'  => 'IN'
+                );
+        }
+    }
 
-        //var_dump($args['tax_query']);
-        //error_log( print_r ($args, true));
+    $args = array(
+            'post_type' => $post_type,
+            'post_status'   => 'publish',
+            'tax_query' => $taxquery,
+            'post__not_in'          => array( $post->ID ),
+            'posts_per_page'        => 3,
+            'ignore_sticky_posts'   => 1
+        );
 
-        $my_query = new wp_query( $args );
+    //var_dump($args['tax_query']);
+    //error_log( print_r ($args, true));
 
-        //var_dump($my_query);
+    $my_query = new wp_query( $args );
 
-        return $my_query;
+    //var_dump($my_query);
+
+    return $my_query;
 }
 
 /**
@@ -1269,8 +1263,8 @@ add_action('init', 'delete_custom_terms');  */
  * Add char counter to excerpt field
  */
 function excerpt_count_js() {
-        wp_register_script('excerpt_counter', get_template_directory_uri() . '/js/excerpt_counter.js', array('jquery'));
-        wp_enqueue_script('excerpt_counter');
+    wp_register_script('excerpt_counter', get_template_directory_uri() . '/js/excerpt_counter.js', array('jquery'));
+    wp_enqueue_script('excerpt_counter');
 }
 add_action( 'admin_head-post.php', 'excerpt_count_js');
 add_action( 'admin_head-post-new.php', 'excerpt_count_js');
@@ -1281,14 +1275,14 @@ add_action( 'admin_head-post-new.php', 'excerpt_count_js');
 
 function oph_link_to_en() {
 
-        if(isset($_SERVER['HTTPS'])) {
-            $protocol = ($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != "off") ? "https" : "http";
-        }
-        else {
-            $protocol = 'http';
-        }
+    if(isset($_SERVER['HTTPS'])) {
+        $protocol = ($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != "off") ? "https" : "http";
+    }
+    else {
+        $protocol = 'http';
+    }
 
-        $oph_base_url = $protocol . "://" . $_SERVER['HTTP_HOST'];
+    $oph_base_url = $protocol . "://" . $_SERVER['HTTP_HOST'];
 
-        return '<li><a href="'.$oph_base_url.'/wp2/en/">In English</a></li>';
+    return '<li><a href="'.$oph_base_url.'/wp2/en/">In English</a></li>';
 }
