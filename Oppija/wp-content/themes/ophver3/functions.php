@@ -1215,7 +1215,7 @@ function theme_bcn() {
     	echo $separator;
 				
 		if(ICL_LANGUAGE_CODE == 'sv') {
-			$stories =	get_page_by_path('/stod-for-studievalet/tutustu-tarinoihin', OBJECT, 'page');
+			$stories =	get_page_by_path('/stod-for-studievalet/bekanta-dig-med-berattelserna', OBJECT, 'page');
 			$parent_title = get_the_title($stories->post_parent);
 			$parent_link = get_permalink($stories->post_parent);
 		} else {
