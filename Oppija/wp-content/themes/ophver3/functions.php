@@ -38,8 +38,8 @@ if (function_exists('add_theme_support'))
     add_image_size('oph-max', 700, 280, true);
     //add_image_size('custom-size', 700, 200, true); // Custom Thumbnail Size call using the_post_thumbnail('custom-size');
 
-    
-    
+
+
     // Add Support for Custom Backgrounds - Uncomment below if you're going to use
     /*add_theme_support('custom-background', array(
 	'default-color' => 'FFF',
@@ -78,11 +78,11 @@ function html5blank_nav()
 	wp_nav_menu(
 	array(
 		'theme_location'  => 'header-menu',
-		'menu'            => '', 
-		'container'       => 'div', 
-		'container_class' => 'menu-{menu slug}-container', 
+		'menu'            => '',
+		'container'       => 'div',
+		'container_class' => 'menu-{menu slug}-container',
 		'container_id'    => '',
-		'menu_class'      => 'menu', 
+		'menu_class'      => 'menu',
 		'menu_id'         => '',
 		'echo'            => true,
 		'fallback_cb'     => 'wp_page_menu',
@@ -101,17 +101,17 @@ function html5blank_nav()
 function html5blank_header_scripts()
 {
     if (!is_admin()) {
-    
+
     	//wp_deregister_script('jquery'); // Deregister WordPress jQuery
     	//wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js', array(), '1.9.1'); // Google CDN jQuery
     	//wp_enqueue_script('jquery'); // Enqueue it!
-    	
+
     	//wp_register_script('conditionizr', 'http://cdnjs.cloudflare.com/ajax/libs/conditionizr.js/2.2.0/conditionizr.min.js', array(), '2.2.0'); // Conditionizr
         //wp_enqueue_script('conditionizr'); // Enqueue it!
-        
+
         //wp_register_script('modernizr', 'http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js', array(), '2.6.2'); // Modernizr
         //wp_enqueue_script('modernizr'); // Enqueue it!
-        
+
         //wp_register_script('html5blankscripts', get_template_directory_uri() . '/js/scripts.js', array(), '1.0.0'); // Custom scripts
         //wp_enqueue_script('html5blankscripts'); // Enqueue it!
     }
@@ -131,7 +131,7 @@ function html5blank_styles()
 {
     //wp_register_style('normalize', get_template_directory_uri() . '/normalize.css', array(), '1.0', 'all');
     //wp_enqueue_style('normalize'); // Enqueue it!
-    
+
     wp_register_style('html5blank', get_template_directory_uri() . '/style.css', array(), '1.0', 'all');
     wp_enqueue_style('html5blank'); // Enqueue it!
 }
@@ -207,7 +207,7 @@ if (function_exists('register_sidebar'))
         'before_title' => '<h3>',
         'after_title' => '</h3>'
     ));
-    
+
     // Define Sidebar Widget Area 43
     register_sidebar(array(
         'name' => __('Right sidebar', 'html5blank'),
@@ -321,7 +321,7 @@ function html5blankcomments($comment, $args, $depth)
 {
 	$GLOBALS['comment'] = $comment;
 	extract($args, EXTR_SKIP);
-	
+
 	if ( 'div' == $args['style'] ) {
 		$tag = 'div';
 		$add_below = 'comment';
@@ -433,8 +433,8 @@ function create_post_type_html5()
                         'show_admin_column' => true,
 		)
 	);
- 
- 
+
+
     //register_taxonomy_for_object_type('story-theme', 'oph-story'); // Register Taxonomies for Category
     //register_taxonomy_for_object_type('post_tag', 'oph-story');
     register_post_type('oph-story', // Register Custom Post Type
@@ -472,8 +472,8 @@ function create_post_type_html5()
         ) // Add Category and Post Tags support
 
     ));
- 
- 
+
+
     //register_taxonomy_for_object_type('story-theme', 'oph-feature'); // Register Taxonomies for Category
     //register_taxonomy_for_object_type('post_tag', 'oph-feature');
     register_post_type('oph-feature', // Register Custom Post Type
@@ -514,41 +514,6 @@ function create_post_type_html5()
     // MUUALLA AIHEESTA
     //register_taxonomy_for_object_type('story-theme', 'oph-feature'); // Register Taxonomies for Category
     //register_taxonomy_for_object_type('post_tag', 'oph-feature');
-    register_post_type('oph-related', // Register Custom Post Type
-        array(
-        'labels' => array(
-            'name' => __('Related', 'html5blank'), // Rename these to suit
-            'singular_name' => __('Related', 'html5blank'),
-            'add_new' => __('Add New', 'html5blank'),
-            'add_new_item' => __('Add New Related', 'html5blank'),
-            'edit' => __('Edit', 'html5blank'),
-            'edit_item' => __('Edit Related', 'html5blank'),
-            'new_item' => __('New Related', 'html5blank'),
-            'view' => __('View Related', 'html5blank'),
-            'view_item' => __('View Related', 'html5blank'),
-            'search_items' => __('Search Related articles', 'html5blank'),
-            'not_found' => __('No Related articles found', 'html5blank'),
-            'not_found_in_trash' => __('No Related articles found in Trash', 'html5blank')
-        ),
-        'public' => true,
-        'exclude_from_search' => true,
-        'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
-        'has_archive' => true,
-        'supports' => array(
-            'title',
-            'editor',
-            //'excerpt',
-            'post_order',
-            'thumbnail'
-        ), // Go to Dashboard Custom HTML5 Blank post for supports
-        'can_export' => true, // Allows export in Tools > Export
-        'taxonomies' => array(
-            //'post_tag',
-            'oph-koulutus',
-            'oph-koulutusaste',
-            'oph-ammattiluokitus',
-        )
-    ));
 
 	// register_taxonomy_for_object_type('story-theme', 'oph-feature'); // Register Taxonomies for Category
     // register_taxonomy_for_object_type('post_tag', 'oph-feature');
@@ -587,7 +552,7 @@ function create_post_type_html5()
             'oph-ammattiluokitus',
         )
     ));
-    
+
     register_post_type('sidebar-content', // Register Custom Post Type
         array(
         'labels' => array(
@@ -617,7 +582,7 @@ function create_post_type_html5()
         ), // Go to Dashboard Custom HTML5 Blank post for supports
         'can_export' => true // Allows export in Tools > Export
     ));
-	
+
 
 }
 
@@ -638,8 +603,6 @@ function html5_shortcode_demo_2($atts, $content = null) // Demo Heading H2 short
     return '<h2>' . $content . '</h2>';
 }
 
-
-
 function my_theme_add_editor_styles() {
     add_editor_style( 'custom-editor-style.css' );
 }
@@ -648,80 +611,77 @@ add_action( 'init', 'my_theme_add_editor_styles' );
 function add_tags_to_pages(){
 	// Add to the admin_init hook of your theme functions.php file
 	register_taxonomy_for_object_type('post_tag', 'page');
-	//register_taxonomy_for_object_type('category', 'page'); 	
+	//register_taxonomy_for_object_type('category', 'page');
 }
 add_action( 'init', 'add_tags_to_pages' );
 
 function oph_get_subpages(){
-		global $post;
-		
-		$parent = array_reverse(get_post_ancestors($post->ID));
-		$first_parent = get_page($parent[0]);
-		
-		$args = array(
-			'sort_order' => 'ASC',
-			'sort_column' => 'menu_order',
-			'hierarchical' => 1,
-			'exclude' => '',
-			'include' => '',
-			'meta_key' => '',
-			'meta_value' => '',
-			'authors' => '',
-			'child_of' => $parent[0],
-			'parent' => -1,
-			'exclude_tree' => '',
-			'number' => '',
-			'offset' => 0,
-			'post_type' => 'page',
-			'post_status' => 'publish'
-			);
-		
-		$pages = get_pages($args);
-		
+	global $post;
+
+	$parent = array_reverse(get_post_ancestors($post->ID));
+	$first_parent = get_page($parent[0]);
+
+	$args = array(
+		'sort_order' => 'ASC',
+		'sort_column' => 'menu_order',
+		'hierarchical' => 1,
+		'exclude' => '',
+		'include' => '',
+		'meta_key' => '',
+		'meta_value' => '',
+		'authors' => '',
+		'child_of' => $parent[0],
+		'parent' => -1,
+		'exclude_tree' => '',
+		'number' => '',
+		'offset' => 0,
+		'post_type' => 'page',
+		'post_status' => 'publish'
+		);
+
+	$pages = get_pages($args);
+
 /*		if ($pages) return $pages;
 		else {
-			if ( $post->post_parent != 0) $args['child_of'] = $post->post_parent;	
+			if ( $post->post_parent != 0) $args['child_of'] = $post->post_parent;
 				$pages = get_pages($args);
 		}
 */
 
-		//create array of pages and sub-pages
-		
-		$sorted = array();
-		foreach ( $pages as $p)
-		{
-			$sorted[$p->post_id][] = $p;
-		}
+	//create array of pages and sub-pages
 
-		
+	$sorted = array();
+	foreach ( $pages as $p)
+	{
+		$sorted[$p->post_id][] = $p;
+	}
 
-		//error_log (print_r($pages, true));
+	//error_log (print_r($pages, true));
 
-		return $pages;
-		
+	return $pages;
 }
 
 function oph_nostot() {
-		global $post;
-		
-		$args = array(
-		    'post_type' => 'oph-feature',
-			'posts_per_page'	=> 21,
-			'post_status'    => 'publish',
-                        'orderby' => 'menu_order',
-			'order' => 'ASC',
-		);
-		
-		$pages = get_posts($args);
+	global $post;
 
-		return $pages;	
+	$args = array(
+	    'post_type' => 'oph-feature',
+		'posts_per_page'	=> 21,
+		'post_status'    => 'publish',
+                    'orderby' => 'menu_order',
+		'order' => 'ASC',
+	);
+
+	$pages = get_posts($args);
+
+	return $pages;
 }
 
 
 /**
 * ADMIN
 * Add Sub-navi title meta box to the main column on the Post and Page edit screens.
-*  
+*
 */
 function oph_add_nav_title_box() {
 
@@ -741,7 +701,7 @@ add_action( 'add_meta_boxes', 'oph_add_nav_title_box' );
 
 /**
  * Prints the box content.
- * 
+ *
  * @param WP_Post $post The object for the current post/page.
  */
 function oph_nav_title_inner_custom_box( $post ) {
@@ -785,7 +745,7 @@ function oph_nav_title_save_postdata( $post_id ) {
       return $post_id;
 
   // If this is an autosave, our form has not been submitted, so we don't want to do anything.
-  if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
+  if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
       return $post_id;
 
   // Check the user's permissions.
@@ -793,7 +753,7 @@ function oph_nav_title_save_postdata( $post_id ) {
 
     if ( ! current_user_can( 'edit_page', $post_id ) )
         return $post_id;
-  
+
   } else {
 
     if ( ! current_user_can( 'edit_post', $post_id ) )
@@ -816,7 +776,7 @@ add_action( 'save_post', 'oph_nav_title_save_postdata' );
  */
 function show_short_title( $title, $id)
 {
-    
+
 	$short_title = get_post_meta( $id, "_oph_nav_title", true );
 	if ( isset($short_title) && $short_title != "")   $title = $short_title;
 	return $title;
@@ -828,43 +788,40 @@ function is_qa()
 		'opintopolku.fi',
 		'www.opintopolku.fi',
 		'studieinfo.fi',
-		'www.studieinfo.fi',	
+		'www.studieinfo.fi',
 	);
-	
+
 	$devsites = array(
 		'localhost',
 	);
-	
+
 	if ( in_array($_SERVER['HTTP_HOST'], $devsites ) ) echo '<span style="font-size: 20px; line-height: 50px;margin-left: 20px; color: red;">l</span>';
 	elseif ( !in_array($_SERVER['HTTP_HOST'], $productionsites ) ) echo '<span style="font-size: 20px; line-height: 50px;margin-left: 20px; color: red;">QA</span>';
-	
+
 }
 
 function oph_taxonomies()
 {
+    register_taxonomy(
+        'oph-koulutus',
+    	array( 'page', 'post', 'oph-story' ),
+    	array(
+    		'label' => __( 'Koulutus' ),
+    		'rewrite' => array( 'slug' => 'koulutus' ),
+    		'hierarchical' => true
+    	)
+	);
 
-        register_taxonomy(
-            'oph-koulutus',
-		array('pages','post', 'oph-related', 'oph-story'),
-		array(
-			'label' => __( 'Koulutus' ),
-			'rewrite' => array( 'slug' => 'koulutus' ),
-			'hierarchical' => true,
-		)
+    register_taxonomy(
+        'oph-koulutustyyppi',
+    	array( 'page', 'post' ),
+    	array(
+    		'label' => __( 'Koulutustyyppi' ),
+    		'rewrite' => array( 'slug' => 'koulutustyyppi' ),
+    		'hierarchical' => true
+    	)
 	);
-        
-        register_taxonomy(
-	    'oph-koulutustyyppi',
-		array( 'page', 'post', 'oph-related'),
-		array(
-			'label' => __( 'Koulutustyyppi' ),
-			'rewrite' => array( 'slug' => 'koulutustyyppi' ),
-			'hierarchical' => true,
-                       
-		)
-	);
-        
-        
+
 	register_taxonomy(
 	    'oph-huomautukset',
 		array( 'page','post','oph-notification'),
@@ -872,25 +829,20 @@ function oph_taxonomies()
 			'label' => __( 'Tiedote kategoriat' ),
 			'rewrite' => array( 'slug' => 'oph-huom-kat' ),
 			'hierarchical' => true,
-                        'show_admin_column' => true,
-                    
+            'show_admin_column' => true
 		)
 	);
 
-        register_taxonomy(
+    register_taxonomy(
 	    'oph-sidebar',
 		array( 'sidebar-content'),
 		array(
 			'label' => __( 'Sivupalsta kategoriat' ),
 			'rewrite' => array( 'slug' => 'oph-sidebar-kat' ),
 			'hierarchical' => true,
-                        'show_admin_column' => true,
+            'show_admin_column' => true
 		)
 	);
-        
-        
-
-
 }
 add_action( 'init', 'oph_taxonomies' );
 
@@ -899,102 +851,89 @@ function oph_subnavi()
 {
 global $post;
 
-        // Fetch pages that are excluded from the top navigation
-        $page_excludes = get_pages( array(
-                            'meta_key' => '_top_nav_excluded',
-                            'hierarchical' => 0,
-                            'post_type' => 'page',
-                            'post_status' => 'publish'
-                         ));
-                         
-        $exclude_ids = wp_list_pluck($page_excludes, 'ID');
-                    
-        $parent = array_reverse(get_post_ancestors($post->ID));
-        
-        if(empty($parent)) {
-            $top_parent = $post->ID;
-        } else {
-            $top_parent = get_post($parent[0])->ID;    
-        }
-                
-        $ids = get_pages( array(
-                'child_of' => $top_parent,
-                'post_status' => 'publish',
-                'exclude' => $exclude_ids
-               ) );
-               
-        $ids = wp_list_pluck($ids, 'ID');
-        $ids[] = $top_parent;
-        $ids = implode(',', $ids);
-                                                              
-        add_filter('the_title', 'show_short_title', 10, 2);
-        wp_list_pages( array(
-            'link_before' => '<span class="w80">',
-            'link_after' => '</span>',
-            'title_li' => '',
-            'sort_column'  => 'menu_order, post_title',
-            'depth' => 0,
-            'include' => $ids,
-            'post_type'    => 'page',
-            'post_status'  => 'publish'
-            ) );
-        remove_filter('the_title', 'show_short_title'); 
+    // Fetch pages that are excluded from the top navigation
+    $page_excludes = get_pages( array(
+                        'meta_key' => '_top_nav_excluded',
+                        'hierarchical' => 0,
+                        'post_type' => 'page',
+                        'post_status' => 'publish'
+                     ));
+
+    $exclude_ids = wp_list_pluck($page_excludes, 'ID');
+
+    $parent = array_reverse(get_post_ancestors($post->ID));
+
+    if(empty($parent)) {
+        $top_parent = $post->ID;
+    } else {
+        $top_parent = get_post($parent[0])->ID;
+    }
+
+    $ids = get_pages( array(
+            'child_of' => $top_parent,
+            'post_status' => 'publish',
+            'exclude' => $exclude_ids
+           ) );
+
+    $ids = wp_list_pluck($ids, 'ID');
+    $ids[] = $top_parent;
+    $ids = implode(',', $ids);
+
+    add_filter('the_title', 'show_short_title', 10, 2);
+    wp_list_pages( array(
+        'link_before' => '<span class="w80">',
+        'link_after' => '</span>',
+        'title_li' => '',
+        'sort_column'  => 'menu_order, post_title',
+        'depth' => 0,
+        'include' => $ids,
+        'post_type'    => 'page',
+        'post_status'  => 'publish'
+        ) );
+    remove_filter('the_title', 'show_short_title');
 }
 
 /* Get related content based on taxonomies */
 function oph_related_taxonomy_query($qtaxonomies, $post_type = 'page')
 {
-        global $post;
-        
-        
-          // Get terms from all the taxonomies       
-        $taxquery = array('relation' => 'OR');
-        
-        
-        foreach ($qtaxonomies as $taxonomy ) {
-            
-            $taxs = wp_get_post_terms( $post->ID, $taxonomy);
-                       
-            //var_dump($taxs);
-            
-            if(!empty($taxs)) {
-                $tax_ids = array();          
+    global $post;
 
-                foreach( $taxs as $individual_tax ) { 
-                    $tax_ids[] = $individual_tax->term_id;
-                    //var_dump($individual_tax->term_id);
-                }
+    $tax_query = array();
+    $term_ids = array();
 
-                $taxquery[] = array(
-                    'taxonomy' => $taxonomy,
-                    'terms' => $tax_ids,
-                    //'operator'  => 'IN'
-                ); 
-            } else {
-                $taxquery[] = array(
-                    'taxonomy' => ' ',
-                    'terms' => ' ',
-                    //'operator'  => 'IN'
-                    );
+    $tax_query['relation'] = 'OR';
+
+    // Get terms from all the taxonomies
+    foreach ($qtaxonomies as $qtaxonomy ) {
+
+        $terms = get_the_terms( $post->ID, $qtaxonomy );
+
+        if($terms && !is_wp_error($terms)) {
+            foreach( $terms as $term ) {
+                $term_ids[] = $term->term_id;
             }
+
+            $tax_query[] = array(
+                'taxonomy' => $qtaxonomy,
+                'field' => 'id',
+                'terms' => $term_ids
+            );
+        }
+    }
+
+    if(!empty($tax_query) && count($tax_query) > 1) {
+        $args = array(
+            'post_type' => $post_type,
+            'post_status' => 'publish',
+            'posts_per_page' => 3,
+            'tax_query' => $tax_query
+            );
+        } else {
+            $args = null;
         }
 
-        $args = array(
-                'post_type' => $post_type,
-                'post_status'   => 'publish',            
-                'tax_query' => $taxquery,
-                'post__not_in'          => array( $post->ID ),
-                'posts_per_page'        => 3,
-                'ignore_sticky_posts'   => 1
-            );
-        
-        //var_dump($args['tax_query']);
-        //error_log( print_r ($args, true));
+        $my_query = new WP_Query( $args );
 
-        $my_query = new wp_query( $args );
-
-        //var_dump($my_query);
-        
         return $my_query;
 }
 
@@ -1011,7 +950,7 @@ function oph_widgets_init() {
         'before_title' => '<strong>',
         'after_title' => '</strong>'
     ) );
-    
+
     register_sidebar( array(
         'name' => 'Footer Widget 2',
         'id' => 'footer_widget_2',
@@ -1020,7 +959,7 @@ function oph_widgets_init() {
         'before_title' => '<strong>',
         'after_title' => '</strong>'
     ) );
-    
+
     register_sidebar( array(
         'name' => 'Footer Widget 3',
         'id' => 'footer_widget_3',
@@ -1035,25 +974,25 @@ add_action( 'widgets_init', 'oph_widgets_init' );
 
 
 /*
- * Disable default image linking 
+ * Disable default image linking
  */
 
 
 function wpb_imagelink_setup() {
 	$image_set = get_option( 'image_default_link_type' );
-	
+
 	if ($image_set !== 'none') {
 		update_option('image_default_link_type', 'none');
 	}
 }
 add_action('admin_init', 'wpb_imagelink_setup', 10);
-    
-/* 
- * Enable CORS for JSON Api  
+
+/*
+ * Enable CORS for JSON Api
  */
- 
+
 function enable_cors($result) {
-    
+
     header("Access-Control-Allow-Origin: *");
 
 }
@@ -1064,7 +1003,7 @@ add_action( 'json_api-core-get_search_results', 'enable_cors' );
 /*
  *  Add custom image sizes to Media settings drop down
  */
- 
+
 add_filter( 'image_size_names_choose', 'oph_custom_sizes' );
 
 function oph_custom_sizes( $sizes ) {
@@ -1075,21 +1014,21 @@ function oph_custom_sizes( $sizes ) {
         'oph-mid-column' => __('Keskipalstan kuva'),
         'oph-max' => __('Maxikuva')
     ) );
-    
-    // Remove default image sizes (large, medium, thumbnail)    
+
+    // Remove default image sizes (large, medium, thumbnail)
     unset($array['large']);
     unset($array['medium']);
     unset($array['thumbnail']);
-        
+
     return $array;
 }
 
 /*
  * Shortcode for arrow signs
  */
- 
+
 function oph_arrow_sign( $atts, $content = null ) {
-    
+
     // Attributes
     extract( shortcode_atts(
         array(
@@ -1097,34 +1036,34 @@ function oph_arrow_sign( $atts, $content = null ) {
             'href' => '',
         ), $atts )
     );
-    
-    if( $title != null ) 
+
+    if( $title != null )
     {
-        return '<a title="'. $title .'" href="'. $href .'"><span class="sign"><span class="sign-inner">'. $content .'</span></span></a>';    
-    } 
-    else 
+        return '<a title="'. $title .'" href="'. $href .'"><span class="sign"><span class="sign-inner">'. $content .'</span></span></a>';
+    }
+    else
     {
-        return '<a href="'. $href .'"><span class="sign"><span class="sign-inner">'. $content .'</span></span></a>'; 
+        return '<a href="'. $href .'"><span class="sign"><span class="sign-inner">'. $content .'</span></span></a>';
     }
 }
 
-function oph_add_button() {  
-   if ( current_user_can('edit_posts') && current_user_can('edit_pages') )  
+function oph_add_button() {
+   if ( current_user_can('edit_posts') && current_user_can('edit_pages') )
    {
-     add_filter('mce_external_plugins', 'oph_add_plugin');  
-     add_filter('mce_buttons_2', 'oph_register_button');  
-   }  
+     add_filter('mce_external_plugins', 'oph_add_plugin');
+     add_filter('mce_buttons_2', 'oph_register_button');
+   }
 }
 
-function oph_register_button( $buttons ) {  
+function oph_register_button( $buttons ) {
    array_push( $buttons, "oph-sign", "oph-highlight" );
-   
-   return $buttons;  
+
+   return $buttons;
 }
 
-function oph_add_plugin( $plugin_array ) {  
-   $plugin_array['oph'] = get_bloginfo('template_url').'/js/oph-tinymce-plugin.js';  
-   return $plugin_array;  
+function oph_add_plugin( $plugin_array ) {
+   $plugin_array['oph'] = get_bloginfo('template_url').'/js/oph-tinymce-plugin.js';
+   return $plugin_array;
 }
 
 // Add arrow sign button to html editor
@@ -1149,7 +1088,7 @@ function youtube_https_oembed() {
     wp_oembed_remove_provider('http://youtu.be/*');
     wp_oembed_add_provider('#https?://(www\.)?youtube\.com/watch.*#i', 'http://www.youtube.com/oembed?scheme=https', true);
     wp_oembed_add_provider('#https?://youtu\.be/.*#i', 'http://www.youtube.com/oembed?scheme=https', true);
-    
+
 }
 
 // Enables fluid width embeds
@@ -1190,30 +1129,30 @@ function language_selector_custom(){
  */
 
 function unset_columns($columns) {
-	
+
 	unset(
 		$columns['taxonomy-oph-huomautukset']
 	);
-	
+
 	return $columns;
 }
 add_filter('manage_pages_columns', 'unset_columns');
 /*
  * Breadcrumb for single oph-story
- */ 
- 
+ */
+
 function theme_bcn() {
     if(function_exists('bcn_display')) {
         global $post;
-		
-        $terms = wp_get_post_terms($post->ID, 'story-theme');             
+
+        $terms = wp_get_post_terms($post->ID, 'story-theme');
         $bcn_separator = get_option('bcn_options');
         $separator = $bcn_separator['hseparator'];
 		$site_name = get_bloginfo('name');
-			
+
 		echo '<a title="'. theme_bcn_title($site_name) .'" href="'. get_bloginfo('url') .'" class="home">'. $site_name .'</a>';
     	echo $separator;
-				
+
 		if(ICL_LANGUAGE_CODE == 'sv') {
 			$stories =	get_page_by_path('/stod-for-studievalet/bekanta-dig-med-berattelserna', OBJECT, 'page');
 			$parent_title = get_the_title($stories->post_parent);
@@ -1221,18 +1160,18 @@ function theme_bcn() {
 		} else {
 			$stories =	get_page_by_path('/valintojen-tuki/tutustu-tarinoihin', OBJECT, 'page');
 			$parent_title = get_the_title($stories->post_parent);
-			$parent_link = get_permalink($stories->post_parent);			
+			$parent_link = get_permalink($stories->post_parent);
 		}
-		
+
         echo '<a title="' . theme_bcn_title($parent_title) .'" href="'. $parent_link .'">'. $parent_title .'</a>';
-        echo $separator;         
+        echo $separator;
         echo '<a title="' . theme_bcn_title($stories->post_title) .'" href="'. get_permalink($stories->ID) .'">'. $stories->post_title .'</a>';
         echo $separator;
-		
+
 		if(is_single()) {
 			echo '<a title="'. theme_bcn_title($terms[0]->name) .'" href="'. get_term_link($terms[0], 'story-theme') .'">'. $terms[0]->name .'</a>';
 	        echo $separator;
-	        echo $post->post_title;	
+	        echo $post->post_title;
 		} else {
 			echo single_cat_title();
 		}
@@ -1241,7 +1180,7 @@ function theme_bcn() {
 
 function theme_bcn_title($title) {
 	$bcn_title = __('Go To', 'html5blank') .' '. $title .'.';
-	
+
 	return $bcn_title;
 }
 
@@ -1256,7 +1195,7 @@ function delete_custom_terms($taxonomy){
     global $wpdb;
 
     $taxonomy = 'oph-koulutus';
-    
+
     $query = 'SELECT t.name, t.term_id
             FROM ' . $wpdb->terms . ' AS t
             INNER JOIN ' . $wpdb->term_taxonomy . ' AS tt
@@ -1273,11 +1212,11 @@ function delete_custom_terms($taxonomy){
 add_action('init', 'delete_custom_terms');  */
 
 /*
- * Add char counter to excerpt field 
+ * Add char counter to excerpt field
  */
 function excerpt_count_js() {
-        wp_register_script('excerpt_counter', get_template_directory_uri() . '/js/excerpt_counter.js', array('jquery'));
-        wp_enqueue_script('excerpt_counter');
+    wp_register_script('excerpt_counter', get_template_directory_uri() . '/js/excerpt_counter.js', array('jquery'));
+    wp_enqueue_script('excerpt_counter');
 }
 add_action( 'admin_head-post.php', 'excerpt_count_js');
 add_action( 'admin_head-post-new.php', 'excerpt_count_js');
@@ -1287,15 +1226,15 @@ add_action( 'admin_head-post-new.php', 'excerpt_count_js');
  */
 
 function oph_link_to_en() {
-    
-        if(isset($_SERVER['HTTPS'])) {
-            $protocol = ($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != "off") ? "https" : "http";
-        }
-        else {
-            $protocol = 'http';
-        }
-    
-        $oph_base_url = $protocol . "://" . $_SERVER['HTTP_HOST'];
-    
-        return '<li><a href="'.$oph_base_url.'/wp2/en/">In English</a></li>';
+
+    if(isset($_SERVER['HTTPS'])) {
+        $protocol = ($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != "off") ? "https" : "http";
+    }
+    else {
+        $protocol = 'http';
+    }
+
+    $oph_base_url = $protocol . "://" . $_SERVER['HTTP_HOST'];
+
+    return '<li><a href="'.$oph_base_url.'/wp2/en/">In English</a></li>';
 }

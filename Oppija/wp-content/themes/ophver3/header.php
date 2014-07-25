@@ -3,14 +3,14 @@
 <!--[if gt IE 8]><!--> <html class="no-js" <?php language_attributes(); ?>> <!--<![endif]-->
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
 	<meta charset="<?php bloginfo('charset'); ?>">
-        
+
         <title>
             <?php
-            
+
             $alt_title = get_field('alternative_title') ;
-            
+
             if(empty($alt_title) ) {
-                echo bloginfo('name');
+                _e('Opintopolku', 'html5blank');
                 echo wp_title(' :');
             }
             else {
@@ -19,24 +19,24 @@
             ?></title>
 
     <meta name="google" content="notranslate" />
-    
+
     <?php if(is_front_page()) : ?>
 	<meta name="google-site-verification" content="Hfc9R_6N1QPibD-tkZsJEwysP2EKFlpQ1VI3pBvgE3U" />
     <?php endif; ?>
-    
+
 	<!-- dns prefetch -->
 	<link href="//www.google-analytics.com" rel="dns-prefetch">
-		
+
 	<!-- meta -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
-	<meta name="description" content="<?php echo((!is_front_page() && !is_archive()) ? (get_the_title() . ' - ' . get_bloginfo('name')) : get_bloginfo('description')); ?>">
-		
+	<meta name="description" content="<?php echo((!is_front_page() && !is_archive()) ? (get_the_title() . ' - ' . __('Opintopolku', 'html5blank')) : get_bloginfo('description')); ?>">
+
 	<!-- og:tags -->
-	<meta property="og:site_name" content="<?php bloginfo('name'); ?>" />
-	<meta property="og:title" content="<?php bloginfo('name'); ?>" /> 
-	<meta property="og:description" content="<?php echo((!is_front_page() && !is_archive()) ? (get_the_title() . ' - ' . get_bloginfo('name')) : get_bloginfo('description')); ?>" />
-	
+	<meta property="og:site_name" content="<?php _e('Opintopolku', 'html5blank'); ?>" />
+	<meta property="og:title" content="<?php _e('Opintopolku', 'html5blank'); ?>" />
+	<meta property="og:description" content="<?php echo((!is_front_page() && !is_archive()) ? (get_the_title() . ' - ' . __('Opintopolku', 'html5blank')) : get_bloginfo('description')); ?>" />
+
 	<meta property="og:image" content="<?php echo get_template_directory_uri(); ?>/img/Opintopolku_FI_logo.png" />
 	<meta property="og:type" content="article" />
 	<meta property="og:locale" content="fi_FI" />
@@ -48,13 +48,13 @@
 	<!-- For iOS web apps. -->
 	<meta name="apple-mobile-web-app-capable" content="no" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-	<meta name="apple-mobile-web-app-title" content="<?php bloginfo('name'); ?>" />
+	<meta name="apple-mobile-web-app-title" content="<?php _e('Opintopolku', 'html5blank'); ?>" />
 
 	<!-- "Typewriter" Font -->
 	<link href='//fonts.googleapis.com/css?family=PT+Sans+Narrow:700|PT+Serif:400italic' rel='stylesheet' type='text/css'>
-        
-	<?php 
-	
+
+	<?php
+
 	$debug = false;
 
 	if($debug) : ?>
@@ -73,7 +73,7 @@
 	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<script src="<?php echo get_template_directory_uri(); ?>/js/vendor/selectivizr.min.js"></script>
 	<![endif]-->
-	
+
 	<!-- css + javascript -->
 		<?php wp_head(); ?>
 		<script>
@@ -83,14 +83,7 @@
 			//conditionizr()
 		}()
 		</script>
-                
-                
-        <script language="javascript" type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/jquery.easing.1.3.js"></script>
-        <script language="javascript" type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/jquery.galleryview-3.0-dev.js"></script>
-        <script language="javascript" type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/jquery.timers-1.2.js"></script>
-        
-        <link type="text/css" rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/jquery.galleryview-3.0-dev.css" />
-                
+
 </head>
 <body <?php body_class(); ?>>
     <a href="#maincontent" class="offscreen"><?php _e('Skip to content', 'html5blank'); ?></a>
@@ -98,7 +91,7 @@
        <div class="notification">
            <div class="notif-nojs">
                <img src="<?php echo get_template_directory_uri(); ?>/img/notif_icon.png " class="notif-icon">
-               <div><?php _e('Toistaiseksi Opintopolku.fi:n käyttö edellyttää JavaScript -tukea. Voit halutessasi ottaa JavaScriptin käyttöön selaimesi asetuksista.', 'html5blank'); ?></div> 
+               <div><?php _e('Toistaiseksi Opintopolku.fi:n käyttö edellyttää JavaScript -tukea. Voit halutessasi ottaa JavaScriptin käyttöön selaimesi asetuksista.', 'html5blank'); ?></div>
            </div>
        </div>
     </noscript>
@@ -108,13 +101,13 @@
 				<?php if (ICL_LANGUAGE_CODE == 'sv') : ?>
 					<a id="home-link" href="<?php echo home_url(); ?>"><img src="<?php echo get_template_directory_uri(); ?>/img/Studieinfo.png" alt="Studieinfo.fi" /></a>
 				<?php else : ?>
-					<a id="home-link" href="<?php echo home_url(); ?>"><img src="<?php echo get_template_directory_uri(); ?>/img/Opintopolku_FI_logo.png" alt="Opintopolku.fi" /></a>	
+					<a id="home-link" href="<?php echo home_url(); ?>"><img src="<?php echo get_template_directory_uri(); ?>/img/Opintopolku_FI_logo.png" alt="Opintopolku.fi" /></a>
 				<?php endif ?>
-				
-				
+
+
 				<?php is_qa(); ?>
-				
-				
+
+
 				<?php $languages = icl_get_languages('skip_missing=0'); ?>
 				<div class="actions">
 		            <ul>
@@ -122,11 +115,11 @@
 		            	    <?php if($lang['language_code'] != ICL_LANGUAGE_CODE) : ?>
 		            		<li><a href="<?php echo $lang['url'] ?>"><?php echo $lang['native_name'] ?></a></li>
 		            		<?php endif; ?>
-		            	<?php endforeach ?> 
+		            	<?php endforeach ?>
                             <?php echo oph_link_to_en(); ?>
 		            </ul>
 		        </div>
-		        
+
 		        <div class="actions primarylinks">
 					<ul>
 						<li class="icon basket">
@@ -142,25 +135,25 @@
 		<!-- nav -->
 		<nav class="nav" role="navigation">
 			<div class="container">
-		        
+
 			     <?php add_filter('the_title', 'show_short_title', 10, 2);
 			             do_action('icl_navigation_menu');
 			         remove_filter('the_title', 'show_short_title'); ?>
 				<?php //html5blank_nav(); ?>
-                            
+
                              <div class="textversion"">
                                 <?php if (ICL_LANGUAGE_CODE == 'sv') : ?>
 					<a href="/m/index_sv.html">Specialläroanstalternas utbildningar som textversion</a>
 				<?php else : ?>
-					<a href="/m/index.html">Erityisoppilaitosten koulutukset tekstiversiona</a>	
+					<a href="/m/index.html">Erityisoppilaitosten koulutukset tekstiversiona</a>
 				<?php endif ?>
-                            </div>           
-                            
+                            </div>
+
 			</div>
 		</nav>
 		<!-- /nav -->
 
-				
+
 		<div class="search">
 			<form action="/app/#!/haku/">
 				<fieldset class="search-container">
@@ -171,7 +164,7 @@
 				</fieldset>
 			</form>
 		</div>
-               
+
 	</header>
-	
-	<div id="maincontent" class="content container">		
+
+	<div id="maincontent" class="content container">
