@@ -666,9 +666,9 @@ function oph_nostot() {
 
 	$args = array(
 	    'post_type' => 'oph-feature',
-		'posts_per_page'	=> 21,
-		'post_status'    => 'publish',
-                    'orderby' => 'menu_order',
+		'posts_per_page' => 21,
+		'post_status' => 'publish',
+        'orderby' => 'menu_order',
 		'order' => 'ASC',
 	);
 
