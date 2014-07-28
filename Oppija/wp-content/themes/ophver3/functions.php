@@ -662,19 +662,19 @@ function oph_get_subpages(){
 }
 
 function oph_nostot() {
-	global $post;
+    global $post;
 
-	$args = array(
-	    'post_type' => 'oph-feature',
-		'posts_per_page' => 21,
-		'post_status' => 'publish',
+    $args = array(
+        'post_type' => 'oph-feature',
+        'posts_per_page' => 21,
+        'post_status' => 'publish',
         'orderby' => 'menu_order',
-		'order' => 'ASC',
+        'order' => 'ASC',
 	);
 
-	$pages = get_posts($args);
+    $pages = get_posts($args);
 
-	return $pages;
+    return $pages;
 }
 
 
