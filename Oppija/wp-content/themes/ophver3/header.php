@@ -8,9 +8,10 @@
             <?php
 
             $alt_title = get_field('alternative_title') ;
+            $site_title = get_bloginfo();
 
             if(empty($alt_title) ) {
-                _e('Opintopolku', 'html5blank');
+                _e($site_title, 'html5blank');
                 echo wp_title(' :');
             }
             else {
@@ -30,12 +31,12 @@
 	<!-- meta -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
-	<meta name="description" content="<?php echo((!is_front_page() && !is_archive()) ? (get_the_title() . ' - ' . __('Opintopolku', 'html5blank')) : get_bloginfo('description')); ?>">
+	<meta name="description" content="<?php echo((!is_front_page() && !is_archive()) ? (get_the_title() . ' - ' . __($site_title, 'html5blank')) : get_bloginfo('description')); ?>">
 
 	<!-- og:tags -->
-	<meta property="og:site_name" content="<?php _e('Opintopolku', 'html5blank'); ?>" />
-	<meta property="og:title" content="<?php _e('Opintopolku', 'html5blank'); ?>" />
-	<meta property="og:description" content="<?php echo((!is_front_page() && !is_archive()) ? (get_the_title() . ' - ' . __('Opintopolku', 'html5blank')) : get_bloginfo('description')); ?>" />
+	<meta property="og:site_name" content="<?php _e($site_title, 'html5blank'); ?>" />
+	<meta property="og:title" content="<?php _e($site_title, 'html5blank'); ?>" />
+	<meta property="og:description" content="<?php echo((!is_front_page() && !is_archive()) ? (get_the_title() . ' - ' . __($site_title, 'html5blank')) : get_bloginfo('description')); ?>" />
 
 	<meta property="og:image" content="<?php echo get_template_directory_uri(); ?>/img/Opintopolku_FI_logo.png" />
 	<meta property="og:type" content="article" />
@@ -48,7 +49,7 @@
 	<!-- For iOS web apps. -->
 	<meta name="apple-mobile-web-app-capable" content="no" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-	<meta name="apple-mobile-web-app-title" content="<?php _e('Opintopolku', 'html5blank'); ?>" />
+	<meta name="apple-mobile-web-app-title" content="<?php _e($site_title, 'html5blank'); ?>" />
 
 	<!-- "Typewriter" Font -->
 	<link href='//fonts.googleapis.com/css?family=PT+Sans+Narrow:700|PT+Serif:400italic' rel='stylesheet' type='text/css'>
