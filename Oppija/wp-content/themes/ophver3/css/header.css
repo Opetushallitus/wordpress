@@ -17,6 +17,8 @@
     #siteheader .logo-bg #home-link {
       float: left; }
   #siteheader .actions {
+    color: #fff;
+    font-weight: bold;
     float: left;
     clear: left;
     line-height: 47px; }

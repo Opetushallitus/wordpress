@@ -114,6 +114,16 @@ function html5blank_header_scripts()
 
         //wp_register_script('html5blankscripts', get_template_directory_uri() . '/js/scripts.js', array(), '1.0.0'); // Custom scripts
         //wp_enqueue_script('html5blankscripts'); // Enqueue it!
+
+        // register login.js
+        wp_register_script('login', get_template_directory_uri() . '/js/login.js', array(), '1.0.0', true);
+
+        // localize the script
+        $translation_array = array('login' => __('Log In'), 'logout' => __('Log Out'), 'greeting' => __('Hello'), 'site_url' => __(home_url('/')));
+        wp_localize_script('login', 'oph_login', $translation_array);
+
+        // enqueue script
+        wp_enqueue_script('login');
     }
 }
 
@@ -789,13 +799,20 @@ function is_qa()
 		'www.opintopolku.fi',
 		'studieinfo.fi',
 		'www.studieinfo.fi',
+        'studyinfo.fi',
+        'www.studyinfo.fi'
 	);
 
 	$devsites = array(
 		'localhost',
 	);
 
-	if ( in_array($_SERVER['HTTP_HOST'], $devsites ) ) echo '<span style="font-size: 20px; line-height: 50px;margin-left: 20px; color: red;">l</span>';
+    $testsites = array(
+        'test-oppija.oph.ware.fi'
+    );
+
+	if ( in_array($_SERVER['HTTP_HOST'], $devsites ) ) echo '<span style="font-size: 20px; line-height: 50px;margin-left: 20px; color: red;">DEV</span>';
+    elseif ( in_array($_SERVER['HTTP_HOST'], $testsites ) ) echo '<span style="font-size: 20px; line-height: 50px;margin-left: 20px; color: red;">REPPU</span>';
 	elseif ( !in_array($_SERVER['HTTP_HOST'], $productionsites ) ) echo '<span style="font-size: 20px; line-height: 50px;margin-left: 20px; color: red;">QA</span>';
 
 }
