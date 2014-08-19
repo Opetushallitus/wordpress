@@ -115,15 +115,6 @@ function html5blank_header_scripts()
         //wp_register_script('html5blankscripts', get_template_directory_uri() . '/js/scripts.js', array(), '1.0.0'); // Custom scripts
         //wp_enqueue_script('html5blankscripts'); // Enqueue it!
 
-        // register login.js
-        wp_register_script('login', get_template_directory_uri() . '/js/login.js', array(), '1.0.0', true);
-
-        // localize the script
-        $translation_array = array('login' => __('Log In'), 'logout' => __('Log Out'), 'greeting' => __('Hello'), 'site_url' => __(home_url('/')));
-        wp_localize_script('login', 'oph_login', $translation_array);
-
-        // enqueue script
-        wp_enqueue_script('login');
     }
 }
 
