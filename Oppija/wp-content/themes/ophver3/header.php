@@ -86,7 +86,7 @@
 		</script>
 
 </head>
-<body <?php body_class(); ?>>
+<body <?php body_class(); ?> style="display: none" aria-busy="true">
     <a href="#maincontent" class="offscreen"><?php _e('Skip to content', 'html5blank'); ?></a>
     <noscript>
        <div class="notification">
@@ -96,65 +96,7 @@
            </div>
        </div>
     </noscript>
-    <header id="siteheader">
-		<div class="logo-bg">
-			<div class="container">
-				<?php if (ICL_LANGUAGE_CODE == 'sv') : ?>
-					<a id="home-link" href="<?php echo home_url(); ?>"><img src="<?php echo get_template_directory_uri(); ?>/img/Studieinfo.png" alt="Studieinfo.fi" /></a>
-				<?php else : ?>
-					<a id="home-link" href="<?php echo home_url(); ?>"><img src="<?php echo get_template_directory_uri(); ?>/img/Opintopolku_FI_logo.png" alt="Opintopolku.fi" /></a>
-				<?php endif ?>
-
-
-				<?php is_qa(); ?>
-
-
-				<?php $languages = icl_get_languages('skip_missing=0'); ?>
-				<div class="actions">
-		            <ul>
-		            	<?php foreach ($languages as $lang) : ?>
-		            	    <?php if($lang['language_code'] != ICL_LANGUAGE_CODE) : ?>
-		            		<li><a href="<?php echo $lang['url'] ?>"><?php echo $lang['native_name'] ?></a></li>
-		            		<?php endif; ?>
-		            	<?php endforeach ?>
-                            <?php echo oph_link_to_en(); ?>
-		            </ul>
-		        </div>
-
-		        <div class="actions primarylinks">
-					<ul>
-						<li class="icon basket">
-							<a href="/app/#!/muistilista">
-								<span><?php _e('Muistilista') ?> (<span class="appbasket-count">0</span>)</span>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-
-		<!-- nav -->
-		<nav class="nav" role="navigation">
-			<div class="container">
-
-			     <?php add_filter('the_title', 'show_short_title', 10, 2);
-			             do_action('icl_navigation_menu');
-			         remove_filter('the_title', 'show_short_title'); ?>
-				<?php //html5blank_nav(); ?>
-
-                             <div class="textversion"">
-                                <?php if (ICL_LANGUAGE_CODE == 'sv') : ?>
-					<a href="/m/index_sv.html">Specialläroanstalternas utbildningar som textversion</a>
-				<?php else : ?>
-					<a href="/m/index.html">Erityisoppilaitosten koulutukset tekstiversiona</a>
-				<?php endif ?>
-                            </div>
-
-			</div>
-		</nav>
-		<!-- /nav -->
-
-
+    <div id="search">
 		<div class="search">
 			<form action="/app/#!/haku/">
 				<fieldset class="search-container">
@@ -166,6 +108,6 @@
 			</form>
 		</div>
 
-	</header>
+	</div>
 
 	<div id="maincontent" class="content container">

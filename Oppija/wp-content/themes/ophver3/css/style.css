@@ -364,7 +364,7 @@ table {
     .padding(3em, 20px)
 }
 *//* COLORS */
-/* http://meyerweb.com/eric/tools/css/reset/ 
+/* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -735,57 +735,27 @@ hr {
 /*********************
 06. HEADER SYTLES
 *********************/
-header {
-  box-shadow: none;
-}
-header ::-webkit-input-placeholder {
-  /* WebKit browsers */
-
-  color: #333333;
-}
-header :-moz-placeholder {
-  /* Mozilla Firefox 4 to 18 */
-
-  color: #333333;
-}
-header ::-moz-placeholder {
-  /* Mozilla Firefox 19+ */
-
-  color: #333333;
-}
-header :-ms-input-placeholder {
-  /* Internet Explorer 10+ */
-
-  color: #333333;
-}
-header .logo-bg {
-  background: #149ecb;
-  padding: 19px 10px;
-}
-header .logo-bg img {
-  display: block;
-}
-header .search {
+.search {
   max-width: 960px;
   margin: 50px auto 30px auto;
 }
-header .search label {
+.search label {
   min-width: 190px;
 }
-header .search label.h2 {
+.search label.h2 {
   color: #333333;
   width: 17%;
   display: inline-block;
   padding: 10px 10px 1% 10px;
 }
-header .search .search-container {
+.search .search-container {
   padding: 10px;
   padding: 1rem;
   /*max-width: 600px;*/
 
   margin: 0 auto;
 }
-header .search .search-field {
+.search .search-field {
   width: 60%;
   background-color: #ffffff;
   background-image: none;
@@ -800,7 +770,7 @@ header .search .search-field {
   line-height: 1.8rem;
   vertical-align: middle;
 }
-header .search .magnifier {
+.search .magnifier {
   background: none;
   border: 1px solid #dba000;
   font-size: 16px;
@@ -826,109 +796,14 @@ header .search .magnifier {
   -ms-box-shadow: inset 0px 1px 1px 0px rgba(255, 230, 162, 0.7);
   box-shadow: inset 0px 1px 1px 0px rgba(255, 230, 162, 0.7);
 }
-header .search .magnifier span {
+.search .magnifier span {
   background: transparent url("../img/suurennuslasi_icon_dark.png") scroll no-repeat;
   padding: 0 0 0 16px;
 }
-header .search .magnifier span span {
+.search .magnifier span span {
   background: none;
 }
 /* NAVI */
-header nav {
-  background: #06526b;
-  font-size: 16px;
-  font-size: 1.6rem;
-  line-height: 20px;
-  line-height: 2rem;
-}
-header nav .selected_subpage {
-  padding: 10px;
-  padding: 1rem;
-}
-header nav .selected_page {
-  background: #ffffff;
-}
-header nav .selected_page a {
-  color: #333333;
-}
-header nav .container {
-  overflow: visible;
-}
-header nav ul {
-  float: left;
-  display: inline-table;
-  margin: 0;
-  padding: 0;
-  /* subnavi */
-
-}
-header nav ul li {
-  position: relative;
-  float: left;
-  margin: 0 5px;
-}
-header nav ul li:hover {
-  background-color: #ffffff;
-}
-header nav ul li:hover a {
-  color: #333333;
-}
-header nav ul li:hover > ul {
-  display: block;
-}
-header nav ul li a {
-  padding: 10px;
-  padding: 1rem;
-  color: #ffffff;
-  text-decoration: none;
-  display: block;
-}
-header nav ul ul {
-  display: none;
-  font-size: 13px;
-  font-size: 1.3rem;
-  background-color: #ffffff;
-  position: absolute;
-  top: 100%;
-  z-index: 1000;
-  -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.65);
-  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.65);
-}
-header nav ul ul li {
-  width: 220px;
-  float: none;
-  margin: 0;
-}
-header nav ul ul li:hover {
-  background-color: #feedbd;
-}
-header nav ul ul li a {
-  color: #333333;
-}
-header nav ul ul li a:active {
-  background-color: #fedc7d;
-}
-header nav ul ul ul {
-  position: absolute;
-  top: 0;
-  left: 100%;
-  margin-left: 1px;
-  margin-top: -1px;
-  border-top: 1px solid rgba(0, 0, 0, 0.65);
-}
-header nav:after {
-  content: "";
-  clear: both;
-  display: block;
-}
-nav {
-  clear: both;
-}
-nav ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
 nav.breadcrumb {
   margin-top: 0;
   margin-bottom: 20px;
