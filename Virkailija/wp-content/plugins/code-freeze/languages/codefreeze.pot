@@ -19,7 +19,7 @@ msgid "CODE FREEZE NOTICE"
 msgstr ""
 
 #: code-freeze.php:45
-msgid "This site is currently being migrated to a new location. Changes made here will not be reflected in the migrated site. To avoid lost work, please do not make any changes to the site until this message is removed."
+msgid "This site is currently set read only. To avoid lost work, please do not make any changes to the site until this message is removed."
 msgstr ""
 
 #: code-freeze.php:59
