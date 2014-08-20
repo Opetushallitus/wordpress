@@ -12,5 +12,6 @@
 .project
 
 plugins/
+!/Virkailija/wp-content/plugins/code-freeze/
 /studyinfo/nbproject/private/
 /opintopolku-boostrap/nbproject/private/
