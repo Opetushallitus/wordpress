@@ -582,6 +582,37 @@ function create_post_type_html5()
         ), // Go to Dashboard Custom HTML5 Blank post for supports
         'can_export' => true // Allows export in Tools > Export
     ));
+    
+    
+    register_post_type('oph-helptext', // Register Custom Post Type
+        array(
+        'labels' => array(
+            'name' => __('Help texts', 'html5blank'), // Rename these to suit
+            'singular_name' => __('Help Text', 'html5blank'),
+            'add_new' => __('Add New', 'html5blank'),
+            'add_new_item' => __('Add New help texts', 'html5blank'),
+            'edit' => __('Edit', 'html5blank'),
+            'edit_item' => __('Edit help text', 'html5blank'),
+            'new_item' => __('New help text', 'html5blank'),
+            'view' => __('View help text', 'html5blank'),
+            'view_item' => __('View help text', 'html5blank'),
+            'search_items' => __('Search help texts', 'html5blank'),
+            'not_found' => __('No help texts found', 'html5blank'),
+            'not_found_in_trash' => __('No help texts found in Trash', 'html5blank')
+        ),
+        'public' => true,
+        'exclude_from_search' => true,
+        'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
+        'has_archive' => true,
+        'supports' => array(
+            'title',
+            'editor',
+            'excerpt',
+            'post_order',
+            'thumbnail'
+        ), // Go to Dashboard Custom HTML5 Blank post for supports
+        'can_export' => true // Allows export in Tools > Export
+    ));
 
 
 }
@@ -839,6 +870,17 @@ function oph_taxonomies()
 		array(
 			'label' => __( 'Sivupalsta kategoriat' ),
 			'rewrite' => array( 'slug' => 'oph-sidebar-kat' ),
+			'hierarchical' => true,
+            'show_admin_column' => true
+		)
+	);
+    
+    register_taxonomy(
+	    'oph-help',
+		array( 'oph-helptext'),
+		array(
+			'label' => __( 'Help text category' ),
+			'rewrite' => array( 'slug' => 'oph-help' ),
 			'hierarchical' => true,
             'show_admin_column' => true
 		)
