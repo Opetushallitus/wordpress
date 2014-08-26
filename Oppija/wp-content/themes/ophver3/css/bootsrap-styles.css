@@ -752,6 +752,7 @@ input#search-field-frontpage {
 .tt-tag-heading {
     font-size: 13px;
     text-transform: uppercase;
+    font-weight: bold;
     padding-left: 20px;
     border-bottom: 1px solid #bfe4f1;
 }

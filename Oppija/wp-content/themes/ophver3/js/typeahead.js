@@ -56,7 +56,7 @@
                         'No Results',
                         '</div>'
                     ].join('\n'),
-                    header: '<h3 class="tt-tag-heading tt-tag-heading2">Hakusanaehdotukset</h3>'
+                    header: '<span class="tt-tag-heading tt-tag-heading2">Hakusanaehdotukset</span>'
                 } 
             },
             {
@@ -69,7 +69,7 @@
                         'No Results',
                         '</div>'
                     ].join('\n'),
-                    header: '<h3 class="tt-tag-heading tt-tag-heading2">Koulutukset ja tutkinnot</h3>'
+                    header: '<span class="tt-tag-heading tt-tag-heading2">Koulutukset ja tutkinnot</span>'
                 } 
             });
 

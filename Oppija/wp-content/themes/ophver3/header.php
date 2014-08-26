@@ -96,7 +96,7 @@
     
     $frontpage_notice = get_posts($args);
     
-    if ($frontpage_notice) : ?>
+    if (is_front_page() && $frontpage_notice) : ?>
     
     <div class="row">
         <div class="col-xs-16">
