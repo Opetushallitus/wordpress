@@ -60,7 +60,6 @@ jQuery(document).ready(function() {
 
     var basketCount = BasketCookie.getBasketCount();
     jQuery('.appbasket-count').html(basketCount);
-    jQuery('#search-field-frontpage').focus();
     
     /* Sub navi -slideToggle */
     jQuery('nav.sidenav ul.children').each( function(){

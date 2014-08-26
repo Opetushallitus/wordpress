@@ -1,20 +1,39 @@
 <?php get_header( get_bloginfo('language') ); ?>
 
 
-	<?php if (have_posts()): while (have_posts()) : the_post(); ?>
+        <?php
+        
+        $args = array(
+	'post_type' => 'page',
+        'order_by' => 'name',
+        'order' => 'ASC',
+	'tax_query' => array(
+		array(
+			'taxonomy' => 'post_tag',
+			'field' => 'slug',
+			'terms' => array('intro1', 'intro2', 'intro3', 'intro4'),
+		),
+            ),
+        );
+        
+        $intro_pages = new WP_Query($args);
+        
+        ?>
 
-		<article id="post-<?php the_ID(); ?>" class="main" >
+        <div class="row padding-bottom-10">
 
-			<h1><?php the_title(); ?></h1>
+	<?php if ($intro_pages->have_posts()): while ($intro_pages->have_posts()) : $intro_pages->the_post(); ?>
 
-			<?php the_content(); ?>
+            
+                    <div class="col-sm-16 col-md-4 col-lg-4 frontpage-link">
+                        <div class="row col-xs-16">
+                            <h2 class=""><?php the_title(); ?></h2>    
+                            <?php the_content(); ?>  
+                        </div>
+                    </div>
+                
 
-			<br class="clear">
-
-			<?php edit_post_link(); ?>
-
-		</article>
-		<!-- /article -->
+                
 
 	<?php endwhile; ?>
 
@@ -30,39 +49,7 @@
 
 	<?php endif; ?>
 
-	<!-- nostot -->
-	<?php
-			$featured = oph_nostot();
-
-			if ( count($featured ) > 0 ) : ?>
-				<aside>
-					<?php foreach ($featured as $post) : setup_postdata($post); ?>
-    					<?php
-        					$title = get_the_title();
-                            $langInfo = wpml_get_language_information($post->ID);
-                            $postLang = $langInfo['locale'];
-
-                            if(ICL_LANGUAGE_CODE == 'fi'){
-                                $currentLang = 'fi';
-                            }
-
-                            if (ICL_LANGUAGE_CODE == 'sv') {
-                                $currentLang = 'sv_SE';
-                            }
-
-                            if (!empty($title) && $postLang == $currentLang) :
-                        ?>
-                        <section>
-                            <h2><?php the_title(); ?></h2>
-                            <?php the_content(); ?>
-                            <hr>
-                        </section>
-                        <?php endif ?>
-                    <?php endforeach; ?>
-				</aside>
-	       <?php endif; ?>
-	<!-- /nostot -->
-
+        </div>
 
 <?php //get_sidebar('widget-area-2'); ?>
 

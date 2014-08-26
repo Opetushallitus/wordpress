@@ -51,16 +51,7 @@
                 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
                     <div class="single-story-theme">
                   
-                    <?php
-                    $has_attachments = get_children(
-                        array(
-                        'post_type' => 'attachment',
-                        'post_mime_type' => 'image',
-                        'post_parent' => $post->ID
-                        ));
-                    ?>
-                    
-                        <?php if ($has_attachments) : // Check if thumbnail exists ?>
+                    <?php if ( has_post_thumbnail()) : ?>
                         
                         <?php $image_data = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
                                         $image_width = $image_data[1];
@@ -93,7 +84,7 @@
 
                         <?php endif; ?>
 
-                        <?php if(!$has_attachments) { ?>      
+                        <?php if(!has_post_thumbnail()) { ?>      
                         <!-- post title -->
                         <h2>
                             <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a>

@@ -128,15 +128,57 @@ function html5blank_conditional_scripts()
 }
 
 // Load HTML5 Blank styles
-function html5blank_styles()
-{
-    //wp_register_style('normalize', get_template_directory_uri() . '/normalize.css', array(), '1.0', 'all');
-    //wp_enqueue_style('normalize'); // Enqueue it!
 
+
+add_action( 'wp_enqueue_scripts', 'enqueue_custom_styles_or_scripts' );
+
+function enqueue_custom_styles_or_scripts() {
+
+
+        //return;
+    
+            wp_register_style('html5-custom-css', get_template_directory_uri() . '/css/style.css', array(), '1.0', 'all');
+    wp_enqueue_style('html5-custom-css'); // Enqueue it!
+            
     wp_register_style('html5blank', get_template_directory_uri() . '/style.css', array(), '1.0', 'all');
     wp_enqueue_style('html5blank'); // Enqueue it!
-}
+    
+    
+    wp_register_script('bootsrap-custom-js', get_template_directory_uri() . '/js/bootsrap-min.js', array()); // Custom scripts
+    wp_enqueue_script('bootsrap-custom-js'); // Enqueue it!
+    
+    wp_register_script('type-head', 'http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js', array()); // Custom scripts
+    wp_enqueue_script('type-head'); // Enqueue it!
+    
+    wp_register_script('type-head-custom', get_template_directory_uri() . '/js/typeahead.js', array()); // Custom scripts
+    wp_enqueue_script('type-head-custom'); // Enqueue it!
+    
+    wp_register_style('bootsrap-min', get_template_directory_uri() . '/css/bootsrap-min.css', array());
+    wp_enqueue_style('bootsrap-min'); // Enqueue it!
+    
+    wp_register_style('googlefont-set2', '//fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700', array());
+    //wp_enqueue_style('googlefont-set2'); // Enqueue it!
+    
+    wp_register_style('googlefont-set3', '//fonts.googleapis.com/css?family=PT+Serif:400,400italic', array());
+    wp_enqueue_style('googlefont-set3'); // Enqueue it!
+    
+    wp_register_style('tyylikirjasto-virkailija', get_template_directory_uri() . '/css/css-tyylikirjasto-virkailija.css', array());
+    wp_enqueue_style('tyylikirjasto-virkailija'); // Enqueue it!
+    
+    wp_register_style('bootsrap-custom', get_template_directory_uri() . '/css/bootsrap-styles.css', array());
+    wp_enqueue_style('bootsrap-custom'); // Enqueue it!
+    
+    wp_register_style('font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css', array());
+    wp_enqueue_style('font-awesome'); // Enqueue it!
+    
+    wp_register_style('fontello', get_template_directory_uri() . '/css/fontello.css', array());
+    wp_enqueue_style('fontello'); // Enqueue it!
+    
 
+    
+
+    }
+    
 // Register HTML5 Blank Navigation
 function register_html5_menu()
 {
@@ -1047,6 +1089,7 @@ function enable_cors($result) {
 
 }
 
+add_action( 'json_api-translate-translate_page', 'enable_cors' );
 add_action( 'json_api-nav-json_nav', 'enable_cors' );
 add_action( 'json_api-core-get_search_results', 'enable_cors' );
 

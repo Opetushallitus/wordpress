@@ -1,6 +1,8 @@
 <?php
 get_header(); ?>
 
+<?php include_once( ABSPATH . 'wp-admin/includes/plugin.php' ); ?>
+
 <div class="grid_16">
     <h1><a href="<?php bloginfo('wpurl'); ?>">Virkailijan työpöytä</a></h1>
 </div>
@@ -41,7 +43,7 @@ get_header(); ?>
                                        
                     <?php while (have_posts()) : the_post(); ?>
                     
-                    <?php if(in_array(uamIsAccess(true), $groups) || uamIsAdmin()) { ?>
+                    <?php if(!(is_plugin_active('user-access-manager/user-access-manager.php')) || in_array(uamIsAccess(true), $groups) || uamIsAdmin()) { ?>
                     
                     <div <?php post_class() ?> id="post-<?php the_ID(); ?>">
                                 <div class="entry-title">

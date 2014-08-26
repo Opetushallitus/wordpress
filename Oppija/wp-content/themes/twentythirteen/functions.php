@@ -524,3 +524,260 @@ function twentythirteen_customize_preview_js() {
 	wp_enqueue_script( 'twentythirteen-customizer', get_template_directory_uri() . '/js/theme-customizer.js', array( 'customize-preview' ), '20130226', true );
 }
 add_action( 'customize_preview_init', 'twentythirteen_customize_preview_js' );
+
+add_action('init', 'create_post_type_html5'); // Add our HTML5 Blank Custom Post Type
+
+
+function create_post_type_html5()
+{
+ 	register_taxonomy(
+		'story-theme',
+		'oph-story',
+		array(
+			'label' => __( 'Story Theme' ),
+			'rewrite' => array( 'slug' => 'theme', 'with_front' => false),
+			'hierarchical' => true,
+                        'show_admin_column' => true,
+		)
+	);
+
+
+    //register_taxonomy_for_object_type('story-theme', 'oph-story'); // Register Taxonomies for Category
+    //register_taxonomy_for_object_type('post_tag', 'oph-story');
+    register_post_type('oph-story', // Register Custom Post Type
+        array(
+        'labels' => array(
+            'name' => __('Tarinat', 'html5blank'), // Rename these to suit
+            'singular_name' => __('Story', 'html5blank'),
+            'add_new' => __('Add New', 'html5blank'),
+            'add_new_item' => __('Add New Story', 'html5blank'),
+            'edit' => __('Edit', 'html5blank'),
+            'edit_item' => __('Edit Story', 'html5blank'),
+            'new_item' => __('New Story', 'html5blank'),
+            'view' => __('View Story', 'html5blank'),
+            'view_item' => __('View Story', 'html5blank'),
+            'search_items' => __('Search Stories', 'html5blank'),
+            'not_found' => __('No Stories found', 'html5blank'),
+            'not_found_in_trash' => __('No Stories found in Trash', 'html5blank')
+        ),
+        'public' => true,
+        'exclude_from_search' => true,
+        'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
+        'has_archive' => true,
+        'rewrite' => array( 'slug' => 'story', 'with_front' => false ),
+        'supports' => array(
+            'title',
+            'editor',
+            'excerpt',
+            'page-attributes',
+            'thumbnail'
+        ), // Go to Dashboard Custom HTML5 Blank post for supports
+        'can_export' => true, // Allows export in Tools > Export
+         'taxonomies' => array(
+            'post_tag',
+            'oph-koulutus'
+        ) // Add Category and Post Tags support
+
+    ));
+
+
+    //register_taxonomy_for_object_type('story-theme', 'oph-feature'); // Register Taxonomies for Category
+    //register_taxonomy_for_object_type('post_tag', 'oph-feature');
+    register_post_type('oph-feature', // Register Custom Post Type
+        array(
+        'labels' => array(
+            'name' => __('Features', 'html5blank'), // Rename these to suit
+            'singular_name' => __('Feature', 'html5blank'),
+            'add_new' => __('Add New', 'html5blank'),
+            'add_new_item' => __('Add New Feature', 'html5blank'),
+            'edit' => __('Edit', 'html5blank'),
+            'edit_item' => __('Edit Feature', 'html5blank'),
+            'new_item' => __('New Feature', 'html5blank'),
+            'view' => __('View Feature', 'html5blank'),
+            'view_item' => __('View Feature', 'html5blank'),
+            'search_items' => __('Search Features', 'html5blank'),
+            'not_found' => __('No Features found', 'html5blank'),
+            'not_found_in_trash' => __('No Features found in Trash', 'html5blank')
+        ),
+        'public' => true,
+        'exclude_from_search' => true,
+        'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
+        'has_archive' => true,
+        'supports' => array(
+            'title',
+            'editor',
+            'page-attributes',
+            //'excerpt',
+            //'',
+            'thumbnail'
+        ), // Go to Dashboard Custom HTML5 Blank post for supports
+        'can_export' => true, // Allows export in Tools > Export
+        'taxonomies' => array(
+            /*'post_tag',
+            'story-theme',*/
+        ) // Add Category and Post Tags support
+    ));
+
+    // MUUALLA AIHEESTA
+    //register_taxonomy_for_object_type('story-theme', 'oph-feature'); // Register Taxonomies for Category
+    //register_taxonomy_for_object_type('post_tag', 'oph-feature');
+
+	// register_taxonomy_for_object_type('story-theme', 'oph-feature'); // Register Taxonomies for Category
+    // register_taxonomy_for_object_type('post_tag', 'oph-feature');
+    register_post_type('oph-notification', // Register Custom Post Type
+        array(
+        'labels' => array(
+            'name' => __('Tiedoksi', 'html5blank'), // Rename these to suit
+            'singular_name' => __('Notification', 'html5blank'),
+            'add_new' => __('Add New', 'html5blank'),
+            'add_new_item' => __('Add New Notification', 'html5blank'),
+            'edit' => __('Edit', 'html5blank'),
+            'edit_item' => __('Edit Notification', 'html5blank'),
+            'new_item' => __('New Related', 'html5blank'),
+            'view' => __('View Related', 'html5blank'),
+            'view_item' => __('View Related', 'html5blank'),
+            'search_items' => __('Search Related articles', 'html5blank'),
+            'not_found' => __('No Related articles found', 'html5blank'),
+            'not_found_in_trash' => __('No Related articles found in Trash', 'html5blank')
+        ),
+        'public' => true,
+        'exclude_from_search' => true,
+        'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
+        'has_archive' => true,
+        'supports' => array(
+            'title',
+            'editor',
+            'excerpt',
+            'post_order',
+            'thumbnail'
+        ), // Go to Dashboard Custom HTML5 Blank post for supports
+        'can_export' => true, // Allows export in Tools > Export
+        'taxonomies' => array(
+            //'post_tag',
+            'oph-koulutus',
+            'oph-koulutusaste',
+            'oph-ammattiluokitus',
+        )
+    ));
+
+    register_post_type('sidebar-content', // Register Custom Post Type
+        array(
+        'labels' => array(
+            'name' => __('Sivupalsta', 'html5blank'), // Rename these to suit
+            'singular_name' => __('Notification', 'html5blank'),
+            'add_new' => __('Add New', 'html5blank'),
+            'add_new_item' => __('Add New Notification', 'html5blank'),
+            'edit' => __('Edit', 'html5blank'),
+            'edit_item' => __('Edit Notification', 'html5blank'),
+            'new_item' => __('New Related', 'html5blank'),
+            'view' => __('View Related', 'html5blank'),
+            'view_item' => __('View Related', 'html5blank'),
+            'search_items' => __('Search Related articles', 'html5blank'),
+            'not_found' => __('No Related articles found', 'html5blank'),
+            'not_found_in_trash' => __('No Related articles found in Trash', 'html5blank')
+        ),
+        'public' => true,
+        'exclude_from_search' => true,
+        'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
+        'has_archive' => true,
+        'supports' => array(
+            'title',
+            'editor',
+            'excerpt',
+            'post_order',
+            'thumbnail'
+        ), // Go to Dashboard Custom HTML5 Blank post for supports
+        'can_export' => true // Allows export in Tools > Export
+    ));
+    
+    
+    register_post_type('oph-helptext', // Register Custom Post Type
+        array(
+        'labels' => array(
+            'name' => __('Help texts', 'html5blank'), // Rename these to suit
+            'singular_name' => __('Help Text', 'html5blank'),
+            'add_new' => __('Add New', 'html5blank'),
+            'add_new_item' => __('Add New help texts', 'html5blank'),
+            'edit' => __('Edit', 'html5blank'),
+            'edit_item' => __('Edit help text', 'html5blank'),
+            'new_item' => __('New help text', 'html5blank'),
+            'view' => __('View help text', 'html5blank'),
+            'view_item' => __('View help text', 'html5blank'),
+            'search_items' => __('Search help texts', 'html5blank'),
+            'not_found' => __('No help texts found', 'html5blank'),
+            'not_found_in_trash' => __('No help texts found in Trash', 'html5blank')
+        ),
+        'public' => true,
+        'exclude_from_search' => true,
+        'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
+        'has_archive' => true,
+        'supports' => array(
+            'title',
+            'editor',
+            'excerpt',
+            'post_order',
+            'thumbnail'
+        ), // Go to Dashboard Custom HTML5 Blank post for supports
+        'can_export' => true // Allows export in Tools > Export
+    ));
+
+
+}
+
+
+function oph_taxonomies()
+{
+    register_taxonomy(
+        'oph-koulutus',
+    	array( 'page', 'post', 'oph-story' ),
+    	array(
+    		'label' => __( 'Koulutus' ),
+    		'rewrite' => array( 'slug' => 'koulutus' ),
+    		'hierarchical' => true
+    	)
+	);
+
+    register_taxonomy(
+        'oph-koulutustyyppi',
+    	array( 'page', 'post' ),
+    	array(
+    		'label' => __( 'Koulutustyyppi' ),
+    		'rewrite' => array( 'slug' => 'koulutustyyppi' ),
+    		'hierarchical' => true
+    	)
+	);
+
+	register_taxonomy(
+	    'oph-huomautukset',
+		array( 'page','post','oph-notification'),
+		array(
+			'label' => __( 'Tiedote kategoriat' ),
+			'rewrite' => array( 'slug' => 'oph-huom-kat' ),
+			'hierarchical' => true,
+            'show_admin_column' => true
+		)
+	);
+
+    register_taxonomy(
+	    'oph-sidebar',
+		array( 'sidebar-content'),
+		array(
+			'label' => __( 'Sivupalsta kategoriat' ),
+			'rewrite' => array( 'slug' => 'oph-sidebar-kat' ),
+			'hierarchical' => true,
+            'show_admin_column' => true
+		)
+	);
+    
+    register_taxonomy(
+	    'oph-help',
+		array( 'oph-helptext'),
+		array(
+			'label' => __( 'Help text category' ),
+			'rewrite' => array( 'slug' => 'oph-help' ),
+			'hierarchical' => true,
+            'show_admin_column' => true
+		)
+	);
+}
+add_action( 'init', 'oph_taxonomies' );

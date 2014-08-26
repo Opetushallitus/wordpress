@@ -77,14 +77,22 @@ jQuery(document).ready(function(){
 
     jQuery('.icl_tm_finished').change(function(){
         jQuery(this).parent().parent().find('.icl_tm_error').hide();
-        var field = jQuery(this).attr('name').replace(/finished/,'data');
+
+
+		var regExp = /\[([^\]]+)\]/;
+		var matches =  regExp.exec(jQuery(this).attr('name')) ; //extract values in []
+		var field_id = matches[1]; //get field id from first []
+
+		var field = jQuery(this).attr('name').replace(/finished/,'data');
 
         if(field == 'fields[body][data]'){
             var datatemp = '';
-            try{
-                datatemp = tinyMCE.get('fields[body][data]').getContent();
+
+			try{
+                datatemp = tinyMCE.get('body').getContent();
             }catch(err){;}
-            var data = jQuery('*[name="'+field+'"]').val() + datatemp;
+
+			var data = jQuery('*[name="'+field+'"]').val() + datatemp;
         }
         else if(jQuery(this).hasClass('icl_tmf_multiple')){
             var data = 1;
@@ -95,14 +103,11 @@ jQuery(document).ready(function(){
 
             var datatemp = '';
             try{
-                datatemp = tinyMCE.get(field).getContent();
+                datatemp = tinyMCE.get(field_id).getContent();
             }catch(err){;}
 
             var data = jQuery('[name="'+field+'"]*').val() + datatemp;
         }
-
-
-
 
         if(jQuery(this).attr('checked') && !data){
             jQuery(this).parent().parent().find('.icl_tm_error').show();
@@ -360,37 +365,43 @@ jQuery(document).ready(function(){
     }
 
     var cache = '&cache=1';
-    if (location.href.indexOf("main.php&sm=translators") != -1 || location.href.indexOf('/post.php') != -1 || location.href.indexOf('/edit.php') != -1) {
+    if (location.href.indexOf("main.php&sm=translators") !== -1 || location.href.indexOf('/post.php') !== -1 || location.href.indexOf('/edit.php') != -1) {
         cache = '';
     }
-    jQuery.ajax({
-        type: "POST",
-        url: icl_ajx_url,
-        dataType: 'json',
-        data: "icl_ajx_action=get_translator_status" + cache + '&_icl_nonce=' + jQuery('#_icl_nonce_gts').val(),
-        success: function(msg){
-            if (cache == '') {
-            }
-        }
-    });
 
-    if(jQuery('#icl_tdo_options').length)
-    jQuery('#icl_tdo_options').submit(iclSaveForm);
+	var _icl_nonce_gts = jQuery('#_icl_nonce_gts');
+	if (_icl_nonce_gts.length) {
+		jQuery.ajax({
+			type: "POST",
+			url: icl_ajx_url,
+			dataType: 'json',
+			data: "icl_ajx_action=get_translator_status" + cache + '&_icl_nonce=' + _icl_nonce_gts.val(),
+			success: function (msg) {
+				if (cache === '') {
+				}
+			}
+		});
+	}
+
+	var icl_tdo_options = jQuery('#icl_tdo_options');
+	if (icl_tdo_options.length) {
+		icl_tdo_options.submit(iclSaveForm);
+	}
 
     jQuery('.icl_tm_copy_link').click(function(){
-        var type = jQuery(this).attr('id').replace(/^icl_tm_copy_link_/,'');
+        var field = jQuery(this).attr('id').replace(/^icl_tm_copy_link_/,'');
 
-        field = 'fields['+type+'][data]';
+
         var original = '';
 
 
-        if(0 == type.indexOf('field-')){
-            type = type.replace(/ /g, '__20__');
+        if(0 == field.indexOf('field-')){
+			field = field.replace(/ /g, '__20__');
         }
 
-        if(type=='body' || (0 == type.indexOf('field-') && jQuery('#icl_tm_original_'+type)[0].tagName != 'SPAN')){
+        if(field=='body' || (0 == field.indexOf('field-') && jQuery('#icl_tm_original_'+field)[0].tagName != 'SPAN')){
 
-            original = jQuery('#icl_tm_original_'+type).val()
+            original = jQuery('#icl_tm_original_'+field).val()
 
             try{
                 tinyMCE.get(field); // activate
@@ -417,13 +428,13 @@ jQuery(document).ready(function(){
                 edInsertContent(edCanvas, original);
             }
         }else{
-            type = type.replace(/ /g, '__20__');
-            original = jQuery('#icl_tm_original_'+type).html();
+			field = field.replace(/ /g, '__20__');
+            original = jQuery('#icl_tm_original_'+field).html();
 
-            if(jQuery('#icl_tm_editor input[name="'+field+'"]').length){
-                jQuery('#icl_tm_editor input[name="'+field+'"]').val(original);
-            }else if(jQuery('#icl_tm_editor textarea[name="'+field+'"]').length){
-                jQuery('#icl_tm_editor textarea[name="'+field+'"]').val(original);
+            if(jQuery('#'+field).length){
+                jQuery('#'+field).val(original);
+            }else if(jQuery('#'+field).length){
+                jQuery('#'+field).val(original);
             }
             /*jQuery('#icl_tm_editor *[name="'+field+'"]').val(original);    */
 
@@ -856,9 +867,3 @@ function icl_abort_translation(input, job_id){
 
 
 }
-
-
-var icl_ajxloaderimg = '';
-var icl_ajxloaderimg_src = '';
-var icl_ajx_url = '';
-var iclSaveForm = '';   

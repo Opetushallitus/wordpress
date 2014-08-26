@@ -1,30 +1,47 @@
-<?php //included from menu translation-management.php ?>
 <?php
+/**
+ * included by menu translation-management.php
+ *
+ * @uses TranslationManagement
+ */
 
-    $cf_keys_limit = 1000; // jic
-    $cf_keys = $wpdb->get_col( "
+$cf_keys_limit = 1000; // jic
+$cf_keys = $wpdb->get_col( "
         SELECT meta_key
         FROM $wpdb->postmeta
         GROUP BY meta_key
         ORDER BY meta_key
         LIMIT $cf_keys_limit" );
 
-    $cf_keys_exceptions = array('_edit_last', '_edit_lock', '_wp_page_template', '_wp_attachment_metadata', '_icl_translator_note', '_alp_processed',
-                                '_encloseme', '_pingme', '_wpml_media_duplicate', '_wpml_media_featured', '_wp_attached_file', '_thumbnail_id');
-    // '_wp_attached_file'
+$cf_keys_exceptions = array(
+	'_edit_last',
+	'_edit_lock',
+	'_wp_page_template',
+	'_wp_attachment_metadata',
+	'_icl_translator_note',
+	'_alp_processed',
+	'_encloseme',
+	'_pingme',
+	'_wpml_media_duplicate',
+	'_wpml_media_featured',
+	'_wp_attached_file',
+	'_thumbnail_id'
+);
+// '_wp_attached_file'
 
-    $cf_keys = array_diff($cf_keys, $cf_keys_exceptions);
+$cf_keys = array_diff($cf_keys, $cf_keys_exceptions);
 
-    $cf_keys = array_unique(@array_merge($cf_keys, (array)$iclTranslationManagement->settings['custom_fields_readonly_config']));
+/** @var $iclTranslationManagement TranslationManagement */
+$cf_keys = array_unique(@array_merge($cf_keys, (array)$iclTranslationManagement->settings['custom_fields_readonly_config']));
 
     if ( $cf_keys )
         natcasesort($cf_keys);
 
-    $cf_settings = $iclTranslationManagement->settings['custom_fields_translation'];
-    $cf_settings_ro = (array)$iclTranslationManagement->settings['custom_fields_readonly_config'];
-    $doc_translation_method = intval($iclTranslationManagement->settings['doc_translation_method']);
+    $cf_settings = isset($iclTranslationManagement->settings['custom_fields_translation']) ? $iclTranslationManagement->settings['custom_fields_translation'] : array();
+    $cf_settings_ro = isset($iclTranslationManagement->settings['custom_fields_readonly_config']) ? (array)$iclTranslationManagement->settings['custom_fields_readonly_config'] : array();
+    $doc_translation_method = isset($iclTranslationManagement->settings['doc_translation_method']) ? intval($iclTranslationManagement->settings['doc_translation_method']) : ICL_TM_TMETHOD_MANUAL;
 
-    //show custom fields defiend in types and not used yet
+    //show custom fields defined in types and not used yet
     if(function_exists('types_get_fields')){
         $types_cf = types_get_fields(array(), 'wpml' );
         foreach($types_cf as $key => $option){
@@ -45,6 +62,9 @@
          <li><a href="#ml-content-setup-sec-4"><?php _e('Custom posts slug translation options', 'wpml-string-translation'); ?></a></li>
     <?php endif; ?>
     <li><a href="#ml-content-setup-sec-5"><?php _e('Translation pickup mode', 'wpml-translation-management'); ?></a></li>
+		<?php if (defined('WPML_XLIFF_VERSION')): ?>
+			<li><a href="#ml-content-setup-sec-5-1"><?php _e('XLIFF file options', 'wpml-xliff'); ?></a></li>
+		<?php endif; ?>
 	<li><a href="#ml-content-setup-sec-6"><?php _e('Custom fields translation', 'wpml-translation-management'); ?></a></li>
 	<?php
 
@@ -78,7 +98,7 @@
             <?php _e("WPML can read a configuration file that tells it what needs translation in themes and plugins. The file is named wpml-config.xml and it's placed in the root folder of the plugin or theme.", 'wpml-translation-management'); ?>
         </p>
         <p>
-            <a href="http://wpml.org/?page_id=5526"><?php _e('Learn more', 'wpml-translation-management') ?></a>
+            <a href="https://wpml.org/?page_id=5526"><?php _e('Learn more', 'wpml-translation-management') ?></a>
         </p>
     </div>
 </div>
@@ -123,7 +143,7 @@
             </p>
 
             <p>
-                <a href="http://wpml.org/?page_id=3416" target="_blank"><?php _e('Learn more about the different translation options') ?></a>
+                <a href="https://wpml.org/?page_id=3416" target="_blank"><?php _e('Learn more about the different translation options') ?></a>
             </p>
 
             <p class="buttons-wrap">
@@ -267,6 +287,8 @@
     </div> <!-- .wpml-section-content -->
 
 </div> <!-- .wpml-section -->
+
+<?php if(defined('WPML_XLIFF_VERSION')) include WPML_XLIFF_PATH . '/menu/_xliff-options.php'; ?>
 
 <div class="wpml-section wpml-section-cf-translation" id="ml-content-setup-sec-6">
 

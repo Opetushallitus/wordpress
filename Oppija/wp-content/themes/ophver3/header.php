@@ -51,21 +51,6 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 	<meta name="apple-mobile-web-app-title" content="<?php _e($site_title, 'html5blank'); ?>" />
 
-	<!-- "Typewriter" Font -->
-	<link href='//fonts.googleapis.com/css?family=PT+Sans+Narrow:700|PT+Serif:400italic' rel='stylesheet' type='text/css'>
-
-	<?php
-
-	$debug = false;
-
-	if($debug) : ?>
-		<script type="text/javascript">var less=less||{};less.env='development';</script>
-		<link rel="stylesheet/less" type="text/css" href="<?php echo get_template_directory_uri(); ?>/less/style.less">
-		<script src="<?php echo get_template_directory_uri(); ?>/js/vendor/less-1.3.1.min.js"></script>
-        <?php else : ?>
-                <link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/css/style.css">
-	<?php endif; ?>
-
 	<!--[if lt IE 9]>
 
 	<script src="<?php echo get_template_directory_uri(); ?>/js/vendor/matchmedia.js"></script>
@@ -85,8 +70,10 @@
 		}()
 		</script>
 
+             
 </head>
 <body <?php body_class(); ?> style="display: none" aria-busy="true">
+    <div <?php if (is_front_page()) echo 'class="container-fluid"'; ?>>
     <a href="#maincontent" class="offscreen"><?php _e('Skip to content', 'html5blank'); ?></a>
     <noscript>
        <div class="notification">
@@ -96,18 +83,44 @@
            </div>
        </div>
     </noscript>
-    <div id="search">
-		<div class="search">
-			<form action="/app/#!/haku/">
-				<fieldset class="search-container">
-				    <legend></legend>
-					<label for="search-field-frontpage" class="h2"><?php _e('Etsi koulutuksia tästä') ?></label>
-					<input type="text" tabindex="1" class="search-field" id="search-field-frontpage" name="search-field" placeholder="<?php _e('Kirjoita tähän esim. tutkinto, ammatti tai oppilaitoksen nimi') ?>" value="">
-					<button class="button primary magnifier" type="submit"><span><span class="h2"><?php _e('Hae') ?></span></span></button>
-				</fieldset>
-			</form>
-		</div>
+    
+    <?php
+    $slug = 'etusivun-ilmoitus';
+    
+    $args = array(
+        'name' => $slug,
+	'post_type' => 'page',
+	'post_status' => 'publish',
+	'posts_per_page' => 1
+    );
+    
+    $frontpage_notice = get_posts($args);
+    
+    if ($frontpage_notice) : ?>
+    
+    <div class="row">
+        <div class="col-xs-16">
+            <div class="alert alert-frontpage alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <?php echo $frontpage_notice[0]->post_content;  ?>
+            </div>
+        </div>
+    </div>
+    
+    <?php endif; ?>
+    
+    <div class="<?php if (is_front_page()) echo 'row'; ?> padding-top-20 padding-bottom-20">
+            <form action="/app/#!/haku/" class="form-horizontal col-lg-14 col-lg-offset-2">
+                <div class="form-group">
+                        <label for="search-field-frontpage" class="col-lg-offset-1 col-lg-2 control-label">Etsi koulutuksia tästä</label>
+                    <div class="col-lg-9">
+                        <div class="input-group">
+                        <input type="text" tabindex="1" class="search-field" id="search-field-frontpage" name="search-field" placeholder="Kirjoita tähän esim. tutkinto, ammatti tai oppilaitoksen nimi" value="">
+                        <span class="input-group-btn"><button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span>Hae</button></span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+    </div>
 
-	</div>
-
-	<div id="maincontent" class="content container">
+    <div id="maincontent" class="content <?php if (!is_front_page()) echo 'container'; ?>">

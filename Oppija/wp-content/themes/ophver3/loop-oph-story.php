@@ -120,18 +120,8 @@ echo in_array_r("video", $b) ? 'found' : 'not found';
                     </div>
                     <!-- /story meta -->
 
-                    <?php
-                        $has_attachments = get_children(
-                            array(
-                                'post_type' => 'attachment',
-                                'post_mime_type' => 'image',
-                                'post_parent' => $post->ID
-                            )
-                        );
+                    <?php if ( has_post_thumbnail()) :
 
-                        if($has_attachments) : // Check if thumbnail exists
-                    ?>
-                        <?php
                             $image_data = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
                             $image_width = $image_data[1];
                             $image_height = $image_data[2];

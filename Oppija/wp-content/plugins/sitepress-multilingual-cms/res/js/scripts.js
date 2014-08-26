@@ -1,3 +1,5 @@
+/*global jQuery, icl_ajx_url, icl_ajx_saved, icl_ajx_error, icl_ajxloaderimg_src */
+
 jQuery(document).ready(function($){
     if(jQuery('#category-adder').html()){
         jQuery('#category-adder').prepend('<p>'+icl_cat_adder_msg+'</p>');
@@ -105,7 +107,8 @@ jQuery(document).ready(function($){
         jQuery.ajax({
             type: "POST",
             url: icl_ajx_url,data: "icl_ajx_action=make_duplicates&post_id=" + jQuery('#post_ID').val() + '&langs=' + langs + '&_icl_nonce=' + jQuery('#_icl_nonce_mdup').val(),
-            success: function(msg){location.reload()}});
+            success: function(msg){location.reload()}
+        });
     })
 
     jQuery(document).delegate('#wpml_als_help_link', 'click', function(){
@@ -118,13 +121,13 @@ jQuery(document).ready(function($){
 
     if(jQuery('#icl_slug_translation').length){
         iclSaveForm_success_cb.push(function(form, response){
-            if(form.attr('name') == 'icl_slug_translation'){
-                if(response[1] == 1){
+            if(form.attr('name') === 'icl_slug_translation'){
+                if(response[1] === 1){
                     jQuery('.icl_slug_translation_choice').show();
                 }else{
                     jQuery('.icl_slug_translation_choice').hide();
                 }
-            }else if(form.attr('name') == 'icl_custom_posts_sync_options'){
+            }else if(form.attr('name') === 'icl_custom_posts_sync_options'){
                 jQuery('.icl_st_slug_tr_warn').hide();
             }
         });
@@ -133,10 +136,10 @@ jQuery(document).ready(function($){
     jQuery('#icl_custom_posts_sync_options').submit(function(){
         iclHaltSave = false;
         jQuery('.icl_slug_translation_choice input[type=text]').removeClass('icl_error_input');
-        jQuery('#icl_ajx_response_cp').html('').fadeOut()
+        jQuery('#icl_ajx_response_cp').html('').fadeOut();
         jQuery('.icl_slug_translation_choice input[type=text]').each(function(){
 
-            if(jQuery(this).is(':visible') && jQuery.trim(jQuery(this).val()) == ''){
+            if(jQuery(this).is(':visible') && jQuery.trim(jQuery(this).val()) === ''){
                 jQuery(this).addClass('icl_error_input');
                 iclHaltSave = true;
             }
@@ -273,35 +276,42 @@ function fadeOutAjxResp(spot){
 var icl_ajxloaderimg = '<img src="'+icl_ajxloaderimg_src+'" alt="loading" width="16" height="16" />';
 
 var iclHaltSave = false; // use this for multiple 'submit events'
-var iclSaveForm_success_cb = new Array();
-function iclSaveForm(){
+var iclSaveForm_success_cb = [];
+function iclSaveForm() {
 
-    if(iclHaltSave){
-        return false;
-    }
-    var formname = jQuery(this).attr('name');
-    jQuery('form[name="'+formname+'"] .icl_form_errors').html('').hide();
-    ajx_resp = jQuery('form[name="'+formname+'"] .icl_ajx_response').attr('id');
-    fadeInAjxResp('#'+ajx_resp, icl_ajxloaderimg);
-    jQuery.ajax({
-        type: "POST",
-        url: icl_ajx_url,
-        data: "icl_ajx_action="+jQuery(this).attr('name')+"&"+jQuery(this).serialize(),
-        success: function(msg){
-            spl = msg.split('|');
-            if(parseInt(spl[0]) == 1){
-                fadeInAjxResp('#'+ajx_resp, icl_ajx_saved);
-                for(i=0;i<iclSaveForm_success_cb.length;i++){
-                    iclSaveForm_success_cb[i](jQuery('form[name="'+formname+'"]'), spl);
-                }
-            }else{
-                jQuery('form[name="'+formname+'"] .icl_form_errors').html(spl[1]);
-                jQuery('form[name="'+formname+'"] .icl_form_errors').fadeIn()
-                fadeInAjxResp('#'+ajx_resp, icl_ajx_error,true);
-            }
-        }
-    });
-    return false;
+	if (iclHaltSave) {
+		return false;
+	}
+	var form_name = jQuery(this).attr('name');
+	jQuery('form[name="' + form_name + '"] .icl_form_errors').html('').hide();
+	var ajx_resp = jQuery('form[name="' + form_name + '"] .icl_ajx_response').attr('id');
+	fadeInAjxResp('#' + ajx_resp, icl_ajxloaderimg);
+	var serialized_form_data = jQuery(this).serialize();
+	var serialized_form_array_data = jQuery(this).serializeArray();
+	jQuery.ajax({
+		type: "POST",
+		url: icl_ajx_url,
+		data: "icl_ajx_action=" + jQuery(this).attr('name') + "&" + serialized_form_data,
+		success: function (msg) {
+			var spl = msg.split('|');
+			if (parseInt(spl[0]) == 1) {
+				fadeInAjxResp('#' + ajx_resp, icl_ajx_saved);
+				for (var i = 0; i < iclSaveForm_success_cb.length; i++) {
+					iclSaveForm_success_cb[i](jQuery('form[name="' + form_name + '"]'), spl);
+				}
+				if (form_name == 'icl_slug_translation' || form_name == 'icl_save_language_switcher_options') {
+					location.reload();
+				}
+			} else {
+				var icl_form_errors = jQuery('form[name="' + form_name + '"] .icl_form_errors');
+				var error_html = (typeof spl[1] != 'undefined') ? spl[1] : spl[0];
+				icl_form_errors.html(error_html);
+				icl_form_errors.fadeIn();
+				fadeInAjxResp('#' + ajx_resp, icl_ajx_error, true);
+			}
+		}
+	});
+	return false;
 }
 
 function iclPostLanguageSwitch(){
@@ -476,8 +486,7 @@ function iclPostLanguageSwitch(){
             });
 
             ajaxurl = oldajaxurl;
-        });
-
+        })
     }
 }
 
@@ -654,43 +663,28 @@ function iclPTSend(){
 }
 
 function icl_pt_reload_translation_box(){
-    jQuery.ajax({
-        type: "POST",
-        url: icl_ajx_url,
-        dataType: 'json',
-        data: "icl_ajx_action=get_translator_status&_icl_nonce=" . jQuery('_icl_nonce_gts').val(),
-        success: function(){
-            jQuery('#icl_pt_hide').hide();
-            jQuery('#icl_pt_controls').html(icl_ajxloaderimg+'<br class="clear" />');
-            jQuery.get(location.href, {rands:Math.random()}, function(data){
-                jQuery('#icl_pt_controls').html(jQuery(data).find('#icl_pt_controls').html());
-                icl_tb_init('a.icl_thickbox');
-                icl_tb_set_size('a.icl_thickbox');
-                jQuery('#icl_pt_hide').show();
+	var _icl_nonce_gts = jQuery('#_icl_nonce_gts');
+	if(_icl_nonce_gts.length) {
+		var icl_nonce = _icl_nonce_gts.val();
+		jQuery.ajax({
+			type: "POST",
+			url: icl_ajx_url,
+			dataType: 'json',
+			data: "icl_ajx_action=get_translator_status&_icl_nonce=" + icl_nonce,
+			success: function(){
+				jQuery('#icl_pt_hide').hide();
+				jQuery('#icl_pt_controls').html(icl_ajxloaderimg+'<br class="clear" />');
+				jQuery.get(location.href, {rands:Math.random()}, function(data){
+					jQuery('#icl_pt_controls').html(jQuery(data).find('#icl_pt_controls').html());
+					icl_tb_init('a.icl_thickbox');
+					icl_tb_set_size('a.icl_thickbox');
+					jQuery('#icl_pt_hide').show();
 
-            })
-        }
-    });
+				})
+			}
+		});
+	}
 }
-
-/*
-function icl_pt_reload_translation_options(){
-    jQuery.ajax({
-        type: "POST",
-        url: icl_ajx_url,
-        dataType: 'json',
-        data: "icl_ajx_action=get_translator_status",
-        success: function(){
-            jQuery('#icl-tr-opt').html(icl_ajxloaderimg+'<br class="clear" />');
-            jQuery.get(location.href, {rands:Math.random()}, function(data){
-                jQuery('#icl-tr-opt').html(jQuery(data).find('#icl-tr-opt').html());
-                icl_tb_init('a.icl_thickbox');
-                icl_tb_set_size('a.icl_thickbox');
-            })
-        }
-    });
-}
-*/
 
 function icl_copy_from_original(lang, trid){
     jQuery('#icl_cfo').after(icl_ajxloaderimg).attr('disabled', 'disabled');
@@ -911,7 +905,3 @@ function icl_cf_translation_preferences_submit(cf, obj) {
 
 
 
-var icl_ajxloaderimg = '';
-var icl_ajxloaderimg_src = '';
-var icl_ajx_url = '';
-var iclSaveForm = '';   
