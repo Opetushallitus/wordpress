@@ -24,7 +24,7 @@ usage () {
 	$0 koulutus dokumenttikamera
 	$0 dev luokka
 	$0 test reppu
-        $0 qa2 essee
+        $0 qa2 harppi
 EOF
 
    exit 1
@@ -39,14 +39,15 @@ mkdir -p "$workdir"
 cd "$workdir"
 
 from='qa'
-fromhost='wordpress1.qa.oph.ware.fi'
+fromhost='wordpress3.qa.oph.ware.fi'
 fromdb='wordpress'
 fromuser='wpophqa'
-frompw='oy6FPvKqDj'
-frompath='/opt/www/wp_ophqa/html'
-fromsubstitute1='https://testi.opintopolku.fi/'
-fromsubstitute2='testi.opintopolku.fi'
+frompw='rFxChkbXv7BadH8L'
+fromsubstitute1="https://testi.opintopolku.fi/"
+fromsubstitute2="testi.opintopolku.fi"
+frompath="/opt/www/wp_ophqa/html"
 fromtitle='QA'
+
 
 if [ "x$1" = "xdev" ]
     then 
@@ -132,23 +133,24 @@ fi
 
 if [ "x$1" = "xqa2" ]
     then
-    if [ "x$2" != "xessee" ]
+    if [ "x$2" != "xharppi" ]
 	then
 	echo "QA2 ei sijaitse palvelimella $2. Tarkkana nyt!"
 	exit 1
     fi
 
-    to='qa2'
-    tohost='wordpress3.qa.oph.ware.fi'
-    todb='wordpress'
-    touser='wpophqa'
-    topw='rFxChkbXv7BadH8L'
-    tosubstitute1="http://testi.opintopolku.fi/"
-    tosubstitute2="testi.opintopolku.fi"
-    topath="/opt/www/wp_ophqa/html"
-    totitle='QA'
-    toblogname="Opintopolku QA"
-    setreadonly='yes'
+
+   to='qa2'
+   tohost='wordpress1.qa.oph.ware.fi'
+   todb='wordpress'
+   touser='wpophqa'
+   topw='oy6FPvKqDj'
+   topath='/opt/www/wp_ophqa/html'
+   tosubstitute1='https://testi.opintopolku.fi/'
+   tosubstitute2='testi.opintopolku.fi'
+   totitle='QA'
+   toblogname="Opintopolku QA"
+   setreadonly='yes'
 fi
 
 if [ ! -n "$to" ]
@@ -187,5 +189,8 @@ ssh $tohost sudo /sbin/restorecon -R /usr/share/wordpress/
 
 if [ "x$setreadonly" == "xyes" ]
     then
-    ssh $tohost "cd $topath/wp/ && php wp_enable_plugins.php code-freeze/code-freeze.php"
+    ssh $tohost "cd $topath/wp/ && sudo php /opt/www/wp_ophqa/wp-cli.phar --allow-root plugin activate code-freeze"
+
+    else
+    ssh $tohost "cd $topath/wp/ && sudo php /opt/www/wp_ophqa/wp-cli.phar --allow-root plugin deactivate code-freeze"
 fi
