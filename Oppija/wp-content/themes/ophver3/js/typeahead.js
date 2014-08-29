@@ -10,9 +10,9 @@
             url: 'https://itest-oppija.oph.ware.fi/lo/autocomplete?lang=fi&term=%QUERY',
             filter: function (set1) {
 
-                return $.map(set1.keywords, function (movie) {                
+                return $.map(set1.keywords, function (word) {                
                     return {
-                        value: movie
+                        value: word
                     };
                 });
             }
@@ -28,9 +28,9 @@
             url: 'https://itest-oppija.oph.ware.fi/lo/autocomplete?lang=fi&term=%QUERY',
             filter: function (set2) {
 
-                return $.map(set2.loNames, function (movie) {                
+                return $.map(set2.loNames, function (name) {                
                     return {
-                        value: movie
+                        value: name
                     };
                 });
             }

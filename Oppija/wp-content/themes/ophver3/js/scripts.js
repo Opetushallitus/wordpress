@@ -51,7 +51,7 @@ jQuery(document).ready(function() {
     var lang = jQuery('html').attr('lang').substr(0,2);
     LanguageCookie.setLanguage(lang);
 
-    jQuery('.search form').on('submit', function(event) {
+    jQuery('.search-group form').on('submit', function(event) {
         event.preventDefault();
         var searchWord = jQuery('input[name="search-field"]').val();
         

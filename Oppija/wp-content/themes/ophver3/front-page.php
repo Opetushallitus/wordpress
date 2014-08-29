@@ -24,13 +24,17 @@
 
 	<?php if ($intro_pages->have_posts()): while ($intro_pages->have_posts()) : $intro_pages->the_post(); ?>
 
-            
-                    <div class="col-sm-16 col-md-4 col-lg-4 frontpage-link">
-                        <div class="row col-xs-16">
-                            <h2 class=""><?php the_title(); ?></h2>    
-                            <?php the_content(); ?>  
-                        </div>
-                    </div>
+        <div class="col-sm-16 col-md-4 col-lg-4 frontpage-link">
+            <div class="row col-xs-16">
+                <h2 class=""><?php the_title(); ?></h2>    
+                 <?php if(has_post_thumbnail()) :
+                    the_post_thumbnail('oph-intro');
+                endif; ?>
+                <p>
+                    <?php the_content(); ?>
+                </p>
+            </div>
+        </div>
                 
 
                 

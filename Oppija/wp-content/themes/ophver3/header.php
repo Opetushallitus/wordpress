@@ -109,15 +109,18 @@
     
     <?php endif; ?>
     
-    <div class="<?php if (is_front_page()) echo 'row'; ?> padding-top-20 padding-bottom-20">
-            <form action="/app/#!/haku/" class="form-horizontal col-lg-14 col-lg-offset-2">
+    <div class="<?php if (is_front_page()) echo 'row'; ?> search-group padding-top-20 padding-bottom-20">
+            <form action="/app/#!/haku/" class="form-horizontal col-lg-13 col-lg-offset-3">
                 <div class="form-group">
-                        <label for="search-field-frontpage" class="col-lg-offset-1 col-lg-2 control-label">Etsi koulutuksia tästä</label>
-                    <div class="col-lg-9">
-                        <div class="input-group">
-                        <input type="text" tabindex="1" class="search-field" id="search-field-frontpage" name="search-field" placeholder="Kirjoita tähän esim. tutkinto, ammatti tai oppilaitoksen nimi" value="">
+                        <label for="search-field-frontpage" class="col-lg-4 control-label find">Etsi koulutuksia tästä</label>
+                    <div class="input-group">
+                        <div class="col-lg-8">
+                        
+                        <input type="text" tabindex="1" class="search-field" id="search-field-frontpage" data-provide="typeahead" name="search-field" placeholder="Kirjoita tähän esim. tutkinto, ammatti tai oppilaitoksen nimi" value="">
+                    </div>
+                        <div class="col-lg-4">
                         <span class="input-group-btn"><button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span>Hae</button></span>
-                        </div>
+                    </div>
                     </div>
                 </div>
             </form>

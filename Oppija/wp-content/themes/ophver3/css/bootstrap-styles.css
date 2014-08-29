@@ -734,7 +734,8 @@ label.h2 {
 }
 
 input#search-field-frontpage {
-    width: 735px;
+    width: 100%;
+    float: right;
 }
 
 .glyphicon-search:before {
@@ -803,3 +804,30 @@ input#search-field-frontpage {
   font-size: 14px;
 }
 
+span.twitter-typeahead {
+    width: 560px;
+    padding-top: 5px;
+}
+
+span.input-group-btn {
+    padding-bottom: 10px;
+}
+
+button.btn.btn-primary {
+    height: 44px;
+    width: 96px;
+    font-size: 18px;
+    font-family: 'PT Sans Narrow', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    margin-top: -5px;
+}
+
+.find {
+    font-size: 18px;
+    font-family: 'PT Sans Narrow', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: bold;
+}
+
+.glyphicon.glyphicon-search {
+    padding-right: 5px;
+}
