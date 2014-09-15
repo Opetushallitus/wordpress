@@ -9,9 +9,9 @@
         'order' => 'ASC',
 	'tax_query' => array(
 		array(
-			'taxonomy' => 'post_tag',
+			'taxonomy' => 'oph-additional-tags',
 			'field' => 'slug',
-			'terms' => array('intro1', 'intro2', 'intro3', 'intro4'),
+			'terms' => array('intro1', 'intro1-sv', 'intro2', 'intro2-sv', 'intro3', 'intro3-sv', 'intro4', 'intro4-sv'),
 		),
             ),
         );

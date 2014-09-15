@@ -73,7 +73,7 @@
              
 </head>
 <body <?php body_class(); ?> style="display: none" aria-busy="true">
-    <div <?php if (is_front_page()) echo 'class="container-fluid"'; ?>>
+    <div class="container-fluid">
     <a href="#maincontent" class="offscreen"><?php _e('Skip to content', 'html5blank'); ?></a>
     <noscript>
        <div class="notification">
@@ -83,43 +83,54 @@
            </div>
        </div>
     </noscript>
-    
     <?php
-    $slug = 'etusivun-ilmoitus';
-    
-    $args = array(
-        'name' => $slug,
+        
+        $args = array(
 	'post_type' => 'page',
-	'post_status' => 'publish',
-	'posts_per_page' => 1
-    );
+        'order_by' => 'name',
+        'order' => 'ASC',
+	'tax_query' => array(
+		array(
+			'taxonomy' => 'oph-additional-tags',
+			'field' => 'slug',
+			'terms' => array('frontpage-notice-fi', 'frontpage-notice-sv'),
+		),
+            ),
+        );
+        
+        $frontpage_notice = new WP_Query($args);
+        
+        ?>
     
-    $frontpage_notice = get_posts($args);
-    
-    if (is_front_page() && $frontpage_notice) : ?>
-    
+    <?php if ($frontpage_notice->have_posts()): while ($frontpage_notice->have_posts()) : $frontpage_notice->the_post(); ?>
+
     <div class="row">
         <div class="col-xs-16">
             <div class="alert alert-frontpage alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                <?php echo $frontpage_notice[0]->post_content;  ?>
+                <?php echo the_content();  ?>
             </div>
         </div>
     </div>
     
+    <?php endwhile; ?>
+
+	<?php else: ?>
+    
     <?php endif; ?>
+
     
     <div class="<?php if (is_front_page()) echo 'row'; ?> search-group padding-top-20 padding-bottom-20">
-            <form action="/app/#!/haku/" class="form-horizontal col-lg-13 col-lg-offset-3">
+            <form action="/app/#!/haku/" class="form-horizontal col-lg-13 col-lg-offset-2">
                 <div class="form-group">
                         <label for="search-field-frontpage" class="col-lg-4 control-label find">Etsi koulutuksia tästä</label>
-                    <div class="input-group">
-                        <div class="col-lg-8">
+                    <div>
+                        <div class="col-lg-6">
                         
-                        <input type="text" tabindex="1" class="search-field" id="search-field-frontpage" data-provide="typeahead" name="search-field" placeholder="Kirjoita tähän esim. tutkinto, ammatti tai oppilaitoksen nimi" value="">
+                        <input type="text" tabindex="1" class="search-field" id="search-field-frontpage" data-provide="typeahead" name="search-field" placeholder="<?php _e('Kirjoita tähän esim. tutkinto, ammatti tai oppilaitoksen nimi') ?>" value="">
                     </div>
                         <div class="col-lg-4">
-                        <span class="input-group-btn"><button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span>Hae</button></span>
+                        <span class="input-group-btn"><button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span><?php _e('Hae') ?></button></span>
                     </div>
                     </div>
                 </div>

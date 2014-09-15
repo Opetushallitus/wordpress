@@ -184,7 +184,14 @@ function enqueue_custom_styles_or_scripts() {
     
     wp_register_script('type-head-custom', get_template_directory_uri() . '/js/typeahead.js', array()); // Custom scripts
     wp_enqueue_script('type-head-custom'); // Enqueue it!
-            
+    
+    wp_register_style('ysi-info', get_template_directory_uri() . '/css/ysi-info-styles.css', array()); // Custom scripts
+    wp_enqueue_style('ysi-info'); // Enqueue it!
+    
+    wp_register_script('tabs', get_template_directory_uri() . '/js/tabs.js', array()); // Custom scripts
+    wp_enqueue_script('tabs'); // Enqueue it!
+    
+    
     
     if(is_front_page() ) {
         
@@ -206,6 +213,16 @@ function enqueue_custom_styles_or_scripts() {
     }
     
 }
+
+function ie_style_sheets () {
+    //wp_register_style( 'ie-bootstrap', get_stylesheet_directory_uri() . '/css/bootstrap-styles-ie.css'  );
+    wp_register_style( 'ie9', get_stylesheet_directory_uri() . '/css/ie9.css'  );
+    $GLOBALS['wp_styles']->add_data( 'ie-bootstrap', 'conditional', 'gte IE 9' );
+
+    wp_enqueue_style( 'ie9' );
+}
+
+add_action ('wp_enqueue_scripts','ie_style_sheets');
     
 // Register HTML5 Blank Navigation
 function register_html5_menu()
@@ -959,6 +976,17 @@ function oph_taxonomies()
 		array(
 			'label' => __( 'Help text category' ),
 			'rewrite' => array( 'slug' => 'oph-help' ),
+			'hierarchical' => true,
+            'show_admin_column' => true
+		)
+	);
+    
+        register_taxonomy(
+	    'oph-additional-tags',
+		array( 'page'),
+		array(
+			'label' => __( 'Additional tags' ),
+			'rewrite' => array( 'slug' => 'oph-tags' ),
 			'hierarchical' => true,
             'show_admin_column' => true
 		)
