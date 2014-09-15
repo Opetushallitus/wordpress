@@ -37,6 +37,7 @@ if (function_exists('add_theme_support'))
     add_image_size('oph-mid-column', 460, 280, true);
     add_image_size('oph-max', 700, 280, true);
     add_image_size('oph-intro', 390, 260, true); 
+    add_image_size('oph-ysi-info-opo', 203, 139, true); 
     //add_image_size('custom-size', 700, 200, true); // Custom Thumbnail Size call using the_post_thumbnail('custom-size');
 
 

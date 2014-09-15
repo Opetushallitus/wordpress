@@ -1,0 +1,237 @@
+/* taustakuva ja container */
+
+.bg-item {
+  float:left;
+  width:100% !important;
+  max-width:877px;
+  margin-bottom:30px;
+  background: #468c3f url('../img/ysi_page_bg.jpg') no-repeat left top; 
+}
+
+/* templan kolumnit */
+
+.main-column {
+  width:100%;
+}
+.side-column {
+  width:100%;
+}
+.main-column p, .side-column p {
+  margin-right:0;
+  margin-bottom:0;
+  margin-top:20px;
+  line-height:20px;
+  font-size:13px;
+  font-family: Helvetica;
+}
+.main-column img, .side-column img {
+  border:none;
+}
+
+/* box-general */
+
+.box-general {
+  padding:40px 45px 25px 35px;
+}
+.box-general p {
+  font-size:16px;
+}
+.box-general h1 {
+  font-size:28px;
+  margin-bottom: 0;
+  padding-right:50px;
+  letter-spacing:-0.8px;
+  font-weight:700;
+}
+
+
+/* box-options */
+
+.box-options {
+  margin:0 22px 0 18px;
+  padding:18px;
+  min-height:250px;
+}
+.box-options h2 {
+  margin-top:0;
+  margin-bottom: 0;
+  font-size:28px;
+  color:#239fc9;
+  letter-spacing:-0.8px;
+  font-weight:700;
+}
+
+
+/* box-tab ja tabs */
+
+.box-tab {
+  margin:0 22px 0 18px;
+  padding:0;
+}
+.padder {
+  padding:18px;
+}
+.box-tab h3 {
+  font-size:13px;
+  margin-bottom: 20px;
+  margin-top:0;
+  font-family: Helvetica;
+}
+#tabs li {
+  display:inline-block;
+  margin-right:10px;
+  margin-bottom:0px;
+}
+#tabs li a {
+  background-color:#239fc9;
+  display:block;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;  
+  padding:8px;
+  color:#fff;
+  font-weight:700;
+  text-decoration:none;
+}
+#tabs li a.active{
+  background-color:#fff;
+  display:block;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;  
+  padding:8px;
+  color:#000;
+  font-weight:700;
+  text-decoration:none;  
+}
+.tab-container {
+  display:none;
+  clear:both;           
+  width:100%; 
+  background:#fff;
+  text-align:left;
+  padding-top: 5px;
+  margin-top: -18px;
+  margin-bottom:30px;
+}
+.tab-container h2 {
+  margin-top:0;
+  margin-bottom: 0;
+  font-size:28px;
+  color:#239fc9;
+  letter-spacing:-0.8px;
+  font-weight:700;
+}
+.tab-container ul {
+  margin-top:20px;
+  list-style-type: disc;
+  margin-left:20px; 
+  list-style-position: inside; 
+}
+.tab-container li {
+  display:list-item;  
+  list-style-type:disc;  
+  line-height:20px;
+}
+.tab-container a {
+  color:#004a62;
+}
+.tab-container a:hover {
+  text-decoration:none;
+}
+
+
+/* box-opo */
+
+.box-opo {
+  background:#fffebb;
+  margin: 35px 15px 45px 15px;
+  -webkit-box-shadow: -4px 11px 15px 0px rgba(50, 50, 50, 0.2);
+  -moz-box-shadow: -4px 11px 15px 0px rgba(50, 50, 50, 0.2);
+  box-shadow: -4px 11px 15px 0px rgba(50, 50, 50, 0.2);
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;  
+  padding-bottom: 40px;
+}
+.box-opo .opo-title {
+  margin-top: 30px;
+  margin-left: 20px;
+  padding-right:35px;
+  width:100%;
+  max-width:203px !important;
+  height:auto;
+}
+.box-opo p {
+  margin: 25px 10px 0px 20px;
+}
+
+
+/* box-video */
+
+.box-video {  
+  padding:15px;
+  margin:0 15px 30px 15px;  
+}
+.box-video  h3 {
+  color:#a0bf38;
+  font-size:22px;
+  margin-bottom:10px;
+  font-weight:700;
+  letter-spacing:-0.8px;
+}
+
+
+/* laatikoiden likuvärit */
+
+.grad-gray-lighter {
+  background: #ffffff; /* Old browsers */
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlN2U4ZTciIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+  background: -moz-linear-gradient(top,  #ffffff 0%, #e7e8e7 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e7e8e7)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #ffffff 0%,#e7e8e7 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #ffffff 0%,#e7e8e7 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #ffffff 0%,#e7e8e7 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #ffffff 0%,#e7e8e7 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e7e8e7',GradientType=0 ); /* IE6-8 */
+
+}
+.grad-gray {
+   background: #ffffff; /* Old browsers */
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNkMmQyZDMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+  background: -moz-linear-gradient(top,  #ffffff 0%, #d2d2d3 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#d2d2d3)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #ffffff 0%,#d2d2d3 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #ffffff 0%,#d2d2d3 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #ffffff 0%,#d2d2d3 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #ffffff 0%,#d2d2d3 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#d2d2d3',GradientType=0 ); /* IE6-8 */
+
+}
+
+
+/* media queryt responsiivisuutta varten */
+
+@media (min-width: 759px) {
+
+  .bg-item {
+    width:75% !important;
+  }  
+  .side-column {
+    width:34%;
+    float:right;
+  }
+  .main-column {
+    width:66%;
+    float:left;
+  }
+  .box-video {  
+    margin:0 20px 30px 0;
+  }
+  .box-opo {
+    margin: 35px 25px 45px 15px;
+  }
+  
+}
