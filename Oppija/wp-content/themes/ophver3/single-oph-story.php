@@ -57,8 +57,14 @@
                             </h1>
                             <!-- /post title -->
                         
-                            <!-- post thumbnail -->
-                            <?php if ( has_post_thumbnail()) : // Check if Thumbnail exists ?>
+                            <!-- /post thumbnail -->
+                            <?php 
+
+                            $page = get_query_var('page');
+                            
+                            wp_reset_postdata();
+                            
+                            if ( has_post_thumbnail() && $page == 1 ) : // Check if Thumbnail exists ?>
                                     <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
                                             <?php the_post_thumbnail(); // Fullsize image for the single post ?>
                                     </a>
