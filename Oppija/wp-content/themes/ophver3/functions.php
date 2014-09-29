@@ -1388,3 +1388,26 @@ function oph_link_to_en() {
 
     return '<li><a href="'.$oph_base_url.'/wp2/en/">In English</a></li>';
 }
+
+function get_menu_id_by_name( $name ) {
+    $menus = get_terms( 'nav_menu' ); 
+
+    foreach ( $menus as $menu ) {
+        if( $name === $menu->name ) {
+            return $menu->term_id;
+        }
+    }
+    return false;
+}
+
+
+function get_menu_by_location( $location ) {
+    if( empty($location) ) return false;
+
+    $locations = get_nav_menu_locations();
+    if( ! isset( $locations[$location] ) ) return false;
+
+    $menu_obj = get_term( $locations[$location], 'nav_menu' );
+
+    return $menu_obj;
+}
