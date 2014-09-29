@@ -118,10 +118,9 @@
 	<?php else: ?>
     
     <?php endif; ?>
-
     
-    <div class="<?php if (is_front_page()) echo 'row'; ?> search-group padding-top-20 padding-bottom-20">
-            <form action="/app/#!/haku/" class="form-horizontal col-lg-13 col-lg-offset-2">
+    <div class="<?php if (is_front_page() || $post->post_type == 'post') echo 'row'; ?> search-group padding-top-20 padding-bottom-20">
+            <form action="/app/#!/haku/" id="ki-search" class="form-horizontal col-lg-13 col-lg-offset-2">
                 <div class="form-group">
                         <label for="search-field-frontpage" class="col-lg-4 control-label find">Etsi koulutuksia tästä</label>
                     <div>
@@ -136,5 +135,16 @@
                 </div>
             </form>
     </div>
-
-    <div id="maincontent" class="content <?php if (!is_front_page()) echo 'container'; ?>">
+        <script>
+        $('#ki-search').submit(function() {
+            
+            var $input = $(this).find('input[name=search-field]');
+            
+            if (!$input.val()) {
+                $input.val('*');
+            }
+            
+        });
+        </script>
+        
+    <div id="maincontent" class="content <?php if ( !is_front_page() && !($post->post_type == 'post')) echo 'container'; ?>">
