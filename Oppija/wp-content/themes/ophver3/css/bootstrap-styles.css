@@ -751,10 +751,14 @@ input#search-field-frontpage {
 }
 
 .tt-tag-heading {
-    font-size: 13px;
+
+}
+
+.tt-tag-heading h3 {
+    font-size: 11px;
     text-transform: uppercase;
     font-weight: bold;
-    padding-left: 20px;
+    padding: 7px 20px;
     border-bottom: 1px solid #bfe4f1;
 }
 
@@ -784,15 +788,15 @@ input#search-field-frontpage {
 }
 
 .tt-suggestion {
-  padding: 3px 20px;
+  padding: 7px 20px;
   font-size: 13px;
   line-height: 24px;
   border-bottom: 1px solid #bfe4f1;
 }
 
 .tt-suggestion.tt-cursor {
-  color: #fff;
-  background-color: #0097cf;
+  color: #000;
+  background-color: #bfe4f1;
 
 }
 
@@ -805,7 +809,7 @@ input#search-field-frontpage {
 }
 
 span.twitter-typeahead {
-    width: 410px;
+    width: 100%;
     padding-top: 5px;
 }
 

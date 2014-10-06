@@ -52,11 +52,9 @@
                 source: set1.ttAdapter(),
                 templates: {
                     empty: [
-                        '<div class="tt-empty-message">',
-                        'No Results',
-                        '</div>'
+                        ''
                     ].join('\n'),
-                    header: '<span class="tt-tag-heading tt-tag-heading2">Hakusanaehdotukset</span>'
+                    header: '<span class="tt-tag-heading"><h3>Hakusanaehdotukset</h3></span>'
                 } 
             },
             {
@@ -65,11 +63,9 @@
                 source: set2.ttAdapter(),
                 templates: {
                     empty: [
-                        '<div class="tt-empty-message">',
-                        'No Results',
-                        '</div>'
+                        ''
                     ].join('\n'),
-                    header: '<span class="tt-tag-heading tt-tag-heading2">Koulutukset ja tutkinnot</span>'
+                    header: '<span class="tt-tag-heading"><h3>Koulutukset ja tutkinnot</h3></span>'
                 } 
             });
 
