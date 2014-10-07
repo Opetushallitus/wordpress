@@ -4,14 +4,14 @@
         <?php
         
         $args = array(
-	'post_type' => 'page',
+	    'post_type' => 'page',
         'order_by' => 'name',
         'order' => 'ASC',
-	'tax_query' => array(
+	    'tax_query' => array(
 		array(
 			'taxonomy' => 'oph-additional-tags',
 			'field' => 'slug',
-			'terms' => array('intro1', 'intro1-sv', 'intro2', 'intro2-sv', 'intro3', 'intro3-sv', 'intro4', 'intro4-sv'),
+			'terms' => array('intro1', 'intro1-sv', 'intro2', 'intro2-sv', 'intro3', 'intro3-sv'),
 		),
             ),
         );
@@ -22,36 +22,76 @@
 
         <div class="row padding-bottom-10">
 
-	<?php if ($intro_pages->have_posts()): while ($intro_pages->have_posts()) : $intro_pages->the_post(); ?>
+            <?php if ($intro_pages->have_posts()): while ($intro_pages->have_posts()) : $intro_pages->the_post(); ?>
 
-        <div class="col-sm-16 col-md-4 col-lg-4 frontpage-link">
-            <div class="row col-xs-16">
-                <h2 class=""><?php the_title(); ?></h2>    
-                 <?php if(has_post_thumbnail()) :
-                    the_post_thumbnail('oph-intro');
-                endif; ?>
-                <p>
+                <div class="col-sm-16 col-md-4 col-lg-4 frontpage-link">
+                    <div class="row col-xs-16">
+                        <h2 class=""><?php the_title(); ?></h2>    
+                         <?php if(has_post_thumbnail()) :
+                            the_post_thumbnail('oph-intro');
+                        endif; ?>
+                        <p>
+                            <?php the_content(); ?>
+                        </p>
+                    </div>
+                </div>
+
+            <?php endwhile; ?>
+
+            <?php else: ?>
+
+                <!-- article -->
+                <article>
+
+                    <h2><?php _e( 'Sorry, nothing to display.', 'html5blank' ); ?></h2>
+
+                </article>
+                <!-- /article -->
+                
+                <?php wp_reset_postdata(); ?>
+
+            <?php endif; ?>
+            
+            <?php
+            
+            $args2 = array(
+                'post_type' => 'oph-feature',
+                'order' => 'DESC'
+                );
+            
+            $features = new WP_Query($args2);
+            ?>
+            
+            <div class="col-sm-16 col-md-4 col-lg-4 frontpage-link">
+                <div class="row col-xs-16">
+                    <h2 class="">Tulevat haut</h2>    
+                    <div id="as-calendar" style="width: 100%;"></div>
+                    <script src="https://itest-oppija.oph.ware.fi/calendar/calendar.js"></script>
+                    <script>// <![CDATA[
+                                ApplicationSystemCalendar.calendar({
+                                    selector: '#as-calendar', 
+                                    lang: 'fi',
+                                    deps: {
+                                        stylesheet: 'https://itest-oppija.oph.ware.fi/calendar/css/calendar.css',
+                                        underscore: 'https://itest-oppija.oph.ware.fi/calendar/lib/underscore-min.js'
+                                    },
+                                    calendarResource: 'https://itest-oppija.oph.ware.fi/as/fetchForCalendar'
+                                });
+
+                    // ]]></script>
+                </div>
+                <div class="row col-xs-16">
+                    <h2 class="">Ajankohtaista</h2>
+                <?php if ($features->have_posts()): while ($features->have_posts()) : $features->the_post(); ?>
+                    <h5><?php the_title(); ?></h5>   
                     <?php the_content(); ?>
-                </p>
+                <?php endwhile; ?>
+                
+                <?php else: ?>
+                    <h2><?php _e( 'Sorry, nothing to display.', 'html5blank' ); ?></h2>
+                <?php endif; ?>
+                </div>
             </div>
-        </div>
-                
-
-                
-
-	<?php endwhile; ?>
-
-	<?php else: ?>
-
-		<!-- article -->
-		<article>
-
-			<h2><?php _e( 'Sorry, nothing to display.', 'html5blank' ); ?></h2>
-
-		</article>
-		<!-- /article -->
-
-	<?php endif; ?>
 
         </div>
 
