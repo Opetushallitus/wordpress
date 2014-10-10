@@ -119,6 +119,8 @@
     
     <?php endif; ?>
     
+    <?php wp_reset_postdata(); ?>
+    
     <div class="<?php if (is_front_page() || $post->post_type == 'post') echo 'row'; ?> search-group padding-top-20 padding-bottom-20">
             <form action="/app/#!/haku/" id="ki-search" class="form-horizontal col-lg-13 col-lg-offset-2">
                 <div class="form-group">
@@ -135,6 +137,7 @@
                 </div>
             </form>
     </div>
+       
         <script>
         $('#ki-search').submit(function() {
             

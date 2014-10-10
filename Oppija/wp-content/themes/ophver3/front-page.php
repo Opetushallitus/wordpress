@@ -48,9 +48,9 @@
                 </article>
                 <!-- /article -->
                 
-                <?php wp_reset_postdata(); ?>
-
             <?php endif; ?>
+            
+            <?php wp_reset_postdata(); ?>
             
             <?php
             
@@ -64,24 +64,28 @@
             
             <div class="col-sm-16 col-md-4 col-lg-4 frontpage-link">
                 <div class="row col-xs-16">
-                    <h2 class="">Tulevat haut</h2>    
+                    <h2 class=""><?php _e( 'Upcoming', 'html5blank' ); ?></h2>    
                     <div id="as-calendar" style="width: 100%;"></div>
-                    <script src="https://itest-oppija.oph.ware.fi/calendar/calendar.js"></script>
-                    <script>// <![CDATA[
-                                ApplicationSystemCalendar.calendar({
-                                    selector: '#as-calendar', 
-                                    lang: 'fi',
-                                    deps: {
-                                        stylesheet: 'https://itest-oppija.oph.ware.fi/calendar/css/calendar.css',
-                                        underscore: 'https://itest-oppija.oph.ware.fi/calendar/lib/underscore-min.js'
-                                    },
-                                    calendarResource: 'https://itest-oppija.oph.ware.fi/as/fetchForCalendar'
-                                });
-
+                    <script src="https://itest-oppija.oph.ware.fi/calendar/calendar.js"></script><script>// <![CDATA[
+                    (function() {
+                        $("html").on("oppija-raamit-loaded", function() { 
+                            var prefix = CookiePrefixResolver.getPrefix(window.location.host),
+                                key = prefix + 'i18next';
+                            ApplicationSystemCalendar.calendar({
+                                selector: '#as-calendar',
+                                lang: jQuery.cookie(key),
+                                deps: {
+                                    stylesheet: 'https://itest-oppija.oph.ware.fi/calendar/css/calendar.css',
+                                    underscore: 'https://itest-oppija.oph.ware.fi/calendar/lib/underscore-min.js'
+                                },
+                                calendarResource: 'https://itest-oppija.oph.ware.fi/as/fetchForCalendar'
+                            });
+                        });
+                    }());
                     // ]]></script>
                 </div>
                 <div class="row col-xs-16">
-                    <h2 class="">Ajankohtaista</h2>
+                    <h2 class=""><?php _e( 'News', 'html5blank' ); ?></h2>
                 <?php if ($features->have_posts()): while ($features->have_posts()) : $features->the_post(); ?>
                     <h5><?php the_title(); ?></h5>   
                     <?php the_content(); ?>

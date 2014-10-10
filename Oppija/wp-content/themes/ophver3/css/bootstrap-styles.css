@@ -601,6 +601,7 @@ label {
 .alert-frontpage {
     background-color: rgba(20, 158, 203, 0.1);
     border: none;
+    text-align: center;
     box-shadow: none;
     padding-bottom: 0.3em;
     padding-top: 1em;
@@ -755,11 +756,13 @@ input#search-field-frontpage {
 
 }
 
-.tt-tag-heading h3 {
-    font-size: 11px;
+.tt-tag-heading strong {
+    font-size: 13px;
     text-transform: uppercase;
     font-weight: bold;
     padding: 7px 20px;
+    height: 35px;
+    display: block;
     border-bottom: 1px solid #bfe4f1;
 }
 

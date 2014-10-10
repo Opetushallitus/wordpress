@@ -54,7 +54,7 @@
                     empty: [
                         ''
                     ].join('\n'),
-                    header: '<span class="tt-tag-heading"><h3>Hakusanaehdotukset</h3></span>'
+                    header: '<span class="tt-tag-heading"><strong>Hakusanaehdotukset</strong></span>'
                 } 
             },
             {
@@ -65,7 +65,7 @@
                     empty: [
                         ''
                     ].join('\n'),
-                    header: '<span class="tt-tag-heading"><h3>Koulutukset ja tutkinnot</h3></span>'
+                    header: '<span class="tt-tag-heading"><strong>Koulutukset ja tutkinnot</strong></span>'
                 } 
             });
 
