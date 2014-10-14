@@ -21,7 +21,7 @@ usage () {
 	$0 <destination environment> <destination host>
 
 	Examples:
-	$0 prod-standby mappi
+	$0 prod-standby laskutikku
 EOF
 
    exit 1
@@ -36,7 +36,7 @@ mkdir -p "$workdir"
 cd "$workdir"
 
 from='tuotanto'
-fromhost='opintopolkuwordpress1.prod.oph.ware.fi'
+fromhost='opintopolkuwordpress2.prod.oph.ware.fi'
 fromdb='opintopolkuwordpress'
 fromuser='wpuser'
 frompw='2nksYCzDCmJCEHeH'
@@ -48,18 +48,18 @@ fromtitle=''
 
 if [ "x$1" = "xprod-standby" ]
     then 
-    if [ "x$2" != "xmappi" ]
+    if [ "x$2" != "xlaskutikku" ]
 	then
 	echo "$1-ympäristö ei sijaitse palvelimella $2. Tarkkana nyt!"
 	exit 1
     fi
 
     to='prod-standby'
-    tohost='opintopolkuwordpress2.prod.oph.ware.fi'
+    tohost='opintopolkuwordpress1.prod.oph.ware.fi'
     todb='opintopolkuwordpress'
     touser='wpuser'
     topw='2nksYCzDCmJCEHeH'
-    tosubstitute1='http://opintopolku.fi/'
+    tosubstitute1='https://opintopolku.fi/'
     tosubstitute2='opintopolku.fi'
     topath='/opt/www/opintopolkuwordpress/html'
     totitle='Opintopolku'
@@ -84,7 +84,8 @@ cat $dumpfile | perl -p \
 # runttaa kanta länään
 ssh $tohost mysql -u "$touser" -p"$topw" "$todb" < "$importfile"
 # päivitä saitin nimi kannasta
-echo "update wp_options set option_value='$toblogname' where option_name = 'blogname';" | ssh $tohost mysql -u "$touser" -p"$topw" "$todb"
+# ei päivitellä kun kloonataan.
+# echo "update wp_options set option_value='$toblogname' where option_name = 'blogname';" | ssh $tohost mysql -u "$touser" -p"$topw" "$todb"
 
 ssh $fromhost tar -cf - /usr/share/wordpress/wp-content \
     /usr/share/wordpress/.htaccess | \
@@ -96,7 +97,7 @@ ssh $tohost "sudo tee $topath/.htaccess >/dev/null"
 
 # ei kosketa titleen nyt. korjataan joskus, kun tarvii kloonata
 # esim. QA:lle.
-#ssh $tohost "sudo perl -pi -e 's/$fromtitle/$totitle/' /usr/share/wordpress/wp-content/themes/ophver3/functions.php"
+# ssh $tohost "sudo perl -pi -e 's/$fromtitle/$totitle/' /usr/share/wordpress/wp-content/themes/ophver3/functions.php"
 
 ssh $tohost sudo /sbin/restorecon -R /usr/share/wordpress/
 
