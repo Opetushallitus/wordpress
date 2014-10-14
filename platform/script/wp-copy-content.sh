@@ -19,8 +19,8 @@ usage () {
 	$0 <destination environment> <destination host>
 
 	Examples:
-	$0 qa harppi
-        $0 qa2 essee
+	$0 qa-standby harppi
+        $0 qa essee
 EOF
 
    exit 1
@@ -35,7 +35,7 @@ mkdir -p "$workdir"
 cd "$workdir"
 
 from='tuotanto'
-fromhost='opintopolkuwordpress1.prod.oph.ware.fi'
+fromhost='opintopolkuwordpress2.prod.oph.ware.fi'
 fromdb='opintopolkuwordpress'
 fromuser='wpuser'
 frompw='2nksYCzDCmJCEHeH'
@@ -47,10 +47,30 @@ fromblogname="Opintopolku"
 
 
 if [ "x$1" = "qa" ]
+    then
+    if [ "x$2" != "xessee" ]
+        then
+        echo "$1-ympäristö ei sijaitse palvelimella $2. Tarkkana nyt!"
+        exit 1
+    fi
+
+    to='qa-standby'
+    tohost='wordpress3.qa.oph.ware.fi'
+    todb='wordpress'
+    touser='wpophqa'
+    topw='rFxChkbXv7BadH8L'
+    topath='/opt/www/wp_ophqa/html'
+    tosubstitute1='https://testi.opintopolku.fi/'
+    tosubstitute2='testi.opintopolku.fi'
+    totitle='QA'
+    toblogname="Opintopolku WP $totitle"
+fi
+
+if [ "x$1" = "qa-standby" ]
     then 
     if [ "x$2" != "xharppi" ]
 	then
-	echo "QA-ympäristö ei sijaitse palvelimella $2. Tarkkana nyt!"
+	echo "$1-ympäristö ei sijaitse palvelimella $2. Tarkkana nyt!"
 	exit 1
     fi
 
@@ -66,27 +86,6 @@ if [ "x$1" = "qa" ]
     totitle='QA'
     toblogname="Opintopolku WP $totitle"
 fi
-
-if [ "x$1" = "qa2" ]
-    then
-    if [ "x$2" != "xessee" ]
-        then
-        echo "QA-ymp\u00E4rist\u00F6n klooni ei sijaitse palvelimella $2. Tarkkana nyt!"
-        exit 1
-    fi
-
-    to='qa2'
-    tohost='wordpress3.qa.oph.ware.fi'
-    todb='wordpress'
-    touser='wpophqa'
-    topw='rFxChkbXv7BadH8L'
-    topath='/opt/www/wp_ophqa/html'
-    tosubstitute1='https://testi2.opintopolku.fi/'
-    tosubstitute2='testi2.opintopolku.fi'
-    totitle='QA'
-    toblogname="Opintopolku WP $totitle"
-fi
-
 
 
 if [ "x$1" = "xdev" ]
