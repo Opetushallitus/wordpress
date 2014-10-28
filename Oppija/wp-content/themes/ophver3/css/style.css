@@ -2150,3 +2150,8 @@ you can add resource intensive styles.
     margin: 0;
   }
 }
+
+
+a.no_icon:before {
+    content: '' !important;
+}

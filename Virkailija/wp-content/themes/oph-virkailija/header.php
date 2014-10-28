@@ -63,15 +63,6 @@
 </head>
 <body>
 <div id="page">
-       
-        <div class="meta-info">
-            <?php
-                $current_user = wp_get_current_user();
-                echo $current_user->display_name.': ';
-                echo date_i18n('l, j.n.Y, G:i');
-            ?>
-        </div>
-        
         
         
 	<!-- The class "container_12" restricts the grid to 12 columns and a total of 960px wide. Placing the wrapper div in the header.php file allows for easy editing of individual page templates without upsetting the grid. This div is closed in the footer.php file -->

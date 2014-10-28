@@ -124,7 +124,7 @@
     <div class="<?php if (is_front_page() || $post->post_type == 'post') echo 'row'; ?> search-group padding-top-20 padding-bottom-20">
             <form action="/app/#!/haku/" id="ki-search" class="form-horizontal col-lg-13 col-lg-offset-2">
                 <div class="form-group">
-                        <label for="search-field-frontpage" class="col-lg-4 control-label find">Etsi koulutuksia tästä</label>
+                        <label for="search-field-frontpage" class="col-lg-4 control-label find"><?php _e('Etsi koulutuksia tästä') ?></label>
                     <div>
                         <div class="col-lg-6">
                         

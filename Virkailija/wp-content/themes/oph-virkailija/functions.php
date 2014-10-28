@@ -568,3 +568,9 @@ function uamIsAdmin(){
 
 
   }
+
+function my_columns_filter( $columns ) {
+    unset($columns['tags']);
+    return $columns;
+}
+add_filter( 'manage_edit-post_columns', 'my_columns_filter', 10, 1 );

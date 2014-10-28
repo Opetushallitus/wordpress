@@ -984,7 +984,7 @@ function oph_taxonomies()
     
         register_taxonomy(
 	    'oph-additional-tags',
-		array( 'page'),
+		array( 'page', 'oph-feature'),
 		array(
 			'label' => __( 'Additional tags' ),
 			'rewrite' => array( 'slug' => 'oph-tags' ),

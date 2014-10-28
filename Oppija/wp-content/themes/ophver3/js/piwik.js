@@ -1,16 +1,15 @@
-	var siteDomain = document.domain;
-	var piwikSiteId = 2;
-	if(siteDomain=='opintopolku.fi'){
-		piwikSiteId = 4;
-	}else if(siteDomain=='virkailija.opintopolku.fi'){
-		piwikSiteId = 3;
-	}else if(siteDomain=='testi.opintopolku.fi'){
-		piwikSiteId = 1;
-	}else if(siteDomain=='testi.virkailija.opintopolku.fi'){
-		piwikSiteId = 5;
-	}else{
-		piwikSiteId = 2;
-	}
+var siteDomain = document.domain;
+var piwikSiteId = 2;
+if(siteDomain=='opintopolku.fi')
+{ piwikSiteId = 4; }
+else if(siteDomain=='virkailija.opintopolku.fi')
+{ piwikSiteId = 3; }
+else if(siteDomain=='testi.opintopolku.fi')
+{ piwikSiteId = 1; }
+else if(siteDomain=='testi.virkailija.opintopolku.fi')
+{ piwikSiteId = 5; }
+else
+{ piwikSiteId = 2; }
 
 	var _paq = _paq || [];
   _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
