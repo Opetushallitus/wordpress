@@ -1463,8 +1463,6 @@ section h5 {
 /* Stories */
 .stories {
   overflow: auto;
-  width: 75%;
-  float: left;
   column-gap: 20px;
   -webkit-column-gap: 20px;
   -moz-column-gap: 20px;
@@ -1480,12 +1478,6 @@ section h5 {
   width: 75%;
   float: left;
 }
-.story-single {
-  width: 50%;
-  float: left;
-  padding-right: 20px;
-  padding-right: 2rem;
-}
 .story-meta {
   padding-bottom: 5px;
 }
@@ -1493,7 +1485,7 @@ section h5 {
   padding-top: 0px;
 }
 .single aside {
-  width: 25%;
+
 }
 section.story {
   -webkit-column-break-inside: avoid;
@@ -1615,8 +1607,6 @@ h5.theme-term {
 }
 .wp-pagenavi {
   display: block;
-  margin-left: 0;
-  text-align: right;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -1758,7 +1748,7 @@ aside section p {
     border-right: 0;
   }
   aside {
-    overflow: auto;
+
   }
   aside section {
     width: 50%;
@@ -1925,9 +1915,7 @@ you can add resource intensive styles.
     padding: 0 40px 0 10px;
   }
   aside {
-    overflow: auto;
-    width: 33.333333333333336%;
-    float: left;
+
   }
   aside section {
     clear: both;
@@ -1956,10 +1944,8 @@ you can add resource intensive styles.
   }
   /* SUB-page */
   nav.sidenav {
-    width: 25%;
     float: left;
-    padding-right: 20px;
-    padding-right: 2rem;
+
   }
   .page .center-content {
     width: 50%;
@@ -1972,9 +1958,7 @@ you can add resource intensive styles.
     margin-right: 2rem;
   }
   .page aside {
-    overflow: auto;
-    width: 25%;
-    float: left;
+
   }
   .page aside section {
     width: auto;
@@ -2154,4 +2138,62 @@ you can add resource intensive styles.
 
 a.no_icon:before {
     content: '' !important;
+}
+
+.ysi-info .main-column ul, .ysi-info-sv .main-column ul {
+    list-style: initial;
+    padding-left: 20px;
+}
+
+.box-opo h1, .box-opo h2, .box-opo h3, .box-opo h4 {
+    padding-left: 20px;
+}
+
+.sign-lookup {
+    padding-bottom: 20px;
+}
+
+.post-edit {
+    height: 40px;
+}
+
+@media all and (min-width: 769px) {
+  .search-education {
+      text-align: right;
+   }
+}
+
+.news ul li {
+    list-style: initial;
+}
+
+@media all and (max-width: 768px) {
+  .search-education {
+      text-align: center;
+      padding-bottom: 10px;
+   }
+    
+   .search-button {
+       text-align: center;
+       padding-top: 10px;
+   }
+    
+    nav.sidenav {
+        margin-bottom: 30px;
+        margin-bottom: 3rem;
+    }
+    
+    .search-group {
+        padding-bottom: 5px;
+    }
+    
+    .stories {
+        column-count: auto;
+        -webkit-column-count: auto;
+        -moz-column-count: auto;
+    }
+    
+    .story {
+        width: inherit;
+    }
 }

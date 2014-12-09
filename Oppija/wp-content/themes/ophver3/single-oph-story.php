@@ -20,8 +20,10 @@
         }
     }?>
     
+    <div class="row padding-bottom-10">
     <!-- /breaddcrumb -->
-	
+    <div class="col-sm-16 col-sm-16 col-sm-16">
+	<div class="col-sm-16 col-md-4 col-lg-4">   
         <nav class="sidenav">
             <ul>
                 <li>
@@ -43,80 +45,103 @@
                 </li>
             </ul>
         </nav>
+    </div>
+    
+    
+    
+    <div class="col-sm-16 col-md-12 col-lg-12">      
+        <!-- section -->
+        <div class="story-single">
+        <?php if (have_posts()): while (have_posts()) : the_post(); ?>
+            <?php $post_id = get_the_ID();
 
-            <!-- section -->
-            <div class="story-single">
-            <?php if (have_posts()): while (have_posts()) : the_post(); ?>
+            $cat = get_the_terms($post_id, 'story-theme'); 
+                  foreach($cat as $c) {
+                      $c_name = $c->name;  ?> 
+                      <div class="visible-xs sign-lookup">
+                      <h3><?php echo $c_name; ?></h3>
+                           <a>
+                                <span class="sign">
+                                    <span class="sign-inner">Katso kaikki teemaan liittyvät artikkelit</span>
+                                </span>
+                            </a>
+                        </div>
+                   <?php } ?>
+               
+                <!-- article -->
+                <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-                    <!-- article -->
-                    <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+                        <!-- post title -->
+                        <h1>
+                                <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a>
+                        </h1>
+                        <!-- /post title -->
 
-                            <!-- post title -->
-                            <h1>
-                                    <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a>
-                            </h1>
-                            <!-- /post title -->
+                        <!-- /post thumbnail -->
+                        <?php 
+
+                        $page = get_query_var('page');
+
+                        wp_reset_postdata();
+
+                        if ( has_post_thumbnail() && $page == 1 ) : // Check if Thumbnail exists ?>
+                                <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
+                                        <?php the_post_thumbnail(); // Fullsize image for the single post ?>
+                                </a>
+                        <?php endif; ?>
+                        <!-- /post thumbnail -->
+
+                        <?php the_content(); // Dynamic Content ?>
                         
-                            <!-- /post thumbnail -->
-                            <?php 
+                        <div class="col-md-6 col-md-offset-10 col-xs-14 col-xs-offset-1 text-center">
+                        <?php
 
-                            $page = get_query_var('page');
-                            
-                            wp_reset_postdata();
-                            
-                            if ( has_post_thumbnail() && $page == 1 ) : // Check if Thumbnail exists ?>
-                                    <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-                                            <?php the_post_thumbnail(); // Fullsize image for the single post ?>
-                                    </a>
-                            <?php endif; ?>
-                            <!-- /post thumbnail -->
+                        if ( function_exists('wp_pagenavi') ) {
 
-                            <?php the_content(); // Dynamic Content ?>
-							
-                            <?php
+                                ob_start();
+                                wp_pagenavi( array( 'type' => 'multipart' ) );
 
-                            if ( function_exists('wp_pagenavi') ) {
+                                $pagenavi = ob_get_contents();
+                                ob_end_clean();
 
-                                    ob_start();
-                                    wp_pagenavi( array( 'type' => 'multipart' ) );
+                                if ( !strstr($pagenavi, 'previouspostslink') ) $pagenavi = str_replace('<span', '<span class="previouspostslink">←</span><span', $pagenavi);
+                                if ( !strstr($pagenavi, 'nextpostslink') ) $pagenavi = str_replace('</div>', '<span class="nextpostslink">→</span></div>', $pagenavi);
+                                echo $pagenavi;
 
-                                    $pagenavi = ob_get_contents();
-                                    ob_end_clean();
+                        }
+                        ?>
+                        </div>
+                        <?php //wp_link_pages(array('before' => 'Sivut:')); ?>
 
-                                    if ( !strstr($pagenavi, 'previouspostslink') ) $pagenavi = str_replace('<span', '<span class="previouspostslink">←</span><span', $pagenavi);
-                                    if ( !strstr($pagenavi, 'nextpostslink') ) $pagenavi = str_replace('</div>', '<span class="nextpostslink">→</span></div>', $pagenavi);
-                                    echo $pagenavi;
-                                    
-                            }
-                            ?>
+                        <?php //the_tags( __( 'Tags: ', 'html5blank' ), ', ', '<br>'); // Separated by commas with a line break at the end ?>
 
-                            <?php //wp_link_pages(array('before' => 'Sivut:')); ?>
-
-                            <?php //the_tags( __( 'Tags: ', 'html5blank' ), ', ', '<br>'); // Separated by commas with a line break at the end ?>
-
+                        <div class="post-edit">
                             <?php edit_post_link(); // Always handy to have Edit Post Links available ?>
+                        </div>
+                        <?php comments_template(); ?>
 
-                            <?php comments_template(); ?>
+                </article>
+                <!-- /article -->
 
-                    </article>
-                    <!-- /article -->
+        <?php endwhile; ?>
 
-            <?php endwhile; ?>
+        <?php else: ?>
 
-            <?php else: ?>
+                <!-- article -->
+                <article>
 
-                    <!-- article -->
-                    <article>
+                        <h1><?php _e( 'Sorry, nothing to display.', 'html5blank' ); ?></h1>
 
-                            <h1><?php _e( 'Sorry, nothing to display.', 'html5blank' ); ?></h1>
+                </article>
+                <!-- /article -->
 
-                    </article>
-                    <!-- /article -->
+        <?php endif; ?>
 
-            <?php endif; ?>
-
-            </div>
-            <!-- /story -->
+        </div>
+        <!-- /story -->
+    </div>
+    </div>
+</div>            
 	            
 <?php //get_sidebar(); 
     get_template_part('related-content');

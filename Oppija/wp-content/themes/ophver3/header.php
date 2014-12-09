@@ -124,15 +124,20 @@
     <div class="<?php if (is_front_page() || $post->post_type == 'post') echo 'row'; ?> search-group padding-top-20 padding-bottom-20">
             <form action="/app/#!/haku/" id="ki-search" class="form-horizontal col-lg-13 col-lg-offset-2">
                 <div class="form-group">
-                        <label for="search-field-frontpage" class="col-lg-4 control-label find"><?php _e('Etsi koulutuksia tästä') ?></label>
-                    <div>
-                        <div class="col-lg-6">
-                        
-                        <input type="text" tabindex="1" class="search-field" id="search-field-frontpage" data-provide="typeahead" name="search-field" placeholder="<?php _e('Kirjoita tähän esim. tutkinto, ammatti tai oppilaitoksen nimi') ?>" value="">
+                    <div class="col-lg-4 col-lg-offset-0 col-xs-8 col-xs-offset-5 search-education">
+                       <label for="search-field-frontpage" class="control-label find"><?php _e('Etsi koulutuksia tästä') ?></label>
                     </div>
-                        <div class="col-lg-4">
+                    <div class="col-lg-6 col-sm-16 search-input-field">
+
+                    <input type="text" tabindex="1" class="search-field" id="search-field-frontpage" data-provide="typeahead" name="search-field" placeholder="<?php _e('Kirjoita tähän esim. tutkinto, ammatti tai oppilaitoksen nimi') ?>" value="">
+                    
+                    <div class="text-right">
+                        <a href="../app/#!/selailu/aihe"><?php _e('Find education') ?></a>
+                    </div>
+                    
+                    </div>
+                        <div class="col-lg-4 col-lg-offset-0 col-xs-8 col-xs-offset-5 search-button">
                         <span class="input-group-btn"><button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span><?php _e('Hae') ?></button></span>
-                    </div>
                     </div>
                 </div>
             </form>

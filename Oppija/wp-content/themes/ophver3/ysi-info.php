@@ -51,7 +51,7 @@ Template Name: Ysi-info
           if( have_rows('box-tabs') ): ?>
 
             <div class="padder grad-gray gradient">
-                <h3>Tutustu jatko-opintoihin:</h3>
+                <h3><?php _e( 'Learn more about studies', 'html5blank' ); ?></h3>
 
                     <ul id="tabs">
 

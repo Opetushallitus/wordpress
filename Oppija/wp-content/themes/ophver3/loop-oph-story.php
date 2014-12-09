@@ -1,27 +1,3 @@
-<?php /*
-$terms = get_terms('post_tag');
-$all_terms = array();
-$i = 0;
-
-foreach ($terms as $term) :
-
-    $term_id = $term->term_id;
-    $term_slug = $term->slug;
-    
-    $all_terms[$i] = array($term_id, $term_slug);
-    
-    $i++;
-
-endforeach;
-
-//var_dump($all_terms);
-
-$b = $all_terms;
-echo in_array_r("video", $b) ? 'found' : 'not found';
-*/
-?>
-
-
 <?php $taxonomy_terms = get_terms('story-theme', 'orderby=ASC&hide_empty=1&number=100'); ?>
 <?php foreach($taxonomy_terms as $term) : ?>
     <?php
@@ -72,7 +48,7 @@ echo in_array_r("video", $b) ? 'found' : 'not found';
 
         if($stories_query->have_posts()) : while($stories_query->have_posts()) : $stories_query->the_post();
     ?>
-        <section class="story" id="<?php echo $term_slug; ?>">
+        <section class="story col-xs-16" id="<?php echo $term_slug; ?>">
 
             <!-- article -->
             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>

@@ -4,6 +4,7 @@
 $active_languages = $sitepress->get_active_languages();
 $default_language = $sitepress->get_default_language();
 $default_language_details = $sitepress->get_language_details( $default_language );
+$secondary_languages = array();
 
 foreach ( $active_languages as $lang ) {
 	if ( $lang[ 'code' ] != $default_language_details[ 'code' ] ) {
@@ -270,10 +271,12 @@ if ( $icl_menus_sync->is_preview ) {
 			<tr>
 				<th><?php echo $default_language_details[ 'display_name' ]; ?></th>
 				<?php
-				foreach ( $secondary_languages as $lang ) {
-					?>
-					<th><?php echo $lang[ 'display_name' ]; ?></th>
-				<?php
+				if ( ! empty( $secondary_languages ) ) {
+					foreach ( $secondary_languages as $lang ) {
+						?>
+						<th><?php echo $lang[ 'display_name' ]; ?></th>
+					<?php
+					}
 				}
 				?>
 			</tr>

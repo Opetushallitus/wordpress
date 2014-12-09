@@ -6,9 +6,7 @@ add_filter( 'wp_page_menu_args', 'wpml_home_url_exclude_root_page_from_menus' );
 add_filter( 'wp_list_pages_excludes', 'wpml_home_url_exclude_root_page' );
 add_filter( 'page_attributes_dropdown_pages_args', 'wpml_home_url_exclude_root_page2' );
 add_filter( 'get_pages', 'wpml_home_url_get_pages' );
-
-add_action( 'template_redirect', 'wpml_home_url_redirect_home', 0 );
-//add_filter( 'template_include', 'wpml_home_url_template_include' );
+add_filter( 'template_include', 'wpml_home_url_template_include' );
 
 function wpml_home_url_init()
 {
@@ -168,57 +166,59 @@ function wpml_home_url_setup_root_page()
 
 }
 
+/**
+ * @param WP_Query $q
+ *
+ * @return mixed
+ */
 function wpml_home_url_parse_query( $q )
 {
 	if (!$q->is_main_query()) {
 		return $q;
 	}
-	global $sitepress;
+    global $sitepress_settings;
+    global $sitepress;
 
-	$parts = parse_url( get_site_url() );
+	$site_url = get_site_url();
 
+	$parts = parse_url( $site_url );
 	if ( !isset( $parts[ 'path' ] ) ) {
 		$parts[ 'path' ] = '';
 	}
 
-	// fix for root page when it has any parameters
-	$server_request_parts = explode('?', $_SERVER[ 'REQUEST_URI' ]);
-	
-	$server_request_without_get = $server_request_parts[0];
-	
-	if ( trim( $parts[ 'path' ], '/' ) != trim( $server_request_without_get, '/' ) && $q->query_vars[ 'page_id' ] == get_option( 'page_on_front' ) ) {
+	if ( ! $sitepress->is_root_page() ) {
 		return $q;
-	}
+	} else {
+		remove_action( 'parse_query', 'wpml_home_url_parse_query' );
 
-	if ( !empty( $sitepress->ROOT_URL_PAGE_ID ) ) {
-		$q->query_vars[ 'page_id' ] = $sitepress->ROOT_URL_PAGE_ID;
-		$q->query[ 'page_id' ]      = $sitepress->ROOT_URL_PAGE_ID;
+		$request_array = explode( '/', $_SERVER[ "REQUEST_URI" ] );
+
+		$sanitized_query = array_pop( $request_array );
+
+		$potential_pagination_parameter = array_pop( $request_array );
+
+		if ( is_numeric( $potential_pagination_parameter ) ) {
+			if ( $sanitized_query ) {
+				$sanitized_query .= '&';
+			}
+			$sanitized_query .= 'page=' . $potential_pagination_parameter . '&paged=1';
+		}
+
+		$sanitized_query = str_replace( '?', '', $sanitized_query );
+		$q->parse_query( $sanitized_query );
+		add_action( 'parse_query', 'wpml_home_url_parse_query' );
+
+		$q->query_vars[ 'page_id' ] = $sitepress_settings[ "urls" ][ "root_page" ];
+		$q->query[ 'page_id' ]      = $sitepress_settings[ "urls" ][ "root_page" ];
 		$q->is_page                 = 1;
-		$q->queried_object          = new WP_Post( get_post( $sitepress->ROOT_URL_PAGE_ID ) );
-		$q->queried_object_id       = $sitepress->ROOT_URL_PAGE_ID;
+		$q->queried_object          = new WP_Post( get_post( $sitepress_settings[ "urls" ][ "root_page" ] ) );
+		$q->queried_object_id       = $sitepress_settings[ "urls" ][ "root_page" ];
+		$q->query_vars[ 'error' ]   = "";
+		$q->is_404                  = false;
+		$q->query[ 'error' ]        = null;
 	}
 
 	return $q;
-}
-
-function wpml_home_url_redirect_home()
-{
-	global $sitepress_settings;
-
-	$queried_object = get_queried_object();
-	$home           = get_site_url();
-	$parts          = parse_url( $home );
-
-	if ( !isset( $parts[ 'path' ] ) ) {
-		$parts[ 'path' ] = '';
-	}
-
-	$request_url = $_SERVER[ 'REQUEST_URI' ];
-	if ( $queried_object && isset( $queried_object->ID ) && $queried_object->ID == $sitepress_settings[ 'urls' ][ 'root_page' ] && trim( $parts[ 'path' ], '/' ) != trim( $request_url, '/' ) ) {
-		wp_redirect( $home, 301 );
-		exit;
-	}
-
 }
 
 function wpml_home_url_template_include($template) {
@@ -227,7 +227,7 @@ function wpml_home_url_template_include($template) {
 
 	$is_root_page = isset( $sitepress_settings[ 'urls' ][ 'root_page' ] ) && $sitepress_settings[ 'urls' ][ 'root_page' ] == $id;
 	if ( $is_root_page ) {
-		set_query_var('page', get_query_var('page_id'));
+		set_query_var('page', get_query_var('page'));
 		$template = get_page_template();
 	}
     return $template;

@@ -37,6 +37,24 @@
         }
     });
 
+    var prefix = CookiePrefixResolver.getPrefix(window.location.host), 
+        key = prefix + 'i18next';    
+        
+    var lang = jQuery.cookie(key);
+        
+    console.log(lang);
+        
+    var word_suggestion;
+    var degree_suggestion;    
+        
+    if(lang == 'fi') {
+        var word_suggestion = 'Hakusanaehdotukset';
+        var degree_suggestion = 'Koulutukset ja tutkinnot';
+    } else {
+        var word_suggestion = 'Sökordsförslag';
+        var degree_suggestion = 'Kurser och examen';
+    }    
+        
     // Initialize the Bloodhound suggestion engines
     set1.initialize();
     set2.initialize();
@@ -54,7 +72,7 @@
                     empty: [
                         ''
                     ].join('\n'),
-                    header: '<span class="tt-tag-heading"><strong>Hakusanaehdotukset</strong></span>'
+                    header: '<span class="tt-tag-heading"><strong>' + word_suggestion + '</strong></span>'
                 } 
             },
             {
@@ -65,7 +83,7 @@
                     empty: [
                         ''
                     ].join('\n'),
-                    header: '<span class="tt-tag-heading"><strong>Koulutukset ja tutkinnot</strong></span>'
+                    header: '<span class="tt-tag-heading"><strong>' + degree_suggestion + '</strong></span>'
                 } 
             });
 

@@ -19,7 +19,7 @@
         
         $args2 = array(
 	    'post_type' => array('page', 'oph-feature'),
-        'orderby' => 'type',
+        'orderby' => 'type date',
         'order' => 'DESC',
 	    'tax_query' => array(
                 array(
@@ -32,7 +32,7 @@
 
         $args3 = array(
         'post_type' => array('page', 'oph-feature'),
-        'orderby' => 'type',
+        'orderby' => 'type date',
         'order' => 'DESC',
         'tax_query' => array(
                 array(
@@ -45,7 +45,7 @@
 
         $args4 = array(
         'post_type' => array('page', 'oph-feature'),
-        'orderby' => 'type',
+        'orderby' => 'type date',
         'order' => 'DESC',
         'tax_query' => array(
                 array(
@@ -59,9 +59,9 @@
         
         
         $intro_pages = new WP_Query($args);
-        $intro_pages2 = get_posts($args2);
-        $intro_pages3 = get_posts($args3);
-        $intro_pages4 = get_posts($args4);?>
+        $intro_pages2 = new WP_Query($args2);
+        $intro_pages3 = new WP_Query($args3);
+        $intro_pages4 = new WP_Query($args4);?>
 
             <div class="col-sm-16 col-md-4 col-lg-4 frontpage-link">
             <?php if ( $intro_pages->have_posts() ) {
@@ -69,59 +69,111 @@
                     $intro_pages->the_post(); ?>
                     
                     <div class="row col-xs-16">                       
-                        <h2 class=""><?php echo get_the_title(); ?></h2>   
+                        <h2 class=""><?php echo get_the_title(); ?></h2>
+                        <?php if(has_post_thumbnail()) :
+                            the_post_thumbnail('oph-intro');
+                        endif; ?>
+                        <p><?php the_content();?></p>   
                         <?php //var_dump($content); ?> 
                     </div>
                 
                 <?php }
             } else {
                 // no posts found
-            } ?>
+            }
+                
+            wp_reset_postdata();?>
             </div>
             
             <div class="col-sm-16 col-md-4 col-lg-4 frontpage-link">
-            <?php foreach($intro_pages2 as $content2) {
-                $post_id2 = $content2->ID;
-                $post_type2 = $content2->post_type;
-                //var_dump($content);
-                ?>
-
+            <?php if ( $intro_pages2->have_posts() ) {
+                while ( $intro_pages2->have_posts() ) {
+                    $intro_pages2->the_post(); ?>
+                    
                     <div class="row col-xs-16">                       
-                        <h2 class=""><?php echo get_the_title($post_id2); echo ' "' . $post_type2 . '"'; ?></h2>   
+                        <h2 class=""><?php echo get_the_title(); ?></h2>
+                        <?php if(has_post_thumbnail()) :
+                            the_post_thumbnail('oph-intro');
+                        endif; ?>
+                        <p><?php the_content();?></p>      
                         <?php //var_dump($content); ?> 
                     </div>
-
-            <?php } ?>
+                
+                <?php }
+            } else {
+                // no posts found
+            }
+                
+            wp_reset_postdata();?>
             </div>
             
             <div class="col-sm-16 col-md-4 col-lg-4 frontpage-link">
-            <?php foreach($intro_pages3 as $content3) {
-                $post_id3 = $content3->ID;
-                $post_type3 = $content3->post_type;
-                //var_dump($content);
-                ?>
-
+            <?php if ( $intro_pages3->have_posts() ) {
+                while ( $intro_pages3->have_posts() ) {
+                    $intro_pages3->the_post(); ?>
+                    
                     <div class="row col-xs-16">                       
-                        <h2 class=""><?php echo get_the_title($post_id3); echo ' "' . $post_type3 . '"'; ?></h2>   
+                        <h2 class=""><?php echo get_the_title(); ?></h2>
+                        <?php if(has_post_thumbnail()) :
+                            the_post_thumbnail('oph-intro');
+                        endif; ?>
+                        <p><?php the_content();?></p>      
                         <?php //var_dump($content); ?> 
                     </div>
-
-            <?php } ?>
+                
+                <?php }
+            } else {
+                // no posts found
+            } 
+                
+            wp_reset_postdata();?>
             </div>
             
             <div class="col-sm-16 col-md-4 col-lg-4 frontpage-link">
-            <?php foreach($intro_pages4 as $content4) {
-                $post_id4 = $content4->ID;
-                $post_type4 = $content4->post_type;
-                //var_dump($content);
-                ?>
+            
+            <h2 class=""><?php _e( 'Upcoming', 'html5blank' ); ?></h2>
+           
+                <div id="as-calendar" style="width: 100%;"></div>
+                <script src="https://itest-oppija.oph.ware.fi/calendar/calendar.js"></script><script>// <![CDATA[
+                (function() {
+                    $("html").on("oppija-raamit-loaded", function() {
+                        var prefix = CookiePrefixResolver.getPrefix(window.location.host),
+                            key = prefix + 'i18next';
+                        ApplicationSystemCalendar.calendar({
+                            selector: '#as-calendar',
+                            lang: jQuery.cookie(key),
+                            deps: {
+                                stylesheet: 'https://itest-oppija.oph.ware.fi/calendar/css/calendar.css',
+                                underscore: 'https://itest-oppija.oph.ware.fi/calendar/lib/underscore-min.js'
+                            },
+                            calendarResource: 'https://itest-oppija.oph.ware.fi/as/fetchForCalendar'
+                        });
+                    });
+                }());
+                // ]]>
+                </script>
 
-                    <div class="row col-xs-16">                       
-                        <h2 class=""><?php echo get_the_title($post_id4); echo ' "' . $post_type4 . '"'; ?></h2>   
+           <h2 class=""><?php _e( 'News', 'html5blank' ); ?></h2>
+           
+            <?php if ( $intro_pages4->have_posts() ) {
+                while ( $intro_pages4->have_posts() ) {
+                    $intro_pages4->the_post(); ?>
+                    
+                    <div class="row col-xs-16 news">                                     
+                        <h2 class=""><?php echo get_the_title(); ?></h2>
+                        <?php if(has_post_thumbnail()) :
+                            the_post_thumbnail('oph-intro');
+                        endif; ?>
+                        <p><?php the_content();?></p>  
                         <?php //var_dump($content); ?> 
                     </div>
-
-            <?php } ?>
+                
+                <?php }
+            } else {
+                // no posts found
+            } 
+            
+            wp_reset_postdata();?>
             </div>
             
         </div>

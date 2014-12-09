@@ -1,6 +1,5 @@
-<div class="sub-page">
-    <aside>
-        <section>             
+
+<aside>        
 <?php 
  
 $ids = get_field('sidebar-content', false, false);
@@ -33,7 +32,5 @@ $query = new WP_Query($args); ?>
 		<!-- /article -->
 	
 	<?php endif; ?>
-            
-</section>
+
 </aside>
-</div>

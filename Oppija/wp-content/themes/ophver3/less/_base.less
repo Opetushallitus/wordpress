@@ -1170,30 +1170,19 @@ section h5 {
 
 .stories {
     overflow: auto;
-    width: 75%;
-    float: left;
     column-gap: 20px;
     -webkit-column-gap: 20px;
     -moz-column-gap: 20px;
-    column-count: 2;
-    -webkit-column-count: 2;
-    -moz-column-count: 2;
+    column-count: auto;
+    -webkit-column-count: auto;
+    -moz-column-count: auto;
 }
 
 .story h5 {
     font-weight: bold;
 }
 .story {
-    overflow: auto;
-    width: 75%;
-    float: left;
-}
-
-.story-single {
-    width: 50%;
-    float: left;
-    padding-right: 20px;
-    padding-right: 2rem;
+    width: inherit;
 }
 
 .story-meta {
@@ -1205,7 +1194,6 @@ section h5 {
 }
 
 .single aside {
-        width: 25%;
 }
 
 section.story {
@@ -1349,8 +1337,6 @@ h5.theme-term {
 
 .wp-pagenavi {
     display: block;
-    margin-left: 0;
-    text-align: right;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
@@ -1427,4 +1413,12 @@ aside section p {
 
 .tablepress .odd td {
         border-bottom: 1px solid @light-blue;
+}
+
+.sign-lookup {
+    padding-bottom: 20px;
+}
+
+.post-edit {
+    height: 40px;
 }

@@ -164,7 +164,7 @@ function enqueue_custom_styles_or_scripts() {
     wp_register_style('fontello', get_template_directory_uri() . '/css/fontello.css', array());
     wp_enqueue_style('fontello'); // Enqueue it!
     
-    wp_register_script('jquery-enhanced-cookie', '//opintopolku.fi/app/lib/jquery.enhanced.cookie.js', array()); // Custom scripts
+    wp_register_script('jquery-enhanced-cookie', 'https://testi.opintopolku.fi/app/lib/jquery.enhanced.cookie.js', array()); // Custom scripts
     wp_enqueue_script('jquery-enhanced-cookie'); // Enqueue it!
     
     wp_register_script('jquery-html5-placeholder', get_template_directory_uri() . '/js/vendor/jquery.html5-placeholder-shim.js', array()); // Custom scripts
@@ -456,7 +456,7 @@ function html5blankcomments($comment, $args, $depth)
 add_action('init', 'html5blank_header_scripts'); // Add Custom Scripts to wp_head
 add_action('wp_print_scripts', 'html5blank_conditional_scripts'); // Add Conditional Page Scripts
 add_action('get_header', 'enable_threaded_comments'); // Enable Threaded Comments
-add_action('wp_enqueue_scripts', 'html5blank_styles'); // Add Theme Stylesheet
+//add_action('wp_enqueue_scripts', 'html5blank_styles'); // Add Theme Stylesheet
 add_action('init', 'register_html5_menu'); // Add HTML5 Blank Menu
 add_action('init', 'create_post_type_html5'); // Add our HTML5 Blank Custom Post Type
 add_action('widgets_init', 'my_remove_recent_comments_style'); // Remove inline Recent Comment Styles from wp_head()
@@ -1149,6 +1149,7 @@ function enable_cors($result) {
 add_action( 'json_api-translate-translate_page', 'enable_cors' );
 add_action( 'json_api-nav-json_nav', 'enable_cors' );
 add_action( 'json_api-core-get_search_results', 'enable_cors' );
+add_action( 'json_api-menu-footer_links', 'enable_cors' );
 
 /*
  *  Add custom image sizes to Media settings drop down
@@ -1411,3 +1412,16 @@ function get_menu_by_location( $location ) {
 
     return $menu_obj;
 }
+
+function add_secure_video_options($html) {
+   if (strpos($html, "<iframe" ) !== false) {
+        $search = array('src="http://www.youtu','src="http://youtu');
+        $replace = array('src="https://www.youtu','src="https://youtu');
+        $html = str_replace($search, $replace, $html);
+
+        return $html;
+   } else {
+        return $html;
+   }
+}
+add_filter('the_content', 'add_secure_video_options', 10);

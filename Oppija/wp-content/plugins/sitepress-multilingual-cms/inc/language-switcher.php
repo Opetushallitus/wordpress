@@ -9,7 +9,6 @@ class SitePressLanguageSwitcher {
     var $widget_preview = false;
     var $widget_css_defaults;
 
-    var $footer_preview = false;
     var $footer_css_defaults;
 
     var $color_schemes = array(
@@ -87,18 +86,17 @@ class SitePressLanguageSwitcher {
             add_action('wp_head', array($this, 'custom_language_switcher_style'));
         }
 
-        if(!empty($sitepress_settings['display_ls_in_menu'])){
+        if(!empty($sitepress_settings['display_ls_in_menu']) && ( !function_exists( 'wpml_home_url_ls_hide_check' ) || !wpml_home_url_ls_hide_check() ) ){
             add_filter('wp_nav_menu_items', array($this, 'wp_nav_menu_items_filter'), 10, 2);
+            add_filter('wp_page_menu', array($this, 'wp_page_menu_filter'), 10, 2);
         }
 
     }
 
     function language_selector_widget_init(){
 	   	register_widget( 'ICL_Language_Switcher' );
-//        wp_register_sidebar_widget('icl_lang_sel_widget', __('Language Selector', 'sitepress'), 'language_selector_widget', array('classname'=>'icl_languages_selector'));
-//        wp_register_widget_control('icl_lang_sel_widget_control', __('Language Selector', 'sitepress'), array($this, 'set_widget') );
-        add_action('template_redirect','icl_lang_sel_nav_ob_start', 0);
-        add_action('wp_head','icl_lang_sel_nav_ob_end');
+			add_action('template_redirect','icl_lang_sel_nav_ob_start', 0);
+			add_action('wp_head','icl_lang_sel_nav_ob_end');
     }
 
     function set_widget(){
@@ -203,74 +201,87 @@ class SitePressLanguageSwitcher {
         }
     }
 
-    function language_selector_footer() {
-
+	static function get_language_selector_footer() {
 		global $sitepress;
 
-        if(function_exists('wpml_home_url_ls_hide_check') && wpml_home_url_ls_hide_check()){
-            return;
-        }
+		$language_selector_footer = '';
+		$languages = array();
 
-        $languages = $this->footer_preview ? icl_get_languages() : $sitepress->get_ls_languages();
+		if ( !function_exists( 'wpml_home_url_ls_hide_check' ) || !wpml_home_url_ls_hide_check() ) {
+			$languages = $sitepress->footer_preview ? icl_get_languages() : $sitepress->get_ls_languages();
+		}
 
-        if(!empty($languages)){
-            echo '
-                <div id="lang_sel_footer">
-                    <ul>
-                    ';
-                foreach($languages as $lang){
+		if ( ! empty( $languages ) ) {
+			$language_selector_footer = '
+							<div id="lang_sel_footer">
+									<ul>
+									';
+			foreach ( $languages as $lang ) {
 
-                    $alt_title_lang = $this->settings['icl_lso_display_lang'] ? esc_attr($lang['translated_name']) : esc_attr($lang['native_name']);
+				$alt_title_lang = $sitepress->get_setting( 'icl_lso_display_lang' ) ? esc_attr( $lang[ 'translated_name' ] ) : esc_attr( $lang[ 'native_name' ] );
 
-                    echo '    <li>';
-                    echo '<a href="'.apply_filters('WPML_filter_link', $lang['url'], $lang).'"';
-                    if($lang['active']) echo ' class="lang_sel_sel"';
-                    echo '>';
-                    if ($this->settings['icl_lso_flags'] || $this->footer_preview) echo '<img src="'.$lang['country_flag_url'].'" alt="'. $alt_title_lang .'" class="iclflag" title="' . $alt_title_lang . '" ';
-                    if (!$this->settings['icl_lso_flags'] && $this->footer_preview) echo ' style="display:none;"';
-                    if ($this->settings['icl_lso_flags'] || $this->footer_preview) echo ' />&nbsp;';
-                    //if(!$l['active']) echo '</a>';
-                    //if(!$l['active']) echo '<a href="'.$l['url'].'">';
-                    if($this->footer_preview){
-                            $lang_native = $lang['native_name'];
-                            if($this->settings['icl_lso_native_lang']){
-                                $lang_native_hidden = false;
-                            }else{
-                                $lang_native_hidden = true;
-                            }
-                            $lang_translated = $lang['translated_name'];
-                            if($this->settings['icl_lso_display_lang']){
-                                $lang_translated_hidden = false;
-                            }else{
-                                $lang_translated_hidden = true;
-                            }
-                        }else{
-                            if($this->settings['icl_lso_native_lang']){
-                                $lang_native = $lang['native_name'];
-                            }else{
-                                $lang_native = false;
-                            }
-                            if($this->settings['icl_lso_display_lang']){
-                                $lang_translated = $lang['translated_name'];
-                            }else{
-                                $lang_translated = false;
-                            }
-                            $lang_native_hidden     = false;
-                            $lang_translated_hidden = false;
-                        }
-                        echo icl_disp_language($lang_native, $lang_translated, $lang_native_hidden, $lang_translated_hidden);
-                    //echo icl_disp_language( $this->settings['icl_lso_native_lang'] ? $l['native_name'] : null, $this->settings['icl_lso_display_lang'] ? $l['translated_name'] : null );
-                    //if(!$l['active']) echo '</a>';
-                    echo '</a>';
-                    echo '</li>
-                    ';
-                }
-            echo '</ul>
-                </div>';
-            }
-    }
+				$language_selector_footer .= '    <li>';
+				$language_selector_footer .= '<a href="' . apply_filters( 'WPML_filter_link', $lang[ 'url' ], $lang ) . '"';
+				if ( $lang[ 'active' ] ) {
+					$language_selector_footer .= ' class="lang_sel_sel"';
+				}
+				$language_selector_footer .= '>';
+				if ( $sitepress->get_setting( 'icl_lso_flags' ) || $sitepress->footer_preview ) {
+					$language_selector_footer .= '<img src="' . $lang[ 'country_flag_url' ] . '" alt="' . $alt_title_lang . '" class="iclflag" title="' . $alt_title_lang . '" ';
+				}
+				if ( ! $sitepress->get_setting( 'icl_lso_flags' ) && $sitepress->footer_preview ) {
+					$language_selector_footer .= ' style="display:none;"';
+				}
+				if ( $sitepress->get_setting( 'icl_lso_flags' ) || $sitepress->footer_preview ) {
+					$language_selector_footer .= ' />&nbsp;';
+				}
+
+				if ( $sitepress->footer_preview ) {
+					$lang_native = $lang[ 'native_name' ];
+					if ( $sitepress->get_setting( 'icl_lso_native_lang' ) ) {
+						$lang_native_hidden = false;
+					} else {
+						$lang_native_hidden = true;
+					}
+					$lang_translated = $lang[ 'translated_name' ];
+					if ( $sitepress->get_setting( 'icl_lso_display_lang' ) ) {
+						$lang_translated_hidden = false;
+					} else {
+						$lang_translated_hidden = true;
+					}
+				} else {
+					if ( $sitepress->get_setting( 'icl_lso_native_lang' ) ) {
+						$lang_native = $lang[ 'native_name' ];
+					} else {
+						$lang_native = false;
+					}
+					if ( $sitepress->get_setting( 'icl_lso_display_lang' ) ) {
+						$lang_translated = $lang[ 'translated_name' ];
+					} else {
+						$lang_translated = false;
+					}
+					$lang_native_hidden     = false;
+					$lang_translated_hidden = false;
+				}
+				$language_selector_footer .= icl_disp_language( $lang_native, $lang_translated, $lang_native_hidden, $lang_translated_hidden );
+
+				$language_selector_footer .= '</a>';
+				$language_selector_footer .= '</li>
+									';
+			}
+			$language_selector_footer .= '</ul>
+							</div>';
+
+		}
+		return $language_selector_footer;
+	}
+
+	function language_selector_footer() {
+		echo self::get_language_selector_footer();
+	}
 
 	function admin() {
+		global $sitepress;
 		foreach ( $this->color_schemes as $key => $val ): ?>
 			<?php foreach ( $this->widget_css_defaults as $k => $v ): ?>
 				<input type="hidden" id="icl_lang_sel_config_alt_<?php echo $key ?>_<?php echo $k ?>" value="<?php echo $this->color_schemes[ $key ][ $k ] ?>"/>
@@ -407,13 +418,11 @@ class SitePressLanguageSwitcher {
 				<?php _e( 'Show language switcher in footer', 'sitepress' ) ?>
 			</label>
 		</p>
-		<div id="icl_lang_sel_footer_preview_wrap" class="language-selector-preview language-selector-preview-footer <?php if ( empty( $this->settings[ 'icl_lang_sel_footer' ] ) ) {
-			echo 'hidden';
-		} ?>">
+		<div id="icl_lang_sel_footer_preview_wrap" class="language-selector-preview language-selector-preview-footer">
 			<div id="icl_lang_sel_footer_preview">
 				<p><strong><?php _e( 'Footer language switcher preview', 'sitepress' ) ?></strong></p>
 				<?php
-				$this->footer_preview = true;
+				$sitepress->footer_preview = true;
 				$this->language_selector_footer();
 				?>
 			</div>
@@ -429,8 +438,7 @@ class SitePressLanguageSwitcher {
 			<?php endforeach; ?>
 
 			<p>
-				<a href="#icl_lang_preview_config_footer_editor_wrapper" id="icl_lang_sel_footer_preview_link" class="js-toggle-colors-edit" <?php if ( empty( $this->settings[ 'icl_lang_sel_footer' ] ) )
-					echo 'style="display:none;" '; ?>>
+				<a href="#icl_lang_preview_config_footer_editor_wrapper" id="icl_lang_sel_footer_preview_link" class="js-toggle-colors-edit">
 					<?php _e( 'Edit the footer language switcher colors', 'sitepress' ) ?>
 					<i class="icon-caret-down js-arrow-toggle"></i>
 				</a>
@@ -577,14 +585,17 @@ class SitePressLanguageSwitcher {
 			</div> <!-- .wpml-section-content-inner -->
 
 			<div class="wpml-section-content-inner">
-				<h4><?php _e( 'Additional CSS (optional)', 'sitepress' ); ?></h4>
+				<h4><label for="icl_additional_css"><?php _e( 'Additional CSS (optional)', 'sitepress' ); ?></label></h4>
 
 				<p>
-					<textarea name="icl_additional_css" rows="4" cols="80">
-						<?php if ( !empty( $this->settings[ 'icl_additional_css' ] ) ) {
-							echo $this->settings[ 'icl_additional_css' ];
-						} ?>
-					</textarea>
+					<?php
+					if ( ! empty( $this->settings[ 'icl_additional_css' ] ) ) {
+						$icl_additional_css = trim( $this->settings[ 'icl_additional_css' ] );
+					} else {
+						$icl_additional_css = '';
+					}
+					?>
+					<textarea id="icl_additional_css" name="icl_additional_css" rows="4" class="large-text"><?php echo $icl_additional_css; ?></textarea>
 				</p>
 			</div> <!-- .wpml-section-content-inner -->
 
@@ -758,6 +769,21 @@ class SitePressLanguageSwitcher {
         }
     }
 
+    function wp_page_menu_filter($items, $args) {
+        $obj_args = new stdClass();
+        foreach ($args as $key => $value)
+        {
+            $obj_args->$key = $value;
+        }
+
+        $items = str_replace("</ul></div>", "", $items);
+
+        $items = apply_filters( 'wp_nav_menu_items', $items, $obj_args );
+
+        $items .= "</ul></div>";
+
+        return $items;
+    }
     function wp_nav_menu_items_filter($items, $args){
         global $sitepress_settings, $sitepress;
 
@@ -767,8 +793,9 @@ class SitePressLanguageSwitcher {
         if(isset($args->menu->term_id)) $args->menu = $args->menu->term_id;
 
 		$abs_menu_id = icl_object_id($args->menu, 'nav_menu', false, $default_language );
+	    $settings_menu_id = icl_object_id( $sitepress_settings[ 'menu_for_ls' ], 'nav_menu', false, $default_language );
 
-        if($abs_menu_id == $sitepress_settings['menu_for_ls']){
+	    if ( $abs_menu_id == $settings_menu_id  || false === $abs_menu_id ) {
 
             $languages = $sitepress->get_ls_languages();
 

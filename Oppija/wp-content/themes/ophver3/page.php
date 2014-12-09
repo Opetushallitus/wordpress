@@ -10,15 +10,20 @@
 	<!-- /breaddcrumb -->
 
 	<!-- secondary navigation -->
-    <nav class="sidenav">
-		<ul>
-            <?php oph_subnavi(); ?>
-	   </ul>
-	</nav>
-    <!-- /secondary navigation -->   
- 	
+<div class="row padding-bottom-10">
+    <div class="col-sm-16 col-sm-16 col-sm-16">	
+        <div class="col-sm-16 col-md-4 col-lg-4">   
+            <nav class="sidenav">
+                <ul>
+                    <?php oph_subnavi(); ?>
+                </ul>
+            </nav>
+        </div>	
 	
-	<div class="center-content">
+    <!-- /secondary navigation -->   
+ 		
+	
+	<div class="col-sm-8 col-md-8 col-lg-8">  
 	
 	<?php if (have_posts()): while (have_posts()) : the_post(); ?>
 	
@@ -50,12 +55,14 @@
 		<!-- /article -->
 	
 	<?php endif; ?>
-	
 	</div>
-<?php //get_sidebar(); 
-    get_template_part('related-content');
-?>
+	
+	<div class="col-sm-4 col-md-4 col-lg-4">  
+    <?php //get_sidebar(); 
+        get_template_part('related-content');
+    ?>
     
     <?php require_once('sidebar-content.php') ?>
+    </div>
 
 <?php get_footer( get_bloginfo('language') ); ?>

@@ -75,7 +75,7 @@ function icl_plugin_upgrade(){
         foreach($res as $row) { 
             $icltr = $wpdb->get_row(
 										$wpdb->prepare("SELECT translation_id, element_type FROM {$wpdb->prefix}icl_translations WHERE element_id=%d AND element_type LIKE %s", 
-										array( $row->term_taxonomy_id, like_escape('tax_') . '%' ))
+										array( $row->term_taxonomy_id, wpml_like_escape('tax_') . '%' ))
 														);
             if('tax_' . $row->taxonomy != $icltr->element_type){
                 $wpdb->update($wpdb->prefix . 'icl_translations', array('element_type'=>'tax_'.$row->taxonomy), array('translation_id'=>$icltr->translation_id));
@@ -124,6 +124,8 @@ function icl_plugin_upgrade(){
 	icl_upgrade_version('3.1');
 
 	icl_upgrade_version('3.1.5');
+
+    icl_upgrade_version('3.1.8');
 
 	//Forcing upgrade logic when ICL_SITEPRESS_DEV_VERSION is defined
 	//This allow to run the logic between different alpha/beta/RC versions

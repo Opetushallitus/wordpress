@@ -74,7 +74,7 @@ class WPML_Media
 
 				// Post/page save actions
 
-				add_action( 'save_post', array( $this, 'save_post_actions' ), 10, 2 );
+				add_action( 'save_post', array( $this, 'save_post_actions' ), 100, 2 );
 				add_action( 'icl_make_duplicate', array( $this, 'make_duplicate' ), 10, 4 );
 
 				add_action( 'added_post_meta', array( $this, 'added_post_meta' ), 10, 4 );
@@ -412,14 +412,12 @@ class WPML_Media
 					$this->translate_attachments( $attachment->ID, $source_language );
 				} else {
 					//Original attachment is present
-					if ( $original_attachment_id ) {
-						$original = get_post( $original_attachment_id );
-						$codes    = array_keys( $sitepress->get_active_languages() );
-						foreach ( $codes as $code ) {
-							//If translation is not present, create it
-							if ( !in_array( $code, $translated_languages ) ) {
+					$original = get_post( $original_attachment_id );
+					$codes    = array_keys( $sitepress->get_active_languages() );
+					foreach ( $codes as $code ) {
+						//If translation is not present, create it
+						if ( !in_array( $code, $translated_languages ) ) {
 								self::create_duplicate_attachment( $attachment_id, $original->post_parent, $code );
-							}
 						}
 					}
 				}
@@ -488,14 +486,23 @@ class WPML_Media
 			//Do not attach this media if _wpml_media_duplicate is not set
 			$post->post_parent        = $translated_parent_id;
 			$post->ID                 = null;
-			$duplicated_attachment_id = wp_insert_post( $post );
 
+			if (isset($GLOBALS['wp_filter']['add_attachment'])) {
+				$add_attachment_filters_temp = $GLOBALS['wp_filter']['add_attachment'];
+				unset($GLOBALS['wp_filter']['add_attachment']);
+			}
+				$duplicated_attachment_id = wp_insert_post( $post );
+			if (isset($add_attachment_filters_temp)) {
+				$GLOBALS['wp_filter']['add_attachment'] = $add_attachment_filters_temp;
+				unset($add_attachment_filters_temp);
+			}
+			
 			$sitepress->set_element_language_details( $duplicated_attachment_id, 'post_attachment', $trid, $target_language, $source_language );
 		}
 
 		// duplicate the post meta data.
-		//$meta = get_post_meta( $attachment_id, '_wp_attachment_metadata', true );
-		//update_post_meta( $duplicated_attachment_id, '_wp_attachment_metadata', $meta );
+		$meta = get_post_meta( $attachment_id, '_wp_attachment_metadata', true );
+		update_post_meta( $duplicated_attachment_id, '_wp_attachment_metadata', $meta );
 		update_post_meta( $duplicated_attachment_id, 'wpml_media_processed', 1 );
 		$attached_file = get_post_meta( $attachment_id, '_wp_attached_file', true );
 		update_post_meta( $duplicated_attachment_id, '_wp_attached_file', $attached_file );
@@ -650,6 +657,13 @@ class WPML_Media
 			$sitepress->set_element_language_details( $attachment->ID, 'post_attachment', $trid, $target_language );
 
 		}
+
+		//Duplicate the post meta of the source element the translation
+		$source_element_id = SitePress::get_original_element_id_by_trid( $trid );
+		if ( $source_element_id ) {
+			$this->update_attachment_metadata( $source_element_id );
+		}
+
 		update_post_meta( $attachment->ID, 'wpml_media_processed', 1 );
 	}
 
@@ -1630,6 +1644,16 @@ class WPML_Media
 			$lang = $sitepress->get_current_language();
 
 			foreach ( $views as $key => $view ) {
+				// extract the base URL and query parameters
+				$href_count = preg_match( '/(href=["\'])([\s\S]+?)\?([\s\S]+?)(["\'])/', $view, $href_matches );	
+				if ( $href_count ) {
+					$href_base = $href_matches[2];
+					wp_parse_str( $href_matches[3], $href_args );
+				} else {
+					$href_base = 'upload.php';
+					$href_args = array();
+				}
+
 				if ( $lang != 'all' ) {
 					$sql = "
 						SELECT COUNT(p.id)
@@ -1643,24 +1667,40 @@ class WPML_Media
 
 					switch ( $key ) {
 						case 'all';
+							$and = " AND p.post_status != 'trash' ";
 							break;
 						case 'detached':
-							$sql .= " AND p.post_parent = 0 ";
+							$and = " AND p.post_status != 'trash' AND p.post_parent = 0 ";
+							break;
+						case 'trash':
+							$and = " AND p.post_status = 'trash' ";
 							break;
 						default:
-							$sql .= " AND p.post_mime_type LIKE '" . $key . "%'";
+							if ( isset( $href_args['post_mime_type'] ) ) {
+								$and = " AND p.post_status != 'trash' " . wp_post_mime_type_where( $href_args['post_mime_type'], 'p' );
+							} else {
+								$and = " AND p.post_status != 'trash' AND p.post_mime_type LIKE '" . $key . "%'";
+							}
 					}
 
+					$and = apply_filters( 'wpml-media_view-upload-sql_and', $and, $key, $view, $lang );
+
+					$sql_and = $sql . $and;
+					$sql = apply_filters( 'wpml-media_view-upload-sql', $sql_and, $key, $view, $lang );
+
+					$res = apply_filters( 'wpml-media_view-upload-count', NULL, $key, $view, $lang );
+					if ( NULL === $res ) {
 					$res = $wpdb->get_col( $sql );
+					}
 					//replace count
 					$view = preg_replace( '/\((\d+)\)/', '(' . $res[ 0 ] . ')', $view );
 				}
-				//replace href link
-				if ( $key == 'all' ) {
-					$views[ $key ] = preg_replace( '/(href=["\'])([\s\S]+?)(["\'])/', '$1$2?lang=' . $lang . '$3', $view );
-				} else {
-					$views[ $key ] = preg_replace( '/(href=["\'])([\s\S]+?)(["\'])/', '$1$2&lang=' . $lang . '$3', $view );
-				}
+
+				//replace href link, adding the 'lang' argument and the revised count
+				$href_args['lang'] = $lang;
+				$href_args = array_map( 'urlencode', $href_args );
+				$new_href = add_query_arg( $href_args, $href_base );
+				$views[ $key ] = preg_replace( '/(href=["\'])([\s\S]+?)(["\'])/', '$1' . $new_href . '$3', $view );
 			}
 		}
 
@@ -1670,6 +1710,12 @@ class WPML_Media
 	function language_filter_upload_page()
 	{
 		global $sitepress, $wpdb;
+
+		//save query argments for building language-specific links
+		$href_args = array();
+		foreach( $_GET as $key => $value ) {
+			$href_args[ $key ] = urlencode( stripslashes( $value ) );
+		}
 
 		//get language code
 		if ( isset( $_GET[ 'lang' ] ) ) {
@@ -1689,15 +1735,9 @@ class WPML_Media
 
 		$langc[ 'all' ] = 0;
 		$language_items = array();
-
-		$url = $_SERVER[ 'REQUEST_URI' ];
-		$url .= strpos( $url, '?' ) === false ? '?' : '&';
-		if ( isset( $_GET[ 'lang' ] ) ) {
-			unset( $_GET[ 'lang' ] );
-			$url = !empty( $_GET ) ? $_SERVER[ 'SCRIPT_NAME' ] . '?' . http_build_query( $_GET ) . '&' : $_SERVER[ 'SCRIPT_NAME' ] . '?';
-		}
-        
 		foreach ( $active_languages as $lang ) {
+			//count language-specific attachments
+			if ( $lang[ 'code' ] != 'all' ) {
 			//select all attachments
 			$sql = "
 				SELECT COUNT(p.id)
@@ -1708,31 +1748,37 @@ class WPML_Media
 				AND t.element_type ='post_attachment'
 				AND t.language_code='" . $lang[ 'code' ] . "'
 			";
+				//handle trash setting
+				if ( isset( $_GET[ 'status' ] ) ) {
+					$sql .= " AND p.post_status = 'trash' ";
+				} else {
+					$sql .= " AND p.post_status != 'trash' ";
+				}
 			//select detached attachments
 			if ( isset( $_GET[ 'detached' ] ) )
 				$sql .= " AND p.post_parent = 0 ";
 			//select mime type(image,etc) attachments
 			if ( isset( $_GET[ 'post_mime_type' ] ) )
-				$sql .= " AND p.post_mime_type LIKE '" . $_GET[ 'post_mime_type' ] . "%'";
+					$sql .= wp_post_mime_type_where( $_GET['post_mime_type'], 'p' );
+	
+				$sql = apply_filters( 'wpml-media_view-upload-page-sql', $sql, $lang );
+	
+				$res = apply_filters( 'wpml-media_view-upload-page-count', NULL, $lang );
+				if ( NULL === $res ) {
 			$res = $wpdb->get_col( $sql );
+				}
 
-			//count attachments
-			if ( $lang[ 'code' ] != 'all' )
 				$langc[ $lang[ 'code' ] ] = $res[ 0 ];
 			$langc[ 'all' ] += $res[ 0 ];
+			}
 
 			//generation language block
 			if ( $lang[ 'code' ] == $lang_code ) {
 				$px = '<strong>';
 				$sx = ' <span class="count">(' . $langc[ $lang[ 'code' ] ] . ')</span></strong>';
 			} else {
-				if ( isset( $_GET[ 'post_mime_type' ] ) ) {
-					$px = '<a href="' . $url . 'post_mime_type=' . $_GET[ 'post_mime_type' ] . '&lang=' . $lang[ 'code' ] . '">';
-				} elseif ( isset( $_GET[ 'detached' ] ) ) {
-					$px = '<a href="' . $url . 'detached=' . $_GET[ 'detached' ] . '&lang=' . $lang[ 'code' ] . '">';
-				} else {
-					$px = '<a href="' . $url . 'lang=' . $lang[ 'code' ] . '">';
-				}
+				$href_args['lang'] = $lang[ 'code' ];
+				$px = '<a href="' . add_query_arg( $href_args, '' ) . '">';
 				$sx = '</a> <span class="count">(' . $langc[ $lang[ 'code' ] ] . ')</span>';
 			}
 			$language_items[ ] = $px . $lang[ 'display_name' ] . $sx;
@@ -1823,8 +1869,8 @@ class WPML_Media
 			}
 		} else {
 
-			if ( $query->is_tax() && $query->is_main_query() ) {
-				$tax            = $query->get( 'taxonomy' );
+			if ( is_tax() && is_main_query() ) {
+				$tax            = get_query_var( 'taxonomy' );
 				$taxonomy_types = $wp_taxonomies[ $tax ]->object_type;
 
 				foreach ( $taxonomy_types as $k => $v ) {
