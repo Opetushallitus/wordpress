@@ -121,8 +121,19 @@
                     <!-- /post title -->
 
                     <?php html5wp_excerpt('html5wp_index', 'html5_blank_view_article'); // Build your custom callback length in functions.php ?>
-
-                    <p><a href="<?php print_r(get_term_link($term_slug, 'story-theme')); ?>"><?php _e('View all articles', 'html5blank'); ?></a></p>
+                    <div class="visible-xs sign-lookup"> 
+                        <a href="<?php print_r(get_term_link($term_slug, 'story-theme')); ?>">
+                            <span class="sign">
+                                <span class="sign-inner"><?php _e('View all articles', 'html5blank'); ?></span>
+                            </span>
+                        </a>
+                    </div>
+                    
+                    <div class="hidden-xs sign-lookup"> 
+                        <a href="<?php print_r(get_term_link($term_slug, 'story-theme')); ?>">
+                            <?php _e('View all articles', 'html5blank'); ?>
+                        </a>
+                    </div>
 
                 </div>
             </article>

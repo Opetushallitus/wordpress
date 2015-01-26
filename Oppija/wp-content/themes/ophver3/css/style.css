@@ -473,10 +473,7 @@ section {
 body {
   line-height: 1;
 }
-ol,
-ul {
-  list-style: none;
-}
+
 blockquote,
 q {
   quotes: none;
@@ -507,6 +504,7 @@ body {
   line-height: 20px;
   line-height: 2rem;
   color: #333333;
+  background-color: #f8f8f8 !important;
 }
 * {
   -webkit-box-sizing: border-box;
@@ -728,8 +726,8 @@ img {
 }
 hr {
   border: 0;
-  border-bottom: 1px dashed #c3c3c3;
-  background: #e7e7e7;
+  border-bottom: 1px solid #c3c3c3;
+  background: #dddddd;
   margin: 0px 0 20px 0;
 }
 /*********************
@@ -1943,10 +1941,7 @@ you can add resource intensive styles.
     min-height: 220px;
   }
   /* SUB-page */
-  nav.sidenav {
-    float: left;
 
-  }
   .page .center-content {
     width: 50%;
     float: left;
@@ -2163,19 +2158,48 @@ a.no_icon:before {
    }
 }
 
-.news ul li {
-    list-style: initial;
+.os-box {
+    background-image: url(../img/oppisopimusnosto-tausta.png);
+    background-repeat: repeat-x;
+    margin-bottom: 10px;
+    border: 1px solid #bee4f1;
 }
+
+.os-wrapper h4 {
+    margin-bottom: 10px;
+    color: #00556e;
+}
+
+.os-box img {
+    border: 0px !important;
+}
+
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+
+
+nav.sidenav {
+    float: left;
+    width: 100%;
+}
+
+
+.search-button {
+    padding-top: 2px;
+}
+
+button.btn.btn-primary {
+    width: initial !important;
+}
+
 
 @media all and (max-width: 768px) {
   .search-education {
       text-align: center;
       padding-bottom: 10px;
-   }
-    
-   .search-button {
-       text-align: center;
-       padding-top: 10px;
    }
     
     nav.sidenav {
@@ -2195,5 +2219,112 @@ a.no_icon:before {
     
     .story {
         width: inherit;
+    }
+    
+    .glyphicon.glyphicon-search {
+        padding-right: 0px !important;
+    }
+}
+
+#maincontent {
+    background-color: #fff;
+    padding-top: 5px;
+    border: 1px solid #efefef;
+}
+
+input#search-field-frontpage {
+    background-color: #fff !important;
+}
+
+.list-arrow {
+    list-style-image: url('../img/link_arrow.jpg');
+    line-height: 2em;
+}
+
+.list-arrow a {
+    color: #149ecb;
+}
+
+#sitefooter {
+    padding-top: 20px;
+}
+
+button.btn.btn-primary {
+    height: inherit !important;
+}
+
+.search-education a {
+    text-decoration: none;
+}
+
+.btn-secondary {
+    width: initial;
+    color: #333333;
+    text-shadow: none;
+    background-color: #feba00;
+    background-image: none;
+    border: 1px solid #dea300;
+    -webkit-box-shadow: inset 1px 1px 1px rgba(253, 237, 193,1.0);
+    -moz-box-shadow: inset 1px 1px 1px rgba(253, 237, 193,1.0);
+    box-shadow: inset 1px 1px 1px rgba(253, 237, 193,1.0);
+}
+
+.btn-secondary:hover {
+    color: #333333;
+    background-color: #e99f00;
+    border-color: #c69100;
+    -webkit-box-shadow: inset 1px 1px 1px rgba(253, 237, 193, 1.0);
+    -moz-box-shadow: inset 1px 1px 1px rgba(253, 237, 193, 1.0);
+    box-shadow: inset 1px 1px 1px rgba(253, 237, 193, 1.0);
+}
+
+.btn-secondary:active {
+    color: #333333;
+    background-color: #e99f00;
+    border-color: #c69100;
+    -webkit-box-shadow: inset 1px 1px 1px rgba(253, 237, 193, 1.0);
+    -moz-box-shadow: inset 1px 1px 1px rgba(253, 237, 193, 1.0);
+    box-shadow: inset 1px 1px 1px rgba(253, 237, 193, 1.0);
+}
+
+.btn-secondary:focus {
+    color: #333333;
+    background-color: #e99f00;
+    border-color: #c69100;
+    -webkit-box-shadow: inset 1px 1px 1px rgba(253, 237, 193, 1.0);
+    -moz-box-shadow: inset 1px 1px 1px rgba(253, 237, 193, 1.0);
+    box-shadow: inset 1px 1px 1px rgba(253, 237, 193, 1.0);
+}
+
+a.btn.btn-secondary.external:before {
+    content: '';
+}
+
+.text-center.search-link a {
+    text-decoration: none;
+}
+
+.input-group-btn:last-child>.btn {
+    border-radius: 3px !important;
+}
+
+.sidenav ul {
+    list-style-type: none;
+}
+
+.author-avatar {
+    float: left;
+    padding-right: 10px;
+}
+button.btn.btn-primary {
+    width: 100% !important;
+}
+@media all and (min-width: 768px) { 
+    span.input-group-btn {
+        width: 100%;
+    }
+    
+    .glyphicon.glyphicon-search {
+        padding-right: 0px !important;
     }
 }

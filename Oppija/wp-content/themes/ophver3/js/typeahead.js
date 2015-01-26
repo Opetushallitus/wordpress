@@ -1,4 +1,9 @@
     jQuery(document).ready(function() {
+            
+    var prefix = CookiePrefixResolver.getPrefix(window.location.host), 
+    key = prefix + 'i18next';    
+        
+    var lang = jQuery.cookie(key);    
         
     // Instantiate the Bloodhound suggestion engines
     var set1 = new Bloodhound({
@@ -7,7 +12,7 @@
         },
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         remote: {
-            url: 'https://itest-oppija.oph.ware.fi/lo/autocomplete?lang=fi&term=%QUERY',
+            url: 'https://itest-oppija.oph.ware.fi/lo/autocomplete?lang=' + lang + '&term=%QUERY',
             filter: function (set1) {
 
                 return $.map(set1.keywords, function (word) {                
@@ -25,7 +30,7 @@
         },
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         remote: {
-            url: 'https://itest-oppija.oph.ware.fi/lo/autocomplete?lang=fi&term=%QUERY',
+            url: 'https://itest-oppija.oph.ware.fi/lo/autocomplete?lang=' + lang + '&term=%QUERY',
             filter: function (set2) {
 
                 return $.map(set2.loNames, function (name) {                
@@ -36,13 +41,6 @@
             }
         }
     });
-
-    var prefix = CookiePrefixResolver.getPrefix(window.location.host), 
-        key = prefix + 'i18next';    
-        
-    var lang = jQuery.cookie(key);
-        
-    console.log(lang);
         
     var word_suggestion;
     var degree_suggestion;    

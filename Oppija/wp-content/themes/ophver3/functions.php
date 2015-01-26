@@ -74,6 +74,11 @@ if (function_exists('add_theme_support'))
 	Functions
 \*------------------------------------*/
 
+include(get_template_directory() . '/custom-shortcodes.php');
+
+add_shortcode( 'os-raise-box', 'os_raises' );
+
+
 // HTML5 Blank navigation
 function html5blank_nav()
 {
@@ -1149,7 +1154,7 @@ function enable_cors($result) {
 add_action( 'json_api-translate-translate_page', 'enable_cors' );
 add_action( 'json_api-nav-json_nav', 'enable_cors' );
 add_action( 'json_api-core-get_search_results', 'enable_cors' );
-add_action( 'json_api-menu-footer_links', 'enable_cors' );
+add_action( 'json_api-menus-footer_links', 'enable_cors' );
 
 /*
  *  Add custom image sizes to Media settings drop down

@@ -4,6 +4,8 @@
  
 $ids = get_field('sidebar-content', false, false);
 
+if($ids != '') {
+
 $args = array(
     'post__in' => $ids,
     'post_type' => 'sidebar-content',
@@ -31,6 +33,10 @@ $query = new WP_Query($args); ?>
 		</article>
 		<!-- /article -->
 	
+	
+	
 	<?php endif; ?>
+	
+	<?php } ?>
 
 </aside>

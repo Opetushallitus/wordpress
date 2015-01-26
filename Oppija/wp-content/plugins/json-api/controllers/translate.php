@@ -46,16 +46,20 @@ class JSON_API_Translate_Controller {
         if($page_language == 'fi') :
             $lang = 'sv';
         endif;
-
-		
+      
         $translated_id = icl_object_id($page_id, 'page', true, $lang);
         $translated_page_data = get_page($translated_id);
         $translated_title = $translated_page_data->post_title;
-        
+    
+      
 		if($is_home == true) : 
 			
 			$translated_permalink = $page_url;
-			echo 'kotona!';
+      
+        elseif ($page_title == $translated_title) :
+            
+            $home = icl_get_home_url();    
+            $translated_permalink = $home;
 		
 		else :
 		

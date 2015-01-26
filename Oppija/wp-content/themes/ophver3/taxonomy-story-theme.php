@@ -9,6 +9,9 @@
     </nav>
     <!-- /breaddcrumb -->
 
+ <div class="row padding-bottom-10">
+<div class="col-sm-16 col-sm-16 col-sm-16">
+<div class="col-sm-16 col-md-4 col-lg-4">     
     <nav class="sidenav">
         <ul>
             <li>
@@ -31,6 +34,7 @@
             </li>
         </ul>
     </nav>
+</div>    
 
 <h1><?php _e( 'Tutustu tarinoihin', 'html5blank' ); ?></h1>
 <h5 class="theme-term"><?php single_cat_title(); ?></h5>
@@ -42,6 +46,7 @@
     
             $first_query = new WP_Query($args); 
     ?>
+    <div class="col-sm-16 col-md-12 col-lg-12">  
     <div class="stories">
 	<!-- section -->
     <?php if ($first_query->have_posts() && !is_paged()): while ($first_query->have_posts()) : $first_query->the_post(); ?>
@@ -114,8 +119,8 @@
         </section>
 
 <?php endif; ?>
-        
-    </div>
-    <!-- /stories -->           
+    </div>  
+    </div> <!-- /stories -->  
+</div>             
 
 <?php get_footer();

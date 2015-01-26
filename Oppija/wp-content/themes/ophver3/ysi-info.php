@@ -15,16 +15,18 @@ Template Name: Ysi-info
 	<!-- /breaddcrumb -->
 
 	<!-- secondary navigation -->
-    <nav class="sidenav">
-		<ul>
-            <?php oph_subnavi(); ?>
-	   </ul>
-	</nav>
+<div class="row padding-bottom-10">
+    <div class="col-xs-16 col-sm-16 col-sm-16 col-sm-16">	
+        <div class="col-xs-16 col-sm-16 col-md-4 col-lg-4">   
+            <nav class="sidenav">
+                <ul>
+                    <?php oph_subnavi(); ?>
+                </ul>
+            </nav>
+        </div>	
   
     <!-- /secondary navigation -->   
- 	
-      <!-- bg-item container -->
-	<div class="bg-item">
+ 	<div class="bg-item col-xs-16 col-sm-16 col-md-12 col-lg-12">  
       
       <!-- main-column -->
       <div class="main-column">
@@ -158,15 +160,6 @@ Template Name: Ysi-info
 		<!-- /article -->
 	
 	<?php endif; ?>
-                
-     
-	</div><!-- /sivupohja -->
 
-
-<?php //get_sidebar(); 
-    get_template_part('related-content');
-?>
-    
-    <?php require_once('sidebar-content.php') ?>
-
+</div>
 <?php get_footer( get_bloginfo('language') ); ?>

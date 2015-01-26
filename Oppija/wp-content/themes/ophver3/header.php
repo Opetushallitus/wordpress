@@ -73,7 +73,7 @@
              
 </head>
 <body <?php body_class(); ?> style="display: none" aria-busy="true">
-    <div class="container-fluid">
+    <div class="container">
     <a href="#maincontent" class="offscreen"><?php _e('Skip to content', 'html5blank'); ?></a>
     <noscript>
        <div class="notification">
@@ -121,23 +121,28 @@
     
     <?php wp_reset_postdata(); ?>
     
-    <div class="<?php if (is_front_page() || $post->post_type == 'post') echo 'row'; ?> search-group padding-top-20 padding-bottom-20">
-            <form action="/app/#!/haku/" id="ki-search" class="form-horizontal col-lg-13 col-lg-offset-2">
+    <div class="<?php if (is_front_page()) echo 'row'; ?> search-group padding-top-20 padding-bottom-20">
+            <form action="/app/#!/haku/" id="ki-search" class="form-horizontal col-sm-14 col-sm-offset-1">
                 <div class="form-group">
-                    <div class="col-lg-4 col-lg-offset-0 col-xs-8 col-xs-offset-5 search-education">
+                    <div class="hidden-xs hidden-sm col-lg-4 col-md-4 col-sm-4 col-sm-offset-0 search-education">
                        <label for="search-field-frontpage" class="control-label find"><?php _e('Etsi koulutuksia tästä') ?></label>
                     </div>
-                    <div class="col-lg-6 col-sm-16 search-input-field">
+                    <div class="col-lg-6 col-md-6 col-sm-14 col-xs-13 search-input-field">
 
                     <input type="text" tabindex="1" class="search-field" id="search-field-frontpage" data-provide="typeahead" name="search-field" placeholder="<?php _e('Kirjoita tähän esim. tutkinto, ammatti tai oppilaitoksen nimi') ?>" value="">
                     
-                    <div class="text-right">
-                        <a href="../app/#!/selailu/aihe"><?php _e('Find education') ?></a>
+                    <div class="hidden-xs hidden-sm text-center search-link">
+                        <a href="/app/#!/selailu/aihe"><?php _e('Find education') ?></a>
                     </div>
                     
                     </div>
-                        <div class="col-lg-4 col-lg-offset-0 col-xs-8 col-xs-offset-5 search-button">
-                        <span class="input-group-btn"><button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span><?php _e('Hae') ?></button></span>
+                    <div class="col-md-2 col-sm-2 col-xs-3 search-button">
+                        <span class="input-group-btn">
+                           <button class="btn btn-primary" type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                                <span class="hidden-xs"><?php _e('Hae') ?></span>
+                            </button>
+                        </span>
                     </div>
                 </div>
             </form>
@@ -155,4 +160,4 @@
         });
         </script>
         
-    <div id="maincontent" class="content <?php if ( !is_front_page() && !($post->post_type == 'post')) echo 'container'; ?>">
+    <div id="maincontent" class="content <?php if ( !is_front_page()) echo 'container'; ?> row">

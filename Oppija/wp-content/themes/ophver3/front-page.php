@@ -1,6 +1,6 @@
 <?php get_header( get_bloginfo('language') ); ?>
 
-        <div class="row padding-bottom-10">
+        <div class="padding-bottom-10">
 
         <?php
         
@@ -68,7 +68,7 @@
                 while ( $intro_pages->have_posts() ) {
                     $intro_pages->the_post(); ?>
                     
-                    <div class="row col-xs-16">                       
+                    <div class="col-xs-16">                       
                         <h2 class=""><?php echo get_the_title(); ?></h2>
                         <?php if(has_post_thumbnail()) :
                             the_post_thumbnail('oph-intro');
@@ -90,7 +90,7 @@
                 while ( $intro_pages2->have_posts() ) {
                     $intro_pages2->the_post(); ?>
                     
-                    <div class="row col-xs-16">                       
+                    <div class="col-xs-16">                       
                         <h2 class=""><?php echo get_the_title(); ?></h2>
                         <?php if(has_post_thumbnail()) :
                             the_post_thumbnail('oph-intro');
@@ -112,7 +112,7 @@
                 while ( $intro_pages3->have_posts() ) {
                     $intro_pages3->the_post(); ?>
                     
-                    <div class="row col-xs-16">                       
+                    <div class="col-xs-16">                       
                         <h2 class=""><?php echo get_the_title(); ?></h2>
                         <?php if(has_post_thumbnail()) :
                             the_post_thumbnail('oph-intro');
@@ -131,49 +131,51 @@
             
             <div class="col-sm-16 col-md-4 col-lg-4 frontpage-link">
             
-            <h2 class=""><?php _e( 'Upcoming', 'html5blank' ); ?></h2>
-           
-                <div id="as-calendar" style="width: 100%;"></div>
-                <script src="https://itest-oppija.oph.ware.fi/calendar/calendar.js"></script><script>// <![CDATA[
-                (function() {
-                    $("html").on("oppija-raamit-loaded", function() {
-                        var prefix = CookiePrefixResolver.getPrefix(window.location.host),
-                            key = prefix + 'i18next';
-                        ApplicationSystemCalendar.calendar({
-                            selector: '#as-calendar',
-                            lang: jQuery.cookie(key),
-                            deps: {
-                                stylesheet: 'https://itest-oppija.oph.ware.fi/calendar/css/calendar.css',
-                                underscore: 'https://itest-oppija.oph.ware.fi/calendar/lib/underscore-min.js'
-                            },
-                            calendarResource: 'https://itest-oppija.oph.ware.fi/as/fetchForCalendar'
-                        });
-                    });
-                }());
-                // ]]>
-                </script>
+                <div class="col-xs-16">        
+                <h2 class=""><?php _e( 'Upcoming', 'html5blank' ); ?></h2>
 
-           <h2 class=""><?php _e( 'News', 'html5blank' ); ?></h2>
-           
-            <?php if ( $intro_pages4->have_posts() ) {
-                while ( $intro_pages4->have_posts() ) {
-                    $intro_pages4->the_post(); ?>
-                    
-                    <div class="row col-xs-16 news">                                     
-                        <h2 class=""><?php echo get_the_title(); ?></h2>
-                        <?php if(has_post_thumbnail()) :
-                            the_post_thumbnail('oph-intro');
-                        endif; ?>
-                        <p><?php the_content();?></p>  
-                        <?php //var_dump($content); ?> 
-                    </div>
-                
-                <?php }
-            } else {
-                // no posts found
-            } 
-            
-            wp_reset_postdata();?>
+                    <div id="as-calendar" style="width: 100%;"></div>
+                    <script src="https://testi.opintopolku.fi/calendar/calendar.js"></script><script>// <![CDATA[
+                    (function() {
+                        $("html").on("oppija-raamit-loaded", function() {
+                            var prefix = CookiePrefixResolver.getPrefix(window.location.host),
+                                key = prefix + 'i18next';
+                            ApplicationSystemCalendar.calendar({
+                                selector: '#as-calendar',
+                                lang: jQuery.cookie(key),
+                                deps: {
+                                    stylesheet: 'https://testi.opintopolku.fi/calendar/css/calendar.css',
+                                    underscore: 'https://testi.opintopolku.fi/calendar/lib/underscore-min.js'
+                                },
+                                calendarResource: 'https://testi.opintopolku.fi/as/fetchForCalendar'
+                            });
+                        });
+                    }());
+                    // ]]>
+                    </script>
+
+               <h2 class=""><?php _e( 'News', 'html5blank' ); ?></h2>
+
+                <?php if ( $intro_pages4->have_posts() ) {
+                    while ( $intro_pages4->have_posts() ) {
+                        $intro_pages4->the_post(); ?>
+
+                        <div class="col-xs-16 news">                                     
+                            <h2 class=""><?php echo get_the_title(); ?></h2>
+                            <?php if(has_post_thumbnail()) :
+                                the_post_thumbnail('oph-intro');
+                            endif; ?>
+                            <p><?php the_content();?></p>  
+                            <?php //var_dump($content); ?> 
+                        </div>
+
+                    <?php }
+                } else {
+                    // no posts found
+                } 
+
+                wp_reset_postdata();?>
+                </div>
             </div>
             
         </div>

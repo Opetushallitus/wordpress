@@ -51,6 +51,7 @@ table {
 
 html {
 	font-size: 62.5%;
+    background-color: #f8f8f8 !important;
 }
 
 html, body {
@@ -64,6 +65,8 @@ body {
 	.line-height(20px);
 
 	color: @black;
+    
+    background-color: #f8f8f8 !important;
 }
 
 * {
@@ -265,8 +268,8 @@ img {
 
 hr {
   border: 0;
-  border-bottom: 1px dashed #c3c3c3;
-  background: #e7e7e7;
+  border-bottom: 1px solid #c3c3c3;
+  background: #dddddd;
   .margin(0px 0 @baseline 0);
 }
 
@@ -1421,4 +1424,18 @@ aside section p {
 
 .post-edit {
     height: 40px;
+}
+
+#maincontent {
+    background-color: black;
+}
+
+.list-arrow {
+    list-style-image: url('../img/link_arrow.jpg');
+    line-height: 2em;
+
+
+    & a {
+        color: #149ecb;
+    }
 }

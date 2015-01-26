@@ -1,11 +1,12 @@
 /* taustakuva ja container */
 
 .bg-item {
-  float:left;
-  width:100% !important;
-  max-width:877px;
   margin-bottom:30px;
   background: #468c3f url('../img/ysi_page_bg.jpg') no-repeat left top; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 /* templan kolumnit */
@@ -216,9 +217,6 @@
 
 @media (min-width: 759px) {
 
-  .bg-item {
-    width:75% !important;
-  }  
   .side-column {
     width:34%;
     float:right;

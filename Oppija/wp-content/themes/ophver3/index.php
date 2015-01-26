@@ -1,16 +1,15 @@
 <?php get_header(); ?>
 	
-	<!-- section -->
-	<section role="main">
+<?php if (is_archive()) :  ?>
+
+<?php get_template_part('loop-post-archive'); ?>
+
+<?php else : ?>
+
+<?php get_template_part('loop-page'); ?>
+
+<?php endif; ?>
 	
-		<h1><?php _e( 'Latest Posts', 'html5blank' ); ?></h1>
-	
-		<?php get_template_part('loop'); ?>
-		
-		<?php get_template_part('pagination'); ?>
-	
-	</section>
-	<!-- /section -->
 	
 <?php get_sidebar(); ?>
 
