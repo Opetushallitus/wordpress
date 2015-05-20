@@ -54,7 +54,7 @@ function os_raises() {
             $output .= '</div>';
 
 
-            if($counter == 2) {
+            if($counter == 1) {
                 $output .= '<hr class="os" />';
             }
 

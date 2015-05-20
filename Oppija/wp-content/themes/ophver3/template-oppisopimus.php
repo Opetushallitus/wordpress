@@ -66,13 +66,13 @@ Template Name: Oppisopimus
 	<?php endif; ?>
 	</div>
 	
-	<div class="col-xs-16 col-sm-4 col-md-4 col-lg-4">  
+	<div class="col-xs-16 col-sm-4 col-md-4 col-lg-4 os-sidebar">
+    <?php require_once('sidebar-content.php') ?>  
     <?php //get_sidebar(); 
-        get_template_part('related-content');
         echo do_shortcode('[os-raise-box]');
+        get_template_part('related-content');
+        
     ?>
-    
-    <?php require_once('sidebar-content.php') ?>
     </div>
 
 <?php get_footer( get_bloginfo('language') ); ?>

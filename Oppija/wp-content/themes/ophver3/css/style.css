@@ -2220,6 +2220,10 @@ hr.os {
   margin-bottom: -10px;
 }
 
+.os-sidebar {
+  padding-top: 20px;
+}
+
 .vertical-align {
     display: flex;
     align-items: center;
