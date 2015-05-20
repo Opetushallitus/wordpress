@@ -13,9 +13,15 @@ function os_raises() {
     
     if( have_rows('os-raise') ) : 
 
+    $counter = 0;
+    $field_object = get_field_object('cm_content');
+    $total_rows = count($field_object['value']);   
+
     $output .= '<div class="os-wrapper">';
     
         while ( have_rows('os-raise') ) : the_row();
+
+            $counter++;
     
             $title = get_sub_field('os-raise-title');
             $content = get_sub_field('os-raise-content');
@@ -25,22 +31,34 @@ function os_raises() {
     
         
             $output .= '
-                    <h4>' . $title . '</h4>
-                    <div class="os-box vertical-align col-sm-16 col-md-16 col-lg-16">
-                        
-                        
-                            <div class="os-box-img col-sm-8 col-md-8 col-lg-8">
-                                <img src="' . $img['url'] . '" />
-                            </div>
+                    <div class="col-sm-13 col-md-13 col-lg-13">';
 
+            if($img) {
+
+                $output .= '<div class="os-box-img">
+                                <img src="' . $img['url'] . '" />
+                            </div>';
+            }        
+                        
+                        
+            $output .= '<h3>' . $title . '</h3>
                     
-                            <div class="os-box-content col-sm-8 col-md-8 col-lg-8">'
-                                . $content .
-                            '<a class="btn btn-secondary" href="' . $button_link . '">' . $button_txt . '</a>
-                
-                            </div>
-                            
-                    </div>';
+                        <div class="os-box-content">'
+                            . $content;
+
+            if($button_txt) {
+               $output .= '<a class="btn btn-secondary" href="' . $button_link . '">' . $button_txt . '</a> ';
+            }
+            
+             
+            $output .= '</div>';
+
+
+            if($counter == 2) {
+                $output .= '<hr class="os" />';
+            }
+
+            $output .= '</div>';
 
         endwhile;
     

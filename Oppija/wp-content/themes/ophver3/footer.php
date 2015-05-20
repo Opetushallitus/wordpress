@@ -4,7 +4,7 @@
 	<!-- End Piwik Code -->
 
     <!-- Oppija-raamit -->
-    <script id="apply-raamit" src="/oppija-raamit/apply-raamit.js" type="text/javascript"></script>
+    <script id="apply-raamit" src="https://testi.opintopolku.fi/oppija-raamit/apply-raamit.js" type="text/javascript"></script>
 
 	<script>
         $("html").on("oppija-raamit-loaded", function() {

@@ -28,8 +28,11 @@ Template Name: Oppisopimus
 	
     <!-- /secondary navigation -->   
  		
-	
-	<div class="col-xs-16 col-sm-8 col-md-8 col-lg-8">  
+	<div class="col-xs-16 col-sm-16 col-md-12 col-lg-12">
+    <div class="os-topbanner"></div>
+  </div>
+
+	<div class="col-xs-16 col-sm-12 col-md-8 col-lg-8">  
 	
 	<?php if (have_posts()): while (have_posts()) : the_post(); ?>
 	
@@ -66,6 +69,7 @@ Template Name: Oppisopimus
 	<div class="col-xs-16 col-sm-4 col-md-4 col-lg-4">  
     <?php //get_sidebar(); 
         get_template_part('related-content');
+        echo do_shortcode('[os-raise-box]');
     ?>
     
     <?php require_once('sidebar-content.php') ?>

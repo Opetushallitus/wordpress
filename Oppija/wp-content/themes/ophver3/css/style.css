@@ -2165,15 +2165,60 @@ a.no_icon:before {
     border: 1px solid #bee4f1;
 }
 
-.os-wrapper h4 {
-    margin-bottom: 10px;
-    color: #00556e;
+.os-wrapper h3 {
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.os-wrapper > div > .os-box-content:first-of-type > h3 {
+  text-align: left;
+  padding-bottom: 25px;
 }
 
 .os-box img {
     border: 0px !important;
 }
 
+.os-wrapper {
+  padding-top: 20px;
+}
+
+.os-wrapper > div > .os-box-content:first-of-type {
+  text-align: left;
+}
+
+.os-wrapper > div > .os-box-content:first-of-type > ul {
+  margin-left: 10px;
+  padding-bottom: 50px;
+}
+
+.os-box-content {
+    text-align: center;
+}
+
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+
+hr.os {
+  margin-top: 35px !important;
+}
+
+.oppisopimus article {
+    background-color: #E9F4FB;
+    padding: 20px;
+}
+
+.os-topbanner {
+  background: url('../img/oppisopimus-ylaosa.jpg') no-repeat;
+  height: 50px;
+  margin-bottom: -10px;
+}
 
 .vertical-align {
     display: flex;
