@@ -125,22 +125,22 @@
             <form action="/app/#!/haku/" id="ki-search" class="form-horizontal col-sm-14 col-sm-offset-1">
                 <div class="form-group">
                     <div class="hidden-xs hidden-sm col-lg-4 col-md-4 col-sm-4 col-sm-offset-0 search-education">
-                       <label for="search-field-frontpage" class="control-label find"><?php _e('Etsi koulutuksia tästä') ?></label>
+                       <label for="search-field-frontpage" class="control-label find"><?php _e('Search for study options', 'html5blank') ?></label>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-14 col-xs-13 search-input-field">
 
-                    <input type="text" tabindex="1" class="search-field" id="search-field-frontpage" data-provide="typeahead" name="search-field" placeholder="<?php _e('Kirjoita tähän esim. tutkinto, ammatti tai oppilaitoksen nimi') ?>" value="">
+                    <input aria-label="<?php _e('Fill in study programme search word and press enter', 'html5blank') ?>" type="text" tabindex="1" class="search-field" id="search-field-frontpage" data-provide="typeahead" name="search-field" placeholder="<?php _e('Enter eg. qualification, occupation or name of institution', 'html5blank') ?>" value="">
                     
                     <div class="hidden-xs hidden-sm text-center search-link">
-                        <a href="/app/#!/selailu/aihe"><?php _e('Find education') ?></a>
+                        <a href="/app/#!/selailu/aihe"><?php _e('Find education', 'html5blank') ?></a>
                     </div>
                     
                     </div>
                     <div class="col-md-2 col-sm-2 col-xs-3 search-button">
                         <span class="input-group-btn">
-                           <button class="btn btn-primary" type="submit">
+                           <button class="btn btn-primary" type="submit" tabindex="2">
                                 <span class="glyphicon glyphicon-search"></span>
-                                <span class="hidden-xs"><?php _e('Hae') ?></span>
+                                <span class="hidden-xs"><?php _e('Search', 'html5blank') ?></span>
                             </button>
                         </span>
                     </div>

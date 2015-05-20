@@ -38,7 +38,8 @@ var BasketCookie = (function() {
 
 var LanguageCookie = (function() {
     var prefix = CookiePrefixResolver.getPrefix(window.location.host);
-    var key = prefix + 'i18next';
+//    var key = prefix + 'i18next';
+    var key = 'i18next';
 
     return {
         setLanguage: function(language) {
@@ -60,6 +61,7 @@ jQuery(document).ready(function() {
 
     var basketCount = BasketCookie.getBasketCount();
     jQuery('.appbasket-count').html(basketCount);
+    jQuery('#search-field-frontpage').focus();
     
     /* Sub navi -slideToggle */
     jQuery('nav.sidenav ul.children').each( function(){

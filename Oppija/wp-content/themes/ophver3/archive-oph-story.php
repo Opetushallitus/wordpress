@@ -65,8 +65,7 @@ Template Name: Tutustu tarinoihin
 
         <!-- /section -->
         </div>
-    </div>
-    </div>        
+    </div>    
 	
 
 <?php get_footer(); ?>
