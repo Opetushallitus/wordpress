@@ -2209,7 +2209,7 @@ hr.os {
   margin-top: 35px !important;
 }
 
-.oppisopimus article {
+.oppisopimus article, .tyonantajalle article, .opiskelijalle article {
     background-color: #E9F4FB;
     padding: 20px;
 }
