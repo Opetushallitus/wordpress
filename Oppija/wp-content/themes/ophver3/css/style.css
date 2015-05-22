@@ -2209,7 +2209,8 @@ hr.os {
   margin-top: 35px !important;
 }
 
-.oppisopimus article, .tyonantajalle article, .opiskelijalle article {
+.oppisopimus article, .tyonantajalle article, .opiskelijalle article, .yrittajalle article, 
+.laroavtal article, .for-studerande article, .for-arbetsgivare article, .for-foretagare article {
     background-color: #E9F4FB;
     padding: 20px;
 }
