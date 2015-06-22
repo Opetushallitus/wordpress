@@ -70,3 +70,50 @@ function os_raises() {
 
     return $output;
 }
+
+function show_school_add() {
+
+    $oppilaitostyyppi42 = file_get_contents('https://virkailija.opintopolku.fi/organisaatio-service/rest/organisaatio/hae?oppilaitostyyppi=oppilaitostyyppi_42%231');
+    $oppilaitostyyppi41 = file_get_contents('https://virkailija.opintopolku.fi/organisaatio-service/rest/organisaatio/hae?oppilaitostyyppi=oppilaitostyyppi_41%231');
+    
+    $object_oppilaitos42 = json_decode($oppilaitostyyppi42);
+    $object_oppilaitos41 = json_decode($oppilaitostyyppi41);
+    
+    $oids42 = $object_oppilaitos42->organisaatiot;
+    $oids41 = $object_oppilaitos41->organisaatiot;
+
+    $oids = array();
+
+    // Yliopistot
+    for ($i=0; $i < count($oids42); $i++) { 
+        $oids[] = $oids42[$i]->oid;  
+    }
+
+    // Ammattikorkeakoulut
+    for ($j=0; $j < count($oids41); $j++) { 
+        $oids[] = $oids41[$j]->oid;
+    }
+
+    foreach ($oids as $itemoid) {
+
+        echo 'oid: ' . $itemoid . '<br />';
+        $getinfo = file_get_contents('https://virkailija.opintopolku.fi/organisaatio-service/rest/organisaatio/' . $itemoid);
+        $info = json_decode($getinfo);
+
+        $contact = $info->kayntiosoite;
+        $oid_title = $info->nimi->fi;
+        
+        $add = $contact->osoite;
+        $postnro = $contact->postinumeroUri;
+        $postoffice = $contact->postitoimipaikka;
+
+        echo $oid_title . '<br />';
+        echo $add . '<br />';
+        echo $postnro . '<br />';
+        echo $postoffice . '<br />';
+        echo '-------<br />';
+
+    } 
+
+
+}

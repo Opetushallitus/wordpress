@@ -77,6 +77,7 @@ if (function_exists('add_theme_support'))
 include(get_template_directory() . '/custom-shortcodes.php');
 
 add_shortcode( 'os-raise-box', 'os_raises' );
+add_shortcode('oph-uniapp-addresses', 'show_school_add');
 
 
 // HTML5 Blank navigation
