@@ -96,7 +96,7 @@ function show_school_add() {
 
     foreach ($oids as $itemoid) {
 
-        echo 'oid: ' . $itemoid . '<br />';
+        echo '<span style="display: none;">oid: ' . $itemoid . '</span><br />';
         $getinfo = file_get_contents('https://virkailija.opintopolku.fi/organisaatio-service/rest/organisaatio/' . $itemoid);
         $info = json_decode($getinfo);
 
@@ -107,11 +107,15 @@ function show_school_add() {
         $postnro = $contact->postinumeroUri;
         $postoffice = $contact->postitoimipaikka;
 
-        echo $oid_title . '<br />';
-        echo $add . '<br />';
-        echo $postnro . '<br />';
-        echo $postoffice . '<br />';
-        echo '-------<br />';
+        echo '<h3>' .$oid_title . '</h3>';
+        if($add || $postnro || $postoffice) {
+            echo 'Käyntiosoite: ' . $add . ', ' . $postnro . ', ' . $postoffice . '<br />';
+        } else {
+            echo 'Käyntiosoite: ei löytynyt<br />';
+        }
+        echo 'Postiosoite: <br />'; 
+        echo 'Puh. <br />';
+        echo '<a href="">www.osoite.fi</a>';
 
     } 
 
