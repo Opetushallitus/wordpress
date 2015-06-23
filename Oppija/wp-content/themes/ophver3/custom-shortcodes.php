@@ -150,19 +150,19 @@ function show_school_add() {
 
             $output .= '<li>';
                 if($visitAddress) {
-                    $output .= 'Käyntiosoite: ' . $visitAddress;
+                    $output .=  __('Visiting address', 'html5blank') . ': ' . $visitAddress;
                 } 
             $output .= '</li>';
 
             $output .= '<li>';
                 if($postAddress) {
-                    $output .= 'Postiosoite: ' . $postAddress;
+                    $output .= __('Post address', 'html5blank') . ': ' . $postAddress;
                 } 
             $output .= '</li>';
 
             $output .= '<li>';
                 if($phone) {
-                    $output .= 'Puh. ' . $phone;
+                    $output .=  __('Phone', 'html5blank') . ': ' . $phone;
                 }
             $output .= '</li>';
 
