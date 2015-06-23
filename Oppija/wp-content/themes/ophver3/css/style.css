@@ -1281,6 +1281,15 @@ strong {
   margin-left: 25%;
   margin-right: 25%;
 }
+.oph-school-listing ul {
+  margin-left: 0;
+  padding-left: 0 !important;
+}
+
+.oph-school-listing ul li {
+  list-style: none;
+}
+
 /* WIDGETS */
 .footer-nav {
   -webkit-border-radius: 3px;

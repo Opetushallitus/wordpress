@@ -73,6 +73,14 @@ function os_raises() {
 
 function show_school_add() {
 
+    if(ICL_LANGUAGE_CODE == 'fi') {
+        $lang = 'kieli_fi#1';
+        $langShort = 'fi';
+    } else {
+         $lang = 'kieli_sv#1';
+         $langShort = 'sv';
+    }
+
     $oppilaitostyyppi42 = file_get_contents('https://virkailija.opintopolku.fi/organisaatio-service/rest/organisaatio/hae?oppilaitostyyppi=oppilaitostyyppi_42%231');
     $oppilaitostyyppi41 = file_get_contents('https://virkailija.opintopolku.fi/organisaatio-service/rest/organisaatio/hae?oppilaitostyyppi=oppilaitostyyppi_41%231');
     
@@ -94,30 +102,88 @@ function show_school_add() {
         $oids[] = $oids41[$j]->oid;
     }
 
+    $output = '';
+    $output .= '<div class="oph-school-listing">';
+
     foreach ($oids as $itemoid) {
 
-        echo '<span style="display: none;">oid: ' . $itemoid . '</span><br />';
         $getinfo = file_get_contents('https://virkailija.opintopolku.fi/organisaatio-service/rest/organisaatio/' . $itemoid);
         $info = json_decode($getinfo);
 
-        $contact = $info->kayntiosoite;
-        $oid_title = $info->nimi->fi;
-        
-        $add = $contact->osoite;
-        $postnro = $contact->postinumeroUri;
-        $postoffice = $contact->postitoimipaikka;
+        foreach ($info->metadata->yhteystiedot as $contactinfo) {
 
-        echo '<h3>' .$oid_title . '</h3>';
-        if($add || $postnro || $postoffice) {
-            echo 'Käyntiosoite: ' . $add . ', ' . $postnro . ', ' . $postoffice . '<br />';
-        } else {
-            echo 'Käyntiosoite: ei löytynyt<br />';
+            if($contactinfo->tyyppi == 'puhelin' && $contactinfo->kieli == $lang) {
+                $phone = $contactinfo->numero;  
+            }
+
+            if($contactinfo->www && $contactinfo->kieli == $lang) {
+                $www = $contactinfo->www;
+            }
+
+            if($contactinfo->email && $contactinfo->kieli == $lang) {
+                $email = $contactinfo->email;
+            }
         }
-        echo 'Postiosoite: <br />'; 
-        echo 'Puh. <br />';
-        echo '<a href="">www.osoite.fi</a>';
+
+        foreach ($info->yhteystiedot as $addresstype) {
+            
+            if($addresstype->osoiteTyyppi == 'kaynti' && $addresstype->kieli == $lang) {
+                $visitAddress = $addresstype->osoite . ', ' . preg_replace('/(posti_)/', '', $addresstype->postinumeroUri) . ' ' . $addresstype->postitoimipaikka;
+            }            
+
+            if($addresstype->osoiteTyyppi == 'posti' && $addresstype->kieli == $lang) {
+                $postAddress = $addresstype->osoite . ', ' . preg_replace('/(posti_)/', '', $addresstype->postinumeroUri) . ' ' . $addresstype->postitoimipaikka;
+            }
+        }
+
+
+        if($info->nimi->$langShort) {
+            $schoolName = $info->nimi->$langShort;
+        } 
+        if (!$info->nimi->$langShort && $langShort == 'sv') { 
+            $schoolName = $info->nimi->fi;
+        }
+
+        $output .= '<h3>' . $schoolName . '</h3>';
+
+        $output .= '<ul>';
+
+            $output .= '<li>';
+                if($visitAddress) {
+                    $output .= 'Käyntiosoite: ' . $visitAddress;
+                } 
+            $output .= '</li>';
+
+            $output .= '<li>';
+                if($postAddress) {
+                    $output .= 'Postiosoite: ' . $postAddress;
+                } 
+            $output .= '</li>';
+
+            $output .= '<li>';
+                if($phone) {
+                    $output .= 'Puh. ' . $phone;
+                }
+            $output .= '</li>';
+
+            $output .= '<li>';
+                if($email) {
+                    $output .= $email;
+                }
+            $output .= '</li>';
+
+            $output .= '<li>';
+                if($www) {
+                    $output .= '<a href="' . $www . '">'. $www .'</a>';
+                }
+            $output .= '</li>';
+
+        $output .= '</ul>';
+        
 
     } 
 
+    $output .= '</div>';
 
+    return $output;
 }
