@@ -71,7 +71,7 @@ function os_raises() {
     return $output;
 }
 
-function show_school_add() {
+function show_school_add($type) {
 
     if(ICL_LANGUAGE_CODE == 'fi') {
         $lang = 'kieli_fi#1';
@@ -81,31 +81,31 @@ function show_school_add() {
          $langShort = 'sv';
     }
 
-    $oppilaitostyyppi42 = file_get_contents('https://virkailija.opintopolku.fi/organisaatio-service/rest/organisaatio/hae?oppilaitostyyppi=oppilaitostyyppi_42%231');
-    $oppilaitostyyppi41 = file_get_contents('https://virkailija.opintopolku.fi/organisaatio-service/rest/organisaatio/hae?oppilaitostyyppi=oppilaitostyyppi_41%231');
-    
-    $object_oppilaitos42 = json_decode($oppilaitostyyppi42);
-    $object_oppilaitos41 = json_decode($oppilaitostyyppi41);
-    
-    $oids42 = $object_oppilaitos42->organisaatiot;
-    $oids41 = $object_oppilaitos41->organisaatiot;
+    // [oph-uniapp-addresses edu="university|appliedscience"]
+    $chooseType = shortcode_atts(array(
+        'edu' => 'university'
+        ), $type);
 
-    $oids = array();
-
-    // Yliopistot
-    for ($i=0; $i < count($oids42); $i++) { 
-        $oids[] = $oids42[$i]->oid;  
+    if($chooseType['edu'] == 'university') {
+        $oppilaitostyyppi = file_get_contents('https://virkailija.opintopolku.fi/organisaatio-service/rest/organisaatio/hae?oppilaitostyyppi=oppilaitostyyppi_42%231');
+    } else {
+        $oppilaitostyyppi = file_get_contents('https://virkailija.opintopolku.fi/organisaatio-service/rest/organisaatio/hae?oppilaitostyyppi=oppilaitostyyppi_41%231');
     }
+       
+    $jsonObject = json_decode($oppilaitostyyppi);
+    
+    $oids = $jsonObject->organisaatiot;
 
-    // Ammattikorkeakoulut
-    for ($j=0; $j < count($oids41); $j++) { 
-        $oids[] = $oids41[$j]->oid;
+    $oidsArray = array();
+
+    for ($j=0; $j < count($oids); $j++) { 
+        $oidsArray[] = $oids[$j]->oid;
     }
 
     $output = '';
     $output .= '<div class="oph-school-listing">';
 
-    foreach ($oids as $itemoid) {
+    foreach ($oidsArray as $itemoid) {
 
         $getinfo = file_get_contents('https://virkailija.opintopolku.fi/organisaatio-service/rest/organisaatio/' . $itemoid);
         $info = json_decode($getinfo);
