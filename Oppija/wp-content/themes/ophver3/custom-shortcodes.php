@@ -81,10 +81,6 @@ function show_school_add($type) {
     if(ICL_LANGUAGE_CODE == 'sv') {
         $lang = 'kieli_sv#1';
         $langShort = 'sv';
-    } 
-    if(!ICL_LANGUAGE_CODE){
-        $lang = 'kieli_env#1';
-        $langShort = 'en';
     }
 
     // [oph-uniapp-addresses edu="university|appliedscience"]
@@ -131,7 +127,6 @@ function show_school_add($type) {
         $getinfo = file_get_contents('https://virkailija.opintopolku.fi/organisaatio-service/rest/organisaatio/' . $itemoid);
         $info = json_decode($getinfo);
 
-
         foreach ($info->metadata->yhteystiedot as $contactinfo) {
 
             if($contactinfo->www && $contactinfo->kieli == $lang) {
@@ -142,6 +137,10 @@ function show_school_add($type) {
                 $email = $contactinfo->email;
             }
         }
+
+        $visitAddress = '';
+        $postAddress = '';
+        $phone = '';
 
         foreach ($info->yhteystiedot as $addresstype) {
             
@@ -159,17 +158,9 @@ function show_school_add($type) {
         }
 
 
-        if($info->nimi->$langShort) {
-            $schoolName = $info->nimi->$langShort;
-        } 
-        if (!$info->nimi->$langShort && $langShort == 'sv') { 
-            $schoolName = $info->nimi->fi;
-        }
-        if (!$info->nimi->$langShort && $langShort == 'fi') { 
-            $schoolName = $info->nimi->sv;
-        }
 
-        $output .= '<h3>' . $itemName . '</h3>';
+
+        $output .= '<h3>' . $itemName . ' - ' . $itemoid . '</h3>';
 
         $output .= '<ul>';
 
