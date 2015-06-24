@@ -91,7 +91,7 @@ function show_school_add($type) {
     } else {
         $oppilaitostyyppi = file_get_contents('https://virkailija.opintopolku.fi/organisaatio-service/rest/organisaatio/hae?oppilaitostyyppi=oppilaitostyyppi_41%231');
     }
-       
+
     $jsonObject = json_decode($oppilaitostyyppi);
     
     $oids = $jsonObject->organisaatiot;
@@ -99,22 +99,32 @@ function show_school_add($type) {
     $oidsArray = array();
 
     for ($j=0; $j < count($oids); $j++) { 
-        $oidsArray[] = $oids[$j]->oid;
+        $eduTitle = $oids[$j]->children[0]->nimi->$langShort;
+        
+        if($eduTitle) {
+            $oidsArray[$oids[$j]->oid] = $eduTitle;
+        }
+
+        if (!$eduTitle && $langShort == 'sv') { 
+            $oidsArray[$oids[$j]->oid] = $oids[$j]->children[0]->nimi->fi;
+        }
+
+        if (!$eduTitle && $langShort == 'fi') { 
+            $oidsArray[$oids[$j]->oid] = $oids[$j]->children[0]->nimi->sv;
+        }
+
     }
 
     $output = '';
     $output .= '<div class="oph-school-listing">';
 
-    foreach ($oidsArray as $itemoid) {
+    foreach ($oidsArray as $itemoid => $itemName) {
 
         $getinfo = file_get_contents('https://virkailija.opintopolku.fi/organisaatio-service/rest/organisaatio/' . $itemoid);
         $info = json_decode($getinfo);
 
-        foreach ($info->metadata->yhteystiedot as $contactinfo) {
 
-            if($contactinfo->tyyppi == 'puhelin' && $contactinfo->kieli == $lang) {
-                $phone = $contactinfo->numero;  
-            }
+        foreach ($info->metadata->yhteystiedot as $contactinfo) {
 
             if($contactinfo->www && $contactinfo->kieli == $lang) {
                 $www = $contactinfo->www;
@@ -134,6 +144,10 @@ function show_school_add($type) {
             if($addresstype->osoiteTyyppi == 'posti' && $addresstype->kieli == $lang) {
                 $postAddress = $addresstype->osoite . ', ' . preg_replace('/(posti_)/', '', $addresstype->postinumeroUri) . ' ' . $addresstype->postitoimipaikka;
             }
+
+             if($addresstype->tyyppi == 'puhelin' && $addresstype->kieli == $lang) {
+                $phone = $addresstype->numero;  
+            }
         }
 
 
@@ -143,8 +157,11 @@ function show_school_add($type) {
         if (!$info->nimi->$langShort && $langShort == 'sv') { 
             $schoolName = $info->nimi->fi;
         }
+        if (!$info->nimi->$langShort && $langShort == 'fi') { 
+            $schoolName = $info->nimi->sv;
+        }
 
-        $output .= '<h3>' . $schoolName . '</h3>';
+        $output .= '<h3>' . $itemName . '</h3>';
 
         $output .= '<ul>';
 
