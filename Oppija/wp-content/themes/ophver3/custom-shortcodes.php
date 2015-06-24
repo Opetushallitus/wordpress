@@ -76,9 +76,15 @@ function show_school_add($type) {
     if(ICL_LANGUAGE_CODE == 'fi') {
         $lang = 'kieli_fi#1';
         $langShort = 'fi';
-    } else {
-         $lang = 'kieli_sv#1';
-         $langShort = 'sv';
+    }
+
+    if(ICL_LANGUAGE_CODE == 'sv') {
+        $lang = 'kieli_sv#1';
+        $langShort = 'sv';
+    } 
+    if(!ICL_LANGUAGE_CODE){
+        $lang = 'kieli_env#1';
+        $langShort = 'en';
     }
 
     // [oph-uniapp-addresses edu="university|appliedscience"]
@@ -114,6 +120,8 @@ function show_school_add($type) {
         }
 
     }
+
+    asort($oidsArray);
 
     $output = '';
     $output .= '<div class="oph-school-listing">';
