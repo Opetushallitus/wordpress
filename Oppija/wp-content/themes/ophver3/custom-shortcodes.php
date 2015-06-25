@@ -102,17 +102,17 @@ function show_school_add($type) {
 
     for ($j=0; $j < count($oids); $j++) { 
         $eduTitle = $oids[$j]->children[0]->nimi->$langShort;
-        
+
         if($eduTitle) {
-            $oidsArray[$oids[$j]->oid] = $eduTitle;
+            $oidsArray[$oids[$j]->children[0]->oid] = $eduTitle;
         }
 
         if (!$eduTitle && $langShort == 'sv') { 
-            $oidsArray[$oids[$j]->oid] = $oids[$j]->children[0]->nimi->fi;
+            $oidsArray[$oids[$j]->children[0]->oid] = $oids[$j]->children[0]->nimi->fi;
         }
 
         if (!$eduTitle && $langShort == 'fi') { 
-            $oidsArray[$oids[$j]->oid] = $oids[$j]->children[0]->nimi->sv;
+            $oidsArray[$oids[$j]->children[0]->oid] = $oids[$j]->children[0]->nimi->sv;
         }
 
     }
@@ -127,7 +127,15 @@ function show_school_add($type) {
         $getinfo = file_get_contents('https://virkailija.opintopolku.fi/organisaatio-service/rest/organisaatio/' . $itemoid);
         $info = json_decode($getinfo);
 
+        $visitAddress = '';
+        $postAddress = '';
+        $phone = '';
+
         foreach ($info->metadata->yhteystiedot as $contactinfo) {
+
+            if($contactinfo->kieli == NULL) {
+                $lang = 'kieli_fi#1';
+            }
 
             if($contactinfo->www && $contactinfo->kieli == $lang) {
                 $www = $contactinfo->www;
@@ -136,31 +144,33 @@ function show_school_add($type) {
             if($contactinfo->email && $contactinfo->kieli == $lang) {
                 $email = $contactinfo->email;
             }
+
+            if($contactinfo->osoiteTyyppi == 'kaynti' && $contactinfo->kieli == 'kieli_fi#1') {
+                $visitAddress = $contactinfo->osoite . ', ' . preg_replace('/(posti_)/', '', $contactinfo->postinumeroUri) . ' ' . $contactinfo->postitoimipaikka;
+            }
+
+
+             if($contactinfo->tyyppi == 'puhelin' && $contactinfo->kieli == $lang) {
+                $phone = $contactinfo->numero;  
+            }    
         }
 
-        $visitAddress = '';
-        $postAddress = '';
-        $phone = '';
+   
 
         foreach ($info->yhteystiedot as $addresstype) {
             
-            if($addresstype->osoiteTyyppi == 'kaynti' && $addresstype->kieli == $lang) {
-                $visitAddress = $addresstype->osoite . ', ' . preg_replace('/(posti_)/', '', $addresstype->postinumeroUri) . ' ' . $addresstype->postitoimipaikka;
-            }            
+            if($addresstype->kieli->$lang == NULL) {
+                $lang = 'kieli_fi#1';
+            }
+        
 
             if($addresstype->osoiteTyyppi == 'posti' && $addresstype->kieli == $lang) {
                 $postAddress = $addresstype->osoite . ', ' . preg_replace('/(posti_)/', '', $addresstype->postinumeroUri) . ' ' . $addresstype->postitoimipaikka;
             }
-
-             if($addresstype->tyyppi == 'puhelin' && $addresstype->kieli == $lang) {
-                $phone = $addresstype->numero;  
-            }
         }
 
 
-
-
-        $output .= '<h3>' . $itemName . ' - ' . $itemoid . '</h3>';
+        $output .= '<h3>' . $itemName . '</h3>';
 
         $output .= '<ul>';
 
