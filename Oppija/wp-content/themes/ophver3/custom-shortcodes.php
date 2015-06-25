@@ -83,6 +83,11 @@ function show_school_add($type) {
         $langShort = 'sv';
     }
 
+    if(ICL_LANGUAGE_CODE == '') {
+        $lang = 'kieli_en#1';
+        $langShort = 'en';
+    }
+
     // [oph-uniapp-addresses edu="university|appliedscience"]
     $chooseType = shortcode_atts(array(
         'edu' => 'university'
@@ -129,13 +134,26 @@ function show_school_add($type) {
 
         $visitAddress = '';
         $postAddress = '';
+        $email = '';
         $phone = '';
+        $www = '';
+        $lang = '';
 
         foreach ($info->metadata->yhteystiedot as $contactinfo) {
 
-            if($contactinfo->kieli == NULL) {
+            if($contactinfo->kieli == NULL || !($contactinfo->kieli == $lang)) {
                 $lang = 'kieli_fi#1';
             }
+
+            print_r('<pre>');
+            print_r($info->metadata->yhteystiedot);
+            print_r($itemoid);
+            print_r('</pre><br />');
+
+            if(!in_array('kieli_fi#1', $info->metadata->yhteystiedot, true)) {
+                $lang = 'kieli_sv#1';
+            }  
+
 
             if($contactinfo->www && $contactinfo->kieli == $lang) {
                 $www = $contactinfo->www;
@@ -145,12 +163,15 @@ function show_school_add($type) {
                 $email = $contactinfo->email;
             }
 
-            if($contactinfo->osoiteTyyppi == 'kaynti' && $contactinfo->kieli == 'kieli_fi#1') {
+            if($contactinfo->osoiteTyyppi == 'kaynti' && $contactinfo->kieli == $lang) {
                 $visitAddress = $contactinfo->osoite . ', ' . preg_replace('/(posti_)/', '', $contactinfo->postinumeroUri) . ' ' . $contactinfo->postitoimipaikka;
+            }     
+
+            if($contactinfo->osoiteTyyppi == 'posti' && $contactinfo->kieli == $lang) {
+                $postAddress = $contactinfo->osoite . ', ' . preg_replace('/(posti_)/', '', $contactinfo->postinumeroUri) . ' ' . $contactinfo->postitoimipaikka;
             }
 
-
-             if($contactinfo->tyyppi == 'puhelin' && $contactinfo->kieli == $lang) {
+            if($contactinfo->tyyppi == 'puhelin' && $contactinfo->kieli == $lang) {
                 $phone = $contactinfo->numero;  
             }    
         }
@@ -162,15 +183,11 @@ function show_school_add($type) {
             if($addresstype->kieli->$lang == NULL) {
                 $lang = 'kieli_fi#1';
             }
-        
 
-            if($addresstype->osoiteTyyppi == 'posti' && $addresstype->kieli == $lang) {
-                $postAddress = $addresstype->osoite . ', ' . preg_replace('/(posti_)/', '', $addresstype->postinumeroUri) . ' ' . $addresstype->postitoimipaikka;
-            }
         }
 
 
-        $output .= '<h3>' . $itemName . '</h3>';
+        $output .= '<h3>' . $itemName . ' - ' . $itemoid . '</h3>';
 
         $output .= '<ul>';
 
