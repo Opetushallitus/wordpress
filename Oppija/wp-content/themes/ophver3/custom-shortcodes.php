@@ -85,7 +85,7 @@ function show_school_add($type) {
 
     if(ICL_LANGUAGE_CODE == '') {
         $lang = 'kieli_en#1';
-        $langShort = 'en';
+        $langShort = 'sv';
     }
 
     // [oph-uniapp-addresses edu="university|appliedscience"]
@@ -127,6 +127,55 @@ function show_school_add($type) {
     $output = '';
     $output .= '<div class="oph-school-listing">';
 
+    $userdb=Array(
+                (0) => Array
+                    (
+                        (osoiteTyyppi) => "kaynti",
+                        (kieli) => "kieli_sv#1",
+                        (id) => 666985,
+                        (yhteystietoOid) => "1.2.246.562.5.64703271870",
+                        (osoite) => "Jan-Magnus Janssons plats 1, våning 3, block C",
+                        (postinumeroUri) => "posti_00560",
+                        (postitoimipaikka) => "HELSINGFORS",
+                        (ytjPaivitysPvm) => "",
+                        (coordinateType) => "",
+                        (lap) => "",
+                        (lng) => "",
+                        (osavaltio) =>"", 
+                        (extraRivi) => "",
+                        (maaUri) => ""
+                    ),
+
+                (1) => Array
+                    (
+                        (osoiteTyyppi) => "posti",
+                        (kieli) => "kieli_sv#1",
+                        (id) => 666986,
+                        (yhteystietoOid) => "1.2.246.562.5.32323300210",
+                        (osoite) => "Jan-Magnus Janssons plats 1",
+                        (postinumeroUri) => "posti_00560",
+                        (postitoimipaikka) => "HELSINGFORS",
+                        (ytjPaivitysPvm) => "",
+                        (coordinateType) => "",
+                        (lap) => "",
+                        (lng) => "",
+                        (osavaltio) => "",
+                        (extraRivi) => ""
+ 
+
+            )    
+        );
+
+/*
+print_r('<pre>');
+print_r($userdb);
+print_r('</pre>');
+
+$key = array_search('kieli_fi#1', array_column($userdb, 'kieli'));
+var_dump($key);
+*/
+
+
     foreach ($oidsArray as $itemoid => $itemName) {
 
         $getinfo = file_get_contents('https://virkailija.opintopolku.fi/organisaatio-service/rest/organisaatio/' . $itemoid);
@@ -139,20 +188,33 @@ function show_school_add($type) {
         $www = '';
         $lang = '';
 
-        foreach ($info->metadata->yhteystiedot as $contactinfo) {
+ 
+                    $data = $info->metadata->yhteystiedot;
+
+        foreach ($data as $contactinfo) {
+
+            $encode = json_decode(json_encode($a), true);
+            $search = array_search($lang, array_column($encode, 'kieli'));
+
+
+            if($search == false && $lang == 'kieli_fi#1' && $itemoid != '1.2.246.562.10.64582714578') {
+                $lang = 'kieli_sv#1';
+            }
+
+            if($itemoid == '1.2.246.562.10.58083501534' && $langShort == 'fi') {
+                $lang = 'kieli_fi#1';
+            }
 
             if($contactinfo->kieli == NULL || !($contactinfo->kieli == $lang)) {
                 $lang = 'kieli_fi#1';
             }
 
-            print_r('<pre>');
-            print_r($info->metadata->yhteystiedot);
-            print_r($itemoid);
-            print_r('</pre><br />');
 
-            if(!in_array('kieli_fi#1', $info->metadata->yhteystiedot, true)) {
+
+            /*
+            if($contactinfo->kieli == 'kieli_sv#1' && !($contactinfo->kieli == 'kieli_fi#1')) {
                 $lang = 'kieli_sv#1';
-            }  
+            } */ 
 
 
             if($contactinfo->www && $contactinfo->kieli == $lang) {
@@ -187,7 +249,7 @@ function show_school_add($type) {
         }
 
 
-        $output .= '<h3>' . $itemName . ' - ' . $itemoid . '</h3>';
+        $output .= '<h3>' . $itemName . '</h3>';
 
         $output .= '<ul>';
 
