@@ -83,7 +83,7 @@ function show_school_add($type) {
         $langShort = 'sv';
     }
 
-    if(ICL_LANGUAGE_CODE == '') {
+    if (!function_exists('icl_object_id') ) {
         $lang = 'kieli_en#1';
         $langShort = 'sv';
     }
@@ -127,54 +127,6 @@ function show_school_add($type) {
     $output = '';
     $output .= '<div class="oph-school-listing">';
 
-    $userdb=Array(
-                (0) => Array
-                    (
-                        (osoiteTyyppi) => "kaynti",
-                        (kieli) => "kieli_sv#1",
-                        (id) => 666985,
-                        (yhteystietoOid) => "1.2.246.562.5.64703271870",
-                        (osoite) => "Jan-Magnus Janssons plats 1, våning 3, block C",
-                        (postinumeroUri) => "posti_00560",
-                        (postitoimipaikka) => "HELSINGFORS",
-                        (ytjPaivitysPvm) => "",
-                        (coordinateType) => "",
-                        (lap) => "",
-                        (lng) => "",
-                        (osavaltio) =>"", 
-                        (extraRivi) => "",
-                        (maaUri) => ""
-                    ),
-
-                (1) => Array
-                    (
-                        (osoiteTyyppi) => "posti",
-                        (kieli) => "kieli_sv#1",
-                        (id) => 666986,
-                        (yhteystietoOid) => "1.2.246.562.5.32323300210",
-                        (osoite) => "Jan-Magnus Janssons plats 1",
-                        (postinumeroUri) => "posti_00560",
-                        (postitoimipaikka) => "HELSINGFORS",
-                        (ytjPaivitysPvm) => "",
-                        (coordinateType) => "",
-                        (lap) => "",
-                        (lng) => "",
-                        (osavaltio) => "",
-                        (extraRivi) => ""
- 
-
-            )    
-        );
-
-/*
-print_r('<pre>');
-print_r($userdb);
-print_r('</pre>');
-
-$key = array_search('kieli_fi#1', array_column($userdb, 'kieli'));
-var_dump($key);
-*/
-
 
     foreach ($oidsArray as $itemoid => $itemName) {
 
@@ -208,14 +160,6 @@ var_dump($key);
             if($contactinfo->kieli == NULL || !($contactinfo->kieli == $lang)) {
                 $lang = 'kieli_fi#1';
             }
-
-
-
-            /*
-            if($contactinfo->kieli == 'kieli_sv#1' && !($contactinfo->kieli == 'kieli_fi#1')) {
-                $lang = 'kieli_sv#1';
-            } */ 
-
 
             if($contactinfo->www && $contactinfo->kieli == $lang) {
                 $www = $contactinfo->www;
