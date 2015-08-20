@@ -85,7 +85,7 @@ function show_school_add($type) {
 
     if (!function_exists('icl_object_id') ) {
         $lang = 'kieli_en#1';
-        $langShort = 'sv';
+        $langShort = 'en';
     }
 
     // [oph-uniapp-addresses edu="university|appliedscience"]
@@ -140,8 +140,14 @@ function show_school_add($type) {
         $www = '';
         $lang = '';
 
- 
-                    $data = $info->metadata->yhteystiedot;
+        $a = count($info->metadata->yhteystiedot);
+
+        
+        if($a <= 1) {
+            $data = $info->yhteystiedot;
+        } else {
+            $data = $info->metadata->yhteystiedot;
+        }         
 
         foreach ($data as $contactinfo) {
 
@@ -171,7 +177,7 @@ function show_school_add($type) {
 
             if($contactinfo->osoiteTyyppi == 'kaynti' && $contactinfo->kieli == $lang) {
                 $visitAddress = $contactinfo->osoite . ', ' . preg_replace('/(posti_)/', '', $contactinfo->postinumeroUri) . ' ' . $contactinfo->postitoimipaikka;
-            }     
+            }
 
             if($contactinfo->osoiteTyyppi == 'posti' && $contactinfo->kieli == $lang) {
                 $postAddress = $contactinfo->osoite . ', ' . preg_replace('/(posti_)/', '', $contactinfo->postinumeroUri) . ' ' . $contactinfo->postitoimipaikka;

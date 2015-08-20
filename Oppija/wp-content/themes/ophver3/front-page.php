@@ -144,10 +144,10 @@
                                 selector: '#as-calendar',
                                 lang: jQuery.cookie(key),
                                 deps: {
-                                    stylesheet: 'https://testi.opintopolku.fi/calendar/css/calendar.css',
-                                    underscore: 'https://testi.opintopolku.fi/calendar/lib/underscore-min.js'
+                                    stylesheet: '/calendar/css/calendar.css',
+                                    underscore: '/calendar/lib/underscore-min.js'
                                 },
-                                calendarResource: 'https://testi.opintopolku.fi/as/fetchForCalendar'
+                                calendarResource: '/as/fetchForCalendar'
                             });
                         });
                     }());
