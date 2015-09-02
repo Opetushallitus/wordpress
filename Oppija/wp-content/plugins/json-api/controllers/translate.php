@@ -54,7 +54,10 @@ class JSON_API_Translate_Controller {
       
 		if($is_home == true) : 
 			
-			$translated_permalink = $page_url;
+			global $sitepress;
+            $url = $sitepress->language_url($lang);
+
+            $translated_permalink = $url;
       
         elseif ($page_title == $translated_title) :
             
