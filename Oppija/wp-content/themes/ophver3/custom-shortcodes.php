@@ -108,6 +108,20 @@ function show_school_add($type) {
     for ($j=0; $j < count($oids); $j++) { 
         $eduTitle = $oids[$j]->children[0]->nimi->$langShort;
 
+        $artsUniversity = $oids[$j]->children[0]->oid;
+
+        if($artsUniversity == '1.2.246.562.10.97096148164') {
+            $subEdus = $oids[$j]->children[0]->children;
+            foreach ($subEdus as $subEdu) {
+                $eduTitle = $subEdu->nimi->$langShort;
+                $artsUniversityOid = $subEdu->oid;
+                $oidsArray[$artsUniversityOid] = $eduTitle;
+            }
+
+        }
+
+        unset($oidsArray['1.2.246.562.10.97096148164']);
+
         if($eduTitle) {
             $oidsArray[$oids[$j]->children[0]->oid] = $eduTitle;
         }
@@ -120,13 +134,16 @@ function show_school_add($type) {
             $oidsArray[$oids[$j]->children[0]->oid] = $oids[$j]->children[0]->nimi->sv;
         }
 
+        if (!$eduTitle && $langShort == 'en') { 
+            $oidsArray[$oids[$j]->children[0]->oid] = $oids[$j]->children[0]->nimi->sv;
+        }
+
     }
 
     asort($oidsArray);
 
     $output = '';
     $output .= '<div class="oph-school-listing">';
-
 
     foreach ($oidsArray as $itemoid => $itemName) {
 
@@ -138,12 +155,11 @@ function show_school_add($type) {
         $email = '';
         $phone = '';
         $www = '';
-        $lang = '';
+        //$lang = '';
 
-        $a = count($info->metadata->yhteystiedot);
+        $chooseInfo = count($info->metadata->yhteystiedot);
 
-        
-        if($a <= 1) {
+        if($chooseInfo <= 1) {
             $data = $info->yhteystiedot;
         } else {
             $data = $info->metadata->yhteystiedot;
@@ -151,88 +167,86 @@ function show_school_add($type) {
 
         foreach ($data as $contactinfo) {
 
-            $encode = json_decode(json_encode($a), true);
-            $search = array_search($lang, array_column($encode, 'kieli'));
-
-
-            if($search == false && $lang == 'kieli_fi#1' && $itemoid != '1.2.246.562.10.64582714578') {
+            /*
+            if($lang == 'kieli_fi#1' && $itemoid != '1.2.246.562.10.64582714578') {
                 $lang = 'kieli_sv#1';
             }
 
             if($itemoid == '1.2.246.562.10.58083501534' && $langShort == 'fi') {
                 $lang = 'kieli_fi#1';
-            }
+            } 
 
+            
             if($contactinfo->kieli == NULL || !($contactinfo->kieli == $lang)) {
                 $lang = 'kieli_fi#1';
-            }
+            }*/
 
             if($contactinfo->www && $contactinfo->kieli == $lang) {
+                $www = $contactinfo->www;
+            } elseif ($contactinfo->www && $contactinfo->kieli == 'kieli_fi#1' && $www == '') {
                 $www = $contactinfo->www;
             }
 
             if($contactinfo->email && $contactinfo->kieli == $lang) {
                 $email = $contactinfo->email;
+            } elseif($contactinfo->email && $contactinfo->kieli == 'kieli_fi#1' && $email == '') {
+                $email = $contactinfo->email;
             }
 
             if($contactinfo->osoiteTyyppi == 'kaynti' && $contactinfo->kieli == $lang) {
+                $visitAddress = $contactinfo->osoite . ', ' . preg_replace('/(posti_)/', '', $contactinfo->postinumeroUri) . ' ' . $contactinfo->postitoimipaikka;
+            } elseif($contactinfo->osoiteTyyppi == 'kaynti' && $contactinfo->kieli == 'kieli_fi#1' && $visitAddress == '') {
                 $visitAddress = $contactinfo->osoite . ', ' . preg_replace('/(posti_)/', '', $contactinfo->postinumeroUri) . ' ' . $contactinfo->postitoimipaikka;
             }
 
             if($contactinfo->osoiteTyyppi == 'posti' && $contactinfo->kieli == $lang) {
                 $postAddress = $contactinfo->osoite . ', ' . preg_replace('/(posti_)/', '', $contactinfo->postinumeroUri) . ' ' . $contactinfo->postitoimipaikka;
+            } elseif($contactinfo->osoiteTyyppi == 'posti'  && $contactinfo->kieli == 'kieli_fi#1' && $postAddress == '') {
+                $postAddress = $contactinfo->osoite . ', ' . preg_replace('/(posti_)/', '', $contactinfo->postinumeroUri) . ' ' . $contactinfo->postitoimipaikka;
             }
 
             if($contactinfo->tyyppi == 'puhelin' && $contactinfo->kieli == $lang) {
                 $phone = $contactinfo->numero;  
-            }    
-        }
-
-   
-
-        foreach ($info->yhteystiedot as $addresstype) {
-            
-            if($addresstype->kieli->$lang == NULL) {
-                $lang = 'kieli_fi#1';
-            }
-
+            } elseif($contactinfo->tyyppi == 'puhelin' && $contactinfo->kieli == 'kieli_fi#1' && $phone == '') {
+                $phone = $contactinfo->numero;  
+            }   
         }
 
 
-        $output .= '<h3>' . $itemName . '</h3>';
+        $output .= '<h3>' . $itemName . ' ' . $itemoid . '</h3>';
 
         $output .= '<ul>';
+            
+            if($visitAddress) {
+                $output .= '<li>';
+                $output .=  __('Visiting address', 'html5blank') . ': ' . $visitAddress;
+                $output .= '</li>';
+            } 
 
-            $output .= '<li>';
-                if($visitAddress) {
-                    $output .=  __('Visiting address', 'html5blank') . ': ' . $visitAddress;
-                } 
-            $output .= '</li>';
+            if($postAddress) {
+                $output .= '<li>';
+                $output .= __('Post address', 'html5blank') . ': ' . $postAddress;
+                $output .= '</li>';
+            } 
 
-            $output .= '<li>';
-                if($postAddress) {
-                    $output .= __('Post address', 'html5blank') . ': ' . $postAddress;
-                } 
-            $output .= '</li>';
+            if($phone) {
+                $output .= '<li>';
+                $output .=  __('Phone', 'html5blank') . ': ' . $phone;
+                $output .= '</li>';
+            }
 
-            $output .= '<li>';
-                if($phone) {
-                    $output .=  __('Phone', 'html5blank') . ': ' . $phone;
-                }
-            $output .= '</li>';
+            if($email) {
+                $output .= '<li>';
+                $output .= $email;
+                $output .= '</li>';
+            }
 
-            $output .= '<li>';
-                if($email) {
-                    $output .= $email;
-                }
-            $output .= '</li>';
-
-            $output .= '<li>';
-                if($www) {
-                    $output .= '<a href="' . $www . '">'. $www .'</a>';
-                }
-            $output .= '</li>';
-
+            if($www) {
+                $output .= '<li>';
+                $output .= '<a href="' . $www . '">'. $www .'</a>';
+                $output .= '</li>';
+            }
+            
         $output .= '</ul>';
         
 

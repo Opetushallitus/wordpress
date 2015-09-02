@@ -136,11 +136,30 @@ Template Name: Ysi-info
 
           <!-- box-video -->
           <div class="box-video grad-gray-lighter gradient">
-                <h3><?php the_field('box-video-title'); ?></h3>
+          <?php if( have_rows('box-video') ):
 
-                <?php $video_embed = wp_oembed_get(get_field('box-video-url'), array('width'=>248)); echo $video_embed; ?>
+                  // loop through the rows of data
+                    while ( have_rows('box-video') ) : the_row(); ?>
 
-                <?php the_field('box-video-desc'); ?>
+                    <div class="ysi-info-video">
+                    
+                      <?php if (get_sub_field('box-video-title')) {?> 
+                        <h3> <?php the_sub_field('box-video-title'); ?> </h3> 
+                      <?php }?>
+
+                      <?php    
+                        $video_embed = wp_oembed_get(get_sub_field('box-video-url'), array('width'=>248)); echo $video_embed; 
+                      
+                        the_sub_field('box-video-desc'); ?>
+
+                    </div>
+                      <?php endwhile;
+
+                else :
+
+                // not found!
+
+                endif ?>
 
           </div><!-- /box-video -->
 
