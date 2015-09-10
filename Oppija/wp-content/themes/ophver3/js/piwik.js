@@ -8,7 +8,11 @@
 		piwikSiteId = 1;
 	}else if(siteDomain=='testi.virkailija.opintopolku.fi'){
 		piwikSiteId = 5;
-	}else{
+	} else if (siteDomain=='studyinfo.fi'){ 
+    piwikSiteId = 14; 
+  }else if(siteDomain=='studieinfo.fi'){ 
+    piwikSiteId = 13; 
+  }else{
 		piwikSiteId = 2;
 	}
 
