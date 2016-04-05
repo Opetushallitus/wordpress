@@ -2359,10 +2359,6 @@ a.btn.btn-secondary.external:before {
     content: '';
 }
 
-.text-center.search-link a {
-    text-decoration: none;
-}
-
 .input-group-btn:last-child>.btn {
     border-radius: 3px !important;
 }
