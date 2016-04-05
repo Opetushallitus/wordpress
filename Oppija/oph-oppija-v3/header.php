@@ -131,8 +131,8 @@
 
                     <input aria-label="<?php _e('Fill in study programme search word and press enter', 'html5blank') ?>" type="text" tabindex="1" class="search-field" id="search-field-frontpage" data-provide="typeahead" name="search-field" placeholder="<?php _e('Enter eg. qualification, occupation or name of institution', 'html5blank') ?>" value="">
                     
-                    <div class="hidden-xs hidden-sm text-center search-link">
-                        <a href="/app/#!/selailu/aihe"><?php _e('Find education', 'html5blank') ?></a>
+                    <div class="hidden-xs hidden-sm search-link">
+                        <a href="/app/#!/selailu/aihe" class="pull-right"><?php _e('Browse study options', 'html5blank') ?></a>
                     </div>
                     
                     </div>
