@@ -13,6 +13,12 @@
         })
     </script>
 
+    <script id="oc-start-up" data-oc-service="0e8747a9-e9c5-4988-bdfb-f52371da5eea-151-A36EBDE7950F4DDAA05B4AF486AC30C0C04B2E75"
+            data-main="https://occhat.elisa.fi/chatserver//Scripts/oc-chat"
+            src="https://occhat.elisa.fi/chatserver//Scripts/require.js"
+            data-oc-language="fi_FI">
+    </script>
+
 	<?php wp_footer(); ?>
 
 </body>
