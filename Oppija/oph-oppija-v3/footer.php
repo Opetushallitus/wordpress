@@ -11,6 +11,9 @@
             $("body").show()
             $("body").attr("aria-busy","false")
 
+<?php
+    if(get_bloginfo('language') == "fi") {
+?>
             var script = document.createElement('script');
             script.setAttribute("id", "oc-start-up");
             script.setAttribute("data-oc-service", "0e8747a9-e9c5-4988-bdfb-f52371da5eea-151-A36EBDE7950F4DDAA05B4AF486AC30C0C04B2E75");
@@ -18,6 +21,9 @@
             script.setAttribute("data-main", "//occhat.elisa.fi/Chatserver/Scripts/oc-chat");
             script.src = '//occhat.elisa.fi/Chatserver/Scripts/require.js'
             document.head.appendChild(script);
+<?php
+    }
+?>
         })
     </script>
 
