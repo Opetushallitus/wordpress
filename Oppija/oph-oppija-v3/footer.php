@@ -21,7 +21,7 @@
                     script.setAttribute("data-oc-service", "0e8747a9-e9c5-4988-bdfb-f52371da5eea-150-499D93EAA2342689C02CAD238600CEE5EEBEF0E0");
                     script.setAttribute("data-oc-language", "fi_FI");
                     script.setAttribute("data-main", "//occhat.elisa.fi/chatserver/Scripts/oc-chat");
-                    script.src = '//occhat.elisa.fi/chatserver/Scripts/require.js'
+                    script.src = '//occhat.elisa.fi/chatserver/Scripts/require.js';
                     document.head.appendChild(script);
                     break;
 
@@ -31,7 +31,7 @@
                     script.setAttribute("data-oc-service", "0e8747a9-e9c5-4988-bdfb-f52371da5eea-151-A36EBDE7950F4DDAA05B4AF486AC30C0C04B2E75");
                     script.setAttribute("data-oc-language", "fi_FI");
                     script.setAttribute("data-main", "//occhat.elisa.fi/chatserver/Scripts/oc-chat");
-                    script.src = '//occhat.elisa.fi/chatserver/Scripts/require.js'
+                    script.src = '//occhat.elisa.fi/chatserver/Scripts/require.js';
                     document.head.appendChild(script);
                     break;
             }
