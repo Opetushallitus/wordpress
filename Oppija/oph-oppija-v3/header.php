@@ -21,15 +21,15 @@
 
     <meta name="google" content="notranslate" />
 
-	<?php if(is_front_page() && strpos(get_home_url(), "opintopolku.fi") !== false) : ?>
+	<?php if(is_front_page() && strpos(get_site_url(), "opintopolku.fi") !== false) : ?>
 		<meta name="google-site-verification" content="Ot_rC_q0QR2EdiOc4nrvdx_0-wgIC34S7CRFL1Eq460" />
 	<?php endif; ?>
 
-	<?php if(is_front_page() && strpos(get_home_url(), "studieinfo.fi") !== false) : ?>
+	<?php if(is_front_page() && strpos(get_site_url(), "studieinfo.fi") !== false) : ?>
 		<meta name="google-site-verification" content="rOyGYyi-mAfk0pkOJhrA0lZkpMnIUIZl7zg4aYd8wY0" />
 	<?php endif; ?>
 
-	<?php if(is_front_page() && strpos(get_home_url(), "studyinfo.fi") !== false) : ?>
+	<?php if(is_front_page() && strpos(get_site_url(), "studyinfo.fi") !== false) : ?>
 		<meta name="google-site-verification" content="dqzHM8pKytqLzc0Dq6E-nMQHd6lXAMeTmafUlrFZX84" />
 	<?php endif; ?>
 
