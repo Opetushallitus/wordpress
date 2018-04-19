@@ -135,7 +135,7 @@
                 <h2 class=""><?php _e( 'Upcoming', 'html5blank' ); ?></h2>
 
                     <div id="as-calendar" style="width: 100%;"></div>
-                    <script src="https://testi.opintopolku.fi/calendar/calendar.js"></script><script>// <![CDATA[
+                    <script src="/calendar/calendar.js"></script><script>// <![CDATA[
                     (function() {
                         $("html").on("oppija-raamit-loaded", function() {
                             var prefix = CookiePrefixResolver.getPrefix(window.location.host),
