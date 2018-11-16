@@ -2240,11 +2240,11 @@ hr.os {
 }
 
 
+/* BUG-1893
 nav.sidenav {
     float: left;
     width: 100%;
-}
-
+}*/
 
 .search-button {
     padding-top: 2px;
