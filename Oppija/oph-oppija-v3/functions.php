@@ -170,7 +170,7 @@ function enqueue_custom_styles_or_scripts() {
     wp_register_style('fontello', get_template_directory_uri() . '/css/fontello.css', array());
     wp_enqueue_style('fontello'); // Enqueue it!
     
-    wp_register_script('jquery-enhanced-cookie', 'https://testi.opintopolku.fi/app/lib/jquery.enhanced.cookie.js', array()); // Custom scripts
+    wp_register_script('jquery-enhanced-cookie', get_template_directory_uri() . '/js/jquery.enhanced.cookie.js', array()); // Custom scripts
     wp_enqueue_script('jquery-enhanced-cookie'); // Enqueue it!
     
     wp_register_script('jquery-html5-placeholder', get_template_directory_uri() . '/js/vendor/jquery.html5-placeholder-shim.js', array()); // Custom scripts
