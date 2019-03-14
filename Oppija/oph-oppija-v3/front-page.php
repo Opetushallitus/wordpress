@@ -140,15 +140,19 @@
                         $("html").on("oppija-raamit-loaded", function() {
                             var prefix = CookiePrefixResolver.getPrefix(window.location.host),
                                 key = prefix + 'i18next';
-                            ApplicationSystemCalendar.calendar({
-                                selector: '#as-calendar',
-                                lang: jQuery.cookie(key),
-                                deps: {
-                                    stylesheet: '/calendar/css/calendar.css',
-                                    underscore: '/calendar/lib/underscore-min.js'
-                                },
-                                calendarResource: '/as/fetchForCalendar'
-                            });
+                            if (typeof ApplicationSystemCalendar !== 'undefined') {
+                                ApplicationSystemCalendar.calendar({
+                                    selector: '#as-calendar',
+                                    lang: jQuery.cookie(key),
+                                    deps: {
+                                        stylesheet: '/calendar/css/calendar.css',
+                                        underscore: '/calendar/lib/underscore-min.js'
+                                    },
+                                    calendarResource: '/as/fetchForCalendar'
+                                });
+                            } else {
+                                console.log("Failed to load calendar.")
+                            }
                         });
                     }());
                     // ]]>
