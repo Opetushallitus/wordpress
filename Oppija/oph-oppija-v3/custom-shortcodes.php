@@ -73,6 +73,14 @@ function os_raises() {
 
 function show_school_add($type) {
 
+    $http_opts = [
+      "http" => [
+          "method" => "GET",
+          "header" => "Caller-id: wordpress-testi\r\n"
+      ]
+    ];
+    $context = stream_context_create($http_opts);
+
     if(ICL_LANGUAGE_CODE == 'fi') {
         $lang = 'kieli_fi#1';
         $langShort = 'fi';
@@ -94,9 +102,9 @@ function show_school_add($type) {
         ), $type);
 
     if($chooseType['edu'] == 'university') {
-        $oppilaitostyyppi = file_get_contents('https://virkailija.opintopolku.fi/organisaatio-service/rest/organisaatio/hae?oppilaitostyyppi=oppilaitostyyppi_42%231');
+        $oppilaitostyyppi = file_get_contents('https://virkailija.opintopolku.fi/organisaatio-service/rest/organisaatio/hae?oppilaitostyyppi=oppilaitostyyppi_42%231', false, $context);
     } else {
-        $oppilaitostyyppi = file_get_contents('https://virkailija.opintopolku.fi/organisaatio-service/rest/organisaatio/hae?oppilaitostyyppi=oppilaitostyyppi_41%231');
+        $oppilaitostyyppi = file_get_contents('https://virkailija.opintopolku.fi/organisaatio-service/rest/organisaatio/hae?oppilaitostyyppi=oppilaitostyyppi_41%231', false, $context);
     }
 
     $jsonObject = json_decode($oppilaitostyyppi);
@@ -147,7 +155,7 @@ function show_school_add($type) {
 
     foreach ($oidsArray as $itemoid => $itemName) {
 
-        $getinfo = file_get_contents('https://virkailija.opintopolku.fi/organisaatio-service/rest/organisaatio/' . $itemoid);
+        $getinfo = file_get_contents('https://virkailija.opintopolku.fi/organisaatio-service/rest/organisaatio/' . $itemoid, false, $context);
         $info = json_decode($getinfo);
 
         $visitAddress = '';
