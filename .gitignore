@@ -16,3 +16,6 @@ plugins/
 
 /studyinfo/nbproject/private/
 /opintopolku-boostrap/nbproject/private/
+
+.idea/
+wordpress.iml

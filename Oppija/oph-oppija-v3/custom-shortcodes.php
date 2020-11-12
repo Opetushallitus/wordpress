@@ -76,7 +76,7 @@ function show_school_add($type) {
     $http_opts = [
       "http" => [
           "method" => "GET",
-          "header" => "Caller-id: wordpress-testi\r\n"
+          "header" => "Caller-id: wordpress"
       ]
     ];
     $context = stream_context_create($http_opts);

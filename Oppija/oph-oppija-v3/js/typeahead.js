@@ -18,6 +18,11 @@ consle.log(key);
         remote: {
             url: '/lo/autocomplete?lang=' + lang + '&term=%QUERY',
             wildcard: "%QUERY",
+            ajax: {
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader("Caller-id", "wordpress");
+                }
+            },
             filter: function (set1) {
 
                 return $.map(set1.keywords, function (word) {                
