@@ -137,7 +137,7 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-14 col-xs-13 search-input-field">
 
-                    <input aria-label="<?php _e('Fill in study programme search word and press enter', 'html5blank') ?>" type="text" tabindex="1" class="search-field" id="search-field-frontpage" data-provide="typeahead" name="search-field" placeholder="<?php _e('Enter eg. qualification, occupation or name of institution', 'html5blank') ?>" value="">
+                    <input aria-label="<?php _e('Fill in study programme search word and press enter', 'html5blank') ?>" type="text" tabindex="1" class="search-field" id="search-field-frontpage" data-provide="typeahead" name="search-field" placeholder="<?php _e('Enter eg. qualification, occupation or name of institution', 'html5blank') ?>" value="" maxlength="200" />
                     
                     <div class="hidden-xs hidden-sm search-link">
                         <a href="/app/#!/selailu/aihe" class="pull-right"><?php _e('Browse study options', 'html5blank') ?></a>
